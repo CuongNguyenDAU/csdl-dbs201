@@ -25,15 +25,30 @@ DOCS = os.path.join(ROOT, "docs")
 QUIZ = os.path.join(DOCS, "quiz")
 
 CLO_HOP_LE = {"CLO1", "CLO2", "CLO3"}
-KHOI_HOP_LE = {"A", "B"}
+KHOI_HOP_LE = {"A", "B1", "B2", "V"}
 
-# Kế hoạch đã duyệt: số câu trắc nghiệm, thẻ lật, dòng tự đánh giá mỗi chương.
+# Kế hoạch bám đề cương DBS201 ban hành 2026.
+#
+# Ma trận đề trắc nghiệm cuối kỳ (Rubric 4): khối A 60% số câu đo CLO2, khối
+# B1 15% (tình huống ràng buộc toàn vẹn — Chương 4) và B2 25% (tình huống chuẩn
+# hóa — Chương 5) đo CLO3. Nghĩa là Chương 1, 2, 3 KHÔNG có câu khối B nào
+# trong đề cuối kỳ; phần CLO3 của Chương 2 và 3 được đo bằng hai bài kiểm tra
+# VIẾT (Rubric 2 tuần 5, Rubric 3 tuần 6) — câu luyện theo dạng đó ghi khối "V".
+#
+#   khoi     : các khối được phép xuất hiện trong chương
+#   khoi_bat : khối bắt buộc phải có mặt, kèm tỷ lệ tối thiểu
+#   clo      : các CLO chương này phục vụ, theo ma trận mục 6.1
 KE_HOACH = {
-    1: {"cau": 12, "the": 6, "muc_tieu": 6},
-    2: {"cau": 15, "the": 8, "muc_tieu": 9},
-    3: {"cau": 15, "the": 8, "muc_tieu": 8},
-    4: {"cau": 15, "the": 7, "muc_tieu": 8},
-    5: {"cau": 18, "the": 8, "muc_tieu": 10},
+    1: {"cau": 12, "the": 6, "muc_tieu": 6,
+        "khoi": {"A"}, "khoi_bat": {}, "clo": {"CLO2"}},
+    2: {"cau": 15, "the": 8, "muc_tieu": 9,
+        "khoi": {"A", "V"}, "khoi_bat": {"V": 0.3}, "clo": {"CLO2", "CLO3"}},
+    3: {"cau": 15, "the": 8, "muc_tieu": 8,
+        "khoi": {"A", "V"}, "khoi_bat": {"V": 0.3}, "clo": {"CLO2", "CLO3"}},
+    4: {"cau": 15, "the": 7, "muc_tieu": 8,
+        "khoi": {"A", "B1"}, "khoi_bat": {"B1": 0.4}, "clo": {"CLO2", "CLO3"}},
+    5: {"cau": 18, "the": 8, "muc_tieu": 10,
+        "khoi": {"A", "B2"}, "khoi_bat": {"B2": 0.4}, "clo": {"CLO2", "CLO3"}},
 }
 
 
@@ -55,9 +70,10 @@ def soat_chuong(n, path, loi, canh):
     if d.get("chuong") != n:
         loi.append('%s: trường "chuong" là %r, phải là %d' % (w, d.get("chuong"), n))
 
+    kh = KE_HOACH.get(n) or {}
     qs = d.get("questions") or []
     ids = set()
-    dem_khoi = {"A": 0, "B": 0}
+    dem_khoi = dict((k, 0) for k in KHOI_HOP_LE)
     clo_thay = set()
 
     for i, q in enumerate(qs, 1):
@@ -92,17 +108,25 @@ def soat_chuong(n, path, loi, canh):
 
         khoi = q.get("block")
         if khoi not in KHOI_HOP_LE:
-            loi.append("%s: block = %r, phải là A hoặc B" % (v, khoi))
+            loi.append("%s: block = %r, phải là %s"
+                       % (v, khoi, " / ".join(sorted(KHOI_HOP_LE))))
         else:
             dem_khoi[khoi] += 1
+            if kh.get("khoi") and khoi not in kh["khoi"]:
+                loi.append("%s: khối %s không thuộc chương này — đề cương xếp "
+                           "Chương %d vào %s"
+                           % (v, khoi, n, " / ".join(sorted(kh["khoi"]))))
 
         clo = q.get("clo")
         if clo not in CLO_HOP_LE:
             loi.append("%s: clo = %r, đề cương chỉ có CLO1, CLO2, CLO3" % (v, clo))
         else:
             clo_thay.add(clo)
+            if kh.get("clo") and clo not in kh["clo"]:
+                loi.append("%s: %s không thuộc chương này — ma trận mục 6.1 xếp "
+                           "Chương %d vào %s"
+                           % (v, clo, n, " / ".join(sorted(kh["clo"]))))
 
-    kh = KE_HOACH.get(n)
     if kh:
         if len(qs) != kh["cau"]:
             canh.append("%s: có %d câu, kế hoạch là %d" % (w, len(qs), kh["cau"]))
@@ -113,17 +137,21 @@ def soat_chuong(n, path, loi, canh):
             canh.append("%s: bảng tự đánh giá có %d dòng, chương có %d mục tiêu"
                         % (w, len(d.get("selfcheck") or []), kh["muc_tieu"]))
 
-    # phủ chuẩn đầu ra
-    for c in ("CLO2", "CLO3"):
+    # phủ chuẩn đầu ra: mọi CLO mà chương này phục vụ đều phải có câu đo
+    for c in sorted(kh.get("clo") or ()):
         if c not in clo_thay:
-            loi.append("%s: không có câu nào đo %s" % (w, c))
+            loi.append("%s: chương phục vụ %s nhưng không có câu nào đo %s"
+                       % (w, c, c))
 
-    # tỷ lệ khối theo ma trận Rubric 4: Khối A 40%, Khối B 60%
-    if qs:
-        tl_b = dem_khoi["B"] / len(qs)
-        if not (0.5 <= tl_b <= 0.72):
-            canh.append("%s: Khối B chiếm %.0f%% (%d/%d) — ma trận đề là 60%%"
-                        % (w, tl_b * 100, dem_khoi["B"], len(qs)))
+    # tỷ lệ khối bắt buộc — Chương 4 và 5 phải có đủ câu tình huống, vì đó là
+    # phần duy nhất đo CLO3 của hai chương ấy trong đề cuối kỳ
+    for k, nguong in (kh.get("khoi_bat") or {}).items():
+        if not qs:
+            continue
+        tl = dem_khoi[k] / len(qs)
+        if tl < nguong:
+            canh.append("%s: khối %s chỉ chiếm %.0f%% (%d/%d), nên từ %.0f%% trở lên"
+                        % (w, k, tl * 100, dem_khoi[k], len(qs), nguong * 100))
 
     for j, c in enumerate(d.get("cards") or [], 1):
         if not (c.get("front") or "").strip() or not (c.get("back") or "").strip():
@@ -136,8 +164,10 @@ def soat_chuong(n, path, loi, canh):
             loi.append("%s · tự đánh giá dòng %d: clo = %r không hợp lệ"
                        % (w, j, s["clo"]))
 
-    print("  Chương %d: %2d câu (A %d · B %d) · %d thẻ · %d dòng tự đánh giá"
-          % (n, len(qs), dem_khoi["A"], dem_khoi["B"],
+    ta = " · ".join("%s %d" % (k, dem_khoi[k])
+                    for k in ("A", "B1", "B2", "V") if dem_khoi[k])
+    print("  Chương %d: %2d câu (%s) · %d thẻ · %d dòng tự đánh giá"
+          % (n, len(qs), ta or "chưa gắn khối",
              len(d.get("cards") or []), len(d.get("selfcheck") or [])))
 
 

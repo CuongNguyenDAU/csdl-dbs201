@@ -329,13 +329,13 @@ def ghi(path, text):
 # nhật ký thay đổi) không đưa lên.
 DE_CUONG_LAY = [
     r"^3\. Mô tả", r"^4\. Mục tiêu", r"^5\. Chuẩn đầu ra",
-    r"^7\. Đánh giá", r"^7\.1", r"^7\.2", r"^7\.3",
-    r"^8\.", r"^📅", r"^📖", r"^9\.", r"^10\.", r"^11\.",
+    r"^7\. Đánh giá", r"^7\.1", r"^7\.2", r"^7\.3", r"^7\.4", r"^7\.5",
+    r"^8\.", r"^9\.", r"^10\.", r"^11\.",
 ]
 
 
 def dung_de_cuong():
-    p = os.path.join(SRC, "De-cuong-CSDL_ban-chinh-sua.md")
+    p = os.path.join(SRC, "De-cuong_DBS201_2026.md")
     if not os.path.exists(p):
         print("  (bỏ qua đề cương: không tìm thấy file nguồn)")
         return

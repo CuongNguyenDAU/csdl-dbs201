@@ -64,10 +64,16 @@ pháp cho ra bảy thực thể. Bốn thứ chênh lệch đó chính là nội
 
 !!! tip "Cách dùng phần trắc nghiệm cho hiệu quả"
 
-    Bài thi cuối kỳ của học phần này là **trắc nghiệm**, chiếm 50% điểm, trong đó
-    60% số câu là **câu tình huống có dữ kiện** — cho một lược đồ, một bảng dữ liệu
-    hay một tập quy tắc rồi hỏi. Phần trắc nghiệm trên site được soạn theo đúng tỷ
-    lệ ấy, nên làm hết là luyện đúng dạng sẽ gặp.
+    Bài thi cuối kỳ là **trắc nghiệm**, chiếm 50% điểm, chia ba khối: **khối A**
+    60% số câu về khái niệm nền, **khối B1** 15% là tình huống ràng buộc toàn vẹn
+    của Chương 4, **khối B2** 25% là tình huống chuẩn hóa của Chương 5. Mọi câu
+    khối B đều **kèm dữ kiện** — một lược đồ, một tập phụ thuộc hàm, một bảng tầm
+    ảnh hưởng — nên phải chạy thuật toán rồi mới chọn được đáp án.
+
+    Mỗi câu trên site đều ghi rõ nó thuộc khối nào, nên anh chị biết mình đang
+    luyện cho phần nào của đề. Riêng Chương 2 và Chương 3 còn được đo bằng **hai
+    bài kiểm tra viết** ở tuần 5 và tuần 6 — câu gắn nhãn *Dạng bài kiểm tra viết*
+    là để luyện cho hai bài đó.
 
     Hãy **tự trả lời trước khi mở lời giải**. Mọi gợi ý và đáp án trên site đều được
     giấu trong khối gập, đó là chủ ý — mở ra quá sớm thì mất phần lớn giá trị.
@@ -77,16 +83,19 @@ pháp cho ra bảy thực thể. Bốn thứ chênh lệch đó chính là nội
 
 ## Đánh giá học phần
 
-| Thành phần | Trọng số | Đo chuẩn đầu ra |
-|---|:--:|---|
-| Chuyên cần và thái độ học tập | 10% | CLO1 |
-| Bài tập nhóm tổng hợp | 5% | CLO1 |
-| Bài kiểm tra viết *(tuần 5)* | 15% | CLO2 |
-| Kiểm tra thực hành — thiết kế trên giấy *(tuần 11)* | 20% | CLO3 |
-| **Thi cuối kỳ — trắc nghiệm** | **50%** | CLO2 · CLO3 |
+| Thành phần | Trọng số | Đo chuẩn đầu ra | Rubric |
+|---|:--:|---|:--:|
+| Nhận thức thái độ — chuyên cần, nội quy, hồ sơ tự học, hợp tác nhóm | 15% | CLO1 | 1 |
+| Bài kiểm tra viết — quy tắc nghiệp vụ thành mô hình ER *(tuần 5)* | 15% | CLO3 | 2 |
+| Bài kiểm tra giữa học phần — ánh xạ ER sang quan hệ và đại số quan hệ *(tuần 6)* | 20% | CLO3 | 3 |
+| **Thi cuối kỳ — trắc nghiệm theo khối kiến thức** | **50%** | CLO2 60% · CLO3 40% | 4 |
 
-Chi tiết chuẩn đầu ra, rubric chấm điểm và kế hoạch tự học từng tuần xem ở trang
-[Đề cương học phần](de-cuong.md).
+Ba bài đánh giá đều **làm trên lớp, trên giấy** — học phần không yêu cầu viết SQL
+hay cài đặt hệ quản trị nào. Điểm đáng chú ý: **hồ sơ tự học chiếm 30 trong 100
+điểm của Rubric 1**, tức là 11 nhiệm vụ tự học hằng tuần có ảnh hưởng thật tới điểm.
+
+Chi tiết chuẩn đầu ra, cả bốn rubric chấm điểm và kế hoạch tự học từng tuần xem ở
+trang [Đề cương học phần](de-cuong.md).
 
 ## Cần chuẩn bị gì
 

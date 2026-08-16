@@ -32,6 +32,14 @@
   };
 
   var KEY = "ABCDEFGH".split("");
+  /* Nhãn khối bám ma trận đề của Rubric 4: khối A đo CLO2 (60% số câu),
+     B1 là tình huống ràng buộc toàn vẹn, B2 là tình huống chuẩn hóa (cộng 40%).
+     Nhãn V dành cho câu luyện theo dạng bài kiểm tra viết, không có trong đề
+     trắc nghiệm nhưng vẫn là thứ sinh viên phải thi. */
+  var NHAN_KHOI = {
+    A: "Khối A · khái niệm", B1: "Khối B1 · tình huống",
+    B2: "Khối B2 · tình huống", V: "Dạng bài kiểm tra viết"
+  };
   var el = function (h) {
     var d = document.createElement("div");
     d.innerHTML = h.trim();
@@ -72,7 +80,7 @@
 
     qs.forEach(function (q, i) {
       var box = el('<div class="hl-q"></div>');
-      var khoi = q.block ? "Khối " + q.block : "";
+      var khoi = NHAN_KHOI[q.block] || (q.block ? "Khối " + q.block : "");
       box.appendChild(el(
         '<div class="hl-q-head"><span class="hl-badge">Câu ' + (i + 1) + "</span>" +
         (khoi ? "<span>" + esc(khoi) + "</span>" : "") +

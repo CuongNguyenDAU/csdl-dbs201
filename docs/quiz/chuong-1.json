@@ -74,8 +74,8 @@
     },
     {
       "id": "c1q06",
-      "block": "B",
-      "clo": "CLO3",
+      "block": "A",
+      "clo": "CLO2",
       "q": "Trong sổ theo dõi của một phòng khám có ô ghi `38`. Ô này là dữ liệu hay thông tin?",
       "options": [
         "Thông tin, vì nó nằm trong sổ của phòng khám nên đã có ngữ cảnh",
@@ -88,8 +88,8 @@
     },
     {
       "id": "c1q07",
-      "block": "B",
-      "clo": "CLO3",
+      "block": "A",
+      "clo": "CLO2",
       "q": "Bảng phẳng `HOCVIEN_LOP` lưu chung học viên và lớp. Xóa dòng của học viên cuối cùng trong lớp A1 thì mất luôn thông tin lớp A1 có giáo viên nào phụ trách. Đây là dị thường loại nào?",
       "options": [
         "Dị thường thêm",
@@ -102,8 +102,8 @@
     },
     {
       "id": "c1q08",
-      "block": "B",
-      "clo": "CLO3",
+      "block": "A",
+      "clo": "CLO2",
       "q": "Quản trị viên thêm một chỉ mục để truy vấn nhanh hơn. Không ứng dụng nào phải sửa mã. Đây là loại độc lập dữ liệu nào?",
       "options": [
         "Độc lập dữ liệu vật lý",
@@ -116,8 +116,8 @@
     },
     {
       "id": "c1q09",
-      "block": "B",
-      "clo": "CLO3",
+      "block": "A",
+      "clo": "CLO2",
       "q": "Lệnh nào dưới đây thuộc nhóm ngôn ngữ tác động lên **metadata**?",
       "options": [
         "`SELECT HOTEN FROM HOCVIEN WHERE MALOP = 'A1'`",
@@ -130,8 +130,8 @@
     },
     {
       "id": "c1q10",
-      "block": "B",
-      "clo": "CLO3",
+      "block": "A",
+      "clo": "CLO2",
       "q": "Một bảng có 5 dòng và 7 cột. Ba cột cuối phụ thuộc hoàn toàn vào cột thứ hai, mà cột thứ hai chỉ nhận đúng hai giá trị phân biệt. Số ô dư thừa xấp xỉ bao nhiêu?",
       "options": [
         "3 ô, chiếm khoảng 9%",
@@ -144,8 +144,8 @@
     },
     {
       "id": "c1q11",
-      "block": "B",
-      "clo": "CLO3",
+      "block": "A",
+      "clo": "CLO2",
       "q": "Trong bốn hạn chế của hệ thống tệp, hạn chế nào là **nguyên nhân gốc** kéo theo các hạn chế còn lại?",
       "options": [
         "Dư thừa dữ liệu",
@@ -158,8 +158,8 @@
     },
     {
       "id": "c1q12",
-      "block": "B",
-      "clo": "CLO3",
+      "block": "A",
+      "clo": "CLO2",
       "q": "Phòng đào tạo, giảng viên và sinh viên mỗi bên nhìn thấy một phần dữ liệu khác nhau của cùng hệ thống. Điều này được mô tả ở mức nào của kiến trúc ba mức, và vì sao mức đó có nhiều bản?",
       "options": [
         "Mức trong — vì mỗi nhóm lưu dữ liệu trên một thiết bị riêng",
@@ -198,11 +198,29 @@
     }
   ],
   "selfcheck": [
-    { "clo": "CLO2", "text": "Phân biệt được dữ liệu với thông tin và nêu được vai trò của metadata" },
-    { "clo": "CLO2", "text": "Phân biệt được cơ sở dữ liệu, hệ quản trị và hệ cơ sở dữ liệu; phân loại được các hệ quản trị" },
-    { "clo": "CLO2", "text": "Giải thích được bốn hạn chế của hệ thống tệp và chỉ ra được nguyên nhân gốc" },
-    { "clo": "CLO2", "text": "Phân biệt được mô hình dữ liệu, lược đồ và thể hiện" },
-    { "clo": "CLO2", "text": "Mô tả được kiến trúc ba mức ANSI/SPARC và hai loại độc lập dữ liệu" },
-    { "clo": "CLO2", "text": "Phân loại được bốn nhóm ngôn ngữ và trình bày được bốn tính chất ACID" }
+    {
+      "clo": "CLO2",
+      "text": "Phân biệt được dữ liệu với thông tin và nêu được vai trò của metadata"
+    },
+    {
+      "clo": "CLO2",
+      "text": "Phân biệt được cơ sở dữ liệu, hệ quản trị và hệ cơ sở dữ liệu; phân loại được các hệ quản trị"
+    },
+    {
+      "clo": "CLO2",
+      "text": "Giải thích được bốn hạn chế của hệ thống tệp và chỉ ra được nguyên nhân gốc"
+    },
+    {
+      "clo": "CLO2",
+      "text": "Phân biệt được mô hình dữ liệu, lược đồ và thể hiện"
+    },
+    {
+      "clo": "CLO2",
+      "text": "Mô tả được kiến trúc ba mức ANSI/SPARC và hai loại độc lập dữ liệu"
+    },
+    {
+      "clo": "CLO2",
+      "text": "Phân loại được bốn nhóm ngôn ngữ và trình bày được bốn tính chất ACID"
+    }
   ]
 }

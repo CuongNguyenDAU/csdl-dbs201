@@ -1,9 +1,41 @@
-# Đề cương học phần
+**BỘ GIÁO DỤC VÀ ĐÀO TẠO** — **TRƯỜNG ĐẠI HỌC KIẾN TRÚC ĐÀ NẴNG**
 
-Trích các phần liên quan trực tiếp tới người học: mục tiêu, chuẩn đầu ra,
-cách đánh giá kèm rubric, kế hoạch giảng dạy và kế hoạch tự học.
+**CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM — Độc lập – Tự do – Hạnh phúc**
 
-## 3. Mô tả vắn tắt học phần
+# ĐỀ CƯƠNG CHI TIẾT HỌC PHẦN *(Syllabus)*
+
+*(Ban hành kèm theo Quyết định số 346/QĐ-ĐHKTĐN ngày 25 tháng 06 năm 2024 của Hiệu trưởng Trường Đại học Kiến trúc Đà Nẵng)*
+
+---
+
+## 1. Thông tin chung *(General Information)*
+
+| Mục | Nội dung |
+|:--|:--|
+| 1.1. Trình độ đào tạo *(Level)* | Đại học (Undergraduate) |
+| 1.2. Chương trình đào tạo *(Program)* | Công nghệ thông tin (Information Technology) |
+
+## 2. Thông tin chung học phần *(Course Information)*
+
+| Mục | Nội dung |
+|:--|:--|
+| 2.1. Tên học phần | Cơ sở dữ liệu — *Database Systems* |
+| 2.2. Mã học phần | DBS201 |
+| 2.3. Nhóm học phần | Cơ sở ngành |
+| 2.4. Số tín chỉ | 3,0 |
+| 2.5. Phân phối thời gian | **135 tiết** — Lý thuyết: 45; Đồ án: 0; Thực hành/Thí nghiệm: 0; Tự học: 90 |
+| 2.6. Số tuần thực hiện | 11 tuần — *nhịp 4 tiết/tuần, riêng tuần 11: 5 tiết — mỗi chương trọn tuần để dễ xếp lịch* |
+| 2.7. Niên khóa áp dụng | 2026-2031; 2027-2032 |
+| 2.8. Giảng viên phụ trách chính | Nguyễn Tất Phú Cường |
+| — Giảng viên cùng giảng dạy | Phạm Thị Dung |
+| 2.9. Khoa/Bộ môn phụ trách giảng dạy | Công nghệ thông tin |
+| 2.10. Khoa/Bộ môn quản lý | Công nghệ thông tin |
+| 2.11. Nơi tiến hành học phần | Phòng học lý thuyết |
+| 2.12. Loại học phần | Bắt buộc |
+| 2.13. Điều kiện tham gia | *Tiên quyết:* không — *Học trước:* (BIN101) Tin học cơ bản — *Song hành:* không |
+| 2.14. Giả định về nền tảng người học | Sinh viên **chỉ mới học Tin học cơ bản**, **chưa học SQL hay hệ quản trị cơ sở dữ liệu**. Vì vậy mọi bài tập, bài đánh giá và nhiệm vụ tự học của học phần chỉ đòi hỏi **tư duy thiết kế trên giấy** và **công cụ vẽ sơ đồ miễn phí** (draw.io); phần thao tác trên hệ quản trị CSDL chỉ xuất hiện dưới dạng **demo minh họa của giảng viên** trên lớp, sinh viên không phải cài đặt phần mềm nào.<br><br>Học phần tập trung vào **THIẾT KẾ ĐÚNG** — nền móng cho mọi hệ thống dữ liệu. Ngôn ngữ SQL, an toàn – bảo mật và quản lý giao dịch được bố trí ở học phần **Hệ quản trị cơ sở dữ liệu** kế tiếp; đề cương này không lấn sang phần đó. |
+
+## 3. Mô tả vắn tắt học phần *(Course Description)*
 
 Học phần Cơ sở dữ liệu trang bị nền tảng mô hình hóa và thiết kế cơ sở dữ liệu, gồm: các khái niệm cơ bản của một hệ cơ sở dữ liệu và kiến trúc ba mức; mô hình thực thể–liên kết (ER) và mô hình ER mở rộng (EER); mô hình dữ liệu quan hệ và đại số quan hệ; ràng buộc toàn vẹn dữ liệu; lý thuyết thiết kế — phụ thuộc hàm, các dạng chuẩn (1NF–BCNF) và kỹ thuật chuẩn hóa lược đồ quan hệ. Toàn bộ nội dung được tổ chức thành năm chương, mỗi chương trọn tuần, khép lại bằng một tuần ôn tập – tổng hợp có bài tập nhóm thiết kế trọn vẹn một cơ sở dữ liệu từ đề bài thực tế.
 
@@ -15,8 +47,7 @@ Một điều chỉnh về câu chữ của CLO3 cần nêu rõ để người r
 
 *The course provides foundations of database modeling and design: basic concepts of a database system and the three-level architecture; Entity–Relationship (ER) and Extended ER (EER) models; the relational data model and relational algebra; data integrity constraints; design theory — functional dependencies, normal forms (1NF–BCNF) and normalization techniques. Content is organised into five chapters, each occupying whole weeks, closing with a synthesis week featuring a group assignment that designs a complete database from a real-world brief. (SQL, security, and transaction management are placed in the subsequent Database Management Systems course.)*
 
-
-## 4. Mục tiêu học phần
+## 4. Mục tiêu học phần *(Course Objectives – COs)*
 
 **Bảng 1: Mục tiêu của học phần**
 
@@ -26,8 +57,7 @@ Một điều chỉnh về câu chữ của CLO3 cần nêu rõ để người r
 | CO2 | Mô tả, phân tích các khái niệm, mô hình hóa dữ liệu (ER, EER, quan hệ), cơ chế lưu trữ và ràng buộc toàn vẹn dữ liệu. |
 | CO3 | Thiết kế mô hình dữ liệu (ER/EER, UML), ánh xạ ER sang quan hệ, phân tích ràng buộc toàn vẹn, chuẩn hóa lược đồ và vận dụng các thuật toán thiết kế. |
 
-
-## 5. Chuẩn đầu ra học phần
+## 5. Chuẩn đầu ra học phần *(Course Learning Outcomes – CLOs)*
 
 **Bảng 2: Chuẩn đầu ra của học phần**
 
@@ -39,10 +69,33 @@ Một điều chỉnh về câu chữ của CLO3 cần nêu rõ để người r
 
 ◆ **CLO cốt lõi** — chuẩn đầu ra đóng góp nhiều nhất vào chuẩn đầu ra của chương trình đào tạo (PLO).
 
+## 6. Mối liên hệ giữa CLO và chuẩn đầu ra chương trình (PLO) và chỉ số PI
 
-## 7. Đánh giá học phần
+**Bảng 3: Ma trận đóng góp của CLO vào PLO**
 
-## 7.1. Thang điểm đánh giá *(Grading Scale)*
+> **I** *(Introduced)* giới thiệu · **R** *(Reinforced)* nâng cao, có thực hành · **M** *(Mastery)* thuần thục · **A** *(Assessment)* thu thập minh chứng đánh giá PLO.
+
+| CLO | PLO4 | PLO6 | PLO7 | PLO9 | PI |
+|:--:|:--:|:--:|:--:|:--:|:--:|
+| CLO1 | R |  |  |  | PI 4.2 |
+| CLO2 |  | R |  |  | PI 6.1 |
+| CLO3 |  |  | M | R | PI 7.2 · PI 9.3 |
+
+### 6.1. Ma trận CLO ↔ nội dung ↔ công cụ đánh giá *(constructive alignment)*
+
+| Nội dung | Số tiết | CLO1 | CLO2 | CLO3 | Đánh giá bằng |
+|:--|:--:|:--:|:--:|:--:|:--|
+| Chương 1: Tổng quan về cơ sở dữ liệu | 4 | ✔ | ✔ |  | Quan sát chuyên cần và nội quy (Rubric 1); chấm sản phẩm tự học tuần 1; nội dung chương này thuộc khối A của đề trắc nghiệm cuối kỳ (Rubric 4) |
+| Chương 2: Mô hình thực thể–liên kết (ER) và ER mở rộng | 8 | ✔ | ✔ | ✔ | Quan sát chuyên cần và hoạt động nhóm (Rubric 1); chấm bài tập ERD và sản phẩm tự học tuần 2–3; **chương này là toàn bộ phạm vi của Bài kiểm tra viết 15% (Rubric 2) tổ chức ở tuần 5** |
+| Chương 3: Mô hình dữ liệu quan hệ và các phép toán | 8 |  | ✔ | ✔ | **Bài kiểm tra viết 15% (Rubric 2) tổ chức ở tuần 5, phạm vi Chương 2**; quan sát chuyên cần (Rubric 1); chấm sản phẩm tự học tuần 4–5; **chương này là mốc cuối của phạm vi Bài kiểm tra giữa học phần (Rubric 3) tổ chức ở tuần 6** |
+| Chương 4: Ràng buộc toàn vẹn | 8 |  | ✔ | ✔ | **Bài kiểm tra giữa học phần 20% (Rubric 3) tổ chức đầu tuần 6, phạm vi Chương 2–3**; chấm bảng tầm ảnh hưởng và sản phẩm tự học tuần 6–7; nội dung chương này được đo ở **khối B1** của đề trắc nghiệm cuối kỳ (Rubric 4) |
+| Chương 5: Lý thuyết thiết kế CSDL quan hệ (chuẩn hóa) | 12 |  | ✔ | ✔ | Chấm bài tập chuẩn hóa (thường xuyên, không tính điểm thành phần); chấm sản phẩm tự học tuần 8–10; **nội dung chương này được đo chính thức ở khối B2 của đề trắc nghiệm cuối kỳ (Rubric 4) — chiếm 25% trọng số đề** |
+| Ôn tập – Tổng hợp – Bài tập nhóm | 5 | ✔ | ✔ | ✔ | **Chốt điểm Nhận thức thái độ 15% (Rubric 1)** — trong đó tiêu chí 1.4 chấm hợp tác nhóm dựa trên sản phẩm nhóm tuần này và phiếu đánh giá đồng đẳng |
+| **TỔNG** | **45** |  |  |  |  |
+
+## 7. Đánh giá học phần *(Assessment)*
+
+### 7.1. Thang điểm đánh giá *(Grading Scale)*
 
 Dùng **thang điểm 10** để chấm, lấy đến **1 chữ số thập phân**; quy đổi sang **điểm chữ** và **thang 4,0**.
 
@@ -60,7 +113,7 @@ Dùng **thang điểm 10** để chấm, lấy đến **1 chữ số thập phâ
 | 8 | Từ 4,0 đến dưới 5,0 | D | 1,0 | Yếu (đạt có điều kiện) |
 | 9 | Từ 0,0 đến dưới 4,0 | F | 0 | Không đạt |
 
-## 7.2. Kế hoạch đánh giá *(Assessment Plan)*
+### 7.2. Kế hoạch đánh giá *(Assessment Plan)*
 
 **Bảng 6: Phương pháp, hình thức kiểm tra – đánh giá**
 
@@ -77,7 +130,7 @@ Dùng **thang điểm 10** để chấm, lấy đến **1 chữ số thập phâ
 
 **Phủ CLO trong đánh giá:** CLO1 = **15%** · CLO2 = **30%** · CLO3 = **55%** → tổng **100%**
 
-## 7.3. Rubric đánh giá *(Assessment Rubrics)*
+### 7.3. Rubric đánh giá *(Assessment Rubrics)*
 
 | Nội dung | Quy định |
 |---|---|
@@ -89,7 +142,7 @@ Dùng **thang điểm 10** để chấm, lấy đến **1 chữ số thập phâ
 | Chọn mức | Xếp vào mức **mô tả khớp nhất**; vượt hoàn toàn mức dưới nhưng chưa đủ mức trên → chọn **mức dưới** |
 | Công bố | Phát rubric cho sinh viên **buổi học đầu tiên** và nhắc lại trước mỗi bài đánh giá |
 
-### Rubric 1 — Nhận thức thái độ · *đo **CLO1*** · trọng số học phần **15%** · cả học phần, chốt tuần 11
+#### Rubric 1 — Nhận thức thái độ · *đo **CLO1*** · trọng số học phần **15%** · cả học phần, chốt tuần 11
 
 | Tiêu chí | TS | CLO | Kém (0%) | Yếu (25%) | Trung bình (50%) | Khá (75%) | Giỏi/Xuất sắc (100%) |
 |:--|:--:|:--:|:--|:--|:--|:--|:--|
@@ -106,7 +159,7 @@ Dùng **thang điểm 10** để chấm, lấy đến **1 chữ số thập phâ
 
 > Việc vắng học vượt tỷ lệ quy định vẫn xử lý theo quy chế đào tạo của Trường, độc lập với điểm rubric này.
 
-### Rubric 2 — Bài kiểm tra viết — chuyển quy tắc nghiệp vụ thành mô hình ER · *đo **CLO3*** · trọng số học phần **15%** · tuần 5
+#### Rubric 2 — Bài kiểm tra viết — chuyển quy tắc nghiệp vụ thành mô hình ER · *đo **CLO3*** · trọng số học phần **15%** · tuần 5
 
 | Tiêu chí | TS | CLO | Kém (0%) | Yếu (25%) | Trung bình (50%) | Khá (75%) | Giỏi/Xuất sắc (100%) |
 |:--|:--:|:--:|:--|:--|:--|:--|:--|
@@ -123,7 +176,7 @@ Dùng **thang điểm 10** để chấm, lấy đến **1 chữ số thập phâ
 
 > Khuyến nghị 2 giảng viên chấm độc lập một mẫu ~10% số bài để đối chiếu, vì bài thiết kế có biên độ đánh giá rộng hơn bài tính toán.
 
-### Rubric 3 — Bài kiểm tra viết — ánh xạ mô hình ER sang lược đồ quan hệ và đại số quan hệ · *đo **CLO3*** · trọng số học phần **20%** · tuần 6
+#### Rubric 3 — Bài kiểm tra viết — ánh xạ mô hình ER sang lược đồ quan hệ và đại số quan hệ · *đo **CLO3*** · trọng số học phần **20%** · tuần 6
 
 | Tiêu chí | TS | CLO | Kém (0%) | Yếu (25%) | Trung bình (50%) | Khá (75%) | Giỏi/Xuất sắc (100%) |
 |:--|:--:|:--:|:--|:--|:--|:--|:--|
@@ -140,7 +193,7 @@ Dùng **thang điểm 10** để chấm, lấy đến **1 chữ số thập phâ
 
 > Đây là thành phần đánh giá giữa học phần và nằm đúng giữa 11 tuần của học phần — khác với phương án đặt bài thiết kế tổng hợp ở tuần cuối, vốn khiến tên gọi "giữa học phần" không khớp thời điểm tổ chức.
 
-### Rubric 4 — Bài kiểm tra trắc nghiệm theo khối kiến thức · *đo **CLO2+CLO3*** · trọng số học phần **50%** · tuần 12 — theo lịch thi của Trường
+#### Rubric 4 — Bài kiểm tra trắc nghiệm theo khối kiến thức · *đo **CLO2+CLO3*** · trọng số học phần **50%** · tuần 12 — theo lịch thi của Trường
 
 | Tiêu chí | TS | CLO | Kém (0%) | Yếu (25%) | Trung bình (50%) | Khá (75%) | Giỏi/Xuất sắc (100%) |
 |:--|:--:|:--:|:--|:--|:--|:--|:--|
@@ -158,13 +211,13 @@ Dùng **thang điểm 10** để chấm, lấy đến **1 chữ số thập phâ
 
 > **Lưu ý kỹ thuật khi nhập điểm:** phải tách riêng điểm khối A và tổng điểm khối B1 + B2, vì mục Ngưỡng đạt CLO cần hai con số này để tính mức đạt CLO2 và CLO3. Nếu chỉ lưu tổng điểm trắc nghiệm thì không báo cáo được mức đạt CLO.
 
-## 7.4. Cách tính điểm học phần
+### 7.4. Cách tính điểm học phần
 
 ```
 Điểm học phần = 15% × Rubric 1 + 15% × Rubric 2 + 20% × Rubric 3 + 50% × Rubric 4
 ```
 
-## 7.5. Ngưỡng đạt CLO và báo cáo mức đạt chuẩn đầu ra
+### 7.5. Ngưỡng đạt CLO và báo cáo mức đạt chuẩn đầu ra
 
 | CLO | Thành phần đo | Công thức điểm CLO |
 |:--:|:--|:--|
@@ -177,8 +230,7 @@ Dùng **thang điểm 10** để chấm, lấy đến **1 chữ số thập phâ
 | Cá nhân | Sinh viên đạt một CLO khi điểm CLO đó ≥ 5,0/10 — dưới ngưỡng thì ghi nhận để tư vấn học tập, dù điểm tổng học phần vẫn có thể đạt | Dưới ngưỡng ⇒ ghi nhận để tư vấn học tập |
 | Lớp học phần | CLO của lớp học phần được xem là đạt khi ≥ 70% sinh viên đạt CLO đó; dưới ngưỡng thì giảng viên rà lại nội dung, phương pháp dạy và đề thi của phần tương ứng, ghi vào báo cáo cải tiến PDCA của Bộ môn | Dưới ngưỡng ⇒ rà lại nội dung, phương pháp dạy và đề thi; ghi vào báo cáo cải tiến |
 
-
-## 8. Kế hoạch và nội dung giảng dạy học phần
+## 8. Kế hoạch và nội dung giảng dạy học phần *(Course Schedule)*
 
 **Bảng 7: Kế hoạch giảng dạy**
 
@@ -233,8 +285,7 @@ Dùng **thang điểm 10** để chấm, lấy đến **1 chữ số thập phâ
 |  | Giải đáp – định hướng ôn thi cuối kỳ · hướng dẫn đọc dạng câu hỏi tình huống của khối B1, B2 | 1 | 0 | 1 |  |  |  |  |
 |  | **TỔNG** | **45** | **0** | **45** |  |  |  |  |
 
-
-## 9. Kế hoạch tự học
+## 9. Kế hoạch tự học *(Self-study Plan)*
 
 > Tỷ lệ chuẩn: 1 tiết lên lớp ⇒ 2 tiết tự học. Quỹ tự học khai ở mục 2.5 là 90 tiết — đây là mức TRẦN. Đề cương định giao 78 tiết và **chừa lại 12 tiết (13,3%) làm khoản dư**, dành để hấp thụ phần phát sinh khi biên soạn tập bài giảng và độ chậm thực tế của người học. Khi phải dùng tới khoản dư, ghi rõ tuần nào vượt và vượt bao nhiêu vào chính chương đó của tập bài giảng, đồng thời cập nhật lại bảng này.
 
@@ -257,8 +308,7 @@ Sản phẩm nộp được tính điểm qua tiêu chí 1.3 của Rubric 1. Ba 
 | 11 | Hoàn thiện sản phẩm bài tập nhóm tổng hợp và chuẩn bị phần trình bày; nộp phiếu đánh giá đồng đẳng. Ôn tập toàn học phần theo sơ đồ một trang; tự làm một đề trắc nghiệm mẫu để làm quen dạng câu hỏi tình huống của khối B1, B2. | Sản phẩm nhóm + phiếu đánh giá đồng đẳng + bài làm đề trắc nghiệm mẫu | 6 |
 |  | **TỔNG** |  | **78** |
 
-
-## 10. Tài liệu học tập
+## 10. Tài liệu học tập *(Learning Resources)*
 
 **Sách, giáo trình chính *(Textbooks)***
 
@@ -276,8 +326,7 @@ Sản phẩm nộp được tính điểm qua tiêu chí 1.3 của Rubric 1. Ba 
 - **Ngân hàng câu hỏi trắc nghiệm phân theo ba khối A, B1, B2**, trong đó mọi câu của khối B1 và B2 đều kèm dữ kiện (lược đồ, tập phụ thuộc hàm, bảng tầm ảnh hưởng, bộ dữ liệu mẫu hoặc phép tách cho sẵn).
 - Công cụ: **draw.io** — vẽ ERD, miễn phí, sinh viên sử dụng. MySQL Workbench / SSMS chỉ dùng cho **demo của giảng viên** trên lớp; sinh viên **không bắt buộc** cài đặt.
 
-
-## 11. Chính sách học phần
+## 11. Chính sách học phần *(Course Policies)*
 
 - Liêm chính học thuật: bài tập thiết kế nộp về nhà phải là sản phẩm của cá nhân hoặc của chính nhóm. Hai bài nộp có sơ đồ và thuyết minh trùng khớp bị điểm 0 ở đầu điểm tương ứng. Mọi tư liệu, sơ đồ, số liệu dẫn từ nguồn khác đều phải ghi nguồn.
 - Sử dụng công cụ AI: được phép dùng để tra cứu khái niệm và kiểm tra lại lời giải của mình; không được dùng để tạo ra sơ đồ ER, lược đồ quan hệ hay bài chuẩn hóa thay cho sinh viên. Ghi rõ ở cuối sản phẩm phần nào có sử dụng công cụ hỗ trợ và dùng vào việc gì. Ba bài đánh giá của học phần đều làm trên lớp, không mang tài liệu điện tử — khoảng cách giữa bài nộp ở nhà và bài làm tại lớp sẽ lộ ra ngay.
