@@ -1,0 +1,208 @@
+{
+  "chuong": 1,
+  "title": "Trắc nghiệm củng cố — Chương 1",
+  "questions": [
+    {
+      "id": "c1q01",
+      "block": "A",
+      "clo": "CLO2",
+      "q": "Theo Định nghĩa 1.1, điều gì biến dữ liệu thành thông tin?",
+      "options": [
+        "Trình bày dữ liệu đẹp và gọn gàng hơn",
+        "Có ngữ cảnh xác định và có bước xử lý",
+        "Lưu dữ liệu vào một hệ quản trị thay vì tệp văn bản",
+        "Tăng số lượng dữ liệu thu thập được"
+      ],
+      "answer": 1,
+      "explain": "Công thức của bài là **Dữ liệu + Ngữ cảnh + Xử lý = Thông tin** — thiếu một trong hai yếu tố sau đều không thành thông tin. Sắp xếp lại một danh sách cho gọn không tạo ra thông tin mới, nên phương án đầu sai. Nơi lưu trữ và khối lượng dữ liệu không liên quan tới định nghĩa này."
+    },
+    {
+      "id": "c1q02",
+      "block": "A",
+      "clo": "CLO2",
+      "q": "Metadata là gì?",
+      "options": [
+        "Bản sao lưu dự phòng của cơ sở dữ liệu",
+        "Dữ liệu mô tả đặc trưng của chính dữ liệu được lưu",
+        "Phần dữ liệu quan trọng nhất, được ưu tiên truy xuất",
+        "Nhật ký ghi lại mọi thao tác của người dùng"
+      ],
+      "answer": 1,
+      "explain": "Metadata gồm tên trường, kiểu dữ liệu, độ dài, tính bắt buộc, các ràng buộc và mối liên hệ giữa các bảng. Chính vì thông tin cần ngữ cảnh mà cơ sở dữ liệu **buộc phải** lưu kèm phần mô tả này. Nhật ký thao tác là log, không phải metadata."
+    },
+    {
+      "id": "c1q03",
+      "block": "A",
+      "clo": "CLO2",
+      "q": "Câu nói *\"tôi vừa cài đặt cơ sở dữ liệu MySQL\"* sai ở chỗ nào?",
+      "options": [
+        "MySQL là một hệ quản trị cơ sở dữ liệu, không phải cơ sở dữ liệu",
+        "MySQL không cài đặt được, nó chạy trên đám mây",
+        "Không sai, đây là cách nói thông dụng và chính xác",
+        "Phải gọi là hệ cơ sở dữ liệu MySQL mới đúng"
+      ],
+      "answer": 0,
+      "explain": "Ba khái niệm khác nhau: **cơ sở dữ liệu** là *dữ liệu*; **hệ quản trị** là *phần mềm* quản lý dữ liệu ấy; **hệ cơ sở dữ liệu** là *toàn bộ hệ thống* gồm năm thành phần con người, thủ tục, phần cứng, phần mềm và dữ liệu. Cái được cài đặt là phần mềm, tức hệ quản trị."
+    },
+    {
+      "id": "c1q04",
+      "block": "A",
+      "clo": "CLO2",
+      "q": "Giữa lược đồ và thể hiện, cái nào thay đổi thường xuyên hơn?",
+      "options": [
+        "Lược đồ, vì cấu trúc phải liên tục cập nhật theo nghiệp vụ",
+        "Thể hiện, vì dữ liệu thay đổi mỗi lần thêm, sửa, xóa",
+        "Cả hai thay đổi với tần suất ngang nhau",
+        "Không cái nào thay đổi sau khi hệ thống đã chạy"
+      ],
+      "answer": 1,
+      "explain": "Lược đồ được xác định lúc thiết kế và **rất ít khi thay đổi**; thể hiện là dữ liệu thực tế nên đổi liên tục. Điều ngược lại — lược đồ phải sửa thường xuyên — là dấu hiệu đáng lo, cho thấy thiết kế ban đầu chưa nắm đúng bản chất nghiệp vụ."
+    },
+    {
+      "id": "c1q05",
+      "block": "A",
+      "clo": "CLO2",
+      "q": "Tính chất **Atomicity** của giao dịch nghĩa là gì?",
+      "options": [
+        "Giao dịch chạy nhanh nhất có thể, không bị trì hoãn",
+        "Hoặc toàn bộ thao tác được thực hiện trọn vẹn, hoặc không thao tác nào có hiệu lực",
+        "Kết quả giao dịch được lưu vĩnh viễn kể cả khi mất điện",
+        "Nhiều giao dịch chạy cùng lúc không ảnh hưởng lẫn nhau"
+      ],
+      "answer": 1,
+      "explain": "Atomicity là tính **không thể chia nhỏ**: chuyển khoản trừ tiền tài khoản A rồi cộng vào tài khoản B phải trọn vẹn cả hai, hỏng giữa chừng thì hoàn tác hết. Phương án thứ ba mô tả **Durability**, phương án cuối mô tả **Isolation**."
+    },
+    {
+      "id": "c1q06",
+      "block": "B",
+      "clo": "CLO3",
+      "q": "Trong sổ theo dõi của một phòng khám có ô ghi `38`. Ô này là dữ liệu hay thông tin?",
+      "options": [
+        "Thông tin, vì nó nằm trong sổ của phòng khám nên đã có ngữ cảnh",
+        "Dữ liệu, vì tự thân con số chưa nói lên điều gì",
+        "Vừa là dữ liệu vừa là thông tin, tùy người đọc",
+        "Không phải cả hai, vì thiếu đơn vị đo"
+      ],
+      "answer": 1,
+      "explain": "Tự thân `38` vô nghĩa — đó là dữ liệu. Nó chỉ thành thông tin khi biết đây là *nhiệt độ cơ thể bệnh nhân* (bệnh nhân đang sốt), hay *sĩ số lớp* (lớp quy mô trung bình). Việc nằm trong sổ phòng khám chưa đủ, vì cùng cuốn sổ vẫn có thể ghi tuổi, cân nặng hay số thứ tự."
+    },
+    {
+      "id": "c1q07",
+      "block": "B",
+      "clo": "CLO3",
+      "q": "Bảng phẳng `HOCVIEN_LOP` lưu chung học viên và lớp. Xóa dòng của học viên cuối cùng trong lớp A1 thì mất luôn thông tin lớp A1 có giáo viên nào phụ trách. Đây là dị thường loại nào?",
+      "options": [
+        "Dị thường thêm",
+        "Dị thường sửa",
+        "Dị thường xóa",
+        "Không phải dị thường, chỉ là mất dữ liệu bình thường"
+      ],
+      "answer": 2,
+      "explain": "**Dị thường xóa** là khi xóa một sự vật lại kéo theo mất thông tin về một sự vật khác. Nguyên nhân gốc vẫn là gộp nhiều loại sự vật (học viên và lớp) vào một bảng. Dị thường thêm là không nhập được lớp chưa có học viên; dị thường sửa là đổi tên giáo viên phải sửa nhiều dòng."
+    },
+    {
+      "id": "c1q08",
+      "block": "B",
+      "clo": "CLO3",
+      "q": "Quản trị viên thêm một chỉ mục để truy vấn nhanh hơn. Không ứng dụng nào phải sửa mã. Đây là loại độc lập dữ liệu nào?",
+      "options": [
+        "Độc lập dữ liệu vật lý",
+        "Độc lập dữ liệu logic",
+        "Cả hai loại cùng lúc",
+        "Không phải độc lập dữ liệu, chỉ là tối ưu hiệu năng"
+      ],
+      "answer": 0,
+      "explain": "Chỉ mục là chuyện của **mức trong** — cách dữ liệu được lưu trên đĩa. Thay đổi ở mức trong mà mức quan niệm không phải sửa chính là **độc lập vật lý**. Độc lập logic là khi đổi mức quan niệm, chẳng hạn thêm một cột mới, mà các khung nhìn ở mức ngoài vẫn chạy."
+    },
+    {
+      "id": "c1q09",
+      "block": "B",
+      "clo": "CLO3",
+      "q": "Lệnh nào dưới đây thuộc nhóm ngôn ngữ tác động lên **metadata**?",
+      "options": [
+        "`SELECT HOTEN FROM HOCVIEN WHERE MALOP = 'A1'`",
+        "`UPDATE HOCVIEN SET SDT = '0905111' WHERE MAHV = 'HV01'`",
+        "`CREATE TABLE LOP (MALOP CHAR(5) PRIMARY KEY, TENLOP VARCHAR(50))`",
+        "`GRANT SELECT ON HOCVIEN TO giaovu`"
+      ],
+      "answer": 2,
+      "explain": "`CREATE TABLE` thuộc nhóm **định nghĩa dữ liệu (DDL)** — nó khai báo cấu trúc, tức là ghi vào metadata. `SELECT` và `UPDATE` là **thao tác dữ liệu (DML)**, làm việc với dữ liệu chứ không đổi cấu trúc. `GRANT` là **điều khiển dữ liệu (DCL)**, quản lý quyền truy cập."
+    },
+    {
+      "id": "c1q10",
+      "block": "B",
+      "clo": "CLO3",
+      "q": "Một bảng có 5 dòng và 7 cột. Ba cột cuối phụ thuộc hoàn toàn vào cột thứ hai, mà cột thứ hai chỉ nhận đúng hai giá trị phân biệt. Số ô dư thừa xấp xỉ bao nhiêu?",
+      "options": [
+        "3 ô, chiếm khoảng 9%",
+        "9 ô, chiếm khoảng 26%",
+        "15 ô, chiếm khoảng 43%",
+        "21 ô, chiếm khoảng 60%"
+      ],
+      "answer": 1,
+      "explain": "Bảng có 5 × 7 = **35 ô**. Ba cột cuối chỉ cần lưu **2 dòng** thông tin thay vì 5, nên mỗi cột thừa 3 ô. Ba cột thừa **9 ô**, tức 9/35 ≈ **26%**. Cách đếm này chính là công cụ định lượng mức dư thừa trước khi quyết định tách bảng."
+    },
+    {
+      "id": "c1q11",
+      "block": "B",
+      "clo": "CLO3",
+      "q": "Trong bốn hạn chế của hệ thống tệp, hạn chế nào là **nguyên nhân gốc** kéo theo các hạn chế còn lại?",
+      "options": [
+        "Dư thừa dữ liệu",
+        "Không nhất quán dữ liệu",
+        "Phụ thuộc dữ liệu",
+        "Các dị thường thêm, sửa, xóa"
+      ],
+      "answer": 0,
+      "explain": "Chuỗi nhân quả của chương là **dư thừa → không nhất quán → dị thường**: cùng một sự thật lưu ở nhiều chỗ nên mỗi lần cập nhật phải sửa đồng loạt, sót một chỗ là sinh mâu thuẫn. Riêng **phụ thuộc dữ liệu** có nguyên nhân khác — chương trình gắn chặt với cấu trúc tệp — và được giải quyết bằng kiến trúc ba mức."
+    },
+    {
+      "id": "c1q12",
+      "block": "B",
+      "clo": "CLO3",
+      "q": "Phòng đào tạo, giảng viên và sinh viên mỗi bên nhìn thấy một phần dữ liệu khác nhau của cùng hệ thống. Điều này được mô tả ở mức nào của kiến trúc ba mức, và vì sao mức đó có nhiều bản?",
+      "options": [
+        "Mức trong — vì mỗi nhóm lưu dữ liệu trên một thiết bị riêng",
+        "Mức quan niệm — vì mỗi nhóm có một mô tả tổng thể riêng",
+        "Mức ngoài — vì mỗi nhóm người dùng có một nhu cầu khác nhau",
+        "Cả ba mức đều có nhiều bản tùy theo người dùng"
+      ],
+      "answer": 2,
+      "explain": "**Mức ngoài** là các khung nhìn, mỗi nhóm người dùng một khung — vừa đơn giản hóa công việc của họ vừa là biện pháp bảo mật. **Mức quan niệm chỉ có một**, vì nó là mô tả tổng thể duy nhất của toàn tổ chức; có hai mô tả tổng thể khác nhau nghĩa là cơ sở dữ liệu tự mâu thuẫn. Mức trong cũng chỉ có một."
+    }
+  ],
+  "cards": [
+    {
+      "front": "Metadata",
+      "back": "Dữ liệu mô tả đặc trưng của chính dữ liệu: tên trường, kiểu, độ dài, tính bắt buộc, ràng buộc và liên kết giữa các bảng."
+    },
+    {
+      "front": "Hệ quản trị cơ sở dữ liệu",
+      "back": "Phần mềm **trung gian** giữa người dùng và cơ sở dữ liệu vật lý; quản lý cấu trúc, điều khiển truy cập, bảo đảm toàn vẹn và an toàn dữ liệu."
+    },
+    {
+      "front": "Chuỗi nhân quả của bảng phẳng",
+      "back": "**Dư thừa → không nhất quán → dị thường** thêm, sửa, xóa. Đây là tiêu chuẩn phán xét mọi quyết định thiết kế trong cả học phần."
+    },
+    {
+      "front": "Lược đồ và thể hiện",
+      "back": "**Lược đồ** là mô tả cấu trúc, xác định lúc thiết kế, rất ít đổi. **Thể hiện** là dữ liệu thực tế tại một thời điểm, đổi liên tục."
+    },
+    {
+      "front": "Độc lập dữ liệu",
+      "back": "Khả năng đổi mô tả ở một mức mà không phải sửa mức cao hơn. **Vật lý**: đổi cách lưu trên đĩa. **Logic**: đổi mức quan niệm mà khung nhìn vẫn chạy."
+    },
+    {
+      "front": "Giao dịch và ACID",
+      "back": "Dãy thao tác xem như **một đơn vị công việc không chia nhỏ**. Bốn tính chất: Atomicity, Consistency, Isolation, Durability."
+    }
+  ],
+  "selfcheck": [
+    { "clo": "CLO2", "text": "Phân biệt được dữ liệu với thông tin và nêu được vai trò của metadata" },
+    { "clo": "CLO2", "text": "Phân biệt được cơ sở dữ liệu, hệ quản trị và hệ cơ sở dữ liệu; phân loại được các hệ quản trị" },
+    { "clo": "CLO2", "text": "Giải thích được bốn hạn chế của hệ thống tệp và chỉ ra được nguyên nhân gốc" },
+    { "clo": "CLO2", "text": "Phân biệt được mô hình dữ liệu, lược đồ và thể hiện" },
+    { "clo": "CLO2", "text": "Mô tả được kiến trúc ba mức ANSI/SPARC và hai loại độc lập dữ liệu" },
+    { "clo": "CLO2", "text": "Phân loại được bốn nhóm ngôn ngữ và trình bày được bốn tính chất ACID" }
+  ]
+}

@@ -1,0 +1,643 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tổng quan về cơ sở dữ liệu</title>
+<style>
+/* Bản HTML tương tác — cùng hệ màu với bản .pptx (mẫu DAU).
+   Sân khấu logic 1280x720 (13.333x7.5in @96dpi), scale theo cửa sổ. 1pt = 1.3333px */
+:root {
+  --brand:#A63A3A; --deep:#7E2B2B; --tint:#F6EEEC; --tintline:#E6D3D0;
+  --card:#FBFAF9; --line:#E5E2DF; --ink:#1F1F22; --ink2:#4A4A50; --ink3:#7A7674;
+  --ok:#1E7A4B; --okbg:#EAF6EF; --bad:#B3261E; --badbg:#FCEEED;
+  --font:Arial,"Segoe UI",Helvetica,sans-serif; --scale:1;
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:#2A2A2E;font-family:var(--font);color:var(--ink);overflow:hidden}
+
+#wrap{position:fixed;inset:0;display:grid;place-items:center}
+#stage{width:1280px;height:720px;background:#fff;position:relative;
+  transform:scale(var(--scale));transform-origin:center;box-shadow:0 18px 60px rgba(0,0,0,.45);overflow:hidden}
+
+.slide:not(.on){display:none!important}
+.slide{position:absolute;inset:0;padding:40px 86px 0}
+.slide.on{display:block}
+
+/* ---- khung chung ---- */
+.hd{display:flex;align-items:center;justify-content:space-between;gap:24px}
+.hd h2{font-size:37px;font-weight:700;margin:0;line-height:1.15}
+.chip{flex:0 0 auto;background:var(--tint);color:var(--deep);font-size:17px;font-weight:700;
+  padding:7px 15px;border-radius:18px;white-space:nowrap}
+.rule{position:relative;height:1px;background:var(--line);margin-top:16px}
+.rule::before{content:"";position:absolute;left:0;top:-2px;width:110px;height:4px;background:var(--brand)}
+.body{padding-top:22px}
+.ft{position:absolute;left:86px;right:86px;bottom:24px;display:flex;justify-content:space-between;
+  font-size:12px;color:var(--ink3)}
+.lead{font-size:20px;color:var(--ink3);margin:0 0 14px}
+.note{position:relative;background:var(--tint);border-radius:6px;padding:13px 18px 13px 22px;
+  font-size:20px;color:var(--ink2);margin-top:18px}
+.note::before{content:"";position:absolute;left:0;top:10px;bottom:10px;width:6px;background:var(--brand);border-radius:3px 0 0 3px}
+
+/* ---- title / edge ---- */
+.edge::before{content:"";position:absolute;left:0;top:0;width:19px;height:100%;background:var(--brand)}
+.edge::after{content:"";position:absolute;left:19px;top:0;width:4px;height:100%;background:var(--tint)}
+.slide.title{display:flex;flex-direction:column;justify-content:center;padding:0 86px 0 120px}
+.title .tlogo{width:96px;height:96px;object-fit:contain;background:#fff;
+  border:1px solid var(--tintline,#E6D3D0);padding:10px;margin-bottom:22px}
+.title .org{font-size:16px;font-weight:700;color:var(--brand);letter-spacing:.6px}
+.title h1{font-size:48px;font-weight:700;margin:14px 0 0;line-height:1.15}
+.title .bar{width:163px;height:6px;background:var(--brand);margin:22px 0 20px}
+.title .sub{font-size:32px;color:var(--ink2)}
+.title .who{border-left:3px solid var(--tintline);padding-left:16px;margin-top:30px;font-size:20px;color:var(--ink3)}
+
+/* ---- objectives ---- */
+.goal{display:flex;align-items:center;gap:16px;background:var(--card);border-radius:8px;padding:12px 20px;margin-bottom:10px}
+.goal .n{flex:0 0 42px;height:42px;border-radius:50%;background:var(--brand);color:#fff;
+  display:grid;place-items:center;font-size:16px;font-weight:700}
+.goal .tx b{font-size:24px;display:block}
+.goal .tx span{font-size:19px;color:var(--ink2)}
+.goal .tag{margin-left:auto;flex:0 0 auto;color:var(--deep);font-size:15px;font-weight:700;white-space:nowrap}
+
+/* ---- bullets ---- */
+.pt{display:flex;gap:16px;margin-bottom:16px}
+.pt .d{flex:0 0 10px;height:10px;border-radius:2px;background:var(--brand);margin-top:11px}
+.pt span{font-size:27px;line-height:1.3}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:42px}
+.panel{background:var(--card);border-radius:8px;overflow:hidden}
+.panel .ph{background:var(--tint);border-bottom:2px solid var(--tintline);padding:14px 22px;
+  font-size:21px;font-weight:700;color:var(--deep);text-transform:uppercase;letter-spacing:.6px}
+.panel .pb{padding:16px 22px}
+.panel .pt span{font-size:24px}
+
+/* ---- image-text ---- */
+.figsplit{display:grid;grid-template-columns:1.5fr 1fr;gap:40px;align-items:start}
+.fig img{max-width:100%;max-height:370px;border:1px solid var(--line);border-radius:6px}
+.figbox{width:100%;height:340px;background:var(--card);border:1px dashed var(--tintline);
+  border-radius:6px;display:grid;place-items:center;color:var(--ink3);font-size:20px}
+.cap{font-size:20px;color:var(--ink2);margin-top:12px}
+.src{font-size:16px;color:var(--ink3);margin-top:4px}
+.subhead{font-size:20px;font-weight:700;color:var(--deep);letter-spacing:.8px}
+.subhead+.ul{width:72px;height:4px;background:var(--tintline);margin:8px 0 18px}
+
+/* ---- diagram ---- */
+.flow{display:flex;align-items:stretch;gap:14px;margin-top:26px}
+.flow .st{flex:1;background:var(--card);border-radius:8px;border-top:5px solid var(--brand);
+  padding:18px 16px;text-align:center}
+.flow .st .n{width:44px;height:44px;border-radius:50%;background:var(--brand);color:#fff;
+  display:grid;place-items:center;font-size:20px;font-weight:700;margin:0 auto 12px}
+.flow .st b{font-size:24px;display:block;margin-bottom:8px}
+.flow .st span{font-size:19px;color:var(--ink3)}
+.flow .ar{align-self:center;color:var(--tintline);font-size:34px;font-weight:700}
+
+/* ---- question / quiz ---- */
+.q{position:relative;background:var(--tint);border-radius:8px;padding:18px 22px 18px 26px;
+  font-size:29px;font-weight:700;line-height:1.3;margin-bottom:18px}
+.q::before{content:"";position:absolute;left:0;top:12px;bottom:12px;width:6px;background:var(--brand);border-radius:3px 0 0 3px}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.opt{display:flex;align-items:center;gap:16px;background:var(--card);border:2px solid transparent;
+  border-radius:8px;padding:14px 18px;cursor:pointer;font-size:24px;text-align:left;width:100%;
+  font-family:var(--font);color:var(--ink)}
+.opt:hover:not(.lock){background:var(--tint)}
+.opt .k{flex:0 0 42px;height:42px;border-radius:50%;background:#fff;border:2px solid var(--tintline);
+  display:grid;place-items:center;font-weight:700;font-size:20px;color:var(--deep)}
+.opt.pick{border-color:var(--brand);background:var(--tint)}
+.opt.right{border-color:var(--ok);background:var(--okbg)}
+.opt.right .k{border-color:var(--ok);color:var(--ok)}
+.opt.wrong{border-color:var(--bad);background:var(--badbg)}
+.opt.wrong .k{border-color:var(--bad);color:var(--bad)}
+.opt.lock{cursor:default}
+.fb{margin-top:16px;border-radius:8px;padding:14px 20px;font-size:22px;line-height:1.45;display:none}
+.fb.on{display:block}
+.fb.good{background:var(--okbg);border-left:5px solid var(--ok)}
+.fb.bad{background:var(--badbg);border-left:5px solid var(--bad)}
+.fb b{display:block;margin-bottom:4px}
+
+.btn{font-family:var(--font);font-size:19px;font-weight:700;background:var(--brand);color:#fff;
+  border:0;border-radius:6px;padding:11px 22px;cursor:pointer}
+.btn:hover{background:var(--deep)}
+.btn.ghost{background:#fff;color:var(--deep);border:2px solid var(--tintline)}
+.row{display:flex;gap:12px;margin-top:16px}
+
+/* ---- reveal ---- */
+.rv{background:var(--card);border-radius:8px;padding:14px 20px;margin-bottom:11px;cursor:pointer;
+  border-left:4px solid var(--tintline)}
+.rv.open{border-left-color:var(--ok);background:var(--okbg)}
+.rv b{font-size:24px;display:block}
+.rv .a{display:none;margin-top:9px;font-size:21px;color:var(--ink2);line-height:1.45;
+  padding-top:9px;border-top:1px dashed var(--tintline)}
+.rv.open .a{display:block}
+.rv .h{float:right;font-size:16px;color:var(--ink3)}
+
+/* ---- match (kéo–thả) ---- */
+.match{display:grid;grid-template-columns:1.45fr 1fr;gap:30px}
+.slotrow{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.slotrow .lb{flex:1;font-size:21px}
+.slot{flex:0 0 210px;min-height:46px;border:2px dashed var(--tintline);border-radius:6px;
+  display:grid;place-items:center;font-size:18px;color:var(--ink3);background:var(--card);padding:6px 10px;cursor:pointer}
+.slot.fill{border-style:solid;background:var(--tint);color:var(--deep);font-weight:700}
+.slot.over{border-color:var(--brand);background:var(--tint)}
+.slot.right{border-color:var(--ok);background:var(--okbg);color:var(--ok)}
+.slot.wrong{border-color:var(--bad);background:var(--badbg);color:var(--bad)}
+.bank{display:flex;flex-wrap:wrap;gap:10px;align-content:flex-start}
+.bank::before{content:"NGÂN HÀNG ĐÁP ÁN";width:100%;font-size:15px;letter-spacing:.8px;color:var(--ink3)}
+.tok{background:var(--tint);border:2px solid var(--tintline);border-radius:6px;padding:10px 14px;
+  font-size:19px;cursor:grab;user-select:none;color:var(--deep);font-weight:700}
+.tok.sel{border-color:var(--brand);background:#fff;box-shadow:0 0 0 3px rgba(166,58,58,.18)}
+.tok.used{display:none}
+
+/* ---- practice ---- */
+.chips{display:flex;gap:12px;margin-bottom:16px;flex-wrap:wrap}
+.chips .c{background:var(--tint);color:var(--deep);font-size:18px;font-weight:700;padding:8px 16px;border-radius:6px}
+.box{background:var(--card);border-left:4px solid var(--brand);border-radius:6px;padding:14px 20px;margin-bottom:12px}
+.box h4{margin:0 0 8px;font-size:16px;letter-spacing:.8px;color:var(--deep)}
+.task{display:flex;gap:12px;align-items:flex-start;font-size:21px;color:var(--ink2);margin-bottom:8px;cursor:pointer}
+.task input{width:20px;height:20px;margin-top:4px;accent-color:var(--brand)}
+.task.done{color:var(--ink3);text-decoration:line-through}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+
+/* ---- open (thảo luận) ---- */
+.ta{width:100%;min-height:120px;border:2px solid var(--line);border-radius:8px;padding:12px 14px;
+  font-family:var(--font);font-size:21px;resize:none}
+.ta:focus{outline:none;border-color:var(--brand)}
+.hints{margin-top:14px;display:none}
+.hints .h{background:var(--card);border-left:4px solid var(--tintline);border-radius:6px;
+  padding:10px 16px;font-size:20px;color:var(--ink2);margin-bottom:8px}
+
+/* ---- results ---- */
+.score{display:grid;place-items:center;padding-top:14px}
+.score .big{font-size:84px;font-weight:700;color:var(--deep);line-height:1}
+.score .lab{font-size:21px;color:var(--ink3);margin-top:6px}
+.score .rows{width:100%;margin-top:22px}
+.score .r{display:flex;align-items:center;gap:14px;padding:9px 0;border-bottom:1px solid var(--line);font-size:20px}
+.score .s{flex:0 0 28px;height:28px;border-radius:50%;display:grid;place-items:center;color:#fff;font-size:15px;font-weight:700}
+.score .s.ok{background:var(--ok)}.score .s.no{background:var(--bad)}.score .s.na{background:#B9B5B2}
+
+/* ---- vỏ điều khiển ---- */
+#bar{position:absolute;left:0;bottom:0;height:4px;background:var(--brand);width:0;transition:width .2s;z-index:5}
+#hud{position:fixed;right:16px;bottom:14px;display:flex;gap:8px;align-items:center;font-size:13px;color:#EDEAE8;z-index:20}
+#hud button{background:rgba(255,255,255,.12);color:#fff;border:0;border-radius:5px;padding:7px 12px;font-size:13px;cursor:pointer;font-family:var(--font)}
+#hud button:hover{background:rgba(255,255,255,.25)}
+#pos{font-variant-numeric:tabular-nums;opacity:.8}
+#clock{font-variant-numeric:tabular-nums;font-weight:700;cursor:pointer;background:rgba(255,255,255,.12);
+  border-radius:5px;padding:7px 12px;opacity:.55}
+#clock.run{opacity:1;background:rgba(255,255,255,.22)}
+#clock.over{background:var(--bad);color:#fff;opacity:1}
+#notes{position:fixed;left:0;right:0;bottom:0;max-height:34vh;overflow:auto;background:#17171A;color:#E8E4E1;
+  padding:16px 26px 22px;font-size:15px;line-height:1.6;border-top:3px solid var(--brand);display:none;z-index:25}
+#notes.on{display:block}
+#notes h5{margin:0 0 6px;font-size:12px;letter-spacing:1.2px;color:#E0A9A9;text-transform:uppercase}
+#grid{position:fixed;inset:0;background:#1B1B1F;z-index:30;display:none;grid-template-columns:repeat(5,1fr);
+  gap:12px;padding:26px;overflow:auto;align-content:start}
+#grid.on{display:grid}
+#grid .g{background:#fff;border-radius:6px;padding:12px;cursor:pointer;border:3px solid transparent;min-height:88px}
+#grid .g.cur{border-color:var(--brand)}
+#grid .gi{font-size:11px;color:var(--ink3)}
+#grid .gm{float:right;font-weight:700;color:var(--brand)}
+#grid .gt{font-size:13px;font-weight:700;margin-top:4px;line-height:1.25}
+#grid .gp{font-size:10px;color:var(--brand);text-transform:uppercase;letter-spacing:.6px;margin-top:6px}
+
+body.shot #hud,body.shot #notes,body.shot #bar{display:none!important}
+body.shot{background:#fff}body.shot #stage{box-shadow:none}
+
+</style>
+</head>
+<body>
+<div id="wrap"><div id="stage"><div id="bar"></div></div></div>
+<div id="notes"></div>
+<div id="grid"></div>
+<div id="hud">
+  <span id="clock" title="Đồng hồ tiết dạy — T chạy/dừng, R đặt lại">00:00</span>
+  <span id="pos">–</span>
+  <button id="prev" title="Slide trước (←)">←</button>
+  <button id="next" title="Slide sau (→)">→</button>
+  <button id="tg" title="Tổng quan (O)">Tổng quan</button>
+  <button id="tn" title="Kịch bản giảng viên (N)">Kịch bản</button>
+</div>
+<script>window.SPEC = {"meta": {"title": "Tổng quan về cơ sở dữ liệu", "course": "Cơ sở dữ liệu (DBS201)", "school": "Trường Đại học Kiến trúc Đà Nẵng", "faculty": "Khoa Công nghệ Thông tin", "audience": "Sinh viên năm 2 ngành Công nghệ thông tin", "duration": 100, "lecturer": "Nguyễn Tất Phú Cường", "date": "Học kỳ 1 · Năm học 2025–2026", "footer": "Cơ sở dữ liệu  ·  Chương 1  ·  Buổi 1", "website": "dau.edu.vn", "source": "Bai-giang_Chuong-1_Tong-quan-CSDL.md, mục 1.1 – 1.3", "objectives": [{"type": "knowledge", "bloom": "hiểu", "text": "Phân biệt dữ liệu với thông tin và vai trò metadata", "detail": "Công thức Dữ liệu + Ngữ cảnh + Xử lý = Thông tin"}, {"type": "knowledge", "bloom": "hiểu", "text": "Phân biệt cơ sở dữ liệu, hệ quản trị và hệ CSDL", "detail": "Dữ liệu · phần mềm · toàn bộ hệ thống"}, {"type": "skill", "bloom": "phân tích", "text": "Chỉ ra bốn hạn chế của hệ thống tệp trên bảng cụ thể", "detail": "Trên tệp phẳng của Trung tâm Anh ngữ ABC"}, {"type": "skill", "bloom": "vận dụng", "text": "Đếm tỷ lệ ô dư thừa và giải thích vì sao đó là gốc", "detail": "Định lượng trên bảng 4 dòng, 6 cột"}, {"type": "attitude", "bloom": "đánh giá", "text": "Phản biện nhận định bảng tính cũng là cơ sở dữ liệu", "detail": "Lập luận bằng metadata và tính dùng chung"}]}, "slides": [{"layout": "title", "phase": "khoi-dong", "minutes": 2, "title": "Tổng quan về cơ sở dữ liệu", "subtitle": "Buổi 1 — Dữ liệu, hệ quản trị và bốn hạn chế của hệ thống tệp", "objective": "Mở bài bằng tình huống thực tế và định khung buổi học.", "notes": "Xin chào cả lớp. Đây là buổi đầu tiên của học phần Cơ sở dữ liệu, và chương một có một nhiệm vụ hơi khác thường: nó chưa dạy cách thiết kế mà dạy cách nhìn thấy vấn đề. Chỉ khi thấy rõ điều gì hỏng trong cách tổ chức dữ liệu tùy tiện thì các kỹ thuật ở những chương sau mới trở nên cần thiết chứ không phải quy tắc học thuộc. Buổi hôm nay đi hết ba mục đầu của chương, tương đương hai tiết."}, {"layout": "objectives", "phase": "khoi-dong", "minutes": 3, "title": "Mục tiêu buổi học", "objective": "Công bố chuẩn đầu ra để sinh viên tự đối chiếu cuối buổi.", "emphasis": [2], "notes": "Năm mục tiêu chia ba nhóm. Hai mục đầu là kiến thức, chỉ cần hiểu và phát biểu được. Hai mục giữa là kỹ năng, phải làm được trên một bảng dữ liệu cụ thể. Mục cuối là thái độ, hình thành qua tranh luận chứ không đo bằng trắc nghiệm. Mục tiêu thứ ba là mục quan trọng nhất của buổi, nên nó được làm nổi bật ở đây, và cuối buổi lớp sẽ quay lại slide này để tự chấm."}, {"layout": "diagram", "phase": "khoi-dong", "minutes": 2, "title": "Lộ trình buổi học", "steps": [{"label": "Dữ liệu là gì", "desc": "Dữ liệu, thông tin, metadata"}, {"label": "Ai quản lý", "desc": "Hệ quản trị và vai trò trung gian"}, {"label": "Vì sao cần", "desc": "Bốn hạn chế của hệ thống tệp"}, {"label": "Chốt lại", "desc": "Chuỗi nhân quả và cái giá phải trả"}], "note": "Mỗi chặng trả lời đúng một câu hỏi; hết buổi phải trả lời được cả bốn.", "objective": "Cho sinh viên bản đồ để biết đang ở đâu trong buổi học.", "notes": "Bốn chặng này chính là bốn câu hỏi của buổi học. Chặng một trả lời dữ liệu là gì và vì sao lưu dữ liệu thôi thì chưa đủ. Chặng hai trả lời ai đứng giữa người dùng và dữ liệu. Chặng ba là phần dài nhất và cũng là phần quan trọng nhất, trả lời câu hỏi nếu đã có bảng tính thì tại sao còn cần cơ sở dữ liệu. Chặng cuối buộc bốn hạn chế lại thành một chuỗi nhân quả duy nhất."}, {"layout": "quiz", "phase": "khoi-dong", "minutes": 3, "role": "diagnostic", "title": "Kiểm tra kiến thức nền", "question": "Con số 38 được ghi trong máy tính. Theo cách hiểu của ngành cơ sở dữ liệu, đó là gì?", "options": ["Là thông tin, vì máy đã hiểu được", "Là dữ liệu, vì chưa có ngữ cảnh", "Là tri thức, vì có thể dùng để quyết định", "Không xếp loại được"], "answer": 1, "explain": "Con số 38 tự nó là sự kiện thô, chưa nói lên điều gì. Nó chỉ thành thông tin khi biết đó là nhiệt độ cơ thể, hay sĩ số lớp, hay nhiệt độ ngoài trời. Ngữ cảnh mới là thứ biến dữ liệu thành thông tin, và đó là lý do cơ sở dữ liệu buộc phải lưu kèm phần mô tả ngữ cảnh.", "objective": "Đo cảm nhận ban đầu về ranh giới dữ liệu và thông tin.", "notes": "Đây là câu chẩn đoán đầu bài nên đừng chữa vội. Đếm số cánh tay cho từng phương án và ghi lại. Nếu quá nửa lớp chọn phương án đầu tiên thì phần định nghĩa ngay sau đây cần giảng chậm và thêm một ví dụ nữa. Nếu phần lớn chọn đúng thì rút ngắn phần đó để dành thời gian cho mục bốn hạn chế ở cuối buổi."}, {"layout": "bullets", "phase": "hinh-thanh", "minutes": 2, "title": "Dữ liệu và thông tin", "bullets": ["Dữ liệu: sự kiện thô, chưa qua xử lý", "Thông tin: kết quả xử lý dữ liệu trong ngữ cảnh xác định", "Dữ liệu + Ngữ cảnh + Xử lý = Thông tin", "Trình bày đẹp hơn không tạo ra thông tin mới"], "note": "Ghi nhớ: bắt buộc phải có cả ngữ cảnh và bước xử lý.", "emphasis": [2], "objective": "Chốt định nghĩa và công thức nối hai khái niệm.", "notes": "Hai từ này bị dùng thay thế cho nhau trong đời sống nhưng trong ngành thì chỉ hai thứ khác nhau. Dòng thứ ba là công thức cần thuộc, và yếu tố then chốt trong đó là ngữ cảnh. Dòng cuối cùng chặn một nhầm lẫn rất phổ biến: nghĩ rằng thông tin chỉ là dữ liệu được trình bày gọn gàng hơn. Sắp xếp lại một danh sách cho dễ nhìn không tạo ra thông tin mới, vì không có bước xử lý nào cả."}, {"layout": "reveal", "phase": "luyen-tap", "minutes": 3, "title": "Một dữ liệu, ba ngữ cảnh", "prompt": "Con số 38 nói lên điều gì trong mỗi ngữ cảnh sau?", "items": [{"q": "38 là nhiệt độ cơ thể của một bệnh nhân, tính bằng độ C", "a": "Thông tin thu được là bệnh nhân đang sốt, và hành động hợp lý là cho khám ngay."}, {"q": "38 là sĩ số của lớp CNTT01", "a": "Thông tin thu được là lớp có quy mô trung bình, dẫn tới quyết định xếp phòng học bình thường."}, {"q": "38 là nhiệt độ ngoài trời, tính bằng độ C", "a": "Thông tin thu được là trời nắng gắt, và hành động hợp lý là hoãn hoạt động ngoài trời."}], "objective": "Thấy tận mắt vai trò quyết định của ngữ cảnh.", "notes": "Cho lớp một phút suy nghĩ im lặng trước khi mở từng đáp án. Điểm cần rút ra không phải là ba đáp án mà là một hệ quả thiết kế: một dữ liệu, ba ngữ cảnh, ba hành động trái ngược. Vì ngữ cảnh mang tính quyết định như vậy nên cơ sở dữ liệu không thể chỉ lưu con số, nó buộc phải lưu kèm phần mô tả ngữ cảnh. Phần mô tả ấy có tên riêng, sẽ gặp ở ngay slide sau."}, {"layout": "diagram", "phase": "hinh-thanh", "minutes": 2, "title": "Tháp DIKW", "steps": [{"label": "Data", "desc": "Cái gì? — 2.000.000, 2.500.000"}, {"label": "Information", "desc": "Bao nhiêu? — doanh thu lớp A1 quý này"}, {"label": "Knowledge", "desc": "Như thế nào? — lớp tối đông hơn lớp sáng"}, {"label": "Wisdom", "desc": "Nên làm gì? — mở thêm lớp tối"}], "note": "Học phần này làm việc ở tầng 1 và 2; tổ chức lại cần tầng 3 và 4.", "emphasis": [0], "objective": "Định vị cơ sở dữ liệu trong chuỗi giá trị của tổ chức.", "notes": "Bốn tầng này xếp theo giá trị tăng dần. Cơ sở dữ liệu mà học phần bàn tới nằm ở hai tầng đầu, nhưng mục đích cuối cùng của mọi tổ chức lại nằm ở hai tầng trên. Đó chính là lý do thiết kế cơ sở dữ liệu quan trọng đến vậy: một thiết kế tồi ở tầng một sẽ chặn đứng con đường đi lên. Dữ liệu sai dẫn tới thông tin sai, thông tin sai dẫn tới quy luật sai, và cuối cùng là quyết định sai. Ý này sẽ trở lại ở cuối buổi dưới tên gọi chuỗi nhân quả."}, {"layout": "bullets", "phase": "hinh-thanh", "minutes": 2, "title": "Thiết kế tồi chặn đường đi lên", "bullets": ["Dữ liệu sai dẫn tới thông tin sai", "Thông tin sai dẫn tới quy luật rút ra sai", "Quy luật sai dẫn tới quyết định sai", "Tổn thất bộc lộ ở tầng quyết định, rất muộn và rất đắt"], "note": "Ý này sẽ trở lại ở cuối buổi dưới tên gọi chuỗi nhân quả.", "emphasis": [3], "objective": "Thấy hệ quả dây chuyền của một thiết kế tồi ở tầng dữ liệu.", "notes": "Đây là lý do vì sao thiết kế cơ sở dữ liệu lại quan trọng đến vậy. Một cơ sở dữ liệu thiết kế tồi không chỉ gây phiền ở tầng lưu trữ mà chặn đứng con đường đi lên hai tầng trên của tháp. Điều nguy hiểm nhất nằm ở dòng cuối cùng: tổn thất không lộ ra ở nơi phát sinh mà lộ ra ở tầng quyết định, thường là rất muộn và rất đắt. Ý này sẽ quay lại ở cuối buổi với đầy đủ các mắt xích."}, {"layout": "bullets", "phase": "hinh-thanh", "minutes": 2, "title": "Ba dạng dữ liệu", "bullets": ["Có cấu trúc: trường có tên, có kiểu, có độ dài xác định", "Bán cấu trúc: có nhãn nhưng không theo lược đồ cố định", "Phi cấu trúc: ảnh, video, âm thanh, văn bản tự do", "Học phần này chỉ làm việc với dữ liệu có cấu trúc"], "note": "Đây là giới hạn có chủ ý, không phải khiếm khuyết.", "emphasis": [3], "objective": "Xác định phạm vi công nghệ mà học phần hướng tới.", "notes": "Dòng cuối cùng là dòng cần nhớ. Chính vì buộc dữ liệu phải có cấu trúc rõ ràng mà cơ sở dữ liệu quan hệ mới kiểm tra được tính đúng đắn và trả lời truy vấn nhanh, những việc mà một kho ảnh không làm được. Cần tránh một hiểu nhầm: dữ liệu phi cấu trúc không hề kém giá trị hơn. Muốn khai thác chúng thì người ta rút ra phần có cấu trúc rồi đưa vào cơ sở dữ liệu, ví dụ với ảnh thẻ học viên thì thứ được lưu là mã, họ tên và đường dẫn tới tệp ảnh."}, {"layout": "bullets", "phase": "hinh-thanh", "minutes": 2, "title": "Dùng dữ liệu phi cấu trúc thế nào", "bullets": ["Phần lớn khối lượng dữ liệu trong tổ chức là phi cấu trúc", "Muốn khai thác thì phải rút ra phần có cấu trúc", "Ảnh thẻ học viên: lưu mã, họ tên, ngày cấp", "Bản thân tệp ảnh chỉ được lưu bằng một đường dẫn"], "note": "Lưu ý: phi cấu trúc không hề kém giá trị, chỉ là khó khai thác trực tiếp.", "emphasis": [1], "objective": "Hiểu cách dữ liệu phi cấu trúc được đưa vào cơ sở dữ liệu.", "notes": "Sinh viên hay hiểu nhầm rằng dữ liệu phi cấu trúc là loại kém quan trọng nên cơ sở dữ liệu bỏ qua. Thực tế ngược lại, phần lớn khối lượng dữ liệu của một tổ chức là ảnh, video và văn bản tự do. Cách làm chuẩn là rút ra phần có cấu trúc rồi lưu vào cơ sở dữ liệu, còn tệp gốc thì để ở kho tệp và chỉ giữ đường dẫn. Ví dụ ảnh thẻ học viên ở dòng thứ ba là ví dụ dễ hình dung nhất."}, {"layout": "bullets", "phase": "hinh-thanh", "minutes": 2, "title": "Cơ sở dữ liệu là gì", "bullets": ["Tập hợp có tổ chức các dữ liệu liên quan logic với nhau", "Có tổ chức: sắp theo cấu trúc định trước, không đổ tùy tiện", "Liên quan logic: cùng phục vụ một lĩnh vực hoạt động", "Dùng chung: nhiều bộ phận làm việc trên một bản duy nhất"], "note": "Ba tính từ đều mang nghĩa cụ thể, không phải chữ trang trí.", "objective": "Đọc kỹ ba tính từ trong định nghĩa chuẩn.", "notes": "Định nghĩa này ngắn nhưng mỗi tính từ đều có sức nặng. Danh sách học viên và danh sách lớp học thuộc về nhau nên nằm chung một cơ sở dữ liệu, còn danh sách học viên và giá cổ phiếu thì không. Tính từ thứ ba là điểm khác biệt căn bản so với tình huống mỗi phòng giữ một tệp riêng đã nêu ở đầu buổi. Trung tâm ABC hỏng chính vì thiếu chữ dùng chung này."}, {"layout": "two-column", "phase": "hinh-thanh", "minutes": 3, "title": "Hai phần của một cơ sở dữ liệu", "left": {"heading": "Dữ liệu người dùng cuối", "bullets": ["Sự kiện mà tổ chức quan tâm", "Học viên nào, học lớp nào", "Đóng bao nhiêu tiền, ngày nào"]}, "right": {"heading": "Metadata", "bullets": ["Dữ liệu mô tả chính dữ liệu", "Tên trường, kiểu, độ dài, bắt buộc", "Ràng buộc và mối liên hệ"]}, "note": "Cơ sở dữ liệu chứa hai phần, không phải một — đây là điểm dễ bỏ qua nhất.", "objective": "Thấy metadata là thành phần bắt buộc, không phải phụ trợ.", "notes": "Đây là chỗ trả lời cho câu hỏi mở ra từ ví dụ con số 38. Vì ngữ cảnh quyết định ý nghĩa nên cơ sở dữ liệu buộc phải lưu kèm phần mô tả ngữ cảnh, và phần đó chính là cột bên phải. Khái niệm metadata thường khó ở lần gặp đầu vì nó tự quy chiếu, dữ liệu mà lại mô tả dữ liệu. Slide sau dùng một phép loại suy để gỡ chỗ khó này."}, {"layout": "bullets", "phase": "hinh-thanh", "minutes": 2, "title": "Metadata: phép loại suy mẫu đơn", "bullets": ["Phần điền vào ô trống là dữ liệu: Trần An, 12/04/2005", "Dòng chữ in sẵn Họ và tên là metadata", "Dấu sao đỏ báo trường bắt buộc là metadata", "Mẫu đơn tồn tại trước, và quy định được phép điền gì"], "note": "Ghi nhớ: metadata có trước dữ liệu và ràng buộc dữ liệu.", "emphasis": [3], "objective": "Gỡ khó khăn nhận thức của khái niệm tự quy chiếu.", "notes": "Phép loại suy này rất hiệu quả nên nên dừng lại đủ lâu. Hãy hình dung một mẫu đơn đăng ký in sẵn. Những gì người ta viết vào ô trống là dữ liệu; những gì đã in sẵn trên tờ giấy là metadata. Dòng cuối cùng là ý quan trọng nhất: mẫu đơn tồn tại trước khi có người điền, và chính nó quy định người ta được phép điền cái gì. Trong cơ sở dữ liệu, metadata cũng đóng đúng vai trò ấy."}, {"layout": "bullets", "phase": "hinh-thanh", "minutes": 2, "title": "Metadata làm được việc gì", "bullets": ["MASV chuỗi 10, bắt buộc, khóa chính, không trùng", "DIEMTB số thực, chỉ nhận giá trị từ 0 đến 4", "Gõ nhầm 40 thay vì 4.0 sẽ bị từ chối ngay", "Không có metadata thì chỉ còn là nơi chứa dữ liệu thụ động"], "note": "Lưu ý: máy tự kiểm tra được là nhờ đọc metadata.", "emphasis": [2], "objective": "Thấy metadata sinh ra khả năng tự kiểm tra của hệ quản trị.", "notes": "Ba dòng đầu lấy từ bảng metadata của bảng SINHVIEN trong giáo trình. Điểm cần nhấn là dòng thứ ba: hệ thống từ chối giá trị bốn mươi không phải vì nó thông minh mà vì nó đọc được ràng buộc ghi trong metadata. Dòng cuối cùng dẫn thẳng tới slide tiếp theo, nơi so sánh với bảng tính."}, {"layout": "bullets", "phase": "hinh-thanh", "minutes": 2, "title": "Khác biệt đầu tiên với bảng tính", "bullets": ["Trong bảng tính, metadata gần như không tồn tại dạng máy hiểu", "Tiêu đề cột Điểm trung bình chỉ là một ô chứa chữ", "Không ngăn được việc gõ chữ vào cột điểm số", "Không ngăn được hai người nhập trùng mã học viên"], "note": "Đây là khác biệt căn bản đầu tiên giữa bảng tính và cơ sở dữ liệu.", "objective": "Chuẩn bị lập luận cho hoạt động tranh luận ở phần sau.", "notes": "Bốn dòng này là vũ khí cho hoạt động tranh luận sẽ diễn ra ở phần vận dụng. Với phần mềm bảng tính, dòng tiêu đề ở trên cùng không khác gì các ô còn lại, nó chỉ là một ô chứa chữ. Vì vậy bảng tính không có cách nào biết cột đó phải là số, cũng không biết mã học viên là duy nhất. Ghi lại bốn dòng này, lát nữa sẽ dùng tới."}, {"layout": "quiz", "phase": "luyen-tap", "minutes": 3, "branch": true, "title": "Kiểm tra giữa bài", "question": "Trong bảng SINHVIEN, câu nào sau đây là metadata chứ không phải dữ liệu người dùng cuối?", "options": ["Trần An, sinh ngày 12/04/2005", "Cột DIEMTB chỉ nhận giá trị từ 0 đến 4", "Lớp CNTT01 có 38 sinh viên", "Điểm trung bình của Trần An là 3.2"], "answer": 1, "explain": "Metadata mô tả đặc trưng của dữ liệu chứ không phải bản thân sự kiện. Ràng buộc khoảng giá trị của cột DIEMTB là mô tả về cột, nên nó là metadata. Ba phương án còn lại đều là sự kiện cụ thể về một người hay một lớp, tức là dữ liệu người dùng cuối.", "objective": "Kiểm tra ranh giới metadata và dữ liệu trước khi sang phần mới.", "notes": "Slide này bật rẽ nhánh nên mỗi phương án dẫn tới một trang phản hồi riêng. Gọi một sinh viên lên bấm trực tiếp trên màn chiếu để cả lớp thấy phản hồi tương ứng, rồi quay lại câu hỏi cho người tiếp theo. Nếu nhiều em chọn phương án nói về sĩ số lớp thì quay lại phép loại suy mẫu đơn và hỏi lại rằng dòng đó nằm trong ô trống hay đã in sẵn trên giấy."}, {"layout": "bullets", "phase": "hinh-thanh", "minutes": 2, "title": "Đã có gì và câu hỏi tiếp theo", "bullets": ["Đã có: dữ liệu, thông tin, ngữ cảnh và metadata", "Đã có: cơ sở dữ liệu gồm hai phần chứ không phải một", "Câu hỏi tiếp: ai đứng ra quản lý kho dữ liệu ấy", "Câu hỏi tiếp: vì sao không ai được đọc thẳng tệp dữ liệu"], "note": "Chặng 1 đã xong; sang chặng 2 của lộ trình.", "objective": "Khớp nối hai mục lớn để sinh viên không đứt mạch.", "notes": "Dừng lại ba mươi giây ở slide này. Hai dòng đầu tổng kết chặng vừa đi, hai dòng sau mở ra chặng kế tiếp. Cách đặt câu hỏi trước khi trả lời giúp sinh viên nghe phần sau có định hướng thay vì tiếp nhận thụ động. Đối chiếu lại với slide lộ trình ở đầu buổi để lớp thấy mình đang ở đâu."}, {"layout": "image-text", "phase": "hinh-thanh", "minutes": 3, "title": "Vai trò trung gian của hệ quản trị", "image": "hinh-ve/Chuong-1_Tong-quan-CSDL_hinh01_064e0c14.png", "caption": "Hình 1. Mọi truy cập vào dữ liệu đều phải đi qua hệ quản trị cơ sở dữ liệu", "source": "Nguồn: Bài giảng Cơ sở dữ liệu, Chương 1, Hình 1.1.", "bullets": ["Phần mềm trung gian giữa người dùng và dữ liệu vật lý", "Không ai được đọc ghi thẳng lên tệp dữ liệu", "Một cửa duy nhất nên kiểm soát được mọi thứ"], "objective": "Nắm từ khóa trung gian và hệ quả của nó.", "notes": "Từ khóa cần nhấn mạnh là trung gian. Không ai được phép đọc hay ghi trực tiếp lên tệp dữ liệu, kể cả người viết chương trình. Chính vì mọi yêu cầu đều đi qua một cửa duy nhất mà phần mềm này mới kiểm soát được tính đúng đắn, phân quyền và tình huống nhiều người thao tác cùng lúc. Còn một lợi ích ít ai nhận ra ngay: nó giấu đi sự phức tạp của việc lưu trữ, và ý tưởng ấy sẽ được hệ thống hóa ở buổi sau."}, {"layout": "bullets", "phase": "hinh-thanh", "minutes": 2, "title": "Giấu đi sự phức tạp của lưu trữ", "bullets": ["Người dùng chỉ nói: cho tôi danh sách học viên lớp A1", "Không cần biết dữ liệu nằm ở tệp nào, ổ đĩa nào", "Không cần biết có chỉ mục hay không", "Toàn bộ phần đó do hệ quản trị lo"], "note": "Ý tưởng này sẽ được hệ thống hóa thành kiến trúc chính thức ở buổi sau.", "emphasis": [3], "objective": "Nhận ra lợi ích ít được để ý của vai trò trung gian.", "notes": "Đây là lợi ích ít khi được nhận ra ngay nhưng lại quan trọng bậc nhất. Vì hệ quản trị đứng giữa nên nó che đi toàn bộ chi tiết lưu trữ, người dùng chỉ cần diễn đạt điều mình muốn chứ không cần biết cách máy lấy dữ liệu. Ghi nhớ ý này vì buổi sau nó sẽ quay lại dưới một cái tên chính thức là kiến trúc ba mức, và đó là lời giải cho hạn chế thứ tư."}, {"layout": "bullets", "phase": "hinh-thanh", "minutes": 2, "title": "Ba khái niệm hay bị dùng lẫn", "bullets": ["Cơ sở dữ liệu là dữ liệu, gồm dữ liệu người dùng và metadata", "Hệ quản trị là phần mềm: MySQL, SQL Server, PostgreSQL", "Hệ cơ sở dữ liệu là toàn bộ hệ thống, gồm cả con người", "Sách trong thư viện, người thủ thư, và cả thư viện"], "note": "Lưu ý: câu đã cài đặt cơ sở dữ liệu MySQL là chưa chính xác.", "emphasis": [3], "objective": "Phân biệt dứt khoát ba thuật ngữ ngay từ đầu học phần.", "notes": "Ba thuật ngữ này bị dùng lẫn kể cả trong tài liệu chuyên môn nên cần dứt khoát ngay. Dòng thứ tư là cách ghi nhớ dễ nhất: sách trong thư viện là cơ sở dữ liệu, người thủ thư cùng hệ thống phiếu mượn là hệ quản trị, còn cả thư viện gồm tòa nhà, giá sách, nội quy và bạn đọc là hệ cơ sở dữ liệu. Về dòng ghi chú phía dưới, thứ được cài đặt là hệ quản trị, còn cơ sở dữ liệu là thứ được tạo ra sau đó bên trong hệ quản trị ấy."}, {"layout": "reveal", "phase": "luyen-tap", "minutes": 3, "title": "Ba câu hay nói sai", "prompt": "Mỗi câu dưới đây sai ở đâu? Trả lời thầm trước khi mở đáp án.", "items": [{"q": "Tôi đã cài đặt cơ sở dữ liệu MySQL lên máy chủ", "a": "Thứ được cài là hệ quản trị MySQL. Cơ sở dữ liệu là thứ được tạo ra sau đó, bên trong hệ quản trị ấy."}, {"q": "Bảng tính cũng là cơ sở dữ liệu, chỉ đơn giản hơn thôi", "a": "Bảng tính thiếu metadata dạng máy hiểu được và không kiểm soát được truy cập đồng thời, nên chưa đạt định nghĩa."}, {"q": "Dư thừa dữ liệu chỉ làm tốn thêm dung lượng đĩa", "a": "Dung lượng ngày nay rất rẻ. Vấn đề thật là dư thừa sinh ra không nhất quán rồi dẫn tới quyết định sai."}], "objective": "Sửa ba nhầm lẫn thuật ngữ phổ biến nhất của chương.", "notes": "Ba câu này đều nghe rất tự nhiên nên sinh viên khó thấy chỗ sai. Cho một phút suy nghĩ rồi mở từng đáp án. Câu thứ ba là câu bắc cầu sang phần tiếp theo của buổi học, vì toàn bộ chặng ba sẽ dành để chứng minh rằng dư thừa không phải chuyện dung lượng."}, {"layout": "match", "phase": "luyen-tap", "minutes": 3, "title": "Ghép khái niệm với ví dụ", "prompt": "Ghép mỗi mô tả ở cột trái với đúng khái niệm ở cột phải.", "pairs": [{"left": "Bảng danh sách học viên đang nằm trên đĩa", "right": "Cơ sở dữ liệu"}, {"left": "Phần mềm MySQL vừa được cài lên máy chủ", "right": "Hệ quản trị CSDL"}, {"left": "Cả trung tâm gồm máy chủ, nhân viên, quy trình", "right": "Hệ cơ sở dữ liệu"}, {"left": "Dòng mô tả cột DIEMTB chỉ nhận số từ 0 đến 4", "right": "Metadata"}], "explain": "Mẹo phân biệt: hỏi đây là dữ liệu, là phần mềm, hay là cả hệ thống. Riêng metadata vẫn nằm trong cơ sở dữ liệu nhưng mô tả cấu trúc chứ không phải sự kiện nghiệp vụ.", "objective": "Củng cố ranh giới ba khái niệm bằng thao tác ghép nối.", "notes": "Cho làm theo cặp trong ba phút trước khi mở đáp án. Cặp thứ tư là cặp gây tranh luận nhiều nhất vì metadata cũng nằm trong cơ sở dữ liệu, nên nhiều nhóm phân vân giữa hai lựa chọn. Đó là lúc nhắc lại phép loại suy mẫu đơn: cùng nằm trên một tờ giấy nhưng phần in sẵn khác hẳn phần điền vào."}, {"layout": "two-column", "phase": "hinh-thanh", "minutes": 2, "title": "Phân loại hệ quản trị", "left": {"heading": "Theo số người dùng và vị trí", "bullets": ["Một người dùng: Microsoft Access", "Nhiều người dùng: MySQL, Oracle", "Tập trung một nơi, hoặc phân tán nhiều chi nhánh"]}, "right": {"heading": "Theo mục đích sử dụng", "bullets": ["OLTP: tối ưu thêm sửa xóa nhanh và chính xác", "Kho dữ liệu: tối ưu tổng hợp khối lượng lớn", "Học phần này hướng tới nhóm OLTP"]}, "note": "Hai mục đích ở cột phải đòi hỏi hai cách thiết kế trái ngược nhau.", "objective": "Định vị học phần trong bức tranh công nghệ chung.", "notes": "Cột phải đáng chú ý nhất với người thiết kế. Hệ thống xử lý giao dịch cần dữ liệu tách nhỏ triệt để để tránh trùng lặp, còn kho dữ liệu lại cố ý gộp lại để truy vấn tổng hợp chạy nhanh. Hai mục đích trái ngược dẫn tới hai cách thiết kế trái ngược. Toàn bộ học phần hướng tới nhóm thứ nhất; kỹ thuật cố ý gộp lại của nhóm thứ hai sẽ gặp lại ở chương năm dưới tên phi chuẩn hóa."}, {"layout": "question", "phase": "van-dung", "minutes": 5, "title": "Tranh luận: bảng tính có phải cơ sở dữ liệu", "question": "Một trung tâm quản lý toàn bộ học viên bằng một tệp bảng tính dùng chung trên ổ mạng. Đó đã là cơ sở dữ liệu chưa?", "prompts": ["Rồi, vì dữ liệu có tổ chức và dùng chung", "Chưa, vì thiếu metadata máy hiểu được", "Chưa, vì không kiểm soát được truy cập đồng thời", "Tùy quy mô, dưới một trăm dòng thì coi như rồi"], "note": "Tiêu chí đánh giá là chất lượng lập luận, không phải chọn đúng phương án.", "objective": "Buộc sinh viên bảo vệ lập luận bằng khái niệm vừa học.", "notes": "Đây là hoạt động tranh luận có trong đề cương học phần nên dành đủ thời gian. Chia nhóm bốn người, ba phút trao đổi rồi mỗi nhóm được gọi trình bày trong một phút. Yêu cầu bắt buộc là phải dùng đúng thuật ngữ vừa học chứ không nói cảm tính. Phương án cuối cùng là cái bẫy có chủ ý: quy mô không phải tiêu chí phân loại, nhưng lập luận rằng với quy mô nhỏ thì bảng tính vẫn hợp lý lại hoàn toàn đúng, và sẽ được xác nhận ở slide cái giá phải trả."}, {"layout": "bullets", "phase": "hinh-thanh", "minutes": 2, "title": "Chặng 3: vì sao cần cơ sở dữ liệu", "bullets": ["Đã có: cơ sở dữ liệu, hệ quản trị và metadata", "Câu hỏi tiếp: nếu đã có tệp và bảng tính thì tại sao còn cần", "Câu trả lời nằm ở bốn hạn chế cụ thể, đếm được", "Không phải vì cơ sở dữ liệu hiện đại hơn"], "note": "Đây là chặng dài nhất và quan trọng nhất của buổi học.", "emphasis": [3], "objective": "Đặt lại câu hỏi nền tảng trước khi vào phần trọng tâm.", "notes": "Dòng cuối cùng chặn trước một câu trả lời sáo rỗng mà sinh viên hay đưa ra. Lý do không nằm ở chỗ công nghệ nào mới hơn, mà nằm ở bốn hạn chế cụ thể có thể chỉ ra và định lượng được. Nhấn mạnh chữ đếm được ở dòng thứ ba, vì lát nữa lớp sẽ đếm thật trên một bảng dữ liệu."}, {"layout": "bullets", "phase": "hinh-thanh", "minutes": 2, "title": "Hệ thống tệp là gì", "bullets": ["Trước cuối những năm 1960, dữ liệu được quản lý bằng tệp", "Mỗi bộ phận có tệp riêng và chương trình xử lý riêng", "Vẫn phổ biến dưới dạng mỗi phòng một tệp bảng tính", "Chính cách làm này sinh ra bốn hạn chế"], "note": "Tình huống Trung tâm ABC ở đầu buổi chính là một hệ thống tệp.", "objective": "Định nghĩa đối tượng sẽ đem ra mổ xẻ trong chặng này.", "notes": "Cần gọi tên đối tượng trước khi phê phán nó. Hệ thống tệp là cách quản lý dữ liệu có trước cơ sở dữ liệu, trong đó mỗi bộ phận nghiệp vụ giữ tệp riêng và có chương trình xử lý riêng. Điều đáng nói là cách làm này chưa hề biến mất; nó vẫn sống dưới hình thức mỗi phòng một tệp bảng tính, đúng như tình huống Trung tâm Anh ngữ ABC đã kể ở đầu buổi."}, {"layout": "image-text", "phase": "hinh-thanh", "minutes": 3, "title": "Hệ thống tệp và cách tiếp cận CSDL", "image": "hinh-ve/Chuong-1_Tong-quan-CSDL_hinh02_7c355138.png", "caption": "Hình 2. Mỗi bộ phận một tệp riêng, so với một kho dùng chung qua hệ quản trị", "source": "Nguồn: Bài giảng Cơ sở dữ liệu, Chương 1, Hình 1.2.", "bullets": ["Ba phòng, ba tệp riêng, mỗi người giữ một bản", "Họ tên và số điện thoại xuất hiện trong cả ba tệp", "Từ quan sát đó, bốn hạn chế lần lượt lộ ra"], "objective": "Quan sát hiện tượng trước khi gọi tên hạn chế.", "notes": "Hãy để lớp tự nhìn ra điều bất thường ở khối phía trên trước khi nói. Hỏi cả lớp thấy gì lặp lại giữa ba tệp. Câu trả lời cần dẫn tới việc họ tên và số điện thoại của cùng một học viên xuất hiện ở cả ba nơi. Đây chính là tình huống Trung tâm Anh ngữ ABC đã kể ở đầu buổi, giờ được vẽ ra thành sơ đồ."}, {"layout": "bullets", "phase": "hinh-thanh", "minutes": 2, "title": "Hai hạn chế đầu", "bullets": ["Dư thừa: cùng một sự kiện được lưu ở nhiều nơi", "Không phải chuyện tốn đĩa, mà là gốc của ba hạn chế còn lại", "Không nhất quán: cập nhật sót một nơi là có hai giá trị mâu thuẫn", "Điều đáng sợ là hệ thống không hề báo lỗi"], "note": "Ghi nhớ: dư thừa là mắt xích gốc của toàn bộ chuỗi.", "emphasis": [1], "objective": "Nắm hai hạn chế đầu và quan hệ nhân quả giữa chúng.", "notes": "Dòng thứ hai là dòng quan trọng nhất của cả mục này nên nó được làm nổi bật. Dung lượng đĩa ngày nay rất rẻ, nên nếu chỉ nói dư thừa tốn chỗ thì sinh viên sẽ không thấy vấn đề. Vấn đề thật nằm ở chỗ dư thừa là nguồn gốc của ba hạn chế còn lại. Về dòng cuối, cả hai giá trị mâu thuẫn đều hợp lệ nếu xét riêng lẻ, nên máy không có cách nào biết cái nào sai; mâu thuẫn chỉ lộ ra khi có người tình cờ đối chiếu, thường là rất muộn."}, {"layout": "bullets", "phase": "hinh-thanh", "minutes": 2, "title": "Hai hạn chế sau", "bullets": ["Dị thường cập nhật: thêm sửa xóa gây hậu quả ngoài ý muốn", "Xóa một học viên có thể mất luôn thông tin lớp học", "Phụ thuộc dữ liệu: chương trình phải tự biết cấu trúc tệp", "Thêm một cột buộc phải sửa lại nhiều chương trình"], "note": "Lưu ý: hạn chế thứ tư tốn kém nhất về lâu dài.", "emphasis": [3], "objective": "Nắm hai hạn chế còn lại và hệ quả bảo trì của chúng.", "notes": "Dòng thứ hai chính là chi tiết đã kể trong tình huống mở đầu, khi một học viên xin nghỉ thì lớp học của em ấy biến mất theo. Ba loại dị thường cụ thể sẽ được mổ xẻ ở buổi sau khi làm ví dụ tổng hợp. Hạn chế thứ tư là hạn chế tốn kém nhất, và cũng chính là hạn chế mà kiến trúc ba mức ở buổi sau được sinh ra để giải quyết. Ghi nhớ điều này để buổi sau nối lại."}, {"layout": "bullets", "phase": "hinh-thanh", "minutes": 2, "title": "Tệp phẳng của Trung tâm ABC", "bullets": ["Sáu cột: MAHV, HOTEN, MALOP, TENLOP, GIAOVIEN, SDT_GV", "Bốn dòng học viên, ba dòng đầu cùng học lớp A1", "Tên lớp và số điện thoại người phụ trách lặp lại ba lần", "Bảng này còn dùng lại ở buổi sau và các chương sau"], "note": "Đây chính là tệp phẳng đã nhắc tới trong tình huống mở đầu.", "emphasis": [2], "objective": "Đưa ra dữ liệu cụ thể để chuẩn bị cho việc đếm.", "notes": "Chiếu bảng này lên và để lớp nhìn kỹ ba dòng đầu. Ba học viên khác nhau nhưng ba dòng lại chép lại y hệt tên lớp, tên người phụ trách và số điện thoại. Hãy hỏi cả lớp một câu trước khi sang slide sau: nếu người phụ trách lớp A1 đổi số điện thoại thì phải sửa bao nhiêu chỗ. Câu trả lời ba chỗ chính là hình ảnh trực quan của dư thừa."}, {"layout": "bullets", "phase": "hinh-thanh", "minutes": 2, "title": "Đếm dư thừa trên bảng ABC", "bullets": ["Bảng có 4 dòng, 6 cột, tổng cộng 24 ô", "MAHV và HOTEN riêng từng học viên: không thừa ô nào", "TENLOP, GIAOVIEN, SDT_GV phụ thuộc hoàn toàn vào MALOP", "Ba cột ấy thừa 6 ô, chiếm 25 phần trăm"], "note": "Ghi nhớ: thừa nghĩa là xóa đi vẫn khôi phục được từ ô còn lại.", "emphasis": [3], "objective": "Chuyển nhận định định tính thành con số định lượng.", "notes": "Nói dư thừa gây hại là nói định tính, người thiết kế cần con số. Định nghĩa thao tác của chữ thừa nằm ở dòng ghi chú: một ô là thừa nếu xóa đi vẫn khôi phục lại được từ những ô còn lại. Hễ biết mã lớp là A1 thì biết ngay tên lớp là Anh cơ bản một, nên hai ô lặp lại ở ba dòng đầu là thừa. Bảng này chính là tệp phẳng của Trung tâm ABC và sẽ còn dùng lại ở buổi sau và cả các chương sau."}, {"layout": "bullets", "phase": "hinh-thanh", "minutes": 2, "title": "Khi quy mô tăng lên", "bullets": ["Lớp A1 có 30 học viên thay vì 3", "Thông tin người phụ trách bị lặp lại 30 lần", "Tỷ lệ ô thừa vọt lên xấp xỉ 50 phần trăm", "Lượng thông tin thật sự thì không hề đổi"], "note": "Ghi nhớ: dư thừa tăng theo quy mô, thông tin thật thì không.", "emphasis": [3], "objective": "Thấy dư thừa là vấn đề mở rộng theo quy mô, không phải cá biệt.", "notes": "Con số hai mươi lăm phần trăm ở slide trước còn nhỏ vì bảng ví dụ chỉ có bốn dòng. Điều đáng lo nằm ở chỗ tỷ lệ ấy tăng theo quy mô. Dòng cuối cùng là điểm cốt lõi cần nhấn: dù bị chép lại ba mươi lần thì người phụ trách lớp vẫn chỉ có duy nhất một số điện thoại, nghĩa là lượng thông tin thật sự không đổi mà chỉ có phần lặp phình ra."}, {"layout": "practice", "phase": "luyen-tap", "minutes": 6, "title": "Bài tập tại lớp: đếm ô thừa", "duration": "7 phút", "form": "Nhóm 2 người", "weight": "Điểm chuyên cần", "requirements": ["Giả sử lớp A1 có 30 học viên thay vì 3, giữ nguyên 6 cột", "Tính lại số ô thừa và tỷ lệ phần trăm trên tổng số ô", "Trả lời: lượng thông tin thật sự có tăng theo không"], "criteria": ["Nêu đúng công thức đếm chứ không đoán số", "Giải thích được vì sao tỷ lệ tăng theo quy mô"], "hints": ["Thông tin của một người phụ trách lớp bị lặp bao nhiêu lần", "Mở rộng: thử với hai lớp, mỗi lớp 30 học viên"], "objective": "Tự tay chứng minh dư thừa tăng theo quy mô dữ liệu.", "notes": "Đi quanh lớp trong lúc các nhóm làm. Kết quả cần đạt là tỷ lệ vọt lên xấp xỉ năm mươi phần trăm khi lớp có ba mươi học viên. Điều quan trọng hơn con số là câu trả lời cho yêu cầu thứ ba: lượng thông tin thật sự không hề tăng, vì người phụ trách lớp vẫn chỉ có duy nhất một số điện thoại. Chọn sẵn một nhóm làm đúng và một nhóm quên chia cho tổng số ô mới để chữa đối chiếu."}, {"layout": "diagram", "phase": "hinh-thanh", "minutes": 3, "title": "Chuỗi nhân quả của dư thừa", "steps": [{"label": "Dư thừa", "desc": "Một sự thật nằm ở nhiều chỗ"}, {"label": "Không nhất quán", "desc": "Cập nhật đồng loạt sớm muộn cũng sót"}, {"label": "Báo cáo sai", "desc": "Hai bộ phận ra hai con số khác nhau"}, {"label": "Quyết định sai", "desc": "Mở thêm lớp trong khi đang thừa chỗ"}], "note": "Chi phí tăng dần theo từng mắt xích: đầu chuỗi gần như miễn phí, cuối chuỗi rất đắt.", "emphasis": [0], "objective": "Buộc bốn hạn chế thành một chuỗi có gốc và có ngọn.", "notes": "Đây là slide quan trọng nhất của cả buổi học nên hãy đi thật chậm. Bốn hạn chế không đứng độc lập mà nối thành chuỗi, và gốc rễ là mắt xích đầu tiên. Điều đáng lưu ý về mặt quản trị là chi phí tăng dần: ở mắt xích đầu chỉ tốn ít dung lượng đĩa, gần như miễn phí, còn ở mắt xích cuối một quyết định sai có thể tốn hàng trăm triệu. Vì tổn thất chỉ lộ ra ở cuối chuỗi nên người ta thường không truy ngược về nguyên nhân gốc và tiếp tục sống chung với thiết kế tồi. Đây chính là lý do sâu xa để học phần này tồn tại."}, {"layout": "two-column", "phase": "hinh-thanh", "minutes": 2, "title": "Cách tiếp cận CSDL khắc phục ra sao", "left": {"heading": "Hệ thống tệp", "bullets": ["Mỗi bộ phận một tệp riêng, dư thừa cao", "Nhất quán phải giữ thủ công", "Chương trình gắn chặt cấu trúc tệp"]}, "right": {"heading": "Cách tiếp cận CSDL", "bullets": ["Một kho dùng chung, dư thừa được kiểm soát", "Hệ quản trị bảo đảm nhất quán tự động", "Tách rời nhờ kiến trúc ba mức"]}, "note": "Hai thay đổi căn bản: gộp vào kho dùng chung và đặt phần mềm trung gian kiểm soát.", "objective": "Đối chiếu từng hạn chế với cách khắc phục tương ứng.", "notes": "Đọc theo từng cặp dòng ngang nhau để thấy mỗi hạn chế bên trái được xử lý bằng cái gì bên phải. Dòng cuối bên phải nhắc tới kiến trúc ba mức, đó là nội dung mở đầu của buổi sau, nên chỉ nêu tên chứ chưa giải thích. Ghi lại cụm kiến trúc ba mức, buổi sau sẽ bắt đầu từ đúng chỗ này."}, {"layout": "two-column", "phase": "hinh-thanh", "minutes": 3, "title": "So sánh tiếp: an toàn và truy vấn", "left": {"heading": "Hệ thống tệp", "bullets": ["Metadata nằm trong đầu người viết chương trình", "Phân quyền chỉ ở mức cho hoặc cấm cả tệp", "Muốn truy vấn mới phải viết chương trình mới"]}, "right": {"heading": "Cách tiếp cận CSDL", "bullets": ["Metadata lưu ngay trong cơ sở dữ liệu, máy đọc được", "Phân quyền chi tiết tới từng bảng, từng cột", "Dùng ngôn ngữ truy vấn có sẵn"]}, "note": "Ba tiêu chí này quyết định chi phí vận hành khi hệ thống lớn lên.", "objective": "Hoàn tất bảng so sánh với ba tiêu chí còn lại.", "notes": "Ba tiêu chí này bổ sung cho bảng so sánh vừa xem. Dòng đầu là điều nguy hiểm nhất trong thực tế: khi metadata chỉ nằm trong đầu người viết chương trình thì người ấy nghỉ việc là tổ chức mất luôn hiểu biết về dữ liệu của chính mình. Dòng cuối giải thích vì sao câu hỏi doanh thu theo từng lớp trong tình huống mở đầu lại tốn cả buổi chiều mới trả lời được."}, {"layout": "bullets", "phase": "van-dung", "minutes": 2, "title": "Cái giá của cơ sở dữ liệu", "bullets": ["Chi phí bản quyền hoặc hạ tầng máy chủ", "Cần nhân sự có chuyên môn để quản trị", "Phức tạp hơn hẳn khi bắt đầu", "Cửa hàng nhỏ mười khách thì bảng tính vẫn hợp lý"], "note": "Đáng giá khi dữ liệu dùng chung, tính đúng đắn bắt buộc, hệ thống sống lâu dài.", "emphasis": [3], "objective": "Giữ cái nhìn cân bằng, tránh tuyệt đối hóa công nghệ.", "notes": "Slide này cố ý đặt ngay sau phần ca ngợi để giữ cái nhìn cân bằng. Dòng cuối cùng chính là câu trả lời cho phương án tùy quy mô trong hoạt động tranh luận vừa rồi: nhóm nào lập luận theo hướng ấy thì đã đúng một nửa. Ba điều kiện ở dòng ghi chú mới là tiêu chí thật, và ba điều kiện ấy đúng với hầu hết hệ thống nghiệp vụ thực tế."}, {"layout": "bullets", "phase": "van-dung", "minutes": 2, "title": "Khi nào cơ sở dữ liệu đáng giá", "bullets": ["Khi dữ liệu được dùng chung bởi nhiều người", "Khi tính đúng đắn là bắt buộc", "Khi hệ thống còn phải sống lâu dài", "Ba điều kiện này đúng với hầu hết hệ thống nghiệp vụ"], "note": "Ghi nhớ: đây mới là tiêu chí quyết định, không phải quy mô dữ liệu.", "emphasis": [3], "objective": "Chốt tiêu chí lựa chọn công nghệ thay cho cảm tính.", "notes": "Ba điều kiện này là câu trả lời dứt điểm cho cuộc tranh luận về bảng tính ở phần trước. Nhóm nào lập luận theo quy mô dữ liệu thì mới đúng một phần, vì quy mô không phải tiêu chí. Một cửa hàng mười khách nhưng cần nhiều người cùng sửa và cần số liệu chính xác tuyệt đối thì vẫn nên dùng cơ sở dữ liệu. Ngược lại một tệp thống kê cá nhân dù có nghìn dòng vẫn dùng bảng tính là hợp lý."}, {"layout": "quiz", "phase": "cung-co", "minutes": 3, "title": "Quiz cuối buổi", "question": "Theo chuỗi nhân quả đã học, muốn chặn nguy cơ quyết định sai thì phải can thiệp vào mắt xích nào trước tiên?", "options": ["Kiểm tra kỹ báo cáo trước khi trình lãnh đạo", "Thiết kế sao cho không có dư thừa ngay từ đầu", "Tăng tần suất đối chiếu giữa các bộ phận", "Đào tạo nhân viên nhập liệu cẩn thận hơn"], "answer": 1, "explain": "Dư thừa là mắt xích gốc của chuỗi. Ba phương án còn lại đều can thiệp ở mắt xích sau, tức là chữa triệu chứng: vẫn phải làm mãi mãi mà nguy cơ không mất đi. Chặn ngay tại gốc bằng thiết kế là lý do tồn tại của học phần này.", "objective": "Đo mức đạt mục tiêu về chuỗi nhân quả.", "notes": "Đây là câu chốt của buổi học. Nếu trên tám phần mười lớp chọn đúng thì chuyển thẳng sang tóm tắt. Nếu thấp hơn, quay lại slide chuỗi nhân quả và hỏi lại từng mắt xích một, đặc biệt là câu hỏi chi phí ở mắt xích nào rẻ nhất và mắt xích nào đắt nhất."}, {"layout": "bullets", "phase": "cung-co", "minutes": 2, "role": "summary", "title": "Tóm tắt buổi 1", "bullets": ["Dữ liệu cộng ngữ cảnh cộng xử lý mới thành thông tin", "Cơ sở dữ liệu gồm dữ liệu người dùng và metadata", "Cơ sở dữ liệu là dữ liệu, hệ quản trị là phần mềm", "Bốn hạn chế nối thành chuỗi, gốc là dư thừa"], "note": "Đối chiếu lại bốn dòng này với slide mục tiêu ở đầu buổi.", "emphasis": [3], "objective": "Hệ thống hóa buổi học thành bốn điểm ghi nhớ.", "notes": "Bốn dòng này gói lại toàn bộ buổi học. Nếu chỉ nhớ được một dòng thì hãy nhớ dòng cuối cùng, vì nó chi phối mọi nội dung còn lại của học phần. Quay lại slide mục tiêu ở đầu buổi và để mỗi người tự chấm xem đạt được mục nào, còn thiếu mục nào thì đọc lại phần tương ứng trong giáo trình."}, {"layout": "bullets", "phase": "cung-co", "minutes": 2, "role": "homework", "title": "Chuẩn bị cho buổi 2", "bullets": ["Đọc trước mục 1.4 và 1.5 trong giáo trình chương 1", "Tìm một tệp bảng tính đang dùng thật và chỉ ra chỗ dư thừa", "Ghi lại một câu hỏi chưa rõ để hỏi đầu buổi sau", "Mở rộng không bắt buộc: tra cứu INFORMATION_SCHEMA là gì"], "note": "Nộp phần thứ hai qua hệ thống học tập trực tuyến, một trang A4.", "objective": "Chuyển kiến thức sang quan sát dữ liệu có thật.", "notes": "Nhiệm vụ thứ hai là quan trọng nhất vì nó buộc sinh viên nhìn dữ liệu thật chứ không chỉ ví dụ trong sách. Có thể là tệp điểm danh của lớp, tệp chi tiêu cá nhân hay bất cứ tệp nào đang dùng. Yêu cầu chỉ ra chỗ dư thừa theo đúng định nghĩa đã học, tức là ô nào xóa đi vẫn khôi phục được. Phần mở rộng dành cho ai muốn tìm hiểu thêm, sẽ được nhắc lại ở cuối buổi sau."}], "_phase": {"khoi-dong": "Khởi động", "hinh-thanh": "Hình thành kiến thức", "luyen-tap": "Luyện tập", "van-dung": "Vận dụng", "cung-co": "Củng cố & đánh giá"}, "_objvn": {"knowledge": "Kiến thức", "skill": "Kỹ năng", "attitude": "Thái độ / Năng lực"}, "_order": {"21": [3, 2, 1, 0]}};</script>
+<script>
+/* Runtime bản HTML tương tác. build_html.py nhúng SPEC vào trang trước khi file này chạy.
+   Không phụ thuộc thư viện ngoài. */
+(function () {
+  "use strict";
+  var S = window.SPEC, meta = S.meta || {}, stage = document.getElementById("stage");
+  var PHASE = S._phase || {};
+  var esc = function (s) {
+    return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c];
+    });
+  };
+  var el = function (h) { var d = document.createElement("div"); d.innerHTML = h.trim(); return d.firstElementChild; };
+  var K = "ABCDEFGH".split("");
+
+  var slides = (S.slides || []).slice();
+  slides.push({ layout: "results", title: "Kết quả luyện tập", phase: "cung-co", minutes: 0 });
+
+  /* mốc thời gian cộng dồn */
+  var marks = [], acc = 0;
+  slides.forEach(function (s) {
+    var m = +(s.minutes || 0);
+    marks.push({ from: acc, to: acc + m, m: m });
+    acc += m;
+  });
+  var planTotal = acc;
+  var graded = [];
+  var cur = 0;
+
+  function head(s, i) {
+    /* Thời lượng không hiện trên slide — xem ở panel Kịch bản (N) và Tổng quan (O). */
+    return '<div class="hd"><h2>' + esc(s.title || "") + "</h2>" +
+      '</div><div class="rule"></div>';
+  }
+  function foot(i) {
+    var l = meta.footer || [meta.course, meta.title].filter(Boolean).join("  ·  ");
+    return '<div class="ft"><span>' + esc(l) + "</span><span>" + (i + 1) + "</span></div>";
+  }
+  function note(t) { return t ? '<div class="note">' + esc(t) + "</div>" : ""; }
+  function bullets(list) {
+    return (list || []).map(function (b) {
+      return '<div class="pt"><div class="d"></div><span>' + esc(b) + "</span></div>";
+    }).join("");
+  }
+
+  var R = {};
+
+  R.title = function (s, i) {
+    var tpl = !!meta.school;   /* chế độ theo mẫu slide của Trường */
+    var top = tpl ? [meta.school, meta.faculty].filter(Boolean).join("  ·  ")
+                  : [meta.course, meta.audience].filter(Boolean).join("  ·  ");
+    var info = [meta.lecturer ? "Giảng viên: " + meta.lecturer : null, meta.date]
+      .filter(Boolean).join("  ·  ");
+    var t = tpl ? String(s.title).toUpperCase() : s.title;
+    var sub = (tpl && meta.course) ? meta.course : s.subtitle;
+    var sub2 = (tpl && meta.course && s.subtitle)
+      ? '<div class="who">' + esc(s.subtitle) + "</div>" : "";
+    return '<div class="slide title edge">' +
+      (S._logo ? '<img class="tlogo" src="' + S._logo + '" alt="logo">' : "") +
+      '<div class="org">' + esc(top.toUpperCase()) + "</div>" +
+      "<h1>" + esc(t) + '</h1><div class="bar"></div>' +
+      '<div class="sub">' + esc(sub) + "</div>" + sub2 +
+      '<div class="who">' + esc(info) + "</div>" + foot(i) + "</div>";
+  };
+
+  R.objectives = function (s, i) {
+    var rows = (meta.objectives || []).map(function (o, n) {
+      var tag = (S._objvn[o.type] || o.type || "") + (o.bloom ? " · " + o.bloom : "");
+      return '<div class="goal"><div class="n">' + ("0" + (n + 1)).slice(-2) + "</div>" +
+        '<div class="tx"><b>' + esc(o.text) + "</b>" +
+        (o.detail ? "<span>" + esc(o.detail) + "</span>" : "") + "</div>" +
+        '<div class="tag">' + esc(tag) + "</div></div>";
+    }).join("");
+    return '<div class="slide">' + head(s, i) +
+      '<div class="body"><p class="lead">Sau bài học này, sinh viên có khả năng:</p>' +
+      rows + "</div>" + foot(i) + "</div>";
+  };
+
+  R.bullets = function (s, i) {
+    return '<div class="slide">' + head(s, i) + '<div class="body">' +
+      bullets(s.bullets) + note(s.note) + "</div>" + foot(i) + "</div>";
+  };
+
+  R["two-column"] = function (s, i) {
+    function pan(c) {
+      return '<div class="panel"><div class="ph">' + esc(c.heading || "") +
+        '</div><div class="pb">' + bullets(c.bullets) + "</div></div>";
+    }
+    return '<div class="slide">' + head(s, i) + '<div class="body"><div class="cols">' +
+      pan(s.left || {}) + pan(s.right || {}) + "</div>" + note(s.note) + "</div>" + foot(i) + "</div>";
+  };
+
+  R["image-text"] = function (s, i) {
+    var fig = s.image
+      ? '<img src="' + esc(s.image) + '" alt="' + esc(s.caption) + '">'
+      : '<div class="figbox">[cần bổ sung hình minh họa]</div>';
+    var left = '<div class="fig">' + fig + '<div class="cap">' + esc(s.caption) + "</div>" +
+      (s.source ? '<div class="src">' + esc(s.source) + "</div>" : "") + "</div>";
+    if (s.bullets && s.bullets.length) {
+      return '<div class="slide">' + head(s, i) + '<div class="body"><div class="figsplit">' +
+        left + '<div><div class="subhead">Ý CHÍNH</div><div class="ul"></div>' +
+        bullets(s.bullets) + "</div></div></div>" + foot(i) + "</div>";
+    }
+    return '<div class="slide">' + head(s, i) + '<div class="body">' + left + "</div>" + foot(i) + "</div>";
+  };
+
+  R.diagram = function (s, i) {
+    var n = s.steps.length;
+    var cells = s.steps.map(function (st, k) {
+      return '<div class="st"><div class="n">' + (k + 1) + "</div><b>" + esc(st.label) + "</b>" +
+        (st.desc ? "<span>" + esc(st.desc) + "</span>" : "") + "</div>" +
+        (k < n - 1 ? '<div class="ar">›</div>' : "");
+    }).join("");
+    return '<div class="slide">' + head(s, i) + '<div class="body"><div class="flow">' + cells +
+      "</div>" + note(s.note) + "</div>" + foot(i) + "</div>";
+  };
+
+  R.question = function (s, i) {
+    var pr = (s.prompts || []).map(function (p, k) {
+      return '<div class="pt"><div class="d"></div><span>' + K[k] + ". " + esc(p) + "</span></div>";
+    }).join("");
+    return '<div class="slide">' + head(s, i) + '<div class="body">' +
+      '<div class="q">' + esc(s.question) + "</div>" + pr +
+      '<textarea class="ta" placeholder="Ghi ý kiến của nhóm tại đây (lưu trong trình duyệt)…"></textarea>' +
+      note(s.note) + "</div>" + foot(i) + "</div>";
+  };
+
+  R.quiz = function (s, i) {
+    var opts = s.options.map(function (o, n) {
+      return '<button class="opt" data-n="' + n + '"><span class="k">' + K[n] + "</span><span>" +
+        esc(o) + "</span></button>";
+    }).join("");
+    return '<div class="slide" data-graded="1">' + head(s, i) + '<div class="body">' +
+      '<div class="q">' + esc(s.question) + "</div>" +
+      '<div class="opts">' + opts + "</div>" +
+      '<div class="row"><button class="btn js-check">Kiểm tra</button>' +
+      '<button class="btn ghost js-reset">Làm lại</button></div><div class="fb"></div>' +
+      "</div>" + foot(i) + "</div>";
+  };
+
+  R.reveal = function (s, i) {
+    var rows = s.items.map(function (it, n) {
+      return '<div class="rv" data-n="' + n + '"><span class="h">nhấp để xem</span><b>' +
+        (n + 1) + ". " + esc(it.q) + '</b><div class="a">' + esc(it.a) + "</div></div>";
+    }).join("");
+    return '<div class="slide">' + head(s, i) + '<div class="body">' +
+      (s.prompt ? '<p class="lead">' + esc(s.prompt) + "</p>" : "") + rows +
+      '<div class="row"><button class="btn ghost js-all">Hiện tất cả</button></div>' +
+      "</div>" + foot(i) + "</div>";
+  };
+
+  R.match = function (s, i) {
+    var p = s.pairs, ord = S._order[i] || p.map(function (_, k) { return k; });
+    var slots = p.map(function (x, n) {
+      return '<div class="slotrow"><div class="lb">' + (n + 1) + ". " + esc(x.left) +
+        '</div><div class="slot" data-n="' + n + '">thả vào đây</div></div>';
+    }).join("");
+    var toks = ord.map(function (n) {
+      return '<div class="tok" draggable="true" data-n="' + n + '">' + esc(p[n].right) + "</div>";
+    }).join("");
+    return '<div class="slide" data-graded="1">' + head(s, i) + '<div class="body">' +
+      (s.prompt ? '<p class="lead">' + esc(s.prompt) + "</p>" : "") +
+      '<div class="match"><div>' + slots + '</div><div class="bank">' + toks + "</div></div>" +
+      '<div class="row"><button class="btn js-check">Kiểm tra</button>' +
+      '<button class="btn ghost js-reset">Làm lại</button></div><div class="fb"></div>' +
+      "</div>" + foot(i) + "</div>";
+  };
+
+  R.practice = function (s, i) {
+    var chips = [s.duration ? "Thời lượng: " + s.duration : "", s.form ? "Hình thức: " + s.form : "",
+    s.weight ? "Trọng số: " + s.weight : ""].filter(Boolean)
+      .map(function (c) { return '<div class="c">' + esc(c) + "</div>"; }).join("");
+    var reqs = s.requirements.map(function (r, n) {
+      return '<label class="task"><input type="checkbox" data-n="' + n + '"><span>Bước ' +
+        (n + 1) + ". " + esc(r) + "</span></label>";
+    }).join("");
+    var side = "";
+    if (s.criteria && s.criteria.length) {
+      side += '<div class="box"><h4>TIÊU CHÍ ĐÁNH GIÁ</h4>' +
+        s.criteria.map(function (c) { return '<div class="task"><span>• ' + esc(c) + "</span></div>"; }).join("") +
+        "</div>";
+    }
+    if (s.hints && s.hints.length) {
+      side += '<div class="box"><h4>GỢI Ý</h4>' +
+        s.hints.map(function (h) { return '<div class="task"><span>• ' + esc(h) + "</span></div>"; }).join("") +
+        "</div>";
+    }
+    return '<div class="slide">' + head(s, i) + '<div class="body"><div class="chips">' + chips + "</div>" +
+      '<div class="box"><h4>YÊU CẦU — nhấp để đánh dấu đã xong</h4>' + reqs + "</div>" +
+      (side ? '<div class="two">' + side + "</div>" : "") + "</div>" + foot(i) + "</div>";
+  };
+
+  R.results = function (s, i) {
+    return '<div class="slide" data-results="1">' + head(s, i) +
+      '<div class="body"><div class="score"><div class="big js-big">–</div>' +
+      '<div class="lab">câu trả lời đúng</div><div class="rows js-rows"></div></div></div>' +
+      foot(i) + "</div>";
+  };
+
+  /* ---------- dựng DOM ---------- */
+  slides.forEach(function (s, i) {
+    var fn = R[s.layout];
+    if (!fn) { console.warn("chưa hỗ trợ:", s.layout); return; }
+    var node = el(fn(s, i));
+    node.dataset.idx = i;
+    stage.appendChild(node);
+    if (node.dataset.graded) graded.push({ i: i, title: s.title, state: null });
+  });
+  var nodes = [].slice.call(stage.querySelectorAll(".slide"));
+  function mark(i, ok) { graded.forEach(function (g) { if (g.i === i) g.state = ok; }); }
+
+  /* ---------- tương tác ---------- */
+  nodes.forEach(function (node) {
+    var i = +node.dataset.idx, s = slides[i];
+
+    if (s.layout === "quiz") {
+      var pick = null, opts = node.querySelectorAll(".opt"), fb = node.querySelector(".fb");
+      opts.forEach(function (o) {
+        o.addEventListener("click", function () {
+          if (o.classList.contains("lock")) return;
+          pick = +o.dataset.n;
+          opts.forEach(function (x) { x.classList.remove("pick"); });
+          o.classList.add("pick");
+        });
+      });
+      node.querySelector(".js-check").addEventListener("click", function () {
+        if (pick === null) return;
+        var ok = pick === s.answer;
+        opts.forEach(function (o) {
+          var n = +o.dataset.n;
+          o.classList.add("lock"); o.classList.remove("pick");
+          if (n === s.answer) o.classList.add("right");
+          else if (n === pick) o.classList.add("wrong");
+        });
+        fb.className = "fb on " + (ok ? "good" : "bad");
+        fb.innerHTML = "<b>" + (ok ? "Chính xác." : "Chưa đúng.") + "</b>" + esc(s.explain);
+        mark(i, ok);
+      });
+      node.querySelector(".js-reset").addEventListener("click", function () {
+        pick = null;
+        opts.forEach(function (o) { o.className = "opt"; });
+        fb.className = "fb"; mark(i, null);
+      });
+    }
+
+    if (s.layout === "reveal") {
+      node.querySelectorAll(".rv").forEach(function (r) {
+        r.addEventListener("click", function () { r.classList.toggle("open"); });
+      });
+      node.querySelector(".js-all").addEventListener("click", function () {
+        node.querySelectorAll(".rv").forEach(function (r) { r.classList.add("open"); });
+      });
+    }
+
+    if (s.layout === "match") {
+      var sel = null, fb2 = node.querySelector(".fb");
+      var toks = node.querySelectorAll(".tok"), slots = node.querySelectorAll(".slot");
+      function place(slot, n) {
+        if (slot.dataset.tok) {
+          var old = node.querySelector('.tok[data-n="' + slot.dataset.tok + '"]');
+          if (old) old.classList.remove("used");
+        }
+        slot.dataset.tok = n;
+        slot.textContent = s.pairs[n].right;
+        slot.className = "slot fill";
+        var t = node.querySelector('.tok[data-n="' + n + '"]');
+        if (t) { t.classList.add("used"); t.classList.remove("sel"); }
+        sel = null;
+      }
+      toks.forEach(function (t) {
+        t.addEventListener("click", function () {
+          if (sel === t) { t.classList.remove("sel"); sel = null; return; }
+          toks.forEach(function (x) { x.classList.remove("sel"); });
+          t.classList.add("sel"); sel = t;
+        });
+        t.addEventListener("dragstart", function (e) { e.dataTransfer.setData("text/plain", t.dataset.n); });
+      });
+      slots.forEach(function (sl) {
+        sl.addEventListener("click", function () {
+          if (sel) place(sl, sel.dataset.n);
+          else if (sl.dataset.tok) {
+            var old = node.querySelector('.tok[data-n="' + sl.dataset.tok + '"]');
+            if (old) old.classList.remove("used");
+            delete sl.dataset.tok; sl.textContent = "thả vào đây"; sl.className = "slot";
+          }
+        });
+        sl.addEventListener("dragover", function (e) { e.preventDefault(); sl.classList.add("over"); });
+        sl.addEventListener("dragleave", function () { sl.classList.remove("over"); });
+        sl.addEventListener("drop", function (e) {
+          e.preventDefault(); sl.classList.remove("over");
+          place(sl, e.dataTransfer.getData("text/plain"));
+        });
+      });
+      node.querySelector(".js-check").addEventListener("click", function () {
+        var all = true, done = 0;
+        slots.forEach(function (sl) {
+          if (!sl.dataset.tok) { all = false; return; }
+          done++;
+          var ok = +sl.dataset.tok === +sl.dataset.n;
+          sl.className = "slot fill " + (ok ? "right" : "wrong");
+          if (!ok) all = false;
+        });
+        if (done < slots.length) {
+          fb2.className = "fb on bad";
+          fb2.innerHTML = "<b>Chưa ghép đủ.</b>Hãy ghép hết các cặp rồi kiểm tra lại.";
+          return;
+        }
+        fb2.className = "fb on " + (all ? "good" : "bad");
+        fb2.innerHTML = "<b>" + (all ? "Ghép đúng toàn bộ." : "Còn cặp ghép sai.") + "</b>" + esc(s.explain);
+        mark(i, all);
+      });
+      node.querySelector(".js-reset").addEventListener("click", function () {
+        slots.forEach(function (sl) { delete sl.dataset.tok; sl.textContent = "thả vào đây"; sl.className = "slot"; });
+        toks.forEach(function (t) { t.classList.remove("used", "sel"); });
+        sel = null; fb2.className = "fb"; mark(i, null);
+      });
+    }
+
+    if (s.layout === "question") {
+      var ta = node.querySelector(".ta"), key = "ls-" + (meta.title || "") + "-" + i;
+      try { ta.value = localStorage.getItem(key) || ""; } catch (e) { }
+      ta.addEventListener("input", function () { try { localStorage.setItem(key, ta.value); } catch (e) { } });
+    }
+
+    if (s.layout === "practice") {
+      node.querySelectorAll(".task input").forEach(function (c) {
+        c.addEventListener("change", function () { c.closest(".task").classList.toggle("done", c.checked); });
+      });
+    }
+  });
+
+  function fillResults() {
+    var n = stage.querySelector('[data-results="1"]');
+    if (!n) return;
+    var ok = graded.filter(function (g) { return g.state === true; }).length;
+    n.querySelector(".js-big").textContent = ok + "/" + graded.length;
+    n.querySelector(".js-rows").innerHTML = graded.map(function (g) {
+      var c = g.state === true ? "ok" : g.state === false ? "no" : "na";
+      var m = g.state === true ? "✓" : g.state === false ? "✕" : "–";
+      return '<div class="r"><span class="s ' + c + '">' + m + "</span><span>" + esc(g.title) + "</span></div>";
+    }).join("") || '<div class="r"><span>Bài giảng này chưa có câu hỏi chấm điểm.</span></div>';
+  }
+
+  /* ---------- điều hướng ---------- */
+  var bar = document.getElementById("bar"), pos = document.getElementById("pos");
+  var notes = document.getElementById("notes"), grid = document.getElementById("grid");
+
+  function show(n) {
+    cur = Math.max(0, Math.min(nodes.length - 1, n));
+    nodes.forEach(function (x, k) { x.classList.toggle("on", k === cur); });
+    bar.style.width = ((cur + 1) / nodes.length * 100) + "%";
+    pos.textContent = (cur + 1) + " / " + nodes.length;
+    var s = slides[cur] || {}, mk = marks[cur] || { m: 0 };
+    notes.innerHTML = "<h5>Kịch bản giảng viên" +
+      (s.phase ? " · " + esc(PHASE[s.phase] || s.phase) : "") +
+      (mk.m ? " · " + mk.m + " phút (mốc " + mk.from + "→" + mk.to + " / " + planTotal + ")" : "") +
+      "</h5>" + (s.notes ? esc(s.notes) : "<em style='opacity:.5'>(slide tổng hợp, không có kịch bản)</em>");
+    if (s.layout === "results") fillResults();
+    if (location.hash !== "#" + (cur + 1)) history.replaceState(null, "", "#" + (cur + 1));
+    grid.querySelectorAll(".g").forEach(function (g, k) { g.classList.toggle("cur", k === cur); });
+  }
+
+  grid.innerHTML = slides.map(function (s, k) {
+    return '<div class="g" data-k="' + k + '"><div class="gi">' + (k + 1) +
+      (marks[k].m ? '<span class="gm">' + marks[k].m + "′</span>" : "") +
+      '</div><div class="gt">' + esc(s.title || s.layout) + '</div><div class="gp">' +
+      esc(PHASE[s.phase] || "") + "</div></div>";
+  }).join("");
+  grid.querySelectorAll(".g").forEach(function (g) {
+    g.addEventListener("click", function () { show(+g.dataset.k); grid.classList.remove("on"); });
+  });
+
+  function fit() {
+    document.documentElement.style.setProperty("--scale",
+      Math.min(innerWidth / 1280, innerHeight / 720) *
+      (document.body.classList.contains("shot") ? 1 : 0.96));
+  }
+  addEventListener("resize", fit);
+
+  /* đồng hồ tiết dạy */
+  var clock = document.getElementById("clock"), t0 = 0, held = 0, run = false;
+  function two(n) { return (n < 10 ? "0" : "") + n; }
+  function elapsed() { return run ? held + Math.floor((Date.now() - t0) / 1000) : held; }
+  function tick() {
+    var e = elapsed(), mk = marks[cur] || { to: 0 };
+    clock.textContent = two(Math.floor(e / 60)) + ":" + two(e % 60) + " / " + mk.to + "′";
+    clock.className = (run ? "run" : "") + (mk.to && e > mk.to * 60 ? " over" : "");
+  }
+  function toggle() {
+    if (run) { held = elapsed(); run = false; } else { t0 = Date.now(); run = true; }
+    tick();
+  }
+  setInterval(tick, 500); tick();
+  clock.addEventListener("click", toggle);
+
+  document.addEventListener("keydown", function (e) {
+    if (e.target.tagName === "TEXTAREA") return;
+    if (e.key === "t" || e.key === "T") return toggle();
+    if (e.key === "r" || e.key === "R") { held = 0; t0 = Date.now(); return tick(); }
+    if (e.key === "ArrowRight" || e.key === "PageDown" || e.key === " ") { show(cur + 1); e.preventDefault(); }
+    else if (e.key === "ArrowLeft" || e.key === "PageUp") { show(cur - 1); e.preventDefault(); }
+    else if (e.key === "Home") show(0);
+    else if (e.key === "End") show(nodes.length - 1);
+    else if (e.key === "n" || e.key === "N") notes.classList.toggle("on");
+    else if (e.key === "o" || e.key === "O" || e.key === "Escape") grid.classList.toggle("on");
+  });
+  document.getElementById("prev").addEventListener("click", function () { show(cur - 1); });
+  document.getElementById("next").addEventListener("click", function () { show(cur + 1); });
+  document.getElementById("tn").addEventListener("click", function () { notes.classList.toggle("on"); });
+  document.getElementById("tg").addEventListener("click", function () { grid.classList.toggle("on"); });
+
+  if (new URLSearchParams(location.search).get("shot") === "1") document.body.classList.add("shot");
+  fit();
+  show(Math.max(0, (parseInt(location.hash.replace("#", ""), 10) || 1) - 1));
+
+  window.__deck = {
+    show: show, count: nodes.length, graded: graded, slides: slides, marks: marks,
+    planTotal: planTotal, ready: true,
+    node: function (i) { return nodes[i]; }, cur: function () { return cur; },
+    clock: function () { tick(); return { text: clock.textContent, cls: clock.className, sec: elapsed() }; }
+  };
+})();
+
+</script>
+</body>
+</html>

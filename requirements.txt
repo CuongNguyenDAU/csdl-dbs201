@@ -1,0 +1,3 @@
+# Toàn bộ phụ thuộc của site gói gọn trong một dòng.
+# mkdocs-material tự kéo theo mkdocs, pymdown-extensions, pygments, jinja2.
+mkdocs-material>=9.5,<10

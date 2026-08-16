@@ -1,0 +1,190 @@
+/* Học liệu CSDL — hệ màu lấy đúng theo bộ slide bài giảng để hai sản phẩm
+   nhìn cùng một nhà. Màu nhấn đỏ đô của Trường. */
+
+:root {
+  --hl-brand: #A63A3A;
+  --hl-deep: #7E2B2B;
+  --hl-tint: #F6EEEC;
+  --hl-tintline: #E6D3D0;
+  --hl-ok: #1E7A4B;
+  --hl-okbg: #EAF6EF;
+  --hl-bad: #B3261E;
+  --hl-badbg: #FCEEED;
+
+  --md-primary-fg-color: #A63A3A;
+  --md-primary-fg-color--light: #C25C5C;
+  --md-primary-fg-color--dark: #7E2B2B;
+  --md-accent-fg-color: #7E2B2B;
+}
+
+[data-md-color-scheme="slate"] {
+  --hl-tint: #33272A;
+  --hl-tintline: #55393C;
+  --hl-okbg: #16301F;
+  --hl-badbg: #351D1B;
+  --md-primary-fg-color: #C25C5C;
+  --md-accent-fg-color: #E08585;
+}
+
+.md-typeset h1,
+.md-typeset h2 { font-weight: 700; letter-spacing: -0.01em; }
+
+/* Sơ đồ mermaid rộng thì cho cuộn ngang thay vì tràn ra ngoài */
+.md-typeset .mermaid { overflow-x: auto; }
+
+/* Sơ đồ ở nền tối.
+   Material dựng SVG mermaid bên trong một shadow DOM ĐÓNG, nên mọi bộ chọn kiểu
+   `.mermaid text {…}` đều không với tới được. Chỉ có biến CSS là xuyên qua ranh
+   giới shadow, vì biến tùy chỉnh vẫn kế thừa. Vì vậy phải chỉnh đúng bộ biến
+   --md-mermaid-* của Material chứ không chỉnh phần tử.
+
+   Cần chỉnh vì nguồn bài giảng ghi cứng màu nền sáng cho từng nút
+   (style E fill:#D9E2F3). Ở nền tối, Material đổi màu chữ thành sáng nhưng nền
+   nút vẫn bị style đè giữ màu sáng — thành ra chữ trắng trên nền xanh nhạt.
+   Giữ chữ màu mực để đọc được, và lót nền trắng dưới cả sơ đồ cho đồng bộ. */
+[data-md-color-scheme="slate"] {
+  --md-mermaid-label-fg-color: #1F1F22;
+  --md-mermaid-node-fg-color: #1F1F22;
+  --md-mermaid-label-bg-color: #ffffff;
+  --md-mermaid-node-bg-color: #D9E2F3;
+  --md-mermaid-edge-color: #4A4A50;
+}
+[data-md-color-scheme="slate"] .md-typeset .mermaid {
+  background: #fff;
+  border-radius: 4px;
+  padding: 0.6rem 0.4rem;
+}
+
+/* Bảng nhiều cột cũng vậy — bài giảng có bảng 7 cột */
+.md-typeset__table { overflow-x: auto; }
+.md-typeset table td { overflow-wrap: anywhere; }
+
+/* Slide nhúng, giữ đúng tỷ lệ 16:9 */
+.hl-slide {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-radius: 6px;
+  margin: 0.6rem 0 1.4rem;
+}
+
+/* ---------- khối tương tác dùng chung ---------- */
+.hl-quiz, .hl-cards, .hl-check { margin: 1rem 0 2rem; }
+
+.hl-loading {
+  padding: 1rem; text-align: center;
+  color: var(--md-default-fg-color--light); font-style: italic;
+}
+
+/* ---------- trắc nghiệm ---------- */
+.hl-q {
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-left: 4px solid var(--hl-brand);
+  border-radius: 6px; padding: 0.9rem 1.1rem; margin-bottom: 1rem;
+  background: var(--md-default-bg-color);
+}
+.hl-q-head {
+  display: flex; gap: 0.5rem; align-items: baseline;
+  font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--md-default-fg-color--light); margin-bottom: 0.35rem;
+}
+.hl-badge {
+  background: var(--hl-tint); color: var(--hl-deep);
+  padding: 0.05rem 0.4rem; border-radius: 3px; font-weight: 700;
+}
+[data-md-color-scheme="slate"] .hl-badge { color: #E8B4B4; }
+.hl-q-text { font-weight: 600; margin-bottom: 0.7rem; }
+.hl-q-text code { font-weight: 400; }
+
+.hl-opt {
+  display: flex; gap: 0.6rem; align-items: flex-start; width: 100%;
+  text-align: left; cursor: pointer; font: inherit; color: inherit;
+  background: var(--md-code-bg-color); border: 1px solid transparent;
+  border-radius: 5px; padding: 0.5rem 0.7rem; margin-bottom: 0.4rem;
+  transition: background 0.15s, border-color 0.15s;
+}
+.hl-opt:hover:not(.hl-lock) { border-color: var(--hl-brand); }
+.hl-opt .hl-key {
+  flex: 0 0 1.35rem; height: 1.35rem; border-radius: 50%;
+  background: var(--md-default-fg-color--lightest);
+  display: grid; place-items: center; font-weight: 700; font-size: 0.7rem;
+}
+.hl-opt.hl-pick { border-color: var(--hl-brand); background: var(--hl-tint); }
+.hl-opt.hl-pick .hl-key { background: var(--hl-brand); color: #fff; }
+.hl-opt.hl-right { border-color: var(--hl-ok); background: var(--hl-okbg); }
+.hl-opt.hl-right .hl-key { background: var(--hl-ok); color: #fff; }
+.hl-opt.hl-wrong { border-color: var(--hl-bad); background: var(--hl-badbg); }
+.hl-opt.hl-wrong .hl-key { background: var(--hl-bad); color: #fff; }
+.hl-opt.hl-lock { cursor: default; }
+
+.hl-row { display: flex; gap: 0.5rem; margin-top: 0.6rem; flex-wrap: wrap; }
+.hl-btn {
+  font: inherit; font-size: 0.75rem; font-weight: 700; cursor: pointer;
+  background: var(--hl-brand); color: #fff; border: 1px solid var(--hl-brand);
+  border-radius: 5px; padding: 0.35rem 0.9rem;
+}
+.hl-btn:hover { background: var(--hl-deep); border-color: var(--hl-deep); }
+.hl-btn.hl-ghost { background: transparent; color: var(--hl-brand); }
+[data-md-color-scheme="slate"] .hl-btn.hl-ghost { color: #E08585; }
+
+.hl-fb {
+  display: none; margin-top: 0.7rem; padding: 0.7rem 0.9rem;
+  border-radius: 5px; font-size: 0.78rem; line-height: 1.6;
+}
+.hl-fb.hl-on { display: block; }
+.hl-fb.hl-good { background: var(--hl-okbg); border-left: 4px solid var(--hl-ok); }
+.hl-fb.hl-bad { background: var(--hl-badbg); border-left: 4px solid var(--hl-bad); }
+.hl-fb b { display: block; margin-bottom: 0.25rem; }
+
+.hl-score {
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-radius: 6px; padding: 0.8rem 1.1rem; margin-top: 1rem;
+  background: var(--hl-tint); font-weight: 600;
+}
+.hl-score .hl-num { font-size: 1.5rem; color: var(--hl-deep); }
+[data-md-color-scheme="slate"] .hl-score .hl-num { color: #E8B4B4; }
+
+/* ---------- thẻ lật ---------- */
+.hl-cards-grid {
+  display: grid; gap: 0.7rem;
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+}
+.hl-card {
+  perspective: 900px; cursor: pointer; min-height: 8rem;
+  background: none; border: 0; padding: 0; font: inherit; color: inherit;
+}
+.hl-card-inner {
+  position: relative; width: 100%; height: 100%; min-height: 8rem;
+  transition: transform 0.45s; transform-style: preserve-3d;
+}
+.hl-card.hl-flip .hl-card-inner { transform: rotateY(180deg); }
+.hl-card-face {
+  position: absolute; inset: 0; backface-visibility: hidden;
+  border-radius: 6px; padding: 0.9rem; display: grid; place-items: center;
+  text-align: center; border: 1px solid var(--md-default-fg-color--lightest);
+}
+.hl-card-front { background: var(--hl-tint); font-weight: 700; }
+.hl-card-back {
+  background: var(--md-code-bg-color); transform: rotateY(180deg);
+  font-size: 0.72rem; line-height: 1.55; align-content: center;
+}
+
+/* ---------- tự đánh giá ---------- */
+.hl-check-row {
+  display: flex; gap: 0.7rem; align-items: flex-start;
+  padding: 0.55rem 0.8rem; border-radius: 5px; cursor: pointer;
+  border: 1px solid var(--md-default-fg-color--lightest); margin-bottom: 0.4rem;
+}
+.hl-check-row:hover { border-color: var(--hl-brand); }
+.hl-check-row input { margin-top: 0.25rem; accent-color: var(--hl-brand); }
+.hl-check-row.hl-done { background: var(--hl-okbg); border-color: var(--hl-ok); }
+.hl-clo {
+  margin-left: auto; flex: 0 0 auto; font-size: 0.62rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.06em; color: var(--hl-deep);
+  background: var(--hl-tint); padding: 0.1rem 0.4rem; border-radius: 3px;
+}
+[data-md-color-scheme="slate"] .hl-clo { color: #E8B4B4; }
+
+@media print {
+  .hl-opt, .hl-btn, .hl-card { break-inside: avoid; }
+}

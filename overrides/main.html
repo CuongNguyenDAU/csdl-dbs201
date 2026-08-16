@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{#
+  Material nạp mermaid từ https://unpkg.com/mermaid@11 — mạng trường chặn CDN
+  là toàn bộ sơ đồ biến mất. Nạp bản tự chứa trong site thay thế.
+
+  Bộ nạp của Material kiểm tra `typeof mermaid == "undefined"` rồi mới gọi CDN,
+  nên chỉ cần định nghĩa biến toàn cục trước khi bundle chạy là nó dùng luôn
+  bản của mình. Thẻ script đặt trước {{ super() }} nên chắc chắn chạy trước.
+
+  Chỉ nạp ở trang thật sự có sơ đồ — tệp nặng 3,5 MB, không bắt trang nào cũng tải.
+#}
+{% block scripts %}
+  {% if page and page.content and 'class="mermaid"' in page.content %}
+    <script src="{{ 'assets/mermaid.min.js' | url }}"></script>
+  {% endif %}
+  {{ super() }}
+{% endblock %}

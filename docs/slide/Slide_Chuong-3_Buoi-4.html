@@ -1,0 +1,643 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mô hình dữ liệu quan hệ</title>
+<style>
+/* Bản HTML tương tác — cùng hệ màu với bản .pptx (mẫu DAU).
+   Sân khấu logic 1280x720 (13.333x7.5in @96dpi), scale theo cửa sổ. 1pt = 1.3333px */
+:root {
+  --brand:#A63A3A; --deep:#7E2B2B; --tint:#F6EEEC; --tintline:#E6D3D0;
+  --card:#FBFAF9; --line:#E5E2DF; --ink:#1F1F22; --ink2:#4A4A50; --ink3:#7A7674;
+  --ok:#1E7A4B; --okbg:#EAF6EF; --bad:#B3261E; --badbg:#FCEEED;
+  --font:Arial,"Segoe UI",Helvetica,sans-serif; --scale:1;
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:#2A2A2E;font-family:var(--font);color:var(--ink);overflow:hidden}
+
+#wrap{position:fixed;inset:0;display:grid;place-items:center}
+#stage{width:1280px;height:720px;background:#fff;position:relative;
+  transform:scale(var(--scale));transform-origin:center;box-shadow:0 18px 60px rgba(0,0,0,.45);overflow:hidden}
+
+.slide:not(.on){display:none!important}
+.slide{position:absolute;inset:0;padding:40px 86px 0}
+.slide.on{display:block}
+
+/* ---- khung chung ---- */
+.hd{display:flex;align-items:center;justify-content:space-between;gap:24px}
+.hd h2{font-size:37px;font-weight:700;margin:0;line-height:1.15}
+.chip{flex:0 0 auto;background:var(--tint);color:var(--deep);font-size:17px;font-weight:700;
+  padding:7px 15px;border-radius:18px;white-space:nowrap}
+.rule{position:relative;height:1px;background:var(--line);margin-top:16px}
+.rule::before{content:"";position:absolute;left:0;top:-2px;width:110px;height:4px;background:var(--brand)}
+.body{padding-top:22px}
+.ft{position:absolute;left:86px;right:86px;bottom:24px;display:flex;justify-content:space-between;
+  font-size:12px;color:var(--ink3)}
+.lead{font-size:20px;color:var(--ink3);margin:0 0 14px}
+.note{position:relative;background:var(--tint);border-radius:6px;padding:13px 18px 13px 22px;
+  font-size:20px;color:var(--ink2);margin-top:18px}
+.note::before{content:"";position:absolute;left:0;top:10px;bottom:10px;width:6px;background:var(--brand);border-radius:3px 0 0 3px}
+
+/* ---- title / edge ---- */
+.edge::before{content:"";position:absolute;left:0;top:0;width:19px;height:100%;background:var(--brand)}
+.edge::after{content:"";position:absolute;left:19px;top:0;width:4px;height:100%;background:var(--tint)}
+.slide.title{display:flex;flex-direction:column;justify-content:center;padding:0 86px 0 120px}
+.title .tlogo{width:96px;height:96px;object-fit:contain;background:#fff;
+  border:1px solid var(--tintline,#E6D3D0);padding:10px;margin-bottom:22px}
+.title .org{font-size:16px;font-weight:700;color:var(--brand);letter-spacing:.6px}
+.title h1{font-size:48px;font-weight:700;margin:14px 0 0;line-height:1.15}
+.title .bar{width:163px;height:6px;background:var(--brand);margin:22px 0 20px}
+.title .sub{font-size:32px;color:var(--ink2)}
+.title .who{border-left:3px solid var(--tintline);padding-left:16px;margin-top:30px;font-size:20px;color:var(--ink3)}
+
+/* ---- objectives ---- */
+.goal{display:flex;align-items:center;gap:16px;background:var(--card);border-radius:8px;padding:12px 20px;margin-bottom:10px}
+.goal .n{flex:0 0 42px;height:42px;border-radius:50%;background:var(--brand);color:#fff;
+  display:grid;place-items:center;font-size:16px;font-weight:700}
+.goal .tx b{font-size:24px;display:block}
+.goal .tx span{font-size:19px;color:var(--ink2)}
+.goal .tag{margin-left:auto;flex:0 0 auto;color:var(--deep);font-size:15px;font-weight:700;white-space:nowrap}
+
+/* ---- bullets ---- */
+.pt{display:flex;gap:16px;margin-bottom:16px}
+.pt .d{flex:0 0 10px;height:10px;border-radius:2px;background:var(--brand);margin-top:11px}
+.pt span{font-size:27px;line-height:1.3}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:42px}
+.panel{background:var(--card);border-radius:8px;overflow:hidden}
+.panel .ph{background:var(--tint);border-bottom:2px solid var(--tintline);padding:14px 22px;
+  font-size:21px;font-weight:700;color:var(--deep);text-transform:uppercase;letter-spacing:.6px}
+.panel .pb{padding:16px 22px}
+.panel .pt span{font-size:24px}
+
+/* ---- image-text ---- */
+.figsplit{display:grid;grid-template-columns:1.5fr 1fr;gap:40px;align-items:start}
+.fig img{max-width:100%;max-height:370px;border:1px solid var(--line);border-radius:6px}
+.figbox{width:100%;height:340px;background:var(--card);border:1px dashed var(--tintline);
+  border-radius:6px;display:grid;place-items:center;color:var(--ink3);font-size:20px}
+.cap{font-size:20px;color:var(--ink2);margin-top:12px}
+.src{font-size:16px;color:var(--ink3);margin-top:4px}
+.subhead{font-size:20px;font-weight:700;color:var(--deep);letter-spacing:.8px}
+.subhead+.ul{width:72px;height:4px;background:var(--tintline);margin:8px 0 18px}
+
+/* ---- diagram ---- */
+.flow{display:flex;align-items:stretch;gap:14px;margin-top:26px}
+.flow .st{flex:1;background:var(--card);border-radius:8px;border-top:5px solid var(--brand);
+  padding:18px 16px;text-align:center}
+.flow .st .n{width:44px;height:44px;border-radius:50%;background:var(--brand);color:#fff;
+  display:grid;place-items:center;font-size:20px;font-weight:700;margin:0 auto 12px}
+.flow .st b{font-size:24px;display:block;margin-bottom:8px}
+.flow .st span{font-size:19px;color:var(--ink3)}
+.flow .ar{align-self:center;color:var(--tintline);font-size:34px;font-weight:700}
+
+/* ---- question / quiz ---- */
+.q{position:relative;background:var(--tint);border-radius:8px;padding:18px 22px 18px 26px;
+  font-size:29px;font-weight:700;line-height:1.3;margin-bottom:18px}
+.q::before{content:"";position:absolute;left:0;top:12px;bottom:12px;width:6px;background:var(--brand);border-radius:3px 0 0 3px}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.opt{display:flex;align-items:center;gap:16px;background:var(--card);border:2px solid transparent;
+  border-radius:8px;padding:14px 18px;cursor:pointer;font-size:24px;text-align:left;width:100%;
+  font-family:var(--font);color:var(--ink)}
+.opt:hover:not(.lock){background:var(--tint)}
+.opt .k{flex:0 0 42px;height:42px;border-radius:50%;background:#fff;border:2px solid var(--tintline);
+  display:grid;place-items:center;font-weight:700;font-size:20px;color:var(--deep)}
+.opt.pick{border-color:var(--brand);background:var(--tint)}
+.opt.right{border-color:var(--ok);background:var(--okbg)}
+.opt.right .k{border-color:var(--ok);color:var(--ok)}
+.opt.wrong{border-color:var(--bad);background:var(--badbg)}
+.opt.wrong .k{border-color:var(--bad);color:var(--bad)}
+.opt.lock{cursor:default}
+.fb{margin-top:16px;border-radius:8px;padding:14px 20px;font-size:22px;line-height:1.45;display:none}
+.fb.on{display:block}
+.fb.good{background:var(--okbg);border-left:5px solid var(--ok)}
+.fb.bad{background:var(--badbg);border-left:5px solid var(--bad)}
+.fb b{display:block;margin-bottom:4px}
+
+.btn{font-family:var(--font);font-size:19px;font-weight:700;background:var(--brand);color:#fff;
+  border:0;border-radius:6px;padding:11px 22px;cursor:pointer}
+.btn:hover{background:var(--deep)}
+.btn.ghost{background:#fff;color:var(--deep);border:2px solid var(--tintline)}
+.row{display:flex;gap:12px;margin-top:16px}
+
+/* ---- reveal ---- */
+.rv{background:var(--card);border-radius:8px;padding:14px 20px;margin-bottom:11px;cursor:pointer;
+  border-left:4px solid var(--tintline)}
+.rv.open{border-left-color:var(--ok);background:var(--okbg)}
+.rv b{font-size:24px;display:block}
+.rv .a{display:none;margin-top:9px;font-size:21px;color:var(--ink2);line-height:1.45;
+  padding-top:9px;border-top:1px dashed var(--tintline)}
+.rv.open .a{display:block}
+.rv .h{float:right;font-size:16px;color:var(--ink3)}
+
+/* ---- match (kéo–thả) ---- */
+.match{display:grid;grid-template-columns:1.45fr 1fr;gap:30px}
+.slotrow{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.slotrow .lb{flex:1;font-size:21px}
+.slot{flex:0 0 210px;min-height:46px;border:2px dashed var(--tintline);border-radius:6px;
+  display:grid;place-items:center;font-size:18px;color:var(--ink3);background:var(--card);padding:6px 10px;cursor:pointer}
+.slot.fill{border-style:solid;background:var(--tint);color:var(--deep);font-weight:700}
+.slot.over{border-color:var(--brand);background:var(--tint)}
+.slot.right{border-color:var(--ok);background:var(--okbg);color:var(--ok)}
+.slot.wrong{border-color:var(--bad);background:var(--badbg);color:var(--bad)}
+.bank{display:flex;flex-wrap:wrap;gap:10px;align-content:flex-start}
+.bank::before{content:"NGÂN HÀNG ĐÁP ÁN";width:100%;font-size:15px;letter-spacing:.8px;color:var(--ink3)}
+.tok{background:var(--tint);border:2px solid var(--tintline);border-radius:6px;padding:10px 14px;
+  font-size:19px;cursor:grab;user-select:none;color:var(--deep);font-weight:700}
+.tok.sel{border-color:var(--brand);background:#fff;box-shadow:0 0 0 3px rgba(166,58,58,.18)}
+.tok.used{display:none}
+
+/* ---- practice ---- */
+.chips{display:flex;gap:12px;margin-bottom:16px;flex-wrap:wrap}
+.chips .c{background:var(--tint);color:var(--deep);font-size:18px;font-weight:700;padding:8px 16px;border-radius:6px}
+.box{background:var(--card);border-left:4px solid var(--brand);border-radius:6px;padding:14px 20px;margin-bottom:12px}
+.box h4{margin:0 0 8px;font-size:16px;letter-spacing:.8px;color:var(--deep)}
+.task{display:flex;gap:12px;align-items:flex-start;font-size:21px;color:var(--ink2);margin-bottom:8px;cursor:pointer}
+.task input{width:20px;height:20px;margin-top:4px;accent-color:var(--brand)}
+.task.done{color:var(--ink3);text-decoration:line-through}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+
+/* ---- open (thảo luận) ---- */
+.ta{width:100%;min-height:120px;border:2px solid var(--line);border-radius:8px;padding:12px 14px;
+  font-family:var(--font);font-size:21px;resize:none}
+.ta:focus{outline:none;border-color:var(--brand)}
+.hints{margin-top:14px;display:none}
+.hints .h{background:var(--card);border-left:4px solid var(--tintline);border-radius:6px;
+  padding:10px 16px;font-size:20px;color:var(--ink2);margin-bottom:8px}
+
+/* ---- results ---- */
+.score{display:grid;place-items:center;padding-top:14px}
+.score .big{font-size:84px;font-weight:700;color:var(--deep);line-height:1}
+.score .lab{font-size:21px;color:var(--ink3);margin-top:6px}
+.score .rows{width:100%;margin-top:22px}
+.score .r{display:flex;align-items:center;gap:14px;padding:9px 0;border-bottom:1px solid var(--line);font-size:20px}
+.score .s{flex:0 0 28px;height:28px;border-radius:50%;display:grid;place-items:center;color:#fff;font-size:15px;font-weight:700}
+.score .s.ok{background:var(--ok)}.score .s.no{background:var(--bad)}.score .s.na{background:#B9B5B2}
+
+/* ---- vỏ điều khiển ---- */
+#bar{position:absolute;left:0;bottom:0;height:4px;background:var(--brand);width:0;transition:width .2s;z-index:5}
+#hud{position:fixed;right:16px;bottom:14px;display:flex;gap:8px;align-items:center;font-size:13px;color:#EDEAE8;z-index:20}
+#hud button{background:rgba(255,255,255,.12);color:#fff;border:0;border-radius:5px;padding:7px 12px;font-size:13px;cursor:pointer;font-family:var(--font)}
+#hud button:hover{background:rgba(255,255,255,.25)}
+#pos{font-variant-numeric:tabular-nums;opacity:.8}
+#clock{font-variant-numeric:tabular-nums;font-weight:700;cursor:pointer;background:rgba(255,255,255,.12);
+  border-radius:5px;padding:7px 12px;opacity:.55}
+#clock.run{opacity:1;background:rgba(255,255,255,.22)}
+#clock.over{background:var(--bad);color:#fff;opacity:1}
+#notes{position:fixed;left:0;right:0;bottom:0;max-height:34vh;overflow:auto;background:#17171A;color:#E8E4E1;
+  padding:16px 26px 22px;font-size:15px;line-height:1.6;border-top:3px solid var(--brand);display:none;z-index:25}
+#notes.on{display:block}
+#notes h5{margin:0 0 6px;font-size:12px;letter-spacing:1.2px;color:#E0A9A9;text-transform:uppercase}
+#grid{position:fixed;inset:0;background:#1B1B1F;z-index:30;display:none;grid-template-columns:repeat(5,1fr);
+  gap:12px;padding:26px;overflow:auto;align-content:start}
+#grid.on{display:grid}
+#grid .g{background:#fff;border-radius:6px;padding:12px;cursor:pointer;border:3px solid transparent;min-height:88px}
+#grid .g.cur{border-color:var(--brand)}
+#grid .gi{font-size:11px;color:var(--ink3)}
+#grid .gm{float:right;font-weight:700;color:var(--brand)}
+#grid .gt{font-size:13px;font-weight:700;margin-top:4px;line-height:1.25}
+#grid .gp{font-size:10px;color:var(--brand);text-transform:uppercase;letter-spacing:.6px;margin-top:6px}
+
+body.shot #hud,body.shot #notes,body.shot #bar{display:none!important}
+body.shot{background:#fff}body.shot #stage{box-shadow:none}
+
+</style>
+</head>
+<body>
+<div id="wrap"><div id="stage"><div id="bar"></div></div></div>
+<div id="notes"></div>
+<div id="grid"></div>
+<div id="hud">
+  <span id="clock" title="Đồng hồ tiết dạy — T chạy/dừng, R đặt lại">00:00</span>
+  <span id="pos">–</span>
+  <button id="prev" title="Slide trước (←)">←</button>
+  <button id="next" title="Slide sau (→)">→</button>
+  <button id="tg" title="Tổng quan (O)">Tổng quan</button>
+  <button id="tn" title="Kịch bản giảng viên (N)">Kịch bản</button>
+</div>
+<script>window.SPEC = {"meta": {"title": "Mô hình dữ liệu quan hệ", "course": "Cơ sở dữ liệu (DBS201)", "school": "Trường Đại học Kiến trúc Đà Nẵng", "faculty": "Khoa Công nghệ Thông tin", "audience": "Sinh viên năm 2 ngành Công nghệ thông tin", "duration": 100, "lecturer": "Nguyễn Tất Phú Cường", "date": "Học kỳ 1 · Năm học 2025–2026", "footer": "Cơ sở dữ liệu  ·  Chương 3  ·  Buổi 4/4", "website": "dau.edu.vn", "source": "Bai-giang_Chuong-3_Mo-hinh-quan-he.md, mục 3.7.2 – 3.8", "objectives": [{"type": "knowledge", "bloom": "hiểu", "text": "Phân biệt kết trong với kết ngoài", "detail": "Kết trong bỏ bộ không khớp, kết ngoài giữ lại và điền rỗng"}, {"type": "knowledge", "bloom": "hiểu", "text": "Phát biểu ý nghĩa của phép chia", "detail": "Tìm đối tượng liên quan tới tất cả phần tử của tập chia"}, {"type": "skill", "bloom": "vận dụng", "text": "Dùng kết ngoài để dò khóa ngoại mồ côi", "detail": "Kết ngoài trái rồi lọc các dòng có cột bên phải rỗng"}, {"type": "skill", "bloom": "vận dụng", "text": "Viết biểu thức truy vấn trên lược đồ bảy bảng", "detail": "Dò từ khóa trong yêu cầu để tìm phép toán rồi ghép biểu thức"}, {"type": "attitude", "bloom": "đánh giá", "text": "Nhận ra lỗi thiếu dữ liệu xảy ra trong im lặng", "detail": "Kết trong bỏ sót bộ không khớp mà không báo lỗi nào"}]}, "slides": [{"layout": "title", "phase": "khoi-dong", "minutes": 1, "title": "Mô hình dữ liệu quan hệ", "subtitle": "Buổi 4/4 · Biến thể phép kết, phép chia và ví dụ tổng hợp", "objective": "Định vị buổi cuối trong mạch bốn buổi của chương.", "notes": "Xin chào và chúc mừng, đây là buổi cuối cùng của chương ba. Ba buổi trước đã dựng xong mô hình quan hệ, ánh xạ được lược đồ và học sáu trong tám phép toán. Buổi hôm nay lấy nốt hai phép toán còn lại rồi ráp toàn bộ ba chương lại thành một sản phẩm hoàn chỉnh trên ví dụ Trung tâm Anh ngữ ABC. Đây cũng là buổi có nhiều thời gian thực hành nhất."}, {"layout": "objectives", "phase": "khoi-dong", "minutes": 3, "title": "Mục tiêu buổi học", "objective": "Công bố tiêu chí tự đánh giá cho cuối buổi.", "notes": "Năm mục tiêu này sẽ được đối chiếu lại ở slide tóm tắt cuối buổi. Hai mục tiêu đầu thuộc phần lý thuyết, hai mục tiêu giữa là kỹ năng viết biểu thức và mục tiêu cuối là thái độ nghề nghiệp. Mục tiêu cuối cùng đáng chú ý nhất vì nó nói về loại lỗi không báo lỗi, tức là kết quả sai mà chương trình vẫn chạy bình thường."}, {"layout": "diagram", "phase": "khoi-dong", "minutes": 2, "title": "Lộ trình buổi học", "steps": [{"label": "Biến thể phép kết", "desc": "Kết trong, kết ngoài và khác biệt cốt lõi"}, {"label": "Dò khóa ngoại mồ côi", "desc": "Kết ngoài thành công cụ kiểm tra dữ liệu"}, {"label": "Phép chia", "desc": "Trả lời câu hỏi có chữ tất cả"}, {"label": "Ví dụ Trung tâm ABC", "desc": "Ráp bảy bảng rồi viết truy vấn"}], "note": "Chặng hai và chặng bốn là hai chặng nối ngược về chương trước.", "emphasis": [1], "objective": "Cho thấy trước bốn chặng và điểm rơi của buổi học.", "notes": "Bốn chặng của buổi học. Chặng một và chặng ba bổ sung nốt hai phép toán còn thiếu. Chặng hai là chặng thú vị nhất về mặt nghề nghiệp, vì ở đó đại số quan hệ không dùng để lấy dữ liệu ra mà dùng để tìm lỗi trong dữ liệu đang có. Chặng bốn dành gần một phần ba thời lượng để ráp lại toàn bộ ba chương trên cùng một bài toán."}, {"layout": "quiz", "phase": "khoi-dong", "minutes": 3, "role": "diagnostic", "title": "Nối lại mạch bài học", "question": "Phép kết tự nhiên được phân tích thành ba thao tác theo thứ tự nào?", "options": ["Chọn, rồi tích Descartes, rồi chiếu bỏ cột trùng", "Tích Descartes, chọn theo thuộc tính chung, bỏ cột trùng", "Chiếu, rồi chọn, rồi ghép hai bảng lại với nhau", "Hợp hai bảng lại rồi lọc lấy các dòng khớp nhau"], "answer": 1, "explain": "Kết tự nhiên trước hết nhân hai bảng thành mọi tổ hợp bằng tích Descartes, sau đó lọc giữ lại các tổ hợp có giá trị thuộc tính chung bằng nhau, cuối cùng chiếu bỏ bớt một trong hai cột trùng tên. Không thể chọn trước tích Descartes vì lúc đó chưa có tổ hợp nào để lọc.", "objective": "Kiểm tra nền tảng cần thiết trước khi học biến thể.", "notes": "Câu hỏi này lấy lại đúng kết luận quan trọng nhất của buổi ba. Nếu quá nửa lớp chọn sai thì phải quay lại giải thích ba bước đó trước khi đi tiếp, vì mọi biến thể sắp học đều là thay đổi ở bước thứ hai hoặc bước thứ ba. Phương án đầu tiên bẫy những ai nhớ máy móc quy tắc chọn trước chiếu sau mà không hiểu vì sao."}, {"layout": "bullets", "phase": "hinh-thanh", "minutes": 2, "title": "Kết tự nhiên chưa đủ dùng", "bullets": ["Kết tự nhiên đòi hai bảng có thuộc tính trùng tên", "Nhiều lược đồ đặt tên khác nhau cho cùng một dữ liệu", "Có yêu cầu cần ghép theo điều kiện lớn hơn hoặc khác", "Có yêu cầu cần giữ cả những dòng không tìm được bạn"], "note": "Bốn nhu cầu này sinh ra bảy biến thể của phép kết.", "emphasis": [3], "objective": "Tạo nhu cầu học các biến thể từ giới hạn của phép cơ bản.", "notes": "Kết tự nhiên rất gọn nhưng nó đặt ra ba điều kiện ngầm mà thực tế không phải lúc nào cũng thỏa. Dòng cuối cùng là dòng quan trọng nhất và cũng là dòng dẫn tới nội dung chính của buổi hôm nay. Khi hai bảng ghép lại, luôn có những dòng bên này không tìm được dòng tương ứng bên kia, và câu hỏi là nên vứt bỏ chúng hay giữ lại."}, {"layout": "two-column", "phase": "hinh-thanh", "minutes": 3, "title": "Kết trong và kết ngoài", "left": {"heading": "KẾT TRONG", "bullets": ["Chỉ giữ các bộ tìm được bạn khớp", "Bộ không khớp bị vứt bỏ lặng lẽ", "Là tên gọi chung của ba biến thể"]}, "right": {"heading": "KẾT NGOÀI", "bullets": ["Giữ cả những bộ không tìm được bạn", "Phần thiếu được điền giá trị rỗng", "Có ba dạng: trái, phải và đầy đủ"]}, "note": "Khác biệt cốt lõi nằm ở cách xử lý các bộ không khớp.", "emphasis": [1, 4], "objective": "Đặt ranh giới khái niệm trước khi đi vào từng biến thể.", "notes": "Đây là slide bản lề của cả buổi học. Bảy biến thể trong giáo trình nghe có vẻ nhiều nhưng thực ra chỉ chia làm hai họ, và ranh giới giữa hai họ chỉ nằm ở một câu hỏi duy nhất là làm gì với những bộ không khớp. Kết trong vứt bỏ, kết ngoài giữ lại. Nắm được câu này thì bảy biến thể còn lại chỉ là chi tiết kỹ thuật."}, {"layout": "bullets", "phase": "hinh-thanh", "minutes": 3, "title": "Kết bằng và kết theta", "bullets": ["Kết bằng ghép theo điều kiện bằng do người viết chỉ định", "Kết bằng giữ cả hai cột, không tự bỏ cột trùng", "Kết theta cho phép dùng lớn hơn, nhỏ hơn hoặc khác", "Cả hai đều thuộc họ kết trong, chỉ giữ bộ khớp"], "note": "Kết tự nhiên chính là kết bằng cộng thêm bước bỏ cột trùng.", "emphasis": [1], "objective": "Định vị hai biến thể kết trong theo điều kiện ghép.", "notes": "Kết bằng khác kết tự nhiên ở hai điểm. Thứ nhất là điều kiện ghép do người viết chỉ định chứ không suy ra từ tên cột, nên hai cột tên khác nhau vẫn ghép được. Thứ hai là kết quả giữ cả hai cột. Kết theta mở rộng thêm một bậc nữa khi cho phép điều kiện không phải dấu bằng, chẳng hạn ghép các lớp khai giảng sau ngày một nhân sự vào làm."}, {"layout": "bullets", "phase": "hinh-thanh", "minutes": 2, "title": "Ba dạng kết ngoài", "bullets": ["Kết ngoài trái giữ mọi bộ của bảng bên trái", "Kết ngoài phải giữ mọi bộ của bảng bên phải", "Kết ngoài đầy đủ giữ mọi bộ của cả hai bảng", "Phần không khớp luôn được điền giá trị rỗng"], "note": "Kết ngoài trái là dạng gặp nhiều nhất trong thực tế.", "emphasis": [3], "objective": "Phân biệt ba dạng kết ngoài theo phía được bảo toàn.", "notes": "Ba dạng này chỉ khác nhau ở chỗ phía nào được bảo toàn trọn vẹn. Trên thực tế kết ngoài trái được dùng nhiều nhất vì người viết truy vấn thường đặt bảng chính bên trái rồi bổ sung thông tin từ bảng phụ bên phải. Dòng cuối cùng là điểm cần nhớ kỹ, vì giá trị rỗng đó chính là thứ sẽ được khai thác ở chặng tiếp theo."}, {"layout": "bullets", "phase": "hinh-thanh", "minutes": 3, "title": "Bỏ sót trong im lặng", "bullets": ["Yêu cầu liệt kê lớp kèm người phụ trách nghe rất bình thường", "Kết trong sẽ bỏ mất các lớp chưa phân người phụ trách", "Số lớp đang mở đếm ra thiếu mà không báo lỗi nào", "Đúng kiểu lỗi nguy hiểm đã bàn tới ở chương một"], "note": "Kết quả sai nhưng chương trình vẫn chạy trơn tru.", "emphasis": [2], "objective": "Gắn lựa chọn kỹ thuật với hậu quả nghiệp vụ thật.", "notes": "Đây là chỗ một lựa chọn kỹ thuật tưởng nhỏ lại gây hậu quả nghiệp vụ thật. Người quản lý cầm bản báo cáo trên tay không có cách nào biết là nó đang thiếu, vì không có thông báo lỗi nào cả và con số vẫn trông rất hợp lý. Loại lỗi im lặng này nguy hiểm hơn hẳn loại lỗi làm chương trình dừng, vì lỗi dừng thì ai cũng thấy còn lỗi này thì không."}, {"layout": "reveal", "phase": "luyen-tap", "minutes": 3, "title": "Kết trong hay kết ngoài", "prompt": "Đọc từng yêu cầu rồi quyết định dùng phép nào.", "items": [{"q": "Liệt kê các lớp đã có người phụ trách", "a": "Kết trong là đủ, vì lớp chưa phân người phụ trách không thuộc phạm vi yêu cầu"}, {"q": "Đếm tổng số lớp đang mở kèm tên người phụ trách", "a": "Kết ngoài trái, nếu dùng kết trong thì con số đếm ra sẽ thiếu các lớp chưa phân công"}, {"q": "Tìm các lớp mang mã người phụ trách không tồn tại", "a": "Kết ngoài trái rồi lọc lấy dòng có cột bên phải rỗng, đúng kỹ thuật của chặng sau"}], "objective": "Luyện phản xạ đọc yêu cầu để chọn đúng loại kết.", "notes": "Ba yêu cầu này khác nhau rất ít về câu chữ nhưng khác hẳn về phép toán. Hãy cho lớp trả lời từng câu rồi mới mở đáp án. Điểm cần rút ra là từ khóa quyết định nằm ở chỗ yêu cầu có bao hàm những dòng chưa liên kết hay không. Câu thứ ba dẫn thẳng sang nội dung tiếp theo nên đừng giải thích sâu vội."}, {"layout": "bullets", "phase": "hinh-thanh", "minutes": 2, "title": "Khóa ngoại mồ côi", "bullets": ["Khóa ngoại trỏ tới một giá trị không tồn tại bên bảng cha", "Ràng buộc tham chiếu chỉ có tác dụng nếu đã được khai báo", "Cơ sở dữ liệu cũ thường chưa khai báo ràng buộc nào", "Nạp dữ liệu hàng loạt cũng có thể đi vòng qua kiểm tra"], "note": "Ràng buộc chưa khai báo thì hệ quản trị không tự bảo vệ.", "emphasis": [0], "objective": "Nêu vấn đề dữ liệu bẩn còn tồn tại trong thực tế.", "notes": "Buổi hai đã học ràng buộc toàn vẹn tham chiếu và mọi người đều nghĩ vấn đề đã được giải quyết. Nhưng ràng buộc chỉ là một lời khai báo, và nếu nó chưa được khai báo thì hệ quản trị không kiểm gì cả. Hai dòng cuối nêu đúng hai tình huống hay gặp nhất trong nghề, đặc biệt là khi tiếp quản một hệ thống do người khác để lại."}, {"layout": "bullets", "phase": "hinh-thanh", "minutes": 2, "title": "Đại số quan hệ đi dò lỗi", "bullets": ["Đại số quan hệ không chỉ dùng để lấy dữ liệu ra", "Nó còn dùng để kiểm tra chất lượng dữ liệu đang có", "Câu hỏi cần trả lời là làm sao tìm ra dòng mồ côi", "Lời giải chỉ cần hai phép toán đã học từ trước"], "note": "Không cần công cụ mới, chỉ cần ghép lại thứ đã có.", "emphasis": [3], "objective": "Mở rộng vai trò của đại số quan hệ sang kiểm tra dữ liệu.", "notes": "Đây là chỗ đại số quan hệ đổi vai. Từ một công cụ để lấy dữ liệu ra, nó trở thành công cụ kiểm tra chất lượng dữ liệu. Điều đáng nói là lời giải không cần thêm bất cứ phép toán mới nào, chỉ cần ghép hai phép đã có theo đúng thứ tự. Đây cũng là minh chứng rất rõ cho tính đóng kín đã học ở buổi ba."}, {"layout": "image-text", "phase": "hinh-thanh", "minutes": 3, "title": "Dò mồ côi bằng hai bước", "image": "hinh-ve/Chuong-3_Mo-hinh-quan-he_hinh08_d346c599.png", "caption": "Hình 3.8. Dùng kết ngoài trái để phát hiện khóa ngoại mồ côi", "source": "Bài giảng Chương 3, mục 3.7.3", "bullets": ["Bước một là kết ngoài trái để giữ mọi lớp", "Bước hai là lọc dòng có cột bên phải rỗng", "Kết quả là danh sách các mã đang trỏ sai"], "emphasis": [2], "objective": "Trình bày quy trình hai bước để dò lỗi tham chiếu.", "notes": "Sơ đồ chỉ có hai bước tính toán và một ô kết quả. Bước một cố tình giữ lại những dòng mà kết trong sẽ vứt đi, chính là những dòng khả nghi. Bước hai lọc lấy đúng chúng. Cả quy trình viết ra chỉ là một biểu thức một dòng, và biểu thức ấy có thể chạy định kỳ như một bài kiểm tra sức khỏe cho cơ sở dữ liệu."}, {"layout": "bullets", "phase": "hinh-thanh", "minutes": 3, "title": "Vì sao cách này chạy được", "bullets": ["Kết ngoài trái giữ lại mọi dòng của bảng bên trái", "Dòng có khóa ngoại hợp lệ sẽ lấy được dữ liệu bên phải", "Dòng có khóa ngoại mồ côi không tìm được bộ khớp nào", "Cột bên phải bị điền rỗng, thành dấu hiệu nhận biết"], "note": "Giá trị rỗng ở đây là bằng chứng, không phải phiền toái.", "emphasis": [3], "objective": "Giải thích nguyên lý thay vì để sinh viên học thuộc.", "notes": "Điểm đáng học ở đây là cách đảo ngược góc nhìn. Bình thường giá trị rỗng bị coi là phiền toái cần tránh, nhưng ở đây nó lại chính là bằng chứng cần tìm. Kết ngoài trái tạo ra giá trị rỗng đúng ở những dòng có vấn đề và chỉ ở những dòng đó, nên chỉ cần lọc theo rỗng là ra danh sách lỗi."}, {"layout": "bullets", "phase": "hinh-thanh", "minutes": 3, "title": "Ví dụ: một lớp trỏ sai", "bullets": ["Bảng LOP có dòng A5 mang mã phụ trách là GV99", "Bảng GIAOVIEN không hề có dòng nào mang mã GV99", "Kết ngoài trái cho ra dòng A5 với cột họ tên rỗng", "Lọc theo cột rỗng ta được đúng dòng A5 cần sửa"], "note": "Hai dòng A1 và A2 hợp lệ nên bị loại khỏi kết quả.", "emphasis": [3], "objective": "Minh họa quy trình trên một bộ dữ liệu ba dòng.", "notes": "Bảng ví dụ trong giáo trình chỉ có ba dòng nên theo dõi bằng mắt được. Hai dòng đầu hợp lệ nên cột họ tên có giá trị, còn dòng A5 thì rỗng. Sau bước lọc chỉ còn đúng dòng A5. Trong một cơ sở dữ liệu thật với hàng chục nghìn dòng, biểu thức này vẫn viết y hệt và vẫn cho ra đúng danh sách cần sửa."}, {"layout": "bullets", "phase": "hinh-thanh", "minutes": 3, "title": "Cạm bẫy: rỗng vì hai lý do", "bullets": ["Lý do thứ nhất là mồ côi thật, mã có mà không tồn tại", "Lý do thứ hai là khóa ngoại vốn rỗng vì chưa phân công", "Trường hợp thứ hai hoàn toàn hợp lệ, không phải lỗi", "Phải thêm điều kiện mã khác rỗng vào phép chọn"], "note": "Bỏ qua chi tiết này sẽ báo nhầm hàng loạt dòng hợp lệ.", "emphasis": [3], "objective": "Chỉ ra sai sót hay gặp khi áp dụng kỹ thuật này.", "notes": "Đây là cạm bẫy mà người mới rất hay mắc. Cả hai nguyên nhân đều cho ra cột bên phải rỗng nên nhìn kết quả không phân biệt được. Nếu báo cáo tất cả thành lỗi thì hàng loạt lớp chưa phân công sẽ bị đưa vào danh sách lỗi một cách oan uổng, và người đọc báo cáo sẽ mất lòng tin vào công cụ. Chỉ cần thêm một điều kiện là xử lý xong."}, {"layout": "quiz", "phase": "luyen-tap", "minutes": 3, "title": "Kiểm tra giữa bài", "question": "Sau kết ngoài trái, nếu chỉ lọc theo cột bên phải rỗng thì kết quả gồm những gì?", "options": ["Chỉ gồm các dòng có khóa ngoại mồ côi", "Gồm cả dòng mồ côi lẫn dòng có khóa ngoại vốn rỗng", "Chỉ gồm các dòng có khóa ngoại vốn rỗng", "Không dòng nào, vì kết ngoài đã điền đủ dữ liệu"], "answer": 1, "explain": "Cột bên phải bị rỗng vì hai nguyên nhân khác nhau. Một là khóa ngoại có giá trị nhưng giá trị đó không tồn tại bên bảng cha, đây là lỗi thật. Hai là khóa ngoại vốn đã rỗng từ đầu vì chưa liên kết, đây là trạng thái hợp lệ. Muốn tách bạch phải thêm điều kiện khóa ngoại khác rỗng.", "objective": "Đo mức nắm cạm bẫy vừa nêu ngay sau khi trình bày.", "notes": "Câu này hỏi ngay sau slide cạm bẫy nên tỷ lệ đúng phải cao. Nếu nhiều người vẫn chọn phương án đầu tiên thì nghĩa là họ nhớ quy trình mà chưa hiểu nguyên nhân, cần quay lại slide trước một lần nữa. Khi chữa, nhấn mạnh rằng phương án đầu tiên chính là điều ta mong muốn, còn phương án thứ hai mới là điều thực sự xảy ra."}, {"layout": "bullets", "phase": "hinh-thanh", "minutes": 2, "title": "Câu hỏi có chữ tất cả", "bullets": ["Học viên đã ghi danh tất cả các lớp bắt buộc", "Nhà cung cấp cung cấp mọi mặt hàng trong danh mục", "Bảy phép toán đã học không diễn đạt trực tiếp được", "Phép toán thứ tám sinh ra cho đúng loại câu hỏi này"], "note": "Đây là phép toán khó nhất nhưng cũng đặc thù nhất.", "emphasis": [2], "objective": "Tạo nhu cầu học phép chia từ một lớp bài toán cụ thể.", "notes": "Hai dòng đầu là hai yêu cầu nghiệp vụ nghe rất đời thường. Hãy thử hỏi lớp xem có ai viết được bằng bảy phép đã học không, và để một chút im lặng cho mọi người thử. Cái khó nằm ở chữ tất cả, vì nó đòi kiểm tra một điều kiện trên toàn bộ một tập hợp chứ không phải trên từng dòng riêng lẻ như phép chọn."}, {"layout": "bullets", "phase": "hinh-thanh", "minutes": 3, "title": "Định nghĩa phép chia", "bullets": ["Cho quan hệ R gồm hai cột và quan hệ S gồm một cột", "R chia S cho ra các giá trị a thỏa một điều kiện", "Với mọi b thuộc S, cặp a và b đều có mặt trong R", "Cách đọc gọn là tìm a liên quan tới tất cả b"], "note": "Dòng cuối là cách đọc nên dùng khi giải bài tập.", "emphasis": [3], "objective": "Phát biểu định nghĩa kèm cách đọc thực dụng.", "notes": "Định nghĩa hình thức ở ba dòng đầu khá nặng nên đừng dừng lâu ở đó. Dòng cuối cùng mới là thứ cần nhớ và cần dùng khi làm bài. Cách đọc gọn ấy chuyển một mệnh đề logic có lượng từ với mọi thành một câu tiếng Việt bình thường, và hầu hết sinh viên chỉ hiểu được phép chia sau khi nghe cách đọc này."}, {"layout": "bullets", "phase": "hinh-thanh", "minutes": 3, "title": "Ví dụ: ai học đủ lớp bắt buộc", "bullets": ["Bảng ghi danh có sáu dòng của ba học viên", "Danh mục lớp bắt buộc gồm hai lớp A1 và A2", "Học viên thứ nhất có cả A1 và A2 nên đạt", "Học viên thứ ba có thêm A3, thừa vẫn được tính đạt", "Học viên thứ hai chỉ có A1, thiếu A2 nên bị loại"], "note": "Thừa thì không sao, chỉ thiếu mới bị loại.", "emphasis": [3, 4], "objective": "Làm rõ tiêu chí đạt qua ba trường hợp đối lập.", "notes": "Ba học viên trong ví dụ đại diện cho đúng ba tình huống có thể xảy ra. Trường hợp thứ hai của học viên thứ ba là chỗ hay bị hiểu nhầm nhất, vì nhiều người tưởng phải khớp chính xác mới đạt. Định nghĩa chỉ đòi mọi phần tử của tập chia đều có mặt, không cấm có thêm phần tử khác, nên học thêm lớp không nằm trong danh mục vẫn không sao."}, {"layout": "bullets", "phase": "hinh-thanh", "minutes": 2, "title": "Phép chia không phải phép nguyên thủy", "bullets": ["Phép chia diễn đạt được bằng các phép đã học trước", "Lần theo cách diễn đạt giúp hiểu bản chất phép toán", "Chỉ cần phép chiếu, tích Descartes và phép hiệu", "Năm bước, trong đó phép hiệu được dùng hai lần"], "note": "Phép hiệu dùng hai lần chính là điểm mấu chốt.", "emphasis": [3], "objective": "Chuẩn bị tinh thần trước khi xem quy trình năm bước.", "notes": "Nói rõ trước rằng phép chia không phải là một phép toán độc lập mà là một cách viết tắt. Điều này quan trọng vì nó giải thích luôn vì sao ngôn ngữ SQL không có toán tử chia mà vẫn làm được việc đó. Chi tiết đáng chú ý nhất là phép hiệu xuất hiện hai lần, và hai lần ấy chính là kỹ thuật sẽ bàn ngay sau đây."}, {"layout": "diagram", "phase": "hinh-thanh", "minutes": 3, "title": "Năm bước tính phép chia", "steps": [{"label": "Chiếu lấy mọi học viên", "desc": "Danh sách ứng viên ban đầu"}, {"label": "Nhân với tập chia", "desc": "Mọi cặp lý tưởng nếu ai cũng đủ"}, {"label": "Trừ đi bảng gốc", "desc": "Còn lại đúng các cặp đang thiếu"}, {"label": "Chiếu lấy người thiếu", "desc": "Ai thiếu ít nhất một lớp"}, {"label": "Trừ khỏi danh sách", "desc": "Còn lại người không thiếu lớp"}], "note": "Bước ba và bước năm đều là phép hiệu.", "emphasis": [2, 4], "objective": "Trình bày quy trình tính phép chia bằng phép cơ bản.", "notes": "Đi từng bước một trên bộ dữ liệu ba học viên vừa xem. Bước hai tạo ra sáu cặp lý tưởng, bước ba trừ đi bảng thật chỉ còn một cặp thiếu, bước bốn cho ra học viên thứ hai và bước năm loại người ấy khỏi danh sách ban đầu. Kết quả còn lại đúng hai học viên đạt. Nên viết từng tập hợp lên bảng để cả lớp theo dõi được."}, {"layout": "bullets", "phase": "hinh-thanh", "minutes": 3, "title": "Phủ định hai lần", "bullets": ["Không tìm trực tiếp ai học đủ vì rất khó diễn đạt", "Đi đường vòng là tìm ai còn thiếu rồi loại họ ra", "Kỹ thuật này xuất hiện nhiều trong logic và truy vấn", "Nhớ lối suy luận còn quan trọng hơn nhớ năm bước"], "note": "Không thiếu gì cả nghĩa là có đủ tất cả.", "emphasis": [1], "objective": "Trừu tượng hóa quy trình thành một lối tư duy dùng lại được.", "notes": "Đây là phần đáng học nhất của cả mục về phép chia, và nó vượt ra ngoài phạm vi cơ sở dữ liệu. Mệnh đề có đủ tất cả rất khó kiểm trực tiếp, nhưng mệnh đề phủ định của nó là thiếu ít nhất một lại rất dễ kiểm. Vậy nên phủ định hai lần cho ra kết quả cần tìm. Lối suy luận này sẽ gặp lại nhiều lần khi viết truy vấn phức tạp."}, {"layout": "bullets", "phase": "hinh-thanh", "minutes": 2, "title": "Dấu hiệu nhận ra bài toán chia", "bullets": ["Câu hỏi chứa các từ tất cả, mọi hoặc toàn bộ", "SQL không có toán tử chia nên phải viết lại năm bước", "Phép chia ít dùng trực tiếp nhưng rèn đúng kiểu tư duy", "Thấy từ khóa thì nghĩ ngay tới phép chia"], "note": "Từ khóa nằm ngay trong câu hỏi nghiệp vụ.", "emphasis": [0], "objective": "Chốt phép chia thành một phản xạ nhận dạng từ khóa.", "notes": "Dòng đầu tiên là thứ cần nhớ nhất. Ba từ tất cả, mọi và toàn bộ là chỉ dấu gần như chắc chắn của phép chia. Dòng thứ hai giải thích vì sao trong nghề ít khi viết phép chia trực tiếp, nhưng đó không phải lý do để bỏ qua nó, vì loại bài toán ấy vẫn xuất hiện và vẫn phải giải bằng đúng lối tư duy năm bước."}, {"layout": "image-text", "phase": "hinh-thanh", "minutes": 3, "title": "Tám phép toán, hai nhóm", "image": "hinh-ve/Chuong-3_Mo-hinh-quan-he_hinh09_4d8f9275.png", "caption": "Hình 3.9. Tám phép toán của đại số quan hệ chia thành hai nhóm", "source": "Bài giảng Chương 3, mục 3.7.5", "bullets": ["Nhóm tập hợp gồm hợp, giao, hiệu và tích Descartes", "Nhóm quan hệ gồm chọn, chiếu, kết và chia", "Ba phép đầu của nhóm một đòi điều kiện khả hợp", "Kết và chia đều không phải phép nguyên thủy"], "emphasis": [3], "objective": "Hệ thống hóa toàn bộ tám phép toán của chương.", "notes": "Đến đây bộ tám phép toán đã đủ. Nhóm thứ nhất kế thừa từ lý thuyết tập hợp có sẵn, nhóm thứ hai sinh ra riêng cho mô hình quan hệ. Dòng cuối cùng là một nhận xét đáng nhớ, vì cả hai phép toán nghe có vẻ phức tạp nhất lại đều dựng được từ những phép đơn giản hơn, đúng tinh thần tính đóng kín đã học."}, {"layout": "two-column", "phase": "hinh-thanh", "minutes": 3, "title": "Từ điển dịch yêu cầu sang phép toán", "left": {"heading": "YÊU CẦU BẰNG LỜI", "bullets": ["Kèm thông tin từ một bảng khác", "Kể cả những cái chưa có liên kết", "Tất cả, mọi, toàn bộ"]}, "right": {"heading": "PHÉP TOÁN TƯƠNG ỨNG", "bullets": ["Phép kết, ghép hai bảng lại", "Kết ngoài, để không bỏ sót", "Phép chia, câu hỏi có lượng từ"]}, "note": "Năm dòng còn lại của từ điển nằm ở hoạt động ghép nối kế tiếp.", "emphasis": [2, 5], "objective": "Cung cấp công cụ dịch yêu cầu nghiệp vụ sang biểu thức.", "notes": "Bảng từ điển trong giáo trình có tám dòng, ba dòng khó nhất nằm ở đây còn năm dòng còn lại sẽ luyện ngay bằng hoạt động ghép nối. Đây là công cụ thực dụng nhất của cả ba buổi về đại số quan hệ. Quy trình làm bài là đọc yêu cầu, dò từ khóa để tìm phép toán, rồi mới ghép biểu thức chứ không viết ngay từ đầu."}, {"layout": "match", "phase": "luyen-tap", "minutes": 4, "title": "Ghép từ khóa với phép toán", "prompt": "Ghép mỗi cụm từ trong yêu cầu với phép toán tương ứng.", "pairs": [{"left": "những dòng thỏa mãn điều kiện", "right": "Phép chọn"}, {"left": "chỉ cần danh sách tên", "right": "Phép chiếu"}, {"left": "vừa có ở A vừa có ở B", "right": "Phép giao"}, {"left": "chưa từng xuất hiện ở B", "right": "Phép hiệu"}, {"left": "gộp hai danh sách làm một", "right": "Phép hợp"}], "explain": "Cụm thỏa mãn điều kiện luôn ứng với phép chọn vì nó lọc dòng. Chỉ cần danh sách tên ứng với phép chiếu vì nó bớt cột. Vừa có ở cả hai nơi là phép giao, còn chưa từng xuất hiện là phép hiệu, và đây là cặp hay bị đổi chỗ cho nhau nhất. Gộp hai danh sách là phép hợp.", "objective": "Luyện phản xạ dò từ khóa trên năm phép toán cơ bản.", "notes": "Năm cặp này bổ sung cho ba dòng vừa xem ở bảng từ điển, cộng lại đủ tám dòng của giáo trình. Cặp hay sai nhất là phép giao và phép hiệu, vì cả hai đều nói về quan hệ giữa hai tập hợp. Mẹo phân biệt là phép giao hỏi cái gì có ở cả hai bên, còn phép hiệu hỏi cái gì chỉ có ở một bên."}, {"layout": "bullets", "phase": "van-dung", "minutes": 2, "title": "Ráp lại trên ví dụ Trung tâm ABC", "bullets": ["Đầu vào là lược đồ bảy thực thể của chương hai", "Áp bốn quy tắc ánh xạ đã học ở đầu chương ba", "Kiểm tra hai ràng buộc toàn vẹn trên từng bảng", "Rồi viết truy vấn bằng tám phép toán vừa học xong"], "note": "Cùng một bài toán đi qua đủ ba chương.", "emphasis": [3], "objective": "Định khung cho phần vận dụng tổng hợp cuối chương.", "notes": "Phần còn lại của buổi học là ráp mọi thứ lại. Điều đáng chú ý là suốt ba chương chỉ có một bài toán duy nhất được dùng, nên có thể so sánh trực tiếp thiết kế ở từng giai đoạn. Bốn dòng trên là bốn việc sẽ làm theo đúng thứ tự, và mỗi việc đều dùng lại kiến thức của một buổi đã học."}, {"layout": "image-text", "phase": "van-dung", "minutes": 3, "title": "Ánh xạ bảy thực thể", "image": "hinh-ve/Chuong-3_Mo-hinh-quan-he_hinh10_f3647a5f.png", "caption": "Hình 3.10. Ánh xạ lược đồ Chen sang tập quan hệ", "source": "Bài giảng Chương 3, mục 3.8.1", "bullets": ["Bốn thực thể mạnh cho bốn bảng theo quy tắc một", "Hai liên kết một nhiều cho hai cột khóa ngoại", "Một thực thể yếu và hai thực thể kết hợp cho ba bảng"], "emphasis": [1], "objective": "Đối chiếu từng thành phần của lược đồ với quy tắc ánh xạ.", "notes": "Sơ đồ này cho thấy đường đi từ lược đồ vẽ tay sang tập bảng. Điểm đáng nhấn là hai liên kết một nhiều không sinh ra bảng mới mà chỉ thêm hai cột vào bảng LOP, đúng quy tắc ba đã học. Đây cũng là quy tắc hay bị làm sai nhất, vì nhiều người theo phản xạ tạo thêm một bảng riêng cho mỗi liên kết."}, {"layout": "bullets", "phase": "van-dung", "minutes": 3, "title": "Bảy bảng thu được", "bullets": ["GIAOVIEN, KHOAHOC và HOCVIEN giữ khóa chính đơn", "LOP nhận thêm hai khóa ngoại là MAGV và MAKH", "DIENTHOAI có khóa phức hợp gồm mã học viên và số máy", "GHIDANH và TIENQUYET đều có khóa phức hợp hai khóa ngoại"], "note": "Bốn bảng đầu là thực thể, ba bảng sau sinh ra từ liên kết.", "emphasis": [3], "objective": "Liệt kê kết quả ánh xạ theo nhóm nguồn gốc.", "notes": "Bảy bảng chia làm hai nhóm theo nguồn gốc. Ba bảng đầu tiên đơn giản nhất vì chúng đến thẳng từ thực thể mạnh. Bảng LOP phức tạp hơn vì nó gánh thêm hai khóa ngoại. Ba bảng cuối đều có khóa phức hợp, và đó chính là dấu hiệu cho biết chúng sinh ra từ thực thể yếu hoặc từ liên kết nhiều nhiều chứ không phải từ thực thể mạnh."}, {"layout": "image-text", "phase": "van-dung", "minutes": 3, "title": "Lược đồ quan hệ hoàn chỉnh", "image": "hinh-ve/Chuong-3_Mo-hinh-quan-he_hinh11_22edad0b.png", "caption": "Hình 3.11. Lược đồ quan hệ của Trung tâm ABC gồm bảy bảng", "source": "Bài giảng Chương 3, mục 3.8.2", "bullets": ["Bảy bảng và sáu đường liên kết khóa ngoại", "Mọi bảng đều có khóa chính được ghi rõ", "Lần đầu tiên máy tính xử lý được thiết kế này"], "emphasis": [2], "objective": "Trình bày sản phẩm cuối cùng của ba chương.", "notes": "Đây là sản phẩm cuối cùng của cả ba chương đầu. Hãy dừng lại một chút cho cả lớp nhìn kỹ, đối chiếu với bản vẽ thực thể liên kết của chương hai để thấy chúng tương ứng với nhau ra sao. Dòng cuối cùng là điều đáng nói nhất, vì lược đồ này viết ra được thành lệnh tạo bảng chứ không còn là bản vẽ trên giấy."}, {"layout": "bullets", "phase": "van-dung", "minutes": 3, "title": "Kiểm tra toàn vẹn trên bảy bảng", "bullets": ["Toàn vẹn thực thể là mọi khóa chính đều không rỗng", "Toàn vẹn tham chiếu là mọi khóa ngoại đều trỏ tới bảng có thật", "Chỉ MAGV và MAKH trong LOP cần xét có được rỗng không", "Quy tắc nghiệp vụ ba và sáu trả lời là không được rỗng"], "note": "Kiểm tra này phải làm cho từng bảng, không bỏ sót bảng nào.", "emphasis": [2], "objective": "Thực hiện bước kiểm tra bắt buộc sau khi ánh xạ.", "notes": "Ánh xạ xong chưa phải là xong, còn một bước kiểm tra bắt buộc nữa. Hai dòng đầu là hai ràng buộc đã học ở buổi hai. Dòng thứ ba thu hẹp phạm vi phải suy nghĩ xuống chỉ còn hai cột, và lý do vì sao chỉ còn hai cột sẽ được nói ở slide sau. Câu trả lời cuối cùng không nằm trong lý thuyết mà nằm ở quy tắc nghiệp vụ của trung tâm."}, {"layout": "bullets", "phase": "van-dung", "minutes": 2, "title": "Quy luật rút ra", "bullets": ["Khóa ngoại đồng thời là thành phần khóa chính thì không được rỗng", "Vì toàn vẹn thực thể đã cấm khóa chính chứa giá trị rỗng", "Chỉ khóa ngoại nằm ngoài khóa chính mới cần xét quy tắc", "Ba trong bảy bảng rơi vào trường hợp thứ nhất"], "note": "Quy luật này giúp bỏ bớt việc phải suy nghĩ khi kiểm tra.", "emphasis": [0], "objective": "Rút quy luật tổng quát từ bảng đối chiếu bảy bảng.", "notes": "Đây là một quy luật nhỏ nhưng tiết kiệm rất nhiều công sức. Với các bảng có khóa phức hợp gồm toàn khóa ngoại thì không cần suy nghĩ gì cả, câu trả lời chắc chắn là không được rỗng, vì hai ràng buộc chồng lên nhau và ràng buộc chặt hơn thắng. Chỉ những khóa ngoại đứng ngoài khóa chính mới cần hỏi tới quy tắc nghiệp vụ."}, {"layout": "practice", "phase": "van-dung", "minutes": 5, "title": "Bài tập tại lớp: viết truy vấn", "requirements": ["Viết biểu thức liệt kê họ tên học viên sinh sau năm 2005", "Viết biểu thức lấy các lớp chưa có học viên nào ghi danh", "Viết biểu thức tìm học viên học đủ mọi lớp của khóa KH01"], "hints": ["Yêu cầu một chỉ cần chọn rồi chiếu", "Cụm chưa từng là dấu hiệu của phép hiệu", "Cụm đủ mọi là dấu hiệu của phép chia"], "criteria": ["Chọn đúng phép toán theo từ khóa trong yêu cầu", "Đặt phép chọn trước phép chiếu", "Ghi rõ thuộc tính dùng để chiếu và điều kiện lọc"], "objective": "Vận dụng từ điển từ khóa để viết ba biểu thức trên lược đồ thật.", "notes": "Ba yêu cầu này lấy từ bảng sáu truy vấn mẫu trong giáo trình, chọn đúng ba câu dùng ba kỹ thuật khác nhau. Nên cho làm cá nhân trong khoảng bốn phút rồi trao đổi theo cặp. Gợi ý chỉ đưa ra khi thấy có người bế tắc, vì phần khó nhất và cũng đáng luyện nhất chính là bước nhận ra từ khóa nào ứng với phép toán nào."}, {"layout": "reveal", "phase": "van-dung", "minutes": 3, "title": "Chữa ba truy vấn", "prompt": "Đối chiếu bài làm với đáp án rồi tự chấm.", "items": [{"q": "Học viên sinh sau năm 2005", "a": "Chọn theo ngày sinh lớn hơn ngày cuối năm 2005 trên bảng HOCVIEN, rồi chiếu lấy cột họ tên"}, {"q": "Lớp chưa có ai ghi danh", "a": "Lấy tập mã lớp chiếu từ bảng LOP trừ đi tập mã lớp chiếu từ bảng GHIDANH"}, {"q": "Học viên học đủ mọi lớp của khóa KH01", "a": "Chia bảng GHIDANH cho tập mã lớp lấy từ bảng LOP đã lọc theo mã khóa KH01"}], "objective": "Đối chiếu kết quả và củng cố ba kỹ thuật vừa luyện.", "notes": "Mở từng đáp án một sau khi đã gọi vài người trả lời. Câu thứ hai là chỗ hay sai nhất, vì nhiều người dùng phép kết rồi mới lọc trong khi phép hiệu cho lời giải ngắn hơn hẳn. Câu thứ ba đúng là bài toán phép chia, và cần lưu ý tập chia phải được lọc theo khóa KH01 trước chứ không phải chia cho toàn bộ bảng lớp."}, {"layout": "two-column", "phase": "cung-co", "minutes": 3, "title": "Ba chương, ba mức trưởng thành", "left": {"heading": "CÔNG CỤ ĐÃ DÙNG", "bullets": ["Chương một dùng trực giác thấy lặp thì tách", "Chương hai dùng mô hình thực thể liên kết", "Chương ba dùng mô hình quan hệ có khóa"]}, "right": {"heading": "KẾT QUẢ THU ĐƯỢC", "bullets": ["Ba bảng, không kiểm chứng được", "Bảy thực thể, đối chiếu được quy tắc", "Bảy bảng, máy tính xử lý được"]}, "note": "Dòng cuối là bước nhảy đáng kể nhất của cả ba chương.", "emphasis": [2, 5], "objective": "Nhìn lại tiến trình ba chương trên cùng một bài toán.", "notes": "Bảng này gói cả ba chương vào sáu dòng. Điểm đáng chú ý nhất nằm ở dòng cuối cùng của cột bên phải. Sau chương ba thiết kế lần đầu tiên trở thành thứ máy tính hiểu được, không còn phụ thuộc vào việc người đọc bản vẽ có hiểu đúng ý người vẽ hay không. Đó là ranh giới giữa phân tích và cài đặt."}, {"layout": "bullets", "phase": "cung-co", "minutes": 2, "title": "Phản xạ cần tập", "bullets": ["Ghép bảng mà sợ bỏ sót thì dùng kết ngoài", "Thấy chữ tất cả thì nghĩ ngay tới phép chia", "Muốn dò khóa ngoại mồ côi thì kết ngoài rồi lọc rỗng", "Gặp yêu cầu bằng lời thì dò từ khóa trước khi viết"], "note": "Bốn dòng này khép lại danh sách mười sáu phản xạ của chương ba.", "emphasis": [3], "objective": "Gói chương ba thành bộ phản xạ dùng được ngay.", "notes": "Bốn dòng cuối cùng của danh sách phản xạ, cộng với mười hai dòng ba buổi trước là mười sáu dòng cho cả chương. Dòng thứ tư là dòng bao trùm nhất vì nó mô tả đúng quy trình làm việc, tức là đọc yêu cầu và dò từ khóa trước, viết biểu thức sau. Nên khuyến khích mọi người chép cả mười sáu dòng vào một trang riêng để ôn tập."}, {"layout": "quiz", "phase": "cung-co", "minutes": 3, "title": "Quiz cuối buổi", "question": "Yêu cầu tìm nhà cung cấp có bán mọi mặt hàng trong danh mục cần dùng phép toán nào?", "options": ["Phép kết tự nhiên giữa hai bảng", "Phép giao của hai tập hợp", "Phép chia", "Kết ngoài đầy đủ"], "answer": 2, "explain": "Từ khóa quyết định là chữ mọi trong câu hỏi. Yêu cầu đòi nhà cung cấp phải liên quan tới tất cả các mặt hàng của danh mục, đúng định nghĩa phép chia. Phép giao chỉ tìm phần tử có ở cả hai tập hợp chứ không kiểm tra điều kiện với mọi, còn phép kết chỉ ghép dòng.", "objective": "Đo mức nhận dạng bài toán phép chia qua từ khóa.", "notes": "Câu chốt của buổi học và cũng là câu kiểm tra đúng phản xạ vừa nêu ở slide trước. Nếu ai đó chọn phép giao thì nên hỏi thêm rằng phép giao lấy giao của hai tập nào, vì câu hỏi đó thường đủ để họ tự nhận ra vấn đề. Nhắc lại lần cuối rằng ba từ tất cả, mọi và toàn bộ là chỉ dấu của phép chia."}, {"layout": "bullets", "phase": "cung-co", "minutes": 2, "role": "summary", "title": "Tóm tắt buổi 4", "bullets": ["Kết trong bỏ bộ không khớp, kết ngoài giữ lại và điền rỗng", "Kết ngoài trái cộng lọc rỗng dò ra khóa ngoại mồ côi", "Phép chia trả lời câu hỏi có chữ tất cả bằng phủ định hai lần", "Ví dụ ABC cho ra bảy bảng có khóa đầy đủ"], "note": "Đối chiếu bốn dòng này với slide mục tiêu ở đầu buổi.", "emphasis": [1], "objective": "Hệ thống hóa buổi học thành bốn điểm ghi nhớ.", "notes": "Bốn dòng gói lại toàn bộ buổi học. Dòng thứ hai đáng nhớ nhất vì nó là ứng dụng bất ngờ nhất của một phép toán tưởng chỉ để truy vấn. Quay lại slide mục tiêu đầu buổi và để mỗi người tự chấm xem đã đạt được mấy trên năm mục tiêu, đặc biệt là hai mục tiêu kỹ năng vốn chỉ kiểm chứng được qua bài tập vừa làm."}, {"layout": "question", "phase": "cung-co", "minutes": 3, "title": "Thảo luận: lược đồ còn thiếu gì", "question": "Bảy bảng vừa thiết kế đã chặn được học phí âm hay ngày khai giảng vô lý chưa?", "prompts": ["Hai ràng buộc hiện có đang bảo vệ điều gì", "Học phí âm vi phạm ràng buộc nào trong hai cái đó", "Vậy cần thêm loại ràng buộc nào nữa"], "objective": "Dẫn dắt tự phát hiện giới hạn của hai ràng buộc hiện có.", "notes": "Câu hỏi này để mở sang chương bốn nên đừng vội trả lời thay. Cứ để lớp thử tìm xem học phí âm vi phạm ràng buộc nào, và họ sẽ nhận ra là không vi phạm cái nào cả. Hai ràng buộc hiện có chỉ bảo vệ cấu trúc liên kết giữa các bảng chứ hoàn toàn không quan tâm tới giá trị bên trong từng cột có hợp lý hay không."}, {"layout": "bullets", "phase": "cung-co", "minutes": 2, "title": "Nối sang chương 4", "bullets": ["Hai ràng buộc hiện có chỉ bảo vệ phần cấu trúc", "Chúng không ngăn được học phí âm hay ngày vô lý", "Chương bốn xây bộ sáu loại ràng buộc toàn vẹn", "Và chỉ ra ba lỗ hổng còn lại của bảy bảng này"], "note": "Lược đồ trông có vẻ hoàn hảo vẫn còn ba chỗ chưa bịt.", "emphasis": [3], "objective": "Tạo nhu cầu học chương tiếp bằng ba lỗ hổng cụ thể.", "notes": "Kết thúc chương ba bằng một món nợ để mở chương bốn. Lược đồ bảy bảng vừa hoàn thành trông rất chỉn chu, nên câu nói rằng nó vẫn còn ba lỗ hổng sẽ gây tò mò. Đừng tiết lộ ba lỗ hổng ấy là gì, chỉ nói rằng chương bốn sẽ chỉ ra và sẽ bịt chúng bằng bộ sáu loại ràng buộc toàn vẹn."}, {"layout": "bullets", "phase": "cung-co", "minutes": 2, "role": "homework", "title": "Bài tập về nhà", "bullets": ["Hoàn thiện lược đồ quan hệ của tổ chức mình đã chọn", "Lập bảng đối chiếu toàn vẹn cho mọi bảng trong lược đồ", "Viết ba truy vấn dùng kết ngoài, phép hiệu và phép chia", "Đọc trước chương bốn phần ràng buộc toàn vẹn"], "note": "Nộp qua hệ thống học tập trực tuyến trước buổi học kế tiếp.", "objective": "Hoàn tất sản phẩm cá nhân chạy suốt ba chương.", "notes": "Ba nhiệm vụ đầu khép lại sản phẩm cá nhân đã chạy suốt ba chương. Lược đồ của mỗi người đến đây phải hoàn chỉnh với đầy đủ khóa chính và khóa ngoại, kèm bảng đối chiếu toàn vẹn giống bảng vừa làm cho ví dụ ABC. Ba truy vấn ở nhiệm vụ thứ ba cố tình chọn đúng ba kỹ thuật khó nhất của buổi hôm nay."}], "_phase": {"khoi-dong": "Khởi động", "hinh-thanh": "Hình thành kiến thức", "luyen-tap": "Luyện tập", "van-dung": "Vận dụng", "cung-co": "Củng cố & đánh giá"}, "_objvn": {"knowledge": "Kiến thức", "skill": "Kỹ năng", "attitude": "Thái độ / Năng lực"}, "_order": {"26": [1, 4, 2, 0, 3]}};</script>
+<script>
+/* Runtime bản HTML tương tác. build_html.py nhúng SPEC vào trang trước khi file này chạy.
+   Không phụ thuộc thư viện ngoài. */
+(function () {
+  "use strict";
+  var S = window.SPEC, meta = S.meta || {}, stage = document.getElementById("stage");
+  var PHASE = S._phase || {};
+  var esc = function (s) {
+    return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c];
+    });
+  };
+  var el = function (h) { var d = document.createElement("div"); d.innerHTML = h.trim(); return d.firstElementChild; };
+  var K = "ABCDEFGH".split("");
+
+  var slides = (S.slides || []).slice();
+  slides.push({ layout: "results", title: "Kết quả luyện tập", phase: "cung-co", minutes: 0 });
+
+  /* mốc thời gian cộng dồn */
+  var marks = [], acc = 0;
+  slides.forEach(function (s) {
+    var m = +(s.minutes || 0);
+    marks.push({ from: acc, to: acc + m, m: m });
+    acc += m;
+  });
+  var planTotal = acc;
+  var graded = [];
+  var cur = 0;
+
+  function head(s, i) {
+    /* Thời lượng không hiện trên slide — xem ở panel Kịch bản (N) và Tổng quan (O). */
+    return '<div class="hd"><h2>' + esc(s.title || "") + "</h2>" +
+      '</div><div class="rule"></div>';
+  }
+  function foot(i) {
+    var l = meta.footer || [meta.course, meta.title].filter(Boolean).join("  ·  ");
+    return '<div class="ft"><span>' + esc(l) + "</span><span>" + (i + 1) + "</span></div>";
+  }
+  function note(t) { return t ? '<div class="note">' + esc(t) + "</div>" : ""; }
+  function bullets(list) {
+    return (list || []).map(function (b) {
+      return '<div class="pt"><div class="d"></div><span>' + esc(b) + "</span></div>";
+    }).join("");
+  }
+
+  var R = {};
+
+  R.title = function (s, i) {
+    var tpl = !!meta.school;   /* chế độ theo mẫu slide của Trường */
+    var top = tpl ? [meta.school, meta.faculty].filter(Boolean).join("  ·  ")
+                  : [meta.course, meta.audience].filter(Boolean).join("  ·  ");
+    var info = [meta.lecturer ? "Giảng viên: " + meta.lecturer : null, meta.date]
+      .filter(Boolean).join("  ·  ");
+    var t = tpl ? String(s.title).toUpperCase() : s.title;
+    var sub = (tpl && meta.course) ? meta.course : s.subtitle;
+    var sub2 = (tpl && meta.course && s.subtitle)
+      ? '<div class="who">' + esc(s.subtitle) + "</div>" : "";
+    return '<div class="slide title edge">' +
+      (S._logo ? '<img class="tlogo" src="' + S._logo + '" alt="logo">' : "") +
+      '<div class="org">' + esc(top.toUpperCase()) + "</div>" +
+      "<h1>" + esc(t) + '</h1><div class="bar"></div>' +
+      '<div class="sub">' + esc(sub) + "</div>" + sub2 +
+      '<div class="who">' + esc(info) + "</div>" + foot(i) + "</div>";
+  };
+
+  R.objectives = function (s, i) {
+    var rows = (meta.objectives || []).map(function (o, n) {
+      var tag = (S._objvn[o.type] || o.type || "") + (o.bloom ? " · " + o.bloom : "");
+      return '<div class="goal"><div class="n">' + ("0" + (n + 1)).slice(-2) + "</div>" +
+        '<div class="tx"><b>' + esc(o.text) + "</b>" +
+        (o.detail ? "<span>" + esc(o.detail) + "</span>" : "") + "</div>" +
+        '<div class="tag">' + esc(tag) + "</div></div>";
+    }).join("");
+    return '<div class="slide">' + head(s, i) +
+      '<div class="body"><p class="lead">Sau bài học này, sinh viên có khả năng:</p>' +
+      rows + "</div>" + foot(i) + "</div>";
+  };
+
+  R.bullets = function (s, i) {
+    return '<div class="slide">' + head(s, i) + '<div class="body">' +
+      bullets(s.bullets) + note(s.note) + "</div>" + foot(i) + "</div>";
+  };
+
+  R["two-column"] = function (s, i) {
+    function pan(c) {
+      return '<div class="panel"><div class="ph">' + esc(c.heading || "") +
+        '</div><div class="pb">' + bullets(c.bullets) + "</div></div>";
+    }
+    return '<div class="slide">' + head(s, i) + '<div class="body"><div class="cols">' +
+      pan(s.left || {}) + pan(s.right || {}) + "</div>" + note(s.note) + "</div>" + foot(i) + "</div>";
+  };
+
+  R["image-text"] = function (s, i) {
+    var fig = s.image
+      ? '<img src="' + esc(s.image) + '" alt="' + esc(s.caption) + '">'
+      : '<div class="figbox">[cần bổ sung hình minh họa]</div>';
+    var left = '<div class="fig">' + fig + '<div class="cap">' + esc(s.caption) + "</div>" +
+      (s.source ? '<div class="src">' + esc(s.source) + "</div>" : "") + "</div>";
+    if (s.bullets && s.bullets.length) {
+      return '<div class="slide">' + head(s, i) + '<div class="body"><div class="figsplit">' +
+        left + '<div><div class="subhead">Ý CHÍNH</div><div class="ul"></div>' +
+        bullets(s.bullets) + "</div></div></div>" + foot(i) + "</div>";
+    }
+    return '<div class="slide">' + head(s, i) + '<div class="body">' + left + "</div>" + foot(i) + "</div>";
+  };
+
+  R.diagram = function (s, i) {
+    var n = s.steps.length;
+    var cells = s.steps.map(function (st, k) {
+      return '<div class="st"><div class="n">' + (k + 1) + "</div><b>" + esc(st.label) + "</b>" +
+        (st.desc ? "<span>" + esc(st.desc) + "</span>" : "") + "</div>" +
+        (k < n - 1 ? '<div class="ar">›</div>' : "");
+    }).join("");
+    return '<div class="slide">' + head(s, i) + '<div class="body"><div class="flow">' + cells +
+      "</div>" + note(s.note) + "</div>" + foot(i) + "</div>";
+  };
+
+  R.question = function (s, i) {
+    var pr = (s.prompts || []).map(function (p, k) {
+      return '<div class="pt"><div class="d"></div><span>' + K[k] + ". " + esc(p) + "</span></div>";
+    }).join("");
+    return '<div class="slide">' + head(s, i) + '<div class="body">' +
+      '<div class="q">' + esc(s.question) + "</div>" + pr +
+      '<textarea class="ta" placeholder="Ghi ý kiến của nhóm tại đây (lưu trong trình duyệt)…"></textarea>' +
+      note(s.note) + "</div>" + foot(i) + "</div>";
+  };
+
+  R.quiz = function (s, i) {
+    var opts = s.options.map(function (o, n) {
+      return '<button class="opt" data-n="' + n + '"><span class="k">' + K[n] + "</span><span>" +
+        esc(o) + "</span></button>";
+    }).join("");
+    return '<div class="slide" data-graded="1">' + head(s, i) + '<div class="body">' +
+      '<div class="q">' + esc(s.question) + "</div>" +
+      '<div class="opts">' + opts + "</div>" +
+      '<div class="row"><button class="btn js-check">Kiểm tra</button>' +
+      '<button class="btn ghost js-reset">Làm lại</button></div><div class="fb"></div>' +
+      "</div>" + foot(i) + "</div>";
+  };
+
+  R.reveal = function (s, i) {
+    var rows = s.items.map(function (it, n) {
+      return '<div class="rv" data-n="' + n + '"><span class="h">nhấp để xem</span><b>' +
+        (n + 1) + ". " + esc(it.q) + '</b><div class="a">' + esc(it.a) + "</div></div>";
+    }).join("");
+    return '<div class="slide">' + head(s, i) + '<div class="body">' +
+      (s.prompt ? '<p class="lead">' + esc(s.prompt) + "</p>" : "") + rows +
+      '<div class="row"><button class="btn ghost js-all">Hiện tất cả</button></div>' +
+      "</div>" + foot(i) + "</div>";
+  };
+
+  R.match = function (s, i) {
+    var p = s.pairs, ord = S._order[i] || p.map(function (_, k) { return k; });
+    var slots = p.map(function (x, n) {
+      return '<div class="slotrow"><div class="lb">' + (n + 1) + ". " + esc(x.left) +
+        '</div><div class="slot" data-n="' + n + '">thả vào đây</div></div>';
+    }).join("");
+    var toks = ord.map(function (n) {
+      return '<div class="tok" draggable="true" data-n="' + n + '">' + esc(p[n].right) + "</div>";
+    }).join("");
+    return '<div class="slide" data-graded="1">' + head(s, i) + '<div class="body">' +
+      (s.prompt ? '<p class="lead">' + esc(s.prompt) + "</p>" : "") +
+      '<div class="match"><div>' + slots + '</div><div class="bank">' + toks + "</div></div>" +
+      '<div class="row"><button class="btn js-check">Kiểm tra</button>' +
+      '<button class="btn ghost js-reset">Làm lại</button></div><div class="fb"></div>' +
+      "</div>" + foot(i) + "</div>";
+  };
+
+  R.practice = function (s, i) {
+    var chips = [s.duration ? "Thời lượng: " + s.duration : "", s.form ? "Hình thức: " + s.form : "",
+    s.weight ? "Trọng số: " + s.weight : ""].filter(Boolean)
+      .map(function (c) { return '<div class="c">' + esc(c) + "</div>"; }).join("");
+    var reqs = s.requirements.map(function (r, n) {
+      return '<label class="task"><input type="checkbox" data-n="' + n + '"><span>Bước ' +
+        (n + 1) + ". " + esc(r) + "</span></label>";
+    }).join("");
+    var side = "";
+    if (s.criteria && s.criteria.length) {
+      side += '<div class="box"><h4>TIÊU CHÍ ĐÁNH GIÁ</h4>' +
+        s.criteria.map(function (c) { return '<div class="task"><span>• ' + esc(c) + "</span></div>"; }).join("") +
+        "</div>";
+    }
+    if (s.hints && s.hints.length) {
+      side += '<div class="box"><h4>GỢI Ý</h4>' +
+        s.hints.map(function (h) { return '<div class="task"><span>• ' + esc(h) + "</span></div>"; }).join("") +
+        "</div>";
+    }
+    return '<div class="slide">' + head(s, i) + '<div class="body"><div class="chips">' + chips + "</div>" +
+      '<div class="box"><h4>YÊU CẦU — nhấp để đánh dấu đã xong</h4>' + reqs + "</div>" +
+      (side ? '<div class="two">' + side + "</div>" : "") + "</div>" + foot(i) + "</div>";
+  };
+
+  R.results = function (s, i) {
+    return '<div class="slide" data-results="1">' + head(s, i) +
+      '<div class="body"><div class="score"><div class="big js-big">–</div>' +
+      '<div class="lab">câu trả lời đúng</div><div class="rows js-rows"></div></div></div>' +
+      foot(i) + "</div>";
+  };
+
+  /* ---------- dựng DOM ---------- */
+  slides.forEach(function (s, i) {
+    var fn = R[s.layout];
+    if (!fn) { console.warn("chưa hỗ trợ:", s.layout); return; }
+    var node = el(fn(s, i));
+    node.dataset.idx = i;
+    stage.appendChild(node);
+    if (node.dataset.graded) graded.push({ i: i, title: s.title, state: null });
+  });
+  var nodes = [].slice.call(stage.querySelectorAll(".slide"));
+  function mark(i, ok) { graded.forEach(function (g) { if (g.i === i) g.state = ok; }); }
+
+  /* ---------- tương tác ---------- */
+  nodes.forEach(function (node) {
+    var i = +node.dataset.idx, s = slides[i];
+
+    if (s.layout === "quiz") {
+      var pick = null, opts = node.querySelectorAll(".opt"), fb = node.querySelector(".fb");
+      opts.forEach(function (o) {
+        o.addEventListener("click", function () {
+          if (o.classList.contains("lock")) return;
+          pick = +o.dataset.n;
+          opts.forEach(function (x) { x.classList.remove("pick"); });
+          o.classList.add("pick");
+        });
+      });
+      node.querySelector(".js-check").addEventListener("click", function () {
+        if (pick === null) return;
+        var ok = pick === s.answer;
+        opts.forEach(function (o) {
+          var n = +o.dataset.n;
+          o.classList.add("lock"); o.classList.remove("pick");
+          if (n === s.answer) o.classList.add("right");
+          else if (n === pick) o.classList.add("wrong");
+        });
+        fb.className = "fb on " + (ok ? "good" : "bad");
+        fb.innerHTML = "<b>" + (ok ? "Chính xác." : "Chưa đúng.") + "</b>" + esc(s.explain);
+        mark(i, ok);
+      });
+      node.querySelector(".js-reset").addEventListener("click", function () {
+        pick = null;
+        opts.forEach(function (o) { o.className = "opt"; });
+        fb.className = "fb"; mark(i, null);
+      });
+    }
+
+    if (s.layout === "reveal") {
+      node.querySelectorAll(".rv").forEach(function (r) {
+        r.addEventListener("click", function () { r.classList.toggle("open"); });
+      });
+      node.querySelector(".js-all").addEventListener("click", function () {
+        node.querySelectorAll(".rv").forEach(function (r) { r.classList.add("open"); });
+      });
+    }
+
+    if (s.layout === "match") {
+      var sel = null, fb2 = node.querySelector(".fb");
+      var toks = node.querySelectorAll(".tok"), slots = node.querySelectorAll(".slot");
+      function place(slot, n) {
+        if (slot.dataset.tok) {
+          var old = node.querySelector('.tok[data-n="' + slot.dataset.tok + '"]');
+          if (old) old.classList.remove("used");
+        }
+        slot.dataset.tok = n;
+        slot.textContent = s.pairs[n].right;
+        slot.className = "slot fill";
+        var t = node.querySelector('.tok[data-n="' + n + '"]');
+        if (t) { t.classList.add("used"); t.classList.remove("sel"); }
+        sel = null;
+      }
+      toks.forEach(function (t) {
+        t.addEventListener("click", function () {
+          if (sel === t) { t.classList.remove("sel"); sel = null; return; }
+          toks.forEach(function (x) { x.classList.remove("sel"); });
+          t.classList.add("sel"); sel = t;
+        });
+        t.addEventListener("dragstart", function (e) { e.dataTransfer.setData("text/plain", t.dataset.n); });
+      });
+      slots.forEach(function (sl) {
+        sl.addEventListener("click", function () {
+          if (sel) place(sl, sel.dataset.n);
+          else if (sl.dataset.tok) {
+            var old = node.querySelector('.tok[data-n="' + sl.dataset.tok + '"]');
+            if (old) old.classList.remove("used");
+            delete sl.dataset.tok; sl.textContent = "thả vào đây"; sl.className = "slot";
+          }
+        });
+        sl.addEventListener("dragover", function (e) { e.preventDefault(); sl.classList.add("over"); });
+        sl.addEventListener("dragleave", function () { sl.classList.remove("over"); });
+        sl.addEventListener("drop", function (e) {
+          e.preventDefault(); sl.classList.remove("over");
+          place(sl, e.dataTransfer.getData("text/plain"));
+        });
+      });
+      node.querySelector(".js-check").addEventListener("click", function () {
+        var all = true, done = 0;
+        slots.forEach(function (sl) {
+          if (!sl.dataset.tok) { all = false; return; }
+          done++;
+          var ok = +sl.dataset.tok === +sl.dataset.n;
+          sl.className = "slot fill " + (ok ? "right" : "wrong");
+          if (!ok) all = false;
+        });
+        if (done < slots.length) {
+          fb2.className = "fb on bad";
+          fb2.innerHTML = "<b>Chưa ghép đủ.</b>Hãy ghép hết các cặp rồi kiểm tra lại.";
+          return;
+        }
+        fb2.className = "fb on " + (all ? "good" : "bad");
+        fb2.innerHTML = "<b>" + (all ? "Ghép đúng toàn bộ." : "Còn cặp ghép sai.") + "</b>" + esc(s.explain);
+        mark(i, all);
+      });
+      node.querySelector(".js-reset").addEventListener("click", function () {
+        slots.forEach(function (sl) { delete sl.dataset.tok; sl.textContent = "thả vào đây"; sl.className = "slot"; });
+        toks.forEach(function (t) { t.classList.remove("used", "sel"); });
+        sel = null; fb2.className = "fb"; mark(i, null);
+      });
+    }
+
+    if (s.layout === "question") {
+      var ta = node.querySelector(".ta"), key = "ls-" + (meta.title || "") + "-" + i;
+      try { ta.value = localStorage.getItem(key) || ""; } catch (e) { }
+      ta.addEventListener("input", function () { try { localStorage.setItem(key, ta.value); } catch (e) { } });
+    }
+
+    if (s.layout === "practice") {
+      node.querySelectorAll(".task input").forEach(function (c) {
+        c.addEventListener("change", function () { c.closest(".task").classList.toggle("done", c.checked); });
+      });
+    }
+  });
+
+  function fillResults() {
+    var n = stage.querySelector('[data-results="1"]');
+    if (!n) return;
+    var ok = graded.filter(function (g) { return g.state === true; }).length;
+    n.querySelector(".js-big").textContent = ok + "/" + graded.length;
+    n.querySelector(".js-rows").innerHTML = graded.map(function (g) {
+      var c = g.state === true ? "ok" : g.state === false ? "no" : "na";
+      var m = g.state === true ? "✓" : g.state === false ? "✕" : "–";
+      return '<div class="r"><span class="s ' + c + '">' + m + "</span><span>" + esc(g.title) + "</span></div>";
+    }).join("") || '<div class="r"><span>Bài giảng này chưa có câu hỏi chấm điểm.</span></div>';
+  }
+
+  /* ---------- điều hướng ---------- */
+  var bar = document.getElementById("bar"), pos = document.getElementById("pos");
+  var notes = document.getElementById("notes"), grid = document.getElementById("grid");
+
+  function show(n) {
+    cur = Math.max(0, Math.min(nodes.length - 1, n));
+    nodes.forEach(function (x, k) { x.classList.toggle("on", k === cur); });
+    bar.style.width = ((cur + 1) / nodes.length * 100) + "%";
+    pos.textContent = (cur + 1) + " / " + nodes.length;
+    var s = slides[cur] || {}, mk = marks[cur] || { m: 0 };
+    notes.innerHTML = "<h5>Kịch bản giảng viên" +
+      (s.phase ? " · " + esc(PHASE[s.phase] || s.phase) : "") +
+      (mk.m ? " · " + mk.m + " phút (mốc " + mk.from + "→" + mk.to + " / " + planTotal + ")" : "") +
+      "</h5>" + (s.notes ? esc(s.notes) : "<em style='opacity:.5'>(slide tổng hợp, không có kịch bản)</em>");
+    if (s.layout === "results") fillResults();
+    if (location.hash !== "#" + (cur + 1)) history.replaceState(null, "", "#" + (cur + 1));
+    grid.querySelectorAll(".g").forEach(function (g, k) { g.classList.toggle("cur", k === cur); });
+  }
+
+  grid.innerHTML = slides.map(function (s, k) {
+    return '<div class="g" data-k="' + k + '"><div class="gi">' + (k + 1) +
+      (marks[k].m ? '<span class="gm">' + marks[k].m + "′</span>" : "") +
+      '</div><div class="gt">' + esc(s.title || s.layout) + '</div><div class="gp">' +
+      esc(PHASE[s.phase] || "") + "</div></div>";
+  }).join("");
+  grid.querySelectorAll(".g").forEach(function (g) {
+    g.addEventListener("click", function () { show(+g.dataset.k); grid.classList.remove("on"); });
+  });
+
+  function fit() {
+    document.documentElement.style.setProperty("--scale",
+      Math.min(innerWidth / 1280, innerHeight / 720) *
+      (document.body.classList.contains("shot") ? 1 : 0.96));
+  }
+  addEventListener("resize", fit);
+
+  /* đồng hồ tiết dạy */
+  var clock = document.getElementById("clock"), t0 = 0, held = 0, run = false;
+  function two(n) { return (n < 10 ? "0" : "") + n; }
+  function elapsed() { return run ? held + Math.floor((Date.now() - t0) / 1000) : held; }
+  function tick() {
+    var e = elapsed(), mk = marks[cur] || { to: 0 };
+    clock.textContent = two(Math.floor(e / 60)) + ":" + two(e % 60) + " / " + mk.to + "′";
+    clock.className = (run ? "run" : "") + (mk.to && e > mk.to * 60 ? " over" : "");
+  }
+  function toggle() {
+    if (run) { held = elapsed(); run = false; } else { t0 = Date.now(); run = true; }
+    tick();
+  }
+  setInterval(tick, 500); tick();
+  clock.addEventListener("click", toggle);
+
+  document.addEventListener("keydown", function (e) {
+    if (e.target.tagName === "TEXTAREA") return;
+    if (e.key === "t" || e.key === "T") return toggle();
+    if (e.key === "r" || e.key === "R") { held = 0; t0 = Date.now(); return tick(); }
+    if (e.key === "ArrowRight" || e.key === "PageDown" || e.key === " ") { show(cur + 1); e.preventDefault(); }
+    else if (e.key === "ArrowLeft" || e.key === "PageUp") { show(cur - 1); e.preventDefault(); }
+    else if (e.key === "Home") show(0);
+    else if (e.key === "End") show(nodes.length - 1);
+    else if (e.key === "n" || e.key === "N") notes.classList.toggle("on");
+    else if (e.key === "o" || e.key === "O" || e.key === "Escape") grid.classList.toggle("on");
+  });
+  document.getElementById("prev").addEventListener("click", function () { show(cur - 1); });
+  document.getElementById("next").addEventListener("click", function () { show(cur + 1); });
+  document.getElementById("tn").addEventListener("click", function () { notes.classList.toggle("on"); });
+  document.getElementById("tg").addEventListener("click", function () { grid.classList.toggle("on"); });
+
+  if (new URLSearchParams(location.search).get("shot") === "1") document.body.classList.add("shot");
+  fit();
+  show(Math.max(0, (parseInt(location.hash.replace("#", ""), 10) || 1) - 1));
+
+  window.__deck = {
+    show: show, count: nodes.length, graded: graded, slides: slides, marks: marks,
+    planTotal: planTotal, ready: true,
+    node: function (i) { return nodes[i]; }, cur: function () { return cur; },
+    clock: function () { tick(); return { text: clock.textContent, cls: clock.className, sec: elapsed() }; }
+  };
+})();
+
+</script>
+</body>
+</html>

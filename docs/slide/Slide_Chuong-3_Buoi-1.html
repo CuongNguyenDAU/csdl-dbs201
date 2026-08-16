@@ -1,0 +1,643 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mô hình dữ liệu quan hệ</title>
+<style>
+/* Bản HTML tương tác — cùng hệ màu với bản .pptx (mẫu DAU).
+   Sân khấu logic 1280x720 (13.333x7.5in @96dpi), scale theo cửa sổ. 1pt = 1.3333px */
+:root {
+  --brand:#A63A3A; --deep:#7E2B2B; --tint:#F6EEEC; --tintline:#E6D3D0;
+  --card:#FBFAF9; --line:#E5E2DF; --ink:#1F1F22; --ink2:#4A4A50; --ink3:#7A7674;
+  --ok:#1E7A4B; --okbg:#EAF6EF; --bad:#B3261E; --badbg:#FCEEED;
+  --font:Arial,"Segoe UI",Helvetica,sans-serif; --scale:1;
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:#2A2A2E;font-family:var(--font);color:var(--ink);overflow:hidden}
+
+#wrap{position:fixed;inset:0;display:grid;place-items:center}
+#stage{width:1280px;height:720px;background:#fff;position:relative;
+  transform:scale(var(--scale));transform-origin:center;box-shadow:0 18px 60px rgba(0,0,0,.45);overflow:hidden}
+
+.slide:not(.on){display:none!important}
+.slide{position:absolute;inset:0;padding:40px 86px 0}
+.slide.on{display:block}
+
+/* ---- khung chung ---- */
+.hd{display:flex;align-items:center;justify-content:space-between;gap:24px}
+.hd h2{font-size:37px;font-weight:700;margin:0;line-height:1.15}
+.chip{flex:0 0 auto;background:var(--tint);color:var(--deep);font-size:17px;font-weight:700;
+  padding:7px 15px;border-radius:18px;white-space:nowrap}
+.rule{position:relative;height:1px;background:var(--line);margin-top:16px}
+.rule::before{content:"";position:absolute;left:0;top:-2px;width:110px;height:4px;background:var(--brand)}
+.body{padding-top:22px}
+.ft{position:absolute;left:86px;right:86px;bottom:24px;display:flex;justify-content:space-between;
+  font-size:12px;color:var(--ink3)}
+.lead{font-size:20px;color:var(--ink3);margin:0 0 14px}
+.note{position:relative;background:var(--tint);border-radius:6px;padding:13px 18px 13px 22px;
+  font-size:20px;color:var(--ink2);margin-top:18px}
+.note::before{content:"";position:absolute;left:0;top:10px;bottom:10px;width:6px;background:var(--brand);border-radius:3px 0 0 3px}
+
+/* ---- title / edge ---- */
+.edge::before{content:"";position:absolute;left:0;top:0;width:19px;height:100%;background:var(--brand)}
+.edge::after{content:"";position:absolute;left:19px;top:0;width:4px;height:100%;background:var(--tint)}
+.slide.title{display:flex;flex-direction:column;justify-content:center;padding:0 86px 0 120px}
+.title .tlogo{width:96px;height:96px;object-fit:contain;background:#fff;
+  border:1px solid var(--tintline,#E6D3D0);padding:10px;margin-bottom:22px}
+.title .org{font-size:16px;font-weight:700;color:var(--brand);letter-spacing:.6px}
+.title h1{font-size:48px;font-weight:700;margin:14px 0 0;line-height:1.15}
+.title .bar{width:163px;height:6px;background:var(--brand);margin:22px 0 20px}
+.title .sub{font-size:32px;color:var(--ink2)}
+.title .who{border-left:3px solid var(--tintline);padding-left:16px;margin-top:30px;font-size:20px;color:var(--ink3)}
+
+/* ---- objectives ---- */
+.goal{display:flex;align-items:center;gap:16px;background:var(--card);border-radius:8px;padding:12px 20px;margin-bottom:10px}
+.goal .n{flex:0 0 42px;height:42px;border-radius:50%;background:var(--brand);color:#fff;
+  display:grid;place-items:center;font-size:16px;font-weight:700}
+.goal .tx b{font-size:24px;display:block}
+.goal .tx span{font-size:19px;color:var(--ink2)}
+.goal .tag{margin-left:auto;flex:0 0 auto;color:var(--deep);font-size:15px;font-weight:700;white-space:nowrap}
+
+/* ---- bullets ---- */
+.pt{display:flex;gap:16px;margin-bottom:16px}
+.pt .d{flex:0 0 10px;height:10px;border-radius:2px;background:var(--brand);margin-top:11px}
+.pt span{font-size:27px;line-height:1.3}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:42px}
+.panel{background:var(--card);border-radius:8px;overflow:hidden}
+.panel .ph{background:var(--tint);border-bottom:2px solid var(--tintline);padding:14px 22px;
+  font-size:21px;font-weight:700;color:var(--deep);text-transform:uppercase;letter-spacing:.6px}
+.panel .pb{padding:16px 22px}
+.panel .pt span{font-size:24px}
+
+/* ---- image-text ---- */
+.figsplit{display:grid;grid-template-columns:1.5fr 1fr;gap:40px;align-items:start}
+.fig img{max-width:100%;max-height:370px;border:1px solid var(--line);border-radius:6px}
+.figbox{width:100%;height:340px;background:var(--card);border:1px dashed var(--tintline);
+  border-radius:6px;display:grid;place-items:center;color:var(--ink3);font-size:20px}
+.cap{font-size:20px;color:var(--ink2);margin-top:12px}
+.src{font-size:16px;color:var(--ink3);margin-top:4px}
+.subhead{font-size:20px;font-weight:700;color:var(--deep);letter-spacing:.8px}
+.subhead+.ul{width:72px;height:4px;background:var(--tintline);margin:8px 0 18px}
+
+/* ---- diagram ---- */
+.flow{display:flex;align-items:stretch;gap:14px;margin-top:26px}
+.flow .st{flex:1;background:var(--card);border-radius:8px;border-top:5px solid var(--brand);
+  padding:18px 16px;text-align:center}
+.flow .st .n{width:44px;height:44px;border-radius:50%;background:var(--brand);color:#fff;
+  display:grid;place-items:center;font-size:20px;font-weight:700;margin:0 auto 12px}
+.flow .st b{font-size:24px;display:block;margin-bottom:8px}
+.flow .st span{font-size:19px;color:var(--ink3)}
+.flow .ar{align-self:center;color:var(--tintline);font-size:34px;font-weight:700}
+
+/* ---- question / quiz ---- */
+.q{position:relative;background:var(--tint);border-radius:8px;padding:18px 22px 18px 26px;
+  font-size:29px;font-weight:700;line-height:1.3;margin-bottom:18px}
+.q::before{content:"";position:absolute;left:0;top:12px;bottom:12px;width:6px;background:var(--brand);border-radius:3px 0 0 3px}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.opt{display:flex;align-items:center;gap:16px;background:var(--card);border:2px solid transparent;
+  border-radius:8px;padding:14px 18px;cursor:pointer;font-size:24px;text-align:left;width:100%;
+  font-family:var(--font);color:var(--ink)}
+.opt:hover:not(.lock){background:var(--tint)}
+.opt .k{flex:0 0 42px;height:42px;border-radius:50%;background:#fff;border:2px solid var(--tintline);
+  display:grid;place-items:center;font-weight:700;font-size:20px;color:var(--deep)}
+.opt.pick{border-color:var(--brand);background:var(--tint)}
+.opt.right{border-color:var(--ok);background:var(--okbg)}
+.opt.right .k{border-color:var(--ok);color:var(--ok)}
+.opt.wrong{border-color:var(--bad);background:var(--badbg)}
+.opt.wrong .k{border-color:var(--bad);color:var(--bad)}
+.opt.lock{cursor:default}
+.fb{margin-top:16px;border-radius:8px;padding:14px 20px;font-size:22px;line-height:1.45;display:none}
+.fb.on{display:block}
+.fb.good{background:var(--okbg);border-left:5px solid var(--ok)}
+.fb.bad{background:var(--badbg);border-left:5px solid var(--bad)}
+.fb b{display:block;margin-bottom:4px}
+
+.btn{font-family:var(--font);font-size:19px;font-weight:700;background:var(--brand);color:#fff;
+  border:0;border-radius:6px;padding:11px 22px;cursor:pointer}
+.btn:hover{background:var(--deep)}
+.btn.ghost{background:#fff;color:var(--deep);border:2px solid var(--tintline)}
+.row{display:flex;gap:12px;margin-top:16px}
+
+/* ---- reveal ---- */
+.rv{background:var(--card);border-radius:8px;padding:14px 20px;margin-bottom:11px;cursor:pointer;
+  border-left:4px solid var(--tintline)}
+.rv.open{border-left-color:var(--ok);background:var(--okbg)}
+.rv b{font-size:24px;display:block}
+.rv .a{display:none;margin-top:9px;font-size:21px;color:var(--ink2);line-height:1.45;
+  padding-top:9px;border-top:1px dashed var(--tintline)}
+.rv.open .a{display:block}
+.rv .h{float:right;font-size:16px;color:var(--ink3)}
+
+/* ---- match (kéo–thả) ---- */
+.match{display:grid;grid-template-columns:1.45fr 1fr;gap:30px}
+.slotrow{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.slotrow .lb{flex:1;font-size:21px}
+.slot{flex:0 0 210px;min-height:46px;border:2px dashed var(--tintline);border-radius:6px;
+  display:grid;place-items:center;font-size:18px;color:var(--ink3);background:var(--card);padding:6px 10px;cursor:pointer}
+.slot.fill{border-style:solid;background:var(--tint);color:var(--deep);font-weight:700}
+.slot.over{border-color:var(--brand);background:var(--tint)}
+.slot.right{border-color:var(--ok);background:var(--okbg);color:var(--ok)}
+.slot.wrong{border-color:var(--bad);background:var(--badbg);color:var(--bad)}
+.bank{display:flex;flex-wrap:wrap;gap:10px;align-content:flex-start}
+.bank::before{content:"NGÂN HÀNG ĐÁP ÁN";width:100%;font-size:15px;letter-spacing:.8px;color:var(--ink3)}
+.tok{background:var(--tint);border:2px solid var(--tintline);border-radius:6px;padding:10px 14px;
+  font-size:19px;cursor:grab;user-select:none;color:var(--deep);font-weight:700}
+.tok.sel{border-color:var(--brand);background:#fff;box-shadow:0 0 0 3px rgba(166,58,58,.18)}
+.tok.used{display:none}
+
+/* ---- practice ---- */
+.chips{display:flex;gap:12px;margin-bottom:16px;flex-wrap:wrap}
+.chips .c{background:var(--tint);color:var(--deep);font-size:18px;font-weight:700;padding:8px 16px;border-radius:6px}
+.box{background:var(--card);border-left:4px solid var(--brand);border-radius:6px;padding:14px 20px;margin-bottom:12px}
+.box h4{margin:0 0 8px;font-size:16px;letter-spacing:.8px;color:var(--deep)}
+.task{display:flex;gap:12px;align-items:flex-start;font-size:21px;color:var(--ink2);margin-bottom:8px;cursor:pointer}
+.task input{width:20px;height:20px;margin-top:4px;accent-color:var(--brand)}
+.task.done{color:var(--ink3);text-decoration:line-through}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+
+/* ---- open (thảo luận) ---- */
+.ta{width:100%;min-height:120px;border:2px solid var(--line);border-radius:8px;padding:12px 14px;
+  font-family:var(--font);font-size:21px;resize:none}
+.ta:focus{outline:none;border-color:var(--brand)}
+.hints{margin-top:14px;display:none}
+.hints .h{background:var(--card);border-left:4px solid var(--tintline);border-radius:6px;
+  padding:10px 16px;font-size:20px;color:var(--ink2);margin-bottom:8px}
+
+/* ---- results ---- */
+.score{display:grid;place-items:center;padding-top:14px}
+.score .big{font-size:84px;font-weight:700;color:var(--deep);line-height:1}
+.score .lab{font-size:21px;color:var(--ink3);margin-top:6px}
+.score .rows{width:100%;margin-top:22px}
+.score .r{display:flex;align-items:center;gap:14px;padding:9px 0;border-bottom:1px solid var(--line);font-size:20px}
+.score .s{flex:0 0 28px;height:28px;border-radius:50%;display:grid;place-items:center;color:#fff;font-size:15px;font-weight:700}
+.score .s.ok{background:var(--ok)}.score .s.no{background:var(--bad)}.score .s.na{background:#B9B5B2}
+
+/* ---- vỏ điều khiển ---- */
+#bar{position:absolute;left:0;bottom:0;height:4px;background:var(--brand);width:0;transition:width .2s;z-index:5}
+#hud{position:fixed;right:16px;bottom:14px;display:flex;gap:8px;align-items:center;font-size:13px;color:#EDEAE8;z-index:20}
+#hud button{background:rgba(255,255,255,.12);color:#fff;border:0;border-radius:5px;padding:7px 12px;font-size:13px;cursor:pointer;font-family:var(--font)}
+#hud button:hover{background:rgba(255,255,255,.25)}
+#pos{font-variant-numeric:tabular-nums;opacity:.8}
+#clock{font-variant-numeric:tabular-nums;font-weight:700;cursor:pointer;background:rgba(255,255,255,.12);
+  border-radius:5px;padding:7px 12px;opacity:.55}
+#clock.run{opacity:1;background:rgba(255,255,255,.22)}
+#clock.over{background:var(--bad);color:#fff;opacity:1}
+#notes{position:fixed;left:0;right:0;bottom:0;max-height:34vh;overflow:auto;background:#17171A;color:#E8E4E1;
+  padding:16px 26px 22px;font-size:15px;line-height:1.6;border-top:3px solid var(--brand);display:none;z-index:25}
+#notes.on{display:block}
+#notes h5{margin:0 0 6px;font-size:12px;letter-spacing:1.2px;color:#E0A9A9;text-transform:uppercase}
+#grid{position:fixed;inset:0;background:#1B1B1F;z-index:30;display:none;grid-template-columns:repeat(5,1fr);
+  gap:12px;padding:26px;overflow:auto;align-content:start}
+#grid.on{display:grid}
+#grid .g{background:#fff;border-radius:6px;padding:12px;cursor:pointer;border:3px solid transparent;min-height:88px}
+#grid .g.cur{border-color:var(--brand)}
+#grid .gi{font-size:11px;color:var(--ink3)}
+#grid .gm{float:right;font-weight:700;color:var(--brand)}
+#grid .gt{font-size:13px;font-weight:700;margin-top:4px;line-height:1.25}
+#grid .gp{font-size:10px;color:var(--brand);text-transform:uppercase;letter-spacing:.6px;margin-top:6px}
+
+body.shot #hud,body.shot #notes,body.shot #bar{display:none!important}
+body.shot{background:#fff}body.shot #stage{box-shadow:none}
+
+</style>
+</head>
+<body>
+<div id="wrap"><div id="stage"><div id="bar"></div></div></div>
+<div id="notes"></div>
+<div id="grid"></div>
+<div id="hud">
+  <span id="clock" title="Đồng hồ tiết dạy — T chạy/dừng, R đặt lại">00:00</span>
+  <span id="pos">–</span>
+  <button id="prev" title="Slide trước (←)">←</button>
+  <button id="next" title="Slide sau (→)">→</button>
+  <button id="tg" title="Tổng quan (O)">Tổng quan</button>
+  <button id="tn" title="Kịch bản giảng viên (N)">Kịch bản</button>
+</div>
+<script>window.SPEC = {"meta": {"title": "Mô hình dữ liệu quan hệ", "course": "Cơ sở dữ liệu (DBS201)", "school": "Trường Đại học Kiến trúc Đà Nẵng", "faculty": "Khoa Công nghệ Thông tin", "audience": "Sinh viên năm 2 ngành Công nghệ thông tin", "duration": 100, "lecturer": "Nguyễn Tất Phú Cường", "date": "Học kỳ 1 · Năm học 2025–2026", "footer": "Cơ sở dữ liệu  ·  Chương 3  ·  Buổi 1/4", "website": "dau.edu.vn", "source": "Bai-giang_Chuong-3_Mo-hinh-quan-he.md, mục 3.1 – 3.2", "objectives": [{"type": "knowledge", "bloom": "hiểu", "text": "Phân biệt quan hệ với liên kết và nắm bộ thuật ngữ mới", "detail": "Quan hệ là chính cái bảng, không phải mối liên hệ giữa bảng"}, {"type": "knowledge", "bloom": "hiểu", "text": "Trình bày tám đặc trưng của một bảng quan hệ", "detail": "Đặc biệt hai đặc trưng về giá trị đơn và thứ tự"}, {"type": "skill", "bloom": "vận dụng", "text": "Xác định phụ thuộc hàm và kiểm tra chiều của nó", "detail": "Biết A thì biết chắc B, và phải kiểm cả chiều ngược"}, {"type": "skill", "bloom": "phân tích", "text": "Phân biệt năm loại khóa trên một lược đồ cho trước", "detail": "Siêu khóa, dự tuyển, chính, phụ, ngoại"}, {"type": "attitude", "bloom": "đánh giá", "text": "Xét phụ thuộc hàm theo nghiệp vụ, không theo dữ liệu", "detail": "Dữ liệu hôm nay không trùng không có nghĩa là không bao giờ trùng"}]}, "slides": [{"layout": "title", "phase": "khoi-dong", "minutes": 2, "title": "Mô hình dữ liệu quan hệ", "subtitle": "Buổi 1 — Quan hệ, tám đặc trưng, phụ thuộc hàm và khóa", "objective": "Mở chương và nối mạch từ chương trước.", "notes": "Xin chào cả lớp. Chương hai đã cho lược đồ ở mức quan niệm, tức là bản vẽ mô tả nghiệp vụ. Chương ba chuyển bản vẽ ấy thành cấu trúc dữ liệu thật, và trước khi chuyển được thì cần nắm ngôn ngữ của mô hình đích. Buổi hôm nay học bộ thuật ngữ mới, tám đặc trưng của một bảng đúng nghĩa, và hệ thống năm loại khóa. Ngay đầu buổi sẽ gỡ một hiểu nhầm rất phổ biến về chính cái tên mô hình quan hệ."}, {"layout": "objectives", "phase": "khoi-dong", "minutes": 2, "title": "Mục tiêu buổi học", "objective": "Công bố chuẩn đầu ra của buổi mở đầu chương ba.", "emphasis": [3], "notes": "Năm mục tiêu chia ba nhóm quen thuộc. Mục tiêu thứ tư được làm nổi bật vì hệ thống năm loại khóa là nền tảng cho toàn bộ chương ba, chương bốn và chương năm. Ai lẫn lộn năm loại khóa thì phần còn lại của học phần sẽ rất vất vả."}, {"layout": "diagram", "phase": "khoi-dong", "minutes": 2, "title": "Lộ trình buổi học", "steps": [{"label": "Quan hệ là gì", "desc": "Thuật ngữ mới và một cạm bẫy"}, {"label": "Tám đặc trưng", "desc": "Bảng nào mới là quan hệ"}, {"label": "Phụ thuộc hàm", "desc": "Biết A thì biết chắc B"}, {"label": "Năm loại khóa", "desc": "Từ siêu khóa tới khóa ngoại"}], "note": "Chặng ba là công cụ, chặng bốn là thứ được xây trên công cụ ấy.", "objective": "Cho bản đồ để sinh viên định vị trong buổi học.", "notes": "Bốn chặng hôm nay xây nền cho cả chương. Chặng một và hai nói về cái bảng. Chặng ba đưa ra một công cụ toán học nhỏ nhưng rất quan trọng, sẽ dùng lại nhiều ở chương năm. Chặng bốn dựng hệ thống khóa trên công cụ ấy. Việc ánh xạ lược đồ ER thành bảng là nội dung buổi sau."}, {"layout": "quiz", "phase": "khoi-dong", "minutes": 3, "role": "diagnostic", "title": "Nối lại mạch chương trước", "question": "Cuối chương 2 đã hẹn một món nợ: vì sao liên kết nhiều nhiều bắt buộc phải tách?", "options": ["Vì lược đồ sẽ gọn hơn", "Vì mô hình quan hệ không biểu diễn trực tiếp được", "Vì liên kết nhiều nhiều luôn có thuộc tính riêng", "Vì công cụ vẽ không hỗ trợ"], "answer": 1, "explain": "Lý do nằm ở bản chất mô hình đích: mô hình quan hệ chỉ có bảng và khóa, không có cách nào biểu diễn trực tiếp một liên kết nhiều nhiều. Chương này sẽ chứng minh điều đó khi học bốn quy tắc ánh xạ ở buổi sau.", "objective": "Kiểm tra mức nhớ món nợ đã hẹn và mở đúng mạch chương mới.", "notes": "Câu này vừa chẩn đoán vừa bắc cầu. Phương án thứ ba là bẫy vì nó đúng trong nhiều trường hợp nhưng không phải lý do bắt buộc, đã nói rõ ở buổi ba chương hai rằng ngay cả khi không có thuộc tính nào cũng vẫn phải tách. Ghi lại số lượng chọn từng phương án để biết lớp còn nhớ tới đâu."}, {"layout": "bullets", "phase": "hinh-thanh", "minutes": 2, "title": "Quan hệ là gì", "bullets": ["Là một bảng hai chiều gồm các dòng và các cột", "Mỗi dòng biểu diễn một thể hiện thực thể", "Mỗi cột biểu diễn một thuộc tính", "Nghe rất quen, nhưng cái tên thì dễ gây hiểu nhầm"], "note": "Slide sau gỡ một hiểu nhầm mà rất nhiều người mắc.", "objective": "Nắm định nghĩa trước khi gỡ hiểu nhầm về tên gọi.", "notes": "Định nghĩa này đơn giản tới mức sinh viên dễ lướt qua. Nhưng chính cái tên quan hệ lại là nguồn của một hiểu nhầm rất phổ biến, tới mức giáo trình Coronel phải cảnh báo riêng. Slide sau xử lý dứt điểm chỗ đó."}, {"layout": "bullets", "phase": "hinh-thanh", "minutes": 3, "title": "Cạm bẫy thuật ngữ", "bullets": ["Nhiều người tưởng gọi là quan hệ vì có quan hệ giữa các bảng", "Điều đó sai", "Codd là nhà toán học, relation trong toán nghĩa là bảng", "Ông dùng từ ấy để chỉ chính cái bảng"], "note": "Ghi nhớ: quan hệ là danh từ chỉ cái bảng, không phải mối liên hệ.", "emphasis": [1], "objective": "Gỡ dứt điểm hiểu nhầm về tên gọi của mô hình.", "notes": "Đây là chỗ cần nói dứt khoát. Trong toán học, relation là thuật ngữ đã có sẵn từ trước, đồng nghĩa với bảng, cụ thể là một tập các bộ. Codd dùng đúng nghĩa toán học ấy. Cách tự kiểm tra rất gọn: đọc lại tên chương, mô hình dữ liệu quan hệ nghĩa là mô hình dữ liệu dạng bảng."}, {"layout": "bullets", "phase": "hinh-thanh", "minutes": 2, "title": "Lập luận phản bác rất gọn", "bullets": ["Mô hình phân cấp và mô hình mạng cũng có liên kết", "Thậm chí liên kết chằng chịt hơn nhiều", "Vậy sao chúng không được gọi là mô hình quan hệ", "Vì quan hệ nghĩa là dữ liệu biểu diễn bằng bảng"], "note": "Hai mô hình ấy đã gặp ở chương 1 khi học các thế hệ mô hình dữ liệu.", "emphasis": [3], "objective": "Củng cố cách hiểu đúng bằng một lập luận phản chứng.", "notes": "Lập luận phản chứng này rất hiệu quả với sinh viên hay quên. Hai mô hình phân cấp và mạng đã học ở chương một, và chúng có liên kết chằng chịt hơn hẳn mô hình quan hệ vì dùng con trỏ. Nếu chữ quan hệ nghĩa là có liên kết thì chúng mới xứng đáng mang tên ấy hơn."}, {"layout": "two-column", "phase": "hinh-thanh", "minutes": 3, "title": "Ba lớp thuật ngữ song song", "left": {"heading": "Thuật ngữ toán học", "bullets": ["Quan hệ, tức là relation", "Bộ, tức là tuple", "Thuộc tính và miền giá trị"]}, "right": {"heading": "Cách gọi thông thường", "bullets": ["Bảng", "Dòng, hay bản ghi", "Cột, và tập giá trị hợp lệ"]}, "note": "Ba lớp này chỉ cùng một thứ; tài liệu khác nhau dùng lớp khác nhau.", "emphasis": [3], "objective": "Đọc được tài liệu dùng bất kỳ lớp thuật ngữ nào.", "notes": "Sinh viên cần quen cả ba lớp vì tài liệu chuyên môn dùng lẫn lộn. Giáo trình toán học thì nói bộ và quan hệ, tài liệu kỹ thuật thì nói bản ghi và bảng, còn người dùng cuối thì nói dòng và cột. Đọc tài liệu nào cũng phải hiểu ngay đang nói về cái gì."}, {"layout": "bullets", "phase": "hinh-thanh", "minutes": 2, "title": "Bậc và lực lượng", "bullets": ["Bậc là số thuộc tính của quan hệ", "Lực lượng là số bộ hiện có trong quan hệ", "HOCVIEN có ba cột nên bậc bằng ba", "Có 250 học viên thì lực lượng bằng 250"], "note": "Bậc là đặc trưng của lược đồ, lực lượng là đặc trưng của thể hiện.", "emphasis": [3], "objective": "Phân biệt hai đại lượng mô tả kích thước của quan hệ.", "notes": "Dòng ghi chú nối thẳng về cặp lược đồ và thể hiện đã học ở chương một. Bậc gần như không đổi vì nó thuộc về cấu trúc; lực lượng thay đổi liên tục vì nó thuộc về dữ liệu. Đây là một minh họa nữa cho cặp khái niệm khuôn và bánh."}, {"layout": "bullets", "phase": "hinh-thanh", "minutes": 2, "title": "Lưu ý: hai nghĩa của lực lượng", "bullets": ["Ở chương 2, lực lượng là cặp min và max của một liên kết", "Ở chương 3, lực lượng là số dòng của một bảng", "Cùng dịch từ một từ tiếng Anh là cardinality", "Nhưng dùng trong hai ngữ cảnh khác hẳn nhau"], "note": "Lưu ý: gặp từ này phải xem đang ở ngữ cảnh nào.", "emphasis": [3], "objective": "Tránh nhầm lẫn một từ mang hai nghĩa.", "notes": "Đây là bẫy thuật ngữ thứ hai của buổi học. Cùng một từ tiếng Việt dịch từ cardinality nhưng hai nghĩa khác hẳn. Cách phân biệt đơn giản: đang nói về liên kết thì là cặp số, đang nói về bảng thì là số dòng. Nói trước để sinh viên không hoang mang khi đọc lại chương hai."}, {"layout": "bullets", "phase": "hinh-thanh", "minutes": 2, "title": "Không phải bảng nào cũng là quan hệ", "bullets": ["Một bảng chỉ được coi là quan hệ khi thỏa tám đặc trưng", "Bảng tính có thể vi phạm nhiều đặc trưng cùng lúc", "Tám đặc trưng này là điều kiện, không phải lời khuyên", "Hai trong tám đặc trưng đáng dừng lại phân tích"], "note": "Ghi nhớ: vẽ ra hình chữ nhật có dòng có cột chưa chắc đã là quan hệ.", "emphasis": [2], "objective": "Hiểu tám đặc trưng là điều kiện bắt buộc.", "notes": "Sinh viên thường nghĩ bảng nào cũng là quan hệ vì trông giống nhau. Thực ra tám đặc trưng là điều kiện, và bảng tính vi phạm khá nhiều trong số đó. Hai đặc trưng có hệ quả trực tiếp tới công việc thiết kế sẽ được phân tích riêng ở hai slide sau."}, {"layout": "bullets", "phase": "hinh-thanh", "minutes": 3, "title": "Bốn đặc trưng đầu", "bullets": ["Là cấu trúc hai chiều gồm dòng và cột", "Mỗi dòng biểu diễn đúng một thể hiện thực thể", "Mỗi cột có tên phân biệt trong bảng", "Mỗi ô chứa đúng một giá trị đơn"], "note": "Đặc trưng thứ tư là đặc trưng đã gặp từ chương 1 và chương 2.", "emphasis": [3], "objective": "Nắm bốn đặc trưng đầu của bảng quan hệ.", "notes": "Ba đặc trưng đầu nghe hiển nhiên nên đọc nhanh. Đặc trưng thứ tư mới là đặc trưng quan trọng, và nó không hề mới: chương một đã dùng nó để bác bỏ cách nhồi ba số điện thoại vào một ô, chương hai dùng nó để bắt buộc tách thuộc tính đa trị. Hôm nay nó được gọi đúng tên trong danh sách chính thức."}, {"layout": "bullets", "phase": "hinh-thanh", "minutes": 3, "title": "Bốn đặc trưng sau", "bullets": ["Mọi giá trị trong cùng một cột có cùng định dạng dữ liệu", "Mỗi cột có một miền giá trị xác định", "Thứ tự dòng và thứ tự cột không quan trọng", "Mỗi bảng phải có cách định danh duy nhất mỗi dòng"], "note": "Đặc trưng thứ bảy nghe lạ nhất với người quen dùng bảng tính.", "emphasis": [2], "objective": "Nắm bốn đặc trưng còn lại.", "notes": "Đặc trưng thứ bảy là đặc trưng gây ngạc nhiên nhất và sẽ được phân tích riêng ở slide sau. Đặc trưng thứ tám chính là lý do cần tới khóa, tức là nội dung nửa sau của buổi học. Hai đặc trưng năm và sáu nói về miền giá trị đã học ở đầu buổi."}, {"layout": "bullets", "phase": "hinh-thanh", "minutes": 3, "title": "Đặc trưng 4: mỗi ô một giá trị đơn", "bullets": ["Chương 1 dùng nó để bác bỏ cách nhồi ba số vào một ô", "Chương 2 dùng nó để bắt buộc tách thuộc tính đa trị", "Hôm nay nó có tên chính thức trong danh sách đặc trưng", "Chương 5 sẽ nâng nó lên thành dạng chuẩn 1"], "note": "Ghi nhớ: cùng một nguyên tắc, bốn chương gọi bằng bốn cách.", "emphasis": [3], "objective": "Thấy một nguyên tắc xuyên suốt bốn chương.", "notes": "Slide này cho sinh viên thấy sự liên tục của học phần. Cùng một nguyên tắc xuất hiện lần đầu như một quan sát ở chương một, thành quy tắc bắt buộc ở chương hai, thành đặc trưng chính thức hôm nay, và sẽ thành một dạng chuẩn có tên riêng ở chương năm. Mỗi lần gặp lại thì mức chặt chẽ tăng lên."}, {"layout": "two-column", "phase": "hinh-thanh", "minutes": 3, "title": "Đặc trưng 7: thứ tự không quan trọng", "left": {"heading": "Trong bảng tính", "bullets": ["Có khái niệm dòng thứ năm, ô C7", "Lấy dữ liệu bằng vị trí, tức tọa độ ô", "Vì bảng tính là một lưới tọa độ"]}, "right": {"heading": "Trong cơ sở dữ liệu", "bullets": ["Không có khái niệm dòng thứ năm", "Lấy dữ liệu bằng giá trị khóa", "Vì bảng là một tập hợp toán học"]}, "note": "Tập hợp toán học vốn không có thứ tự, nên bảng cũng vậy.", "emphasis": [5], "objective": "Hiểu vì sao thứ tự dòng không tồn tại trong quan hệ.", "notes": "Đây là đặc trưng nghe lạ nhất với người quen dùng bảng tính nên cần bảng đối chiếu. Điểm cốt lõi nằm ở dòng cuối cột phải: bảng là một tập hợp theo nghĩa toán học, mà tập hợp thì không có thứ tự. Đó không phải là hạn chế của công nghệ mà là bản chất của mô hình."}, {"layout": "bullets", "phase": "hinh-thanh", "minutes": 2, "title": "Một cảnh báo nghề nghiệp", "bullets": ["Không bao giờ viết chương trình lấy dòng đầu tiên làm bản ghi mới nhất", "Không có gì bảo đảm thứ tự ấy", "Chương trình chạy đúng hôm nay, sai khi hệ quản trị đổi cách tối ưu", "Muốn có thứ tự thì phải sắp xếp tường minh theo một cột"], "note": "Lưu ý: đây là lỗi kinh điển và rất khó tìm ra khi đã xảy ra.", "emphasis": [2], "objective": "Rút ra hệ quả lập trình từ đặc trưng thứ bảy.", "notes": "Đây là cảnh báo nghề nghiệp rất thật, và sinh viên sẽ gặp khi đi thực tập. Lấy dòng đầu tiên có thể chạy đúng suốt nhiều tháng vì hệ quản trị tình cờ trả về theo thứ tự chèn, rồi một ngày nó đổi kế hoạch truy vấn và kết quả sai mà không báo lỗi gì. Muốn có thứ tự thì phải nói rõ sắp theo cột nào."}, {"layout": "quiz", "phase": "luyen-tap", "minutes": 3, "branch": true, "title": "Kiểm tra giữa bài", "question": "Một bảng có cột SOTHICH ghi giá trị đọc sách, nghe nhạc, đá bóng trong cùng một ô. Vi phạm gì?", "options": ["Không vi phạm gì, chỉ hơi khó đọc", "Vi phạm đặc trưng mỗi ô chứa đúng một giá trị đơn", "Vi phạm đặc trưng thứ tự dòng không quan trọng", "Vi phạm đặc trưng mỗi cột có tên phân biệt"], "answer": 1, "explain": "Ô đó chứa ba giá trị nên vi phạm đặc trưng thứ tư. Hệ quả rất cụ thể: không tìm kiếm được theo từng sở thích, không ràng buộc được kiểu dữ liệu. Cách xử lý đúng đã học ở chương hai là tách thành một thực thể riêng.", "objective": "Kiểm tra khả năng nhận diện vi phạm đặc trưng.", "notes": "Slide này bật rẽ nhánh nên mỗi phương án có trang phản hồi riêng. Phương án đầu tiên là phản xạ của người quen dùng bảng tính, cho rằng đó chỉ là chuyện trình bày. Khi chữa, hãy nhắc lại chuỗi ba chương: quan sát ở chương một, quy tắc bắt buộc ở chương hai, đặc trưng chính thức ở chương ba."}, {"layout": "bullets", "phase": "hinh-thanh", "minutes": 2, "title": "Đã có gì và câu hỏi tiếp theo", "bullets": ["Đã có: quan hệ là gì và tám đặc trưng của nó", "Câu hỏi tiếp: lược đồ ER của chương 2 dịch sang thế nào", "Bốn thành phần dịch gần như đổi tên", "Hai thành phần thì phép dịch không còn máy móc"], "note": "Chặng 1 và 2 đã xong; xem trước bản đồ của việc dịch.", "objective": "Khớp nối và xem trước công việc của buổi sau.", "notes": "Dừng lại ba mươi giây. Slide sau là một bản đồ tổng quát cho toàn bộ công việc dịch, nhưng chi tiết cách dịch thì để dành cho buổi hai. Mục đích chiếu nó ở đây là để sinh viên thấy đường đi, và thấy ngay hai chỗ khó."}, {"layout": "image-text", "phase": "hinh-thanh", "minutes": 3, "title": "Từ điển phiên dịch ER sang quan hệ", "image": "hinh-ve/Chuong-3_Mo-hinh-quan-he_hinh01_ed746f23.png", "caption": "Hình 1. Từ điển phiên dịch từ mô hình ER sang mô hình quan hệ", "source": "Nguồn: Bài giảng Cơ sở dữ liệu, Chương 3, Hình 3.1.", "bullets": ["Thực thể thành bảng, thuộc tính thành cột", "Thuộc tính khóa thành khóa chính", "Hai dòng tô đậm là chỗ phép dịch không máy móc"], "objective": "Xem trước toàn cảnh việc ánh xạ trước khi học chi tiết.", "notes": "Chỉ vào từng dòng của hình. Bốn dòng đầu là phép dịch một một, gần như chỉ đổi tên gọi. Hai dòng cuối được tô đậm vì đó là chỗ khó: một liên kết ở chương hai không biến thành một bảng mà biến thành một cột khóa ngoại hoặc một bảng hoàn toàn mới. Bốn quy tắc ánh xạ của buổi sau chính là để xử lý hai dòng ấy."}, {"layout": "bullets", "phase": "hinh-thanh", "minutes": 2, "title": "Bốn dòng dễ, hai dòng khó", "bullets": ["Bốn dòng đầu gần như chỉ đổi tên gọi", "Dòng liên kết một nhiều thành một cột khóa ngoại", "Dòng liên kết nhiều nhiều thành một bảng hoàn toàn mới", "Hai dòng khó ấy là nội dung chính của buổi sau"], "note": "Đây chính là chỗ trả lời món nợ về liên kết nhiều nhiều.", "emphasis": [2], "objective": "Định vị phần khó của công việc ánh xạ.", "notes": "Dòng thứ ba là chỗ trả lời trực tiếp món nợ đã hẹn từ chương hai và nhắc lại ở câu chẩn đoán đầu buổi. Liên kết nhiều nhiều không dịch thành cột được, buộc phải thành một bảng riêng, và đó chính là lý do phải tách. Buổi sau sẽ trình bày đầy đủ."}, {"layout": "bullets", "phase": "hinh-thanh", "minutes": 2, "title": "Bàn giao thuật ngữ", "bullets": ["Chương 2 dùng cụm thuộc tính khóa", "Từ chương 3 dùng từ khóa với nghĩa chặt chẽ hơn", "Mô hình quan hệ có cả một hệ thống năm loại khóa", "Đây là bước chuyển từ mô tả nghiệp vụ sang cấu trúc dữ liệu"], "note": "Đã báo trước điều này từ buổi 2 của chương 2.", "objective": "Chính thức chuyển sang bộ thuật ngữ khóa của chương 3.", "notes": "Việc bàn giao thuật ngữ này đã được báo trước ở buổi hai chương hai, nay chính thức thực hiện. Sự chuyển đổi không phải câu nệ chữ nghĩa mà đánh dấu bước chuyển từ mô tả nghiệp vụ sang cấu trúc dữ liệu chặt chẽ. Nhưng trước khi định nghĩa khóa thì cần một công cụ, đó là nội dung slide sau."}, {"layout": "bullets", "phase": "hinh-thanh", "minutes": 3, "title": "Phụ thuộc hàm", "bullets": ["Viết A mũi tên B, đọc là B phụ thuộc hàm vào A", "Mỗi giá trị của A xác định duy nhất một giá trị B", "Cách đọc thực dụng: biết A thì biết chắc B", "A gọi là vế trái, B gọi là vế phải"], "note": "Ghi nhớ: đây là công cụ sẽ dùng lại rất nhiều ở chương 5.", "emphasis": [2], "objective": "Nắm định nghĩa và cách đọc phụ thuộc hàm.", "notes": "Khái niệm này nghe rất toán học nhưng cách đọc ở dòng thứ ba làm nó trở nên dễ chịu. Biết mã học viên là HV01 thì biết chắc học viên đó tên Trần An, vậy mã học viên xác định họ tên. Đây là công cụ nhỏ nhưng sẽ trở thành trung tâm của chương năm khi chuẩn hóa, nên cần nắm chắc ngay từ bây giờ."}, {"layout": "image-text", "phase": "hinh-thanh", "minutes": 3, "title": "Phụ thuộc hàm có chiều", "image": "hinh-ve/Chuong-3_Mo-hinh-quan-he_hinh02_c13c65fd.png", "caption": "Hình 2. Phụ thuộc hàm là một mũi tên một chiều, không đảo ngược được", "source": "Nguồn: Bài giảng Cơ sở dữ liệu, Chương 3, Hình 3.2.", "bullets": ["Mã học viên xác định họ tên, chiều này đúng", "Họ tên xác định mã học viên, chiều này sai", "Vì có thể có hai học viên trùng tên"], "objective": "Thấy tính có chiều là đặc điểm quan trọng nhất.", "notes": "Tính có chiều là đặc điểm quan trọng nhất của phụ thuộc hàm và cũng là chỗ sinh viên hay bỏ qua. Biết mã thì biết chắc tên, nhưng biết tên thì chưa chắc biết mã. Hãy hỏi cả lớp thử tìm thêm một cặp thuộc tính khác trong bảng học viên để kiểm tra chiều, chẳng hạn ngày sinh và mã."}, {"layout": "reveal", "phase": "luyen-tap", "minutes": 3, "title": "Ví dụ: chiều nào đúng", "prompt": "Với bảng LOP có mã lớp, tên lớp và phòng học, chiều nào đúng?", "items": [{"q": "Mã lớp xác định tên lớp", "a": "Đúng. Biết mã lớp là A1 thì biết chắc tên lớp là Anh cơ bản 1, vì mã lớp là duy nhất."}, {"q": "Tên lớp xác định mã lớp", "a": "Phải hỏi nghiệp vụ. Nếu trung tâm cho phép hai lớp trùng tên mở ở hai thời điểm thì chiều này sai."}, {"q": "Phòng học xác định mã lớp", "a": "Sai. Một phòng học được dùng cho nhiều lớp ở nhiều khung giờ khác nhau."}], "objective": "Kiểm tra chiều của phụ thuộc hàm trên ba cặp cụ thể.", "notes": "Cho lớp trả lời thầm rồi mở từng đáp án. Câu thứ hai là câu quan trọng nhất vì đáp án không phải đúng hay sai mà là phải hỏi nghiệp vụ. Đó chính là nội dung cảnh báo ở slide ngay sau đây, và cũng là lỗi phổ biến nhất khi làm bài tập chương năm."}, {"layout": "bullets", "phase": "hinh-thanh", "minutes": 3, "title": "Cảnh báo quan trọng nhất", "bullets": ["Phụ thuộc hàm là một quy tắc nghiệp vụ", "Không phải quan sát trên dữ liệu đang có", "Bảng có 3 dòng không ai trùng tên, không kết luận được gì", "Câu hỏi đúng: nghiệp vụ có cho phép trùng tên không"], "note": "Lưu ý: đây là lỗi rất phổ biến và chương 5 sẽ gặp lại.", "emphasis": [1], "objective": "Chặn trước lỗi suy phụ thuộc hàm từ dữ liệu mẫu.", "notes": "Đây là cảnh báo quan trọng nhất của cả mục. Sinh viên hay nhìn bảng dữ liệu mẫu vài dòng rồi kết luận có phụ thuộc hàm vì tình cờ không thấy trùng. Cách làm ấy sai về nguyên tắc. Phụ thuộc hàm phản ánh quy tắc của tổ chức chứ không phản ánh dữ liệu tại một thời điểm. Chương năm sẽ dùng phụ thuộc hàm làm công cụ chuẩn hóa nên sai ở đây là hỏng cả chương đó."}, {"layout": "bullets", "phase": "hinh-thanh", "minutes": 2, "title": "Chặng 4: năm loại khóa", "bullets": ["Đã có: công cụ phụ thuộc hàm để nói về sự xác định", "Câu hỏi tiếp: bao nhiêu loại khóa và khác nhau ở đâu", "Đặc trưng thứ tám đòi hỏi mỗi bảng phải định danh được từng dòng", "Hệ thống khóa chính là câu trả lời cho đòi hỏi ấy"], "note": "Chặng 3 đã xong; sang chặng cuối của lộ trình.", "objective": "Khớp nối sang phần hệ thống khóa.", "notes": "Dừng lại ba mươi giây. Dòng thứ ba nối lại với tám đặc trưng vừa học: đặc trưng cuối cùng đòi hỏi mỗi bảng phải có cách định danh duy nhất từng dòng, và phần còn lại của buổi trả lời cho đòi hỏi ấy một cách có hệ thống."}, {"layout": "bullets", "phase": "hinh-thanh", "minutes": 3, "title": "Siêu khóa và khóa dự tuyển", "bullets": ["Siêu khóa: tập thuộc tính xác định duy nhất mỗi bộ", "Có thể thừa thuộc tính, và thường có rất nhiều siêu khóa", "Khóa dự tuyển: siêu khóa tối thiểu", "Bỏ bất kỳ thuộc tính nào cũng mất tính duy nhất"], "note": "Ghi nhớ: siêu khóa chỉ cần duy nhất, khóa dự tuyển cần thêm tối thiểu.", "emphasis": [3], "objective": "Phân biệt hai loại khóa đầu theo hai tiêu chí đã học.", "notes": "Đây chính là hai tiêu chí duy nhất và tối thiểu đã học ở chương hai, nay được tách thành hai tên gọi riêng. Chương hai yêu cầu thuộc tính khóa thỏa mãn cả hai; ở đây thỏa mãn duy nhất là siêu khóa, thỏa mãn thêm tối thiểu mới là khóa dự tuyển. Cách bố trí này giúp nói chính xác hơn về từng mức."}, {"layout": "bullets", "phase": "hinh-thanh", "minutes": 3, "title": "Ba loại khóa còn lại", "bullets": ["Khóa chính: khóa dự tuyển được chọn để định danh chính thức", "Khóa phụ: dùng để tìm kiếm thuận tiện, không nhất thiết duy nhất", "Khóa ngoại: thuộc tính ở bảng này nhưng là khóa chính của bảng khác", "Khóa ngoại là thứ tạo ra liên kết giữa các bảng"], "note": "Chọn khóa chính là một quyết định của người thiết kế, không phải chân lý.", "emphasis": [3], "objective": "Nắm ba loại khóa còn lại và vai trò riêng của từng loại.", "notes": "Điểm cần nhấn ở dòng ghi chú: đi từ khóa dự tuyển xuống khóa chính là một quyết định của người thiết kế chứ không phải điều bắt buộc. Tiêu chí để quyết định chính là phần khóa tự nhiên với khóa thay thế đã học ở chương hai. Khóa ngoại ở dòng cuối là loại quan trọng nhất vì nó tạo ra mối nối giữa các bảng."}, {"layout": "two-column", "phase": "hinh-thanh", "minutes": 3, "title": "Năm loại khóa trên một bảng", "left": {"heading": "Bảng HOCVIEN", "bullets": ["Gồm MAHV, CCCD, HOTEN, NGAYSINH, MALOP", "Siêu khóa: MAHV, hoặc CCCD, hoặc cả cặp", "Khóa dự tuyển: MAHV và CCCD"]}, "right": {"heading": "Ba loại còn lại", "bullets": ["Khóa chính: chọn MAHV", "Khóa phụ: HOTEN, dùng tra cứu", "Khóa ngoại: MALOP, trỏ về bảng LOP"]}, "note": "Cặp MAHV và HOTEN cũng là siêu khóa, nhưng thừa nên không tối thiểu.", "emphasis": [3], "objective": "Thấy cả năm loại khóa cùng lúc trên một lược đồ.", "notes": "Bảng này là ví dụ chuẩn của giáo trình nên sinh viên cần thuộc. Điểm hay là cả năm loại đều xuất hiện trên cùng một bảng, cho thấy chúng không loại trừ nhau mà là năm vai trò khác nhau. Dòng ghi chú nhắc lại chỗ hay nhầm: thêm thuộc tính vào một khóa dự tuyển thì vẫn là siêu khóa nhưng không còn tối thiểu."}, {"layout": "match", "phase": "luyen-tap", "minutes": 3, "title": "Ghép loại khóa với ví dụ", "prompt": "Trên bảng HOCVIEN, mỗi mô tả ứng với loại khóa nào?", "pairs": [{"left": "Cặp MAHV và HOTEN, duy nhất nhưng thừa", "right": "Siêu khóa"}, {"left": "CCCD, duy nhất và tối thiểu, không được chọn", "right": "Khóa dự tuyển"}, {"left": "MAHV, được chọn để định danh chính thức", "right": "Khóa chính"}, {"left": "MALOP, là khóa chính của bảng LOP", "right": "Khóa ngoại"}], "explain": "Mẹo phân biệt: hỏi có duy nhất không để loại khóa phụ; hỏi có thừa thuộc tính không để tách siêu khóa khỏi khóa dự tuyển; hỏi có phải khóa chính của bảng khác không để nhận ra khóa ngoại.", "objective": "Phân loại năm loại khóa trên các trường hợp cụ thể.", "notes": "Cho làm theo cặp trong hai phút. Cặp đầu tiên là cặp gây phân vân nhất vì nhiều em nghĩ đã duy nhất thì phải là khóa dự tuyển. Khi chữa, nhấn mạnh rằng duy nhất chỉ là điều kiện thứ nhất, còn thiếu điều kiện tối thiểu."}, {"layout": "bullets", "phase": "hinh-thanh", "minutes": 2, "title": "Quan hệ bao hàm thu hẹp dần", "bullets": ["Mọi khóa chính đều là khóa dự tuyển", "Mọi khóa dự tuyển đều là siêu khóa", "Chiều ngược lại thì không đúng", "Đi từ siêu khóa xuống dự tuyển là bỏ phần thừa"], "note": "Đi từ dự tuyển xuống chính là một quyết định thiết kế.", "emphasis": [2], "objective": "Hiểu quan hệ bao hàm giữa ba loại khóa đầu.", "notes": "Ba loại khóa đầu lồng vào nhau như ba vòng tròn thu nhỏ dần. Điều đáng nói là hai bước đi xuống có bản chất khác nhau: bước thứ nhất là loại bỏ phần thừa, thuần túy kỹ thuật; bước thứ hai là một lựa chọn của người thiết kế, dựa vào tiêu chí khóa tự nhiên và khóa thay thế đã học."}, {"layout": "image-text", "phase": "hinh-thanh", "minutes": 3, "title": "Khóa chính và khóa ngoại", "image": "hinh-ve/Chuong-3_Mo-hinh-quan-he_hinh03_778f056e.png", "caption": "Hình 3. Khóa chính là căn cước, khóa ngoại là địa chỉ liên hệ", "source": "Nguồn: Bài giảng Cơ sở dữ liệu, Chương 3, Hình 3.3.", "bullets": ["Khóa chính trả lời: dòng này là ai", "Khóa ngoại trả lời: dòng này liên quan tới ai", "Hai vai trò hoàn toàn khác nhau"], "objective": "Phân định rõ vai trò của hai loại khóa dùng nhiều nhất.", "notes": "Hai loại khóa này được dùng nhiều nhất và cũng hay bị lẫn vai trò. Phép loại suy trên hình rất dễ nhớ: khóa chính như số căn cước của chính mình, khóa ngoại như địa chỉ nhà của người khác. Ba khác biệt cụ thể nằm ở slide sau."}, {"layout": "bullets", "phase": "hinh-thanh", "minutes": 3, "title": "Ba khác biệt then chốt", "bullets": ["Tính duy nhất: khóa chính không trùng, khóa ngoại được phép trùng", "Bốn lớp cùng một người phụ trách thì cột ấy trùng bốn lần", "Giá trị rỗng: khóa chính tuyệt đối cấm, khóa ngoại tùy nghiệp vụ", "Điều kiện tồn tại: khóa ngoại trỏ tới đâu thì nơi đó phải có thật"], "note": "Ba khác biệt này chính là nội dung hai ràng buộc toàn vẹn ở buổi sau.", "emphasis": [3], "objective": "Nắm ba khác biệt và thấy chúng dẫn tới đâu.", "notes": "Ba khác biệt này cần thuộc vì buổi sau sẽ dùng lại toàn bộ. Dòng thứ hai là ví dụ cụ thể cho việc khóa ngoại được phép trùng, điều mà sinh viên hay ngạc nhiên. Dòng cuối cùng là điều kiện quan trọng nhất và sẽ mang tên chính thức là toàn vẹn tham chiếu ở buổi hai."}, {"layout": "practice", "phase": "luyen-tap", "minutes": 6, "title": "Bài tập tại lớp: xác định khóa", "duration": "6 phút", "form": "Nhóm 2 người", "weight": "Điểm chuyên cần", "requirements": ["Cho bảng NHANVIEN gồm mã, số căn cước, họ tên, email, mã phòng", "Liệt kê siêu khóa, khóa dự tuyển và chỉ ra khóa ngoại", "Chọn khóa chính và giải thích vì sao chọn cái đó"], "criteria": ["Nêu ít nhất ba siêu khóa và giải thích cái nào thừa", "Lập luận chọn khóa chính dựa trên tính ổn định"], "hints": ["Email có duy nhất không, và có bao giờ đổi không", "Mở rộng: nếu hai nhân viên dùng chung một email thì sao"], "objective": "Vận dụng cả năm loại khóa lên một lược đồ mới.", "notes": "Đi quanh lớp trong lúc các nhóm làm. Lỗi hay gặp nhất là chỉ liệt kê một siêu khóa rồi dừng, trong khi bảng này có rất nhiều. Gợi ý thứ nhất dẫn tới cuộc tranh luận thú vị: email duy nhất nên là khóa dự tuyển, nhưng nó đổi được nên không nên làm khóa chính, đúng tiêu chí ổn định đã học ở chương hai."}, {"layout": "question", "phase": "van-dung", "minutes": 4, "title": "Thảo luận: chọn khóa chính nào", "question": "Bảng NHANVIEN có hai khóa dự tuyển là mã nhân viên tự sinh và số căn cước. Nhóm chọn cái nào làm khóa chính?", "prompts": ["Số căn cước, vì nó có ý nghĩa và ai cũng có", "Mã tự sinh, vì ngắn, bất biến và không lộ thông tin", "Cả hai, khai báo cùng lúc cho chắc", "Tùy hệ quản trị hỗ trợ cái nào tốt hơn"], "note": "Tiêu chí đánh giá là lập luận theo tính ổn định và chi phí tham chiếu.", "objective": "Bảo vệ một quyết định chọn khóa bằng lập luận.", "notes": "Phương án thứ hai là phương án mà giáo trình khuyến nghị, nhưng đừng nói ngay. Hãy để các nhóm tranh luận, vì phương án thứ nhất nghe rất hợp lý với người mới. Điểm quyết định là tính ổn định: số căn cước có thể đổi, mà khóa chính đổi thì mọi bảng tham chiếu phải sửa theo. Ngoài ra còn vấn đề riêng tư, số căn cước lan sang mọi bảng tham chiếu."}, {"layout": "bullets", "phase": "van-dung", "minutes": 2, "title": "Phản xạ cần tập", "bullets": ["Gặp chữ quan hệ thì hiểu là cái bảng, không phải mối liên hệ", "Thấy ô chứa nhiều giá trị thì nhớ ngay đặc trưng thứ tư", "Xét phụ thuộc hàm thì hỏi nghiệp vụ, đừng nhìn dữ liệu mẫu", "Tìm khóa thì kiểm cả tính duy nhất lẫn tính tối thiểu"], "note": "Bốn phản xạ mở đầu cho danh sách của chương 3.", "emphasis": [2], "objective": "Gói bài học thành bốn phản xạ dùng được ngay.", "notes": "Bốn dòng này mở đầu danh sách phản xạ của chương ba, tiếp nối cách làm đã quen ở chương hai. Hãy yêu cầu cả lớp mở một trang vở mới cho chương này, vì mười sáu dòng của chương trước vẫn còn dùng được nhưng đây là bộ công cụ khác."}, {"layout": "quiz", "phase": "cung-co", "minutes": 3, "title": "Quiz cuối buổi", "question": "Bảng chỉ có 3 dòng và tình cờ không ai trùng họ tên. Kết luận được HOTEN xác định MAHV không?", "options": ["Được, vì dữ liệu cho thấy không trùng", "Không, vì phụ thuộc hàm là quy tắc nghiệp vụ", "Được, nếu thêm ràng buộc duy nhất cho cột họ tên", "Không xác định được nếu chưa có đủ 100 dòng"], "answer": 1, "explain": "Phụ thuộc hàm phản ánh quy tắc của tổ chức chứ không phản ánh dữ liệu tại một thời điểm. Câu hỏi đúng phải là nghiệp vụ có cho phép hai người trùng tên không. Nếu có thì phụ thuộc hàm ấy không tồn tại, bất kể dữ liệu hiện tại trông thế nào.", "objective": "Đo mức đạt mục tiêu thái độ của buổi học.", "notes": "Đây là câu chốt và cũng là câu đo đúng mục tiêu thái độ. Phương án cuối cùng là bẫy tinh vi vì nó ngầm cho rằng dữ liệu nhiều hơn thì kết luận chắc hơn, nhưng dù có một triệu dòng cũng không kết luận được. Phương án thứ ba thì đảo ngược nhân quả: ràng buộc là hệ quả của quy tắc nghiệp vụ chứ không phải nguyên nhân."}, {"layout": "bullets", "phase": "cung-co", "minutes": 2, "role": "summary", "title": "Tóm tắt buổi 1", "bullets": ["Quan hệ nghĩa là cái bảng, không phải mối liên hệ", "Tám đặc trưng là điều kiện để một bảng là quan hệ", "Phụ thuộc hàm có chiều và là quy tắc nghiệp vụ", "Năm loại khóa: siêu, dự tuyển, chính, phụ, ngoại"], "note": "Đối chiếu lại bốn dòng này với slide mục tiêu ở đầu buổi.", "emphasis": [3], "objective": "Hệ thống hóa buổi học thành bốn điểm ghi nhớ.", "notes": "Bốn dòng này gói lại toàn bộ buổi học. Nếu chỉ nhớ được một dòng thì hãy nhớ dòng cuối cùng, vì hệ thống năm loại khóa sẽ được dùng liên tục trong ba chương còn lại. Quay lại slide mục tiêu và để mỗi người tự chấm."}, {"layout": "bullets", "phase": "cung-co", "minutes": 2, "title": "Nối sang buổi 2", "bullets": ["Đã có: ngôn ngữ của mô hình quan hệ", "Còn thiếu: luật bảo vệ tính đúng đắn của dữ liệu", "Buổi sau học hai ràng buộc toàn vẹn", "Rồi bốn quy tắc ánh xạ từ lược đồ ER sang bảng"], "note": "Ba khác biệt then chốt hôm nay chính là hạt giống của hai ràng buộc ấy.", "emphasis": [3], "objective": "Tạo nhu cầu học tiếp và chỉ ra mối nối.", "notes": "Slide này nối buổi một sang buổi hai. Nhắc lại rằng ba khác biệt giữa khóa chính và khóa ngoại vừa học chính là nội dung của hai ràng buộc toàn vẹn sẽ học buổi sau, chỉ khác là buổi sau chúng được phát biểu thành luật chính thức và có tên riêng."}, {"layout": "bullets", "phase": "cung-co", "minutes": 2, "role": "homework", "title": "Bài tập về nhà", "bullets": ["Đọc trước mục 3.3 và 3.4 trong giáo trình chương 3", "Lấy lược đồ ER chương 2, liệt kê khóa cho từng thực thể", "Với mỗi bảng, chỉ ra ít nhất hai siêu khóa và một khóa dự tuyển", "Mở rộng không bắt buộc: kiểm tra bảng của mình đủ tám đặc trưng chưa"], "note": "Nộp qua hệ thống học tập trực tuyến trước buổi học kế tiếp.", "objective": "Nối tiếp sản phẩm chương 2 sang ngôn ngữ chương 3.", "notes": "Nhiệm vụ thứ hai nối trực tiếp sản phẩm cuối chương hai vào chương này. Lược đồ ER mà mỗi em đã dựng cho tổ chức tự chọn nay được nhìn dưới ngôn ngữ mới. Đây cũng là bước chuẩn bị cho việc ánh xạ ở buổi sau, nên nhắc cả lớp giữ nguyên bài của mình."}], "_phase": {"khoi-dong": "Khởi động", "hinh-thanh": "Hình thành kiến thức", "luyen-tap": "Luyện tập", "van-dung": "Vận dụng", "cung-co": "Củng cố & đánh giá"}, "_objvn": {"knowledge": "Kiến thức", "skill": "Kỹ năng", "attitude": "Thái độ / Năng lực"}, "_order": {"29": [3, 2, 1, 0]}};</script>
+<script>
+/* Runtime bản HTML tương tác. build_html.py nhúng SPEC vào trang trước khi file này chạy.
+   Không phụ thuộc thư viện ngoài. */
+(function () {
+  "use strict";
+  var S = window.SPEC, meta = S.meta || {}, stage = document.getElementById("stage");
+  var PHASE = S._phase || {};
+  var esc = function (s) {
+    return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c];
+    });
+  };
+  var el = function (h) { var d = document.createElement("div"); d.innerHTML = h.trim(); return d.firstElementChild; };
+  var K = "ABCDEFGH".split("");
+
+  var slides = (S.slides || []).slice();
+  slides.push({ layout: "results", title: "Kết quả luyện tập", phase: "cung-co", minutes: 0 });
+
+  /* mốc thời gian cộng dồn */
+  var marks = [], acc = 0;
+  slides.forEach(function (s) {
+    var m = +(s.minutes || 0);
+    marks.push({ from: acc, to: acc + m, m: m });
+    acc += m;
+  });
+  var planTotal = acc;
+  var graded = [];
+  var cur = 0;
+
+  function head(s, i) {
+    /* Thời lượng không hiện trên slide — xem ở panel Kịch bản (N) và Tổng quan (O). */
+    return '<div class="hd"><h2>' + esc(s.title || "") + "</h2>" +
+      '</div><div class="rule"></div>';
+  }
+  function foot(i) {
+    var l = meta.footer || [meta.course, meta.title].filter(Boolean).join("  ·  ");
+    return '<div class="ft"><span>' + esc(l) + "</span><span>" + (i + 1) + "</span></div>";
+  }
+  function note(t) { return t ? '<div class="note">' + esc(t) + "</div>" : ""; }
+  function bullets(list) {
+    return (list || []).map(function (b) {
+      return '<div class="pt"><div class="d"></div><span>' + esc(b) + "</span></div>";
+    }).join("");
+  }
+
+  var R = {};
+
+  R.title = function (s, i) {
+    var tpl = !!meta.school;   /* chế độ theo mẫu slide của Trường */
+    var top = tpl ? [meta.school, meta.faculty].filter(Boolean).join("  ·  ")
+                  : [meta.course, meta.audience].filter(Boolean).join("  ·  ");
+    var info = [meta.lecturer ? "Giảng viên: " + meta.lecturer : null, meta.date]
+      .filter(Boolean).join("  ·  ");
+    var t = tpl ? String(s.title).toUpperCase() : s.title;
+    var sub = (tpl && meta.course) ? meta.course : s.subtitle;
+    var sub2 = (tpl && meta.course && s.subtitle)
+      ? '<div class="who">' + esc(s.subtitle) + "</div>" : "";
+    return '<div class="slide title edge">' +
+      (S._logo ? '<img class="tlogo" src="' + S._logo + '" alt="logo">' : "") +
+      '<div class="org">' + esc(top.toUpperCase()) + "</div>" +
+      "<h1>" + esc(t) + '</h1><div class="bar"></div>' +
+      '<div class="sub">' + esc(sub) + "</div>" + sub2 +
+      '<div class="who">' + esc(info) + "</div>" + foot(i) + "</div>";
+  };
+
+  R.objectives = function (s, i) {
+    var rows = (meta.objectives || []).map(function (o, n) {
+      var tag = (S._objvn[o.type] || o.type || "") + (o.bloom ? " · " + o.bloom : "");
+      return '<div class="goal"><div class="n">' + ("0" + (n + 1)).slice(-2) + "</div>" +
+        '<div class="tx"><b>' + esc(o.text) + "</b>" +
+        (o.detail ? "<span>" + esc(o.detail) + "</span>" : "") + "</div>" +
+        '<div class="tag">' + esc(tag) + "</div></div>";
+    }).join("");
+    return '<div class="slide">' + head(s, i) +
+      '<div class="body"><p class="lead">Sau bài học này, sinh viên có khả năng:</p>' +
+      rows + "</div>" + foot(i) + "</div>";
+  };
+
+  R.bullets = function (s, i) {
+    return '<div class="slide">' + head(s, i) + '<div class="body">' +
+      bullets(s.bullets) + note(s.note) + "</div>" + foot(i) + "</div>";
+  };
+
+  R["two-column"] = function (s, i) {
+    function pan(c) {
+      return '<div class="panel"><div class="ph">' + esc(c.heading || "") +
+        '</div><div class="pb">' + bullets(c.bullets) + "</div></div>";
+    }
+    return '<div class="slide">' + head(s, i) + '<div class="body"><div class="cols">' +
+      pan(s.left || {}) + pan(s.right || {}) + "</div>" + note(s.note) + "</div>" + foot(i) + "</div>";
+  };
+
+  R["image-text"] = function (s, i) {
+    var fig = s.image
+      ? '<img src="' + esc(s.image) + '" alt="' + esc(s.caption) + '">'
+      : '<div class="figbox">[cần bổ sung hình minh họa]</div>';
+    var left = '<div class="fig">' + fig + '<div class="cap">' + esc(s.caption) + "</div>" +
+      (s.source ? '<div class="src">' + esc(s.source) + "</div>" : "") + "</div>";
+    if (s.bullets && s.bullets.length) {
+      return '<div class="slide">' + head(s, i) + '<div class="body"><div class="figsplit">' +
+        left + '<div><div class="subhead">Ý CHÍNH</div><div class="ul"></div>' +
+        bullets(s.bullets) + "</div></div></div>" + foot(i) + "</div>";
+    }
+    return '<div class="slide">' + head(s, i) + '<div class="body">' + left + "</div>" + foot(i) + "</div>";
+  };
+
+  R.diagram = function (s, i) {
+    var n = s.steps.length;
+    var cells = s.steps.map(function (st, k) {
+      return '<div class="st"><div class="n">' + (k + 1) + "</div><b>" + esc(st.label) + "</b>" +
+        (st.desc ? "<span>" + esc(st.desc) + "</span>" : "") + "</div>" +
+        (k < n - 1 ? '<div class="ar">›</div>' : "");
+    }).join("");
+    return '<div class="slide">' + head(s, i) + '<div class="body"><div class="flow">' + cells +
+      "</div>" + note(s.note) + "</div>" + foot(i) + "</div>";
+  };
+
+  R.question = function (s, i) {
+    var pr = (s.prompts || []).map(function (p, k) {
+      return '<div class="pt"><div class="d"></div><span>' + K[k] + ". " + esc(p) + "</span></div>";
+    }).join("");
+    return '<div class="slide">' + head(s, i) + '<div class="body">' +
+      '<div class="q">' + esc(s.question) + "</div>" + pr +
+      '<textarea class="ta" placeholder="Ghi ý kiến của nhóm tại đây (lưu trong trình duyệt)…"></textarea>' +
+      note(s.note) + "</div>" + foot(i) + "</div>";
+  };
+
+  R.quiz = function (s, i) {
+    var opts = s.options.map(function (o, n) {
+      return '<button class="opt" data-n="' + n + '"><span class="k">' + K[n] + "</span><span>" +
+        esc(o) + "</span></button>";
+    }).join("");
+    return '<div class="slide" data-graded="1">' + head(s, i) + '<div class="body">' +
+      '<div class="q">' + esc(s.question) + "</div>" +
+      '<div class="opts">' + opts + "</div>" +
+      '<div class="row"><button class="btn js-check">Kiểm tra</button>' +
+      '<button class="btn ghost js-reset">Làm lại</button></div><div class="fb"></div>' +
+      "</div>" + foot(i) + "</div>";
+  };
+
+  R.reveal = function (s, i) {
+    var rows = s.items.map(function (it, n) {
+      return '<div class="rv" data-n="' + n + '"><span class="h">nhấp để xem</span><b>' +
+        (n + 1) + ". " + esc(it.q) + '</b><div class="a">' + esc(it.a) + "</div></div>";
+    }).join("");
+    return '<div class="slide">' + head(s, i) + '<div class="body">' +
+      (s.prompt ? '<p class="lead">' + esc(s.prompt) + "</p>" : "") + rows +
+      '<div class="row"><button class="btn ghost js-all">Hiện tất cả</button></div>' +
+      "</div>" + foot(i) + "</div>";
+  };
+
+  R.match = function (s, i) {
+    var p = s.pairs, ord = S._order[i] || p.map(function (_, k) { return k; });
+    var slots = p.map(function (x, n) {
+      return '<div class="slotrow"><div class="lb">' + (n + 1) + ". " + esc(x.left) +
+        '</div><div class="slot" data-n="' + n + '">thả vào đây</div></div>';
+    }).join("");
+    var toks = ord.map(function (n) {
+      return '<div class="tok" draggable="true" data-n="' + n + '">' + esc(p[n].right) + "</div>";
+    }).join("");
+    return '<div class="slide" data-graded="1">' + head(s, i) + '<div class="body">' +
+      (s.prompt ? '<p class="lead">' + esc(s.prompt) + "</p>" : "") +
+      '<div class="match"><div>' + slots + '</div><div class="bank">' + toks + "</div></div>" +
+      '<div class="row"><button class="btn js-check">Kiểm tra</button>' +
+      '<button class="btn ghost js-reset">Làm lại</button></div><div class="fb"></div>' +
+      "</div>" + foot(i) + "</div>";
+  };
+
+  R.practice = function (s, i) {
+    var chips = [s.duration ? "Thời lượng: " + s.duration : "", s.form ? "Hình thức: " + s.form : "",
+    s.weight ? "Trọng số: " + s.weight : ""].filter(Boolean)
+      .map(function (c) { return '<div class="c">' + esc(c) + "</div>"; }).join("");
+    var reqs = s.requirements.map(function (r, n) {
+      return '<label class="task"><input type="checkbox" data-n="' + n + '"><span>Bước ' +
+        (n + 1) + ". " + esc(r) + "</span></label>";
+    }).join("");
+    var side = "";
+    if (s.criteria && s.criteria.length) {
+      side += '<div class="box"><h4>TIÊU CHÍ ĐÁNH GIÁ</h4>' +
+        s.criteria.map(function (c) { return '<div class="task"><span>• ' + esc(c) + "</span></div>"; }).join("") +
+        "</div>";
+    }
+    if (s.hints && s.hints.length) {
+      side += '<div class="box"><h4>GỢI Ý</h4>' +
+        s.hints.map(function (h) { return '<div class="task"><span>• ' + esc(h) + "</span></div>"; }).join("") +
+        "</div>";
+    }
+    return '<div class="slide">' + head(s, i) + '<div class="body"><div class="chips">' + chips + "</div>" +
+      '<div class="box"><h4>YÊU CẦU — nhấp để đánh dấu đã xong</h4>' + reqs + "</div>" +
+      (side ? '<div class="two">' + side + "</div>" : "") + "</div>" + foot(i) + "</div>";
+  };
+
+  R.results = function (s, i) {
+    return '<div class="slide" data-results="1">' + head(s, i) +
+      '<div class="body"><div class="score"><div class="big js-big">–</div>' +
+      '<div class="lab">câu trả lời đúng</div><div class="rows js-rows"></div></div></div>' +
+      foot(i) + "</div>";
+  };
+
+  /* ---------- dựng DOM ---------- */
+  slides.forEach(function (s, i) {
+    var fn = R[s.layout];
+    if (!fn) { console.warn("chưa hỗ trợ:", s.layout); return; }
+    var node = el(fn(s, i));
+    node.dataset.idx = i;
+    stage.appendChild(node);
+    if (node.dataset.graded) graded.push({ i: i, title: s.title, state: null });
+  });
+  var nodes = [].slice.call(stage.querySelectorAll(".slide"));
+  function mark(i, ok) { graded.forEach(function (g) { if (g.i === i) g.state = ok; }); }
+
+  /* ---------- tương tác ---------- */
+  nodes.forEach(function (node) {
+    var i = +node.dataset.idx, s = slides[i];
+
+    if (s.layout === "quiz") {
+      var pick = null, opts = node.querySelectorAll(".opt"), fb = node.querySelector(".fb");
+      opts.forEach(function (o) {
+        o.addEventListener("click", function () {
+          if (o.classList.contains("lock")) return;
+          pick = +o.dataset.n;
+          opts.forEach(function (x) { x.classList.remove("pick"); });
+          o.classList.add("pick");
+        });
+      });
+      node.querySelector(".js-check").addEventListener("click", function () {
+        if (pick === null) return;
+        var ok = pick === s.answer;
+        opts.forEach(function (o) {
+          var n = +o.dataset.n;
+          o.classList.add("lock"); o.classList.remove("pick");
+          if (n === s.answer) o.classList.add("right");
+          else if (n === pick) o.classList.add("wrong");
+        });
+        fb.className = "fb on " + (ok ? "good" : "bad");
+        fb.innerHTML = "<b>" + (ok ? "Chính xác." : "Chưa đúng.") + "</b>" + esc(s.explain);
+        mark(i, ok);
+      });
+      node.querySelector(".js-reset").addEventListener("click", function () {
+        pick = null;
+        opts.forEach(function (o) { o.className = "opt"; });
+        fb.className = "fb"; mark(i, null);
+      });
+    }
+
+    if (s.layout === "reveal") {
+      node.querySelectorAll(".rv").forEach(function (r) {
+        r.addEventListener("click", function () { r.classList.toggle("open"); });
+      });
+      node.querySelector(".js-all").addEventListener("click", function () {
+        node.querySelectorAll(".rv").forEach(function (r) { r.classList.add("open"); });
+      });
+    }
+
+    if (s.layout === "match") {
+      var sel = null, fb2 = node.querySelector(".fb");
+      var toks = node.querySelectorAll(".tok"), slots = node.querySelectorAll(".slot");
+      function place(slot, n) {
+        if (slot.dataset.tok) {
+          var old = node.querySelector('.tok[data-n="' + slot.dataset.tok + '"]');
+          if (old) old.classList.remove("used");
+        }
+        slot.dataset.tok = n;
+        slot.textContent = s.pairs[n].right;
+        slot.className = "slot fill";
+        var t = node.querySelector('.tok[data-n="' + n + '"]');
+        if (t) { t.classList.add("used"); t.classList.remove("sel"); }
+        sel = null;
+      }
+      toks.forEach(function (t) {
+        t.addEventListener("click", function () {
+          if (sel === t) { t.classList.remove("sel"); sel = null; return; }
+          toks.forEach(function (x) { x.classList.remove("sel"); });
+          t.classList.add("sel"); sel = t;
+        });
+        t.addEventListener("dragstart", function (e) { e.dataTransfer.setData("text/plain", t.dataset.n); });
+      });
+      slots.forEach(function (sl) {
+        sl.addEventListener("click", function () {
+          if (sel) place(sl, sel.dataset.n);
+          else if (sl.dataset.tok) {
+            var old = node.querySelector('.tok[data-n="' + sl.dataset.tok + '"]');
+            if (old) old.classList.remove("used");
+            delete sl.dataset.tok; sl.textContent = "thả vào đây"; sl.className = "slot";
+          }
+        });
+        sl.addEventListener("dragover", function (e) { e.preventDefault(); sl.classList.add("over"); });
+        sl.addEventListener("dragleave", function () { sl.classList.remove("over"); });
+        sl.addEventListener("drop", function (e) {
+          e.preventDefault(); sl.classList.remove("over");
+          place(sl, e.dataTransfer.getData("text/plain"));
+        });
+      });
+      node.querySelector(".js-check").addEventListener("click", function () {
+        var all = true, done = 0;
+        slots.forEach(function (sl) {
+          if (!sl.dataset.tok) { all = false; return; }
+          done++;
+          var ok = +sl.dataset.tok === +sl.dataset.n;
+          sl.className = "slot fill " + (ok ? "right" : "wrong");
+          if (!ok) all = false;
+        });
+        if (done < slots.length) {
+          fb2.className = "fb on bad";
+          fb2.innerHTML = "<b>Chưa ghép đủ.</b>Hãy ghép hết các cặp rồi kiểm tra lại.";
+          return;
+        }
+        fb2.className = "fb on " + (all ? "good" : "bad");
+        fb2.innerHTML = "<b>" + (all ? "Ghép đúng toàn bộ." : "Còn cặp ghép sai.") + "</b>" + esc(s.explain);
+        mark(i, all);
+      });
+      node.querySelector(".js-reset").addEventListener("click", function () {
+        slots.forEach(function (sl) { delete sl.dataset.tok; sl.textContent = "thả vào đây"; sl.className = "slot"; });
+        toks.forEach(function (t) { t.classList.remove("used", "sel"); });
+        sel = null; fb2.className = "fb"; mark(i, null);
+      });
+    }
+
+    if (s.layout === "question") {
+      var ta = node.querySelector(".ta"), key = "ls-" + (meta.title || "") + "-" + i;
+      try { ta.value = localStorage.getItem(key) || ""; } catch (e) { }
+      ta.addEventListener("input", function () { try { localStorage.setItem(key, ta.value); } catch (e) { } });
+    }
+
+    if (s.layout === "practice") {
+      node.querySelectorAll(".task input").forEach(function (c) {
+        c.addEventListener("change", function () { c.closest(".task").classList.toggle("done", c.checked); });
+      });
+    }
+  });
+
+  function fillResults() {
+    var n = stage.querySelector('[data-results="1"]');
+    if (!n) return;
+    var ok = graded.filter(function (g) { return g.state === true; }).length;
+    n.querySelector(".js-big").textContent = ok + "/" + graded.length;
+    n.querySelector(".js-rows").innerHTML = graded.map(function (g) {
+      var c = g.state === true ? "ok" : g.state === false ? "no" : "na";
+      var m = g.state === true ? "✓" : g.state === false ? "✕" : "–";
+      return '<div class="r"><span class="s ' + c + '">' + m + "</span><span>" + esc(g.title) + "</span></div>";
+    }).join("") || '<div class="r"><span>Bài giảng này chưa có câu hỏi chấm điểm.</span></div>';
+  }
+
+  /* ---------- điều hướng ---------- */
+  var bar = document.getElementById("bar"), pos = document.getElementById("pos");
+  var notes = document.getElementById("notes"), grid = document.getElementById("grid");
+
+  function show(n) {
+    cur = Math.max(0, Math.min(nodes.length - 1, n));
+    nodes.forEach(function (x, k) { x.classList.toggle("on", k === cur); });
+    bar.style.width = ((cur + 1) / nodes.length * 100) + "%";
+    pos.textContent = (cur + 1) + " / " + nodes.length;
+    var s = slides[cur] || {}, mk = marks[cur] || { m: 0 };
+    notes.innerHTML = "<h5>Kịch bản giảng viên" +
+      (s.phase ? " · " + esc(PHASE[s.phase] || s.phase) : "") +
+      (mk.m ? " · " + mk.m + " phút (mốc " + mk.from + "→" + mk.to + " / " + planTotal + ")" : "") +
+      "</h5>" + (s.notes ? esc(s.notes) : "<em style='opacity:.5'>(slide tổng hợp, không có kịch bản)</em>");
+    if (s.layout === "results") fillResults();
+    if (location.hash !== "#" + (cur + 1)) history.replaceState(null, "", "#" + (cur + 1));
+    grid.querySelectorAll(".g").forEach(function (g, k) { g.classList.toggle("cur", k === cur); });
+  }
+
+  grid.innerHTML = slides.map(function (s, k) {
+    return '<div class="g" data-k="' + k + '"><div class="gi">' + (k + 1) +
+      (marks[k].m ? '<span class="gm">' + marks[k].m + "′</span>" : "") +
+      '</div><div class="gt">' + esc(s.title || s.layout) + '</div><div class="gp">' +
+      esc(PHASE[s.phase] || "") + "</div></div>";
+  }).join("");
+  grid.querySelectorAll(".g").forEach(function (g) {
+    g.addEventListener("click", function () { show(+g.dataset.k); grid.classList.remove("on"); });
+  });
+
+  function fit() {
+    document.documentElement.style.setProperty("--scale",
+      Math.min(innerWidth / 1280, innerHeight / 720) *
+      (document.body.classList.contains("shot") ? 1 : 0.96));
+  }
+  addEventListener("resize", fit);
+
+  /* đồng hồ tiết dạy */
+  var clock = document.getElementById("clock"), t0 = 0, held = 0, run = false;
+  function two(n) { return (n < 10 ? "0" : "") + n; }
+  function elapsed() { return run ? held + Math.floor((Date.now() - t0) / 1000) : held; }
+  function tick() {
+    var e = elapsed(), mk = marks[cur] || { to: 0 };
+    clock.textContent = two(Math.floor(e / 60)) + ":" + two(e % 60) + " / " + mk.to + "′";
+    clock.className = (run ? "run" : "") + (mk.to && e > mk.to * 60 ? " over" : "");
+  }
+  function toggle() {
+    if (run) { held = elapsed(); run = false; } else { t0 = Date.now(); run = true; }
+    tick();
+  }
+  setInterval(tick, 500); tick();
+  clock.addEventListener("click", toggle);
+
+  document.addEventListener("keydown", function (e) {
+    if (e.target.tagName === "TEXTAREA") return;
+    if (e.key === "t" || e.key === "T") return toggle();
+    if (e.key === "r" || e.key === "R") { held = 0; t0 = Date.now(); return tick(); }
+    if (e.key === "ArrowRight" || e.key === "PageDown" || e.key === " ") { show(cur + 1); e.preventDefault(); }
+    else if (e.key === "ArrowLeft" || e.key === "PageUp") { show(cur - 1); e.preventDefault(); }
+    else if (e.key === "Home") show(0);
+    else if (e.key === "End") show(nodes.length - 1);
+    else if (e.key === "n" || e.key === "N") notes.classList.toggle("on");
+    else if (e.key === "o" || e.key === "O" || e.key === "Escape") grid.classList.toggle("on");
+  });
+  document.getElementById("prev").addEventListener("click", function () { show(cur - 1); });
+  document.getElementById("next").addEventListener("click", function () { show(cur + 1); });
+  document.getElementById("tn").addEventListener("click", function () { notes.classList.toggle("on"); });
+  document.getElementById("tg").addEventListener("click", function () { grid.classList.toggle("on"); });
+
+  if (new URLSearchParams(location.search).get("shot") === "1") document.body.classList.add("shot");
+  fit();
+  show(Math.max(0, (parseInt(location.hash.replace("#", ""), 10) || 1) - 1));
+
+  window.__deck = {
+    show: show, count: nodes.length, graded: graded, slides: slides, marks: marks,
+    planTotal: planTotal, ready: true,
+    node: function (i) { return nodes[i]; }, cur: function () { return cur; },
+    clock: function () { tick(); return { text: clock.textContent, cls: clock.className, sec: elapsed() }; }
+  };
+})();
+
+</script>
+</body>
+</html>

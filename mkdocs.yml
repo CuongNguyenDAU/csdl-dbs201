@@ -1,0 +1,129 @@
+site_name: Cơ sở dữ liệu — DBS201
+site_description: Học liệu học phần Cơ sở dữ liệu · Khoa Công nghệ Thông tin · Đại học Kiến trúc Đà Nẵng
+site_author: Nguyễn Tất Phú Cường
+site_url: https://cuongnguyendau.github.io/csdl-dbs201/
+copyright: Khoa Công nghệ Thông tin · Đại học Kiến trúc Đà Nẵng
+
+docs_dir: docs
+use_directory_urls: true
+
+theme:
+  name: material
+  custom_dir: overrides
+  language: vi
+  logo: assets/Logo_dhktdn.png
+  favicon: assets/Logo_dhktdn.png
+  icon:
+    repo: fontawesome/brands/github
+  # Không tải Google Fonts: mạng trường hay chặn, và Roboto dựng dấu tiếng Việt
+  # (ế, ữ, ặ) kém ở cỡ nhỏ. Dùng font hệ thống, khớp luôn với bộ slide.
+  font: false
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/weather-night
+        name: Chuyển sang nền tối
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/weather-sunny
+        name: Chuyển sang nền sáng
+  features:
+    - navigation.instant
+    - navigation.instant.progress
+    - navigation.tracking
+    - navigation.sections
+    - navigation.indexes
+    - navigation.top
+    - navigation.footer
+    - toc.follow
+    - search.suggest
+    - search.highlight
+    - search.share
+    - content.code.copy
+    - content.tooltips
+
+markdown_extensions:
+  - abbr
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - tables
+  - toc:
+      permalink: ¶
+      toc_depth: 3
+  - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.caret
+  - pymdownx.mark
+  - pymdownx.tilde
+  # KHÔNG bật pymdownx.smartsymbols: bài tập đánh nhãn (a) (b) (c) và nó sẽ
+  # lặng lẽ đổi (c) thành ©. Cũng không bật arithmatex: nguồn không có ký tự $.
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+
+plugins:
+  - search:
+      # vi có trong lunr-languages (trimmer + stopwords, không có stemmer —
+      # tiếng Việt không biến hình nên gần như không mất gì). Thêm en vì nguồn
+      # dày thuật ngữ Anh: entity type, business rule, surrogate key.
+      lang:
+        - vi
+        - en
+      # Mặc định chỉ tách khoảng trắng và hyphen ASCII. Nguồn dùng rất nhiều
+      # en-dash (thực thể – liên kết, cha–con, nhiều–nhiều) và dấu hai chấm
+      # (1:1, 1:M, M:N) — không tách thì gõ "nhiều nhiều" không ra kết quả.
+      separator: '[\s–—\-:;,./!?()"“”«»\[\]]+'
+
+# Bắt liên kết và neo hỏng ngay lúc build thay vì để sinh viên gặp trang 404.
+validation:
+  nav:
+    omitted_files: warn
+    not_found: warn
+  links:
+    not_found: warn
+    anchors: warn
+    absolute_links: warn
+
+extra_css:
+  - assets/hoclieu.css
+
+extra_javascript:
+  - assets/hoclieu.js
+
+extra:
+  social:
+    - icon: fontawesome/solid/graduation-cap
+      link: https://dau.edu.vn
+      name: Đại học Kiến trúc Đà Nẵng
+
+nav:
+  - Trang chủ: index.md
+  - Đề cương học phần: de-cuong.md
+  - Chương 1. Tổng quan về cơ sở dữ liệu:
+      - Mở đầu chương: chuong-1/index.md
+      - 1.1. Dữ liệu, thông tin và cơ sở dữ liệu: chuong-1/1-1-du-lieu-thong-tin-va-co-so-du-lieu.md
+      - 1.2. Hệ quản trị cơ sở dữ liệu: chuong-1/1-2-he-quan-tri-co-so-du-lieu.md
+      - 1.3. Vì sao cần cơ sở dữ liệu: chuong-1/1-3-vi-sao-can-co-so-du-lieu.md
+      - 1.4. Mô hình dữ liệu, lược đồ và thể hiện: chuong-1/1-4-mo-hinh-du-lieu-luoc-do-va-the-hien.md
+      - 1.5. Kiến trúc ba mức và tính độc lập dữ liệu: chuong-1/1-5-kien-truc-ba-muc-va-tinh-doc-lap-du-lieu.md
+      - 1.6. Ngôn ngữ, giao dịch và cấu trúc DBMS: chuong-1/1-6-ngon-ngu-giao-dich-va-cau-truc-cua-mot-he-quan-tri-co-so-du-lieu.md
+      - 1.7. Ví dụ tổng hợp — Trung tâm ABC: chuong-1/1-7-vi-du-tong-hop-trung-tam-anh-ngu-abc.md
+      - Tóm tắt chương: chuong-1/tom-tat.md
+      - Ôn tập và trắc nghiệm: chuong-1/on-tap.md
+      - Bài tập: chuong-1/bai-tap.md
+      - Slide bài giảng: chuong-1/slide.md
+  - Tài liệu tham khảo: tai-lieu.md

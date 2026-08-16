@@ -1,0 +1,40 @@
+# ── Sản phẩm build ───────────────────────────────────────────
+site/
+.cache/
+.chrome-smoke/
+.chrome-dbg*/
+
+# ── Python ───────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# ── Node, chỉ dùng cho kiểm thử ───────────────────────────────
+node_modules/
+
+# ── CHẶN CỨNG tài liệu có bản quyền và tệp nhị phân nặng ──────
+# Repo này công khai. Sách của nhà xuất bản, bản Word và PowerPoint
+# gốc đều KHÔNG được đẩy lên. Cần một ngoại lệ hợp pháp thì
+# `git add -f` một cách có ý thức.
+THAMKHAO/
+*.pdf
+*.pptx
+*.ppt
+*.docx
+*.doc
+*.xlsx
+*.zip
+*.rar
+
+# ── Rác Windows / Office / OneDrive ──────────────────────────
+~$*
+Thumbs.db
+desktop.ini
+*.tmp
+.DS_Store
+
+# ── IDE và cấu hình cá nhân ──────────────────────────────────
+.vscode/
+.idea/
+.claude/
