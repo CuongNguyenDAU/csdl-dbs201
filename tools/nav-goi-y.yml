@@ -11,3 +11,61 @@
       - Ôn tập và trắc nghiệm: chuong-1/on-tap.md
       - Bài tập: chuong-1/bai-tap.md
       - Slide bài giảng: chuong-1/slide.md
+  - Chương 2:
+      - Chương 2. Mô hình thực thể – liên kết: chuong-2/index.md
+      - 2.1. Quá trình thiết kế cơ sở dữ liệu và quy tắc nghiệp vụ: chuong-2/2-1-qua-trinh-thiet-ke-co-so-du-lieu-va-quy-tac-nghiep-vu.md
+      - 2.2. Thực thể và thuộc tính: chuong-2/2-2-thuc-the-va-thuoc-tinh.md
+      - 2.3. Thuộc tính khóa và định danh: chuong-2/2-3-thuoc-tinh-khoa-va-dinh-danh.md
+      - 2.4. Liên kết và kỹ thuật hỏi hai chiều: chuong-2/2-4-lien-ket-va-ky-thuat-hoi-hai-chieu.md
+      - 2.5. Kết nối, lực lượng và sự tham gia: chuong-2/2-5-ket-noi-luc-luong-va-su-tham-gia.md
+      - 2.6. Bậc liên kết, thực thể yếu và thực thể kết hợp: chuong-2/2-6-bac-lien-ket-thuc-the-yeu-va-thuc-the-ket-hop.md
+      - 2.7. Mô hình ER mở rộng (EER): chuong-2/2-7-mo-hinh-er-mo-rong-eer.md
+      - 2.8. Quy trình xây dựng lược đồ ER và các ký pháp: chuong-2/2-8-quy-trinh-xay-dung-luoc-do-er-va-cac-ky-phap.md
+      - 2.9. Ví dụ tổng hợp: Trung tâm Anh ngữ ABC: chuong-2/2-9-vi-du-tong-hop-trung-tam-anh-ngu-abc.md
+      - Tóm tắt: chuong-2/tom-tat.md
+      - Ôn tập và trắc nghiệm: chuong-2/on-tap.md
+      - Bài tập: chuong-2/bai-tap.md
+      - Slide bài giảng: chuong-2/slide.md
+  - Chương 3:
+      - Chương 3. Mô hình dữ liệu quan hệ: chuong-3/index.md
+      - 3.1. Quan hệ, bộ, thuộc tính và miền giá trị: chuong-3/3-1-quan-he-bo-thuoc-tinh-va-mien-gia-tri.md
+      - 3.2. Phụ thuộc hàm và các loại khóa: chuong-3/3-2-phu-thuoc-ham-va-cac-loai-khoa.md
+      - 3.3. Các ràng buộc toàn vẹn: chuong-3/3-3-cac-rang-buoc-toan-ven.md
+      - 3.4. Bốn quy tắc ánh xạ ER sang mô hình quan hệ: chuong-3/3-4-bon-quy-tac-anh-xa-er-sang-mo-hinh-quan-he.md
+      - 3.5. Đại số quan hệ — phép chọn và phép chiếu: chuong-3/3-5-dai-so-quan-he-phep-chon-va-phep-chieu.md
+      - 3.6. Các phép toán tập hợp: chuong-3/3-6-cac-phep-toan-tap-hop.md
+      - 3.7. Phép kết và phép chia: chuong-3/3-7-phep-ket-va-phep-chia.md
+      - 3.8. Ví dụ tổng hợp: Trung tâm Anh ngữ ABC: chuong-3/3-8-vi-du-tong-hop-trung-tam-anh-ngu-abc.md
+      - Tóm tắt: chuong-3/tom-tat.md
+      - Ôn tập và trắc nghiệm: chuong-3/on-tap.md
+      - Bài tập: chuong-3/bai-tap.md
+      - Slide bài giảng: chuong-3/slide.md
+  - Chương 4:
+      - Chương 4. Ràng buộc toàn vẹn: chuong-4/index.md
+      - 4.1. Khái niệm ràng buộc toàn vẹn: chuong-4/4-1-khai-niem-rang-buoc-toan-ven.md
+      - 4.2. Ba yếu tố của một ràng buộc toàn vẹn: chuong-4/4-2-ba-yeu-to-cua-mot-rang-buoc-toan-ven.md
+      - 4.3. Lập bảng tầm ảnh hưởng: chuong-4/4-3-lap-bang-tam-anh-huong.md
+      - 4.4. Hành động khi vi phạm và cú pháp khai báo: chuong-4/4-4-hanh-dong-khi-vi-pham-va-cu-phap-khai-bao.md
+      - 4.5. Ràng buộc toàn vẹn bối cảnh một quan hệ: chuong-4/4-5-rang-buoc-toan-ven-boi-canh-mot-quan-he.md
+      - 4.6. Ràng buộc toàn vẹn bối cảnh nhiều quan hệ: chuong-4/4-6-rang-buoc-toan-ven-boi-canh-nhieu-quan-he.md
+      - 4.7. Thực hành phát hiện ràng buộc toàn vẹn: chuong-4/4-7-thuc-hanh-phat-hien-rang-buoc-toan-ven.md
+      - 4.8. Ví dụ tổng hợp — hoàn thiện thiết kế ABC: chuong-4/4-8-vi-du-tong-hop-hoan-thien-thiet-ke-abc.md
+      - Tóm tắt: chuong-4/tom-tat.md
+      - Ôn tập và trắc nghiệm: chuong-4/on-tap.md
+      - Bài tập: chuong-4/bai-tap.md
+  - Chương 5:
+      - Chương 5. Lý thuyết thiết kế và chuẩn hóa: chuong-5/index.md
+      - 5.1. Thế nào là một cơ sở dữ liệu "tốt": chuong-5/5-1-the-nao-la-mot-co-so-du-lieu-tot.md
+      - 5.2. Ba loại phụ thuộc hàm: chuong-5/5-2-ba-loai-phu-thuoc-ham.md
+      - 5.3. Hệ luật dẫn Armstrong: chuong-5/5-3-he-luat-dan-armstrong.md
+      - 5.4. Bao đóng của tập thuộc tính: chuong-5/5-4-bao-dong-cua-tap-thuoc-tinh.md
+      - 5.5. Thuật toán tìm khóa: chuong-5/5-5-thuat-toan-tim-khoa.md
+      - 5.6. Phủ tối thiểu: chuong-5/5-6-phu-toi-thieu.md
+      - 5.7. Các dạng chuẩn 1NF, 2NF, 3NF: chuong-5/5-7-cac-dang-chuan-1nf-2nf-3nf.md
+      - 5.8. Phép tách lược đồ: chuong-5/5-8-phep-tach-luoc-do.md
+      - 5.9. Quy trình chuẩn hóa hoàn chỉnh: chuong-5/5-9-quy-trinh-chuan-hoa-hoan-chinh.md
+      - 5.10. Dạng chuẩn mức cao và phi chuẩn hóa: chuong-5/5-10-dang-chuan-muc-cao-va-phi-chuan-hoa.md
+      - 5.11. Khép lại học phần: chuong-5/5-11-khep-lai-hoc-phan.md
+      - Tóm tắt: chuong-5/tom-tat.md
+      - Ôn tập và trắc nghiệm: chuong-5/on-tap.md
+      - Bài tập: chuong-5/bai-tap.md

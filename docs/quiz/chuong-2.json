@@ -1,0 +1,261 @@
+{
+  "chuong": 2,
+  "title": "Trắc nghiệm củng cố — Chương 2",
+  "questions": [
+    {
+      "id": "c2q01",
+      "block": "A",
+      "clo": "CLO2",
+      "q": "Một quy tắc nghiệp vụ đạt tiêu chí **đếm được** khi nào?",
+      "options": [
+        "Khi nó được viết bằng thuật ngữ kỹ thuật của cơ sở dữ liệu",
+        "Khi nó nói về sự việc cụ thể, dùng từ chỉ số lượng và nêu cả hai chiều",
+        "Khi nó do người quản lý cấp cao phát biểu",
+        "Khi nó ngắn hơn một câu"
+      ],
+      "answer": 1,
+      "explain": "Ba đặc điểm của quy tắc tốt: nói về **sự việc cụ thể** chứ không phải cảm nhận chung, dùng **từ chỉ số lượng** để người đọc đếm được, và **nêu cả hai chiều** của mối liên hệ. Quy tắc nghiệp vụ viết bằng ngôn ngữ tự nhiên của người dùng, không phải bằng thuật ngữ kỹ thuật; độ dài và chức vụ người phát biểu đều không liên quan."
+    },
+    {
+      "id": "c2q02",
+      "block": "A",
+      "clo": "CLO2",
+      "q": "Ba thành phần cơ bản của một lược đồ ER và ký hiệu Chen tương ứng là gì?",
+      "options": [
+        "Bảng — hình chữ nhật; cột — hình oval; khóa — hình thoi",
+        "Thực thể — hình chữ nhật; thuộc tính — hình oval; liên kết — hình thoi",
+        "Thực thể — hình oval; liên kết — hình chữ nhật; thuộc tính — hình thoi",
+        "Lược đồ — hình chữ nhật; thể hiện — hình oval; khóa — hình thoi"
+      ],
+      "answer": 1,
+      "explain": "Chữ nhật là **thực thể**, oval là **thuộc tính**, hình thoi là **liên kết** và bên trong ghi động từ. Bảng và cột là khái niệm của mô hình quan hệ ở Chương 3, không phải mô hình ER — ở mức quan niệm ta chưa nói tới bảng."
+    },
+    {
+      "id": "c2q03",
+      "block": "A",
+      "clo": "CLO2",
+      "q": "Một danh từ trong đề bài xứng đáng trở thành **thực thể** khi đạt cả ba tiêu chí nào?",
+      "options": [
+        "Xuất hiện nhiều lần trong đề · được in đậm · nằm ở câu đầu tiên",
+        "Có nhiều hơn một đặc điểm cần lưu · có nhiều cá thể phân biệt được · có liên kết với sự vật khác",
+        "Có mã số · có tên · có ngày tạo",
+        "Do khách hàng nhắc tới · có thể đếm được · có thể sắp xếp"
+      ],
+      "answer": 1,
+      "explain": "Ba tiêu chí thực dụng ở mục 2.2.1. Thiếu tiêu chí đầu thì nó chỉ nên là **thuộc tính** — như \"màu sắc\" khi chỉ cần lưu tên màu. Thiếu tiêu chí thứ hai thì bảng chỉ có một dòng. Thiếu tiêu chí thứ ba thì danh từ ấy thường nằm ngoài phạm vi bài toán. Tần suất xuất hiện hay cách trình bày trong đề đều không phải tiêu chí."
+    },
+    {
+      "id": "c2q04",
+      "block": "A",
+      "clo": "CLO2",
+      "q": "Vì sao **thuộc tính đa trị bắt buộc phải tách**, trong khi thuộc tính phức hợp thì được quyền chọn?",
+      "options": [
+        "Vì thuộc tính đa trị luôn có nhiều hơn ba giá trị",
+        "Vì để nguyên thì vi phạm nguyên tắc mỗi ô chứa đúng một giá trị đơn",
+        "Vì thuộc tính đa trị không thể đặt tên được",
+        "Vì hệ quản trị không cho phép lưu thuộc tính đa trị"
+      ],
+      "answer": 1,
+      "explain": "Để nguyên thì chỉ còn hai cách, và cả hai đều hỏng: nhồi vào một ô thì vi phạm nguyên tắc **mỗi ô một giá trị đơn** — Chương 5 gọi là dạng chuẩn 1 — nên mất khả năng tìm kiếm và kiểm tra; tạo nhiều cột thì phải đoán trước số lượng, hôm sau có người khai thêm là **phải sửa cấu trúc bảng**. Số lượng giá trị cụ thể không liên quan; hai giá trị cũng đã là đa trị."
+    },
+    {
+      "id": "c2q05",
+      "block": "A",
+      "clo": "CLO2",
+      "q": "Hai tiêu chí bắt buộc của một thuộc tính khóa là gì?",
+      "options": [
+        "Tính duy nhất và tính tối thiểu, phải thỏa mãn đồng thời",
+        "Tính duy nhất và tính ngắn gọn",
+        "Là số nguyên và do hệ thống tự sinh",
+        "Không được rỗng và phải nằm ở cột đầu tiên"
+      ],
+      "answer": 0,
+      "explain": "**Duy nhất**: không hai thể hiện nào cùng giá trị. **Tối thiểu**: bỏ bất kỳ thuộc tính nào trong nhóm là mất tính duy nhất. Chữ **đồng thời** quan trọng nhất — cặp `(MAHV, HOTEN)` duy nhất nhưng không tối thiểu nên không dùng được. Kiểu dữ liệu, độ dài hay vị trí cột đều không phải tiêu chí."
+    },
+    {
+      "id": "c2q06",
+      "block": "A",
+      "clo": "CLO2",
+      "q": "Phân biệt **kết nối** và **lực lượng** của một liên kết.",
+      "options": [
+        "Kết nối là số bảng tham gia; lực lượng là số dòng dữ liệu",
+        "Kết nối mô tả loại 1:1, 1:M hay M:N; lực lượng là cặp số tối thiểu và tối đa",
+        "Kết nối dùng cho Chen; lực lượng dùng cho Crow's Foot",
+        "Hai từ này đồng nghĩa, dùng thay nhau được"
+      ],
+      "answer": 1,
+      "explain": "Hai mức chi tiết của cùng một sự việc: **kết nối** cho biết loại ở mức khái quát, **lực lượng** cho con số cụ thể dạng `(min, max)`. Quy tắc *\"mỗi lớp có ít nhất 5 và nhiều nhất 25 học viên\"* cho lực lượng `(5, 25)` — thông tin mà kết nối không diễn tả nổi. Cả hai đều dùng được trong cả hai ký pháp."
+    },
+    {
+      "id": "c2q07",
+      "block": "A",
+      "clo": "CLO2",
+      "q": "Thực thể được gọi là **yếu** khi thỏa mãn điều kiện nào?",
+      "options": [
+        "Khi nó có ít thuộc tính hơn các thực thể khác",
+        "Khi nó phụ thuộc tồn tại vào thực thể chủ",
+        "Khi nó **đồng thời** phụ thuộc tồn tại và có thuộc tính khóa không đầy đủ",
+        "Khi nó được sinh ra từ việc tách một liên kết nhiều–nhiều"
+      ],
+      "answer": 2,
+      "explain": "Chữ **đồng thời** là chỗ hay sai nhất. Thực thể `LOP` phụ thuộc tồn tại vào `KHOAHOC` nhưng `MALOP` tự nó đã đủ phân biệt, nên **không** phải thực thể yếu. Phương án cuối mô tả **thực thể kết hợp** — cũng dùng khóa phức hợp nhưng nguồn gốc khác hẳn: nó sinh từ việc tách liên kết M:N chứ không có sẵn trong đề bài."
+    },
+    {
+      "id": "c2q08",
+      "block": "A",
+      "clo": "CLO2",
+      "q": "Phép thử nào giúp phân biệt quan hệ **cha–con** với liên kết thông thường?",
+      "options": [
+        "Đếm số thuộc tính chung giữa hai thực thể",
+        "Đặt vào câu \"LÀ MỘT\" — nghe xuôi thì là cha–con",
+        "Xem thực thể nào được vẽ ở phía trên trong sơ đồ",
+        "Kiểm tra hai thực thể có cùng số lượng cá thể hay không"
+      ],
+      "answer": 1,
+      "explain": "*\"Giáo viên **là một** nhân sự\"* nghe xuôi nên đó là cha–con. *\"Lớp **có** nhiều học viên\"* phải dùng động từ **có**, nên đó là liên kết thông thường. Nên đọc thành tiếng câu tiếng Việt trước khi vẽ. Vị trí trong sơ đồ và số lượng cá thể không nói lên điều gì về loại quan hệ."
+    },
+    {
+      "id": "c2q09",
+      "block": "A",
+      "clo": "CLO2",
+      "q": "Vì sao giáo trình chọn ký pháp **Chen** để học và giải bài, còn Crow's Foot để trình bày kết quả?",
+      "options": [
+        "Vì Chen mới hơn và được các công cụ vẽ hỗ trợ tốt hơn",
+        "Vì Chen cho mỗi khái niệm một ký hiệu riêng nên buộc người vẽ ghi lại đầy đủ mọi quyết định",
+        "Vì Crow's Foot chỉ dùng được cho cơ sở dữ liệu nhỏ",
+        "Vì Chen tốn ít diện tích giấy hơn"
+      ],
+      "answer": 1,
+      "explain": "Chen là ký pháp **gốc** (1976, không phải mới hơn) và **tốn nhiều diện tích hơn** chứ không ít. Ưu điểm quyết định là tính tường minh: muốn vẽ thuộc tính đa trị phải cố tình vẽ hai đường viền, muốn vẽ khóa phải cố tình gạch chân — mỗi nét là một quyết định thiết kế được ghi nhận. Crow's Foot gọn hơn nhưng giấu bớt các sắc thái ấy."
+    },
+    {
+      "id": "c2q10",
+      "block": "V",
+      "clo": "CLO3",
+      "q": "Quy tắc: *\"Một độc giả mượn nhiều bản sao; một bản sao được nhiều độc giả mượn qua các lần khác nhau. Mỗi lượt mượn ghi ngày mượn và ngày hẹn trả.\"* Áp dụng hỏi hai chiều, kết luận đúng là gì?",
+      "options": [
+        "Liên kết 1:M, đặt `NGAYMUON` vào `BANSAO`",
+        "Liên kết M:N có thuộc tính riêng, phải tách thành thực thể kết hợp",
+        "Liên kết 1:1, mỗi lượt mượn là một cặp cố định",
+        "Liên kết M:N không có thuộc tính, không cần tách"
+      ],
+      "answer": 1,
+      "explain": "Hỏi chiều thứ nhất: một độc giả mượn **nhiều** bản sao. Chiều thứ hai: một bản sao được **nhiều** độc giả mượn. Nhiều ghép nhiều nên là **M:N**. Ngày mượn không thuộc độc giả (cùng người mượn nhiều lần, nhiều ngày khác nhau) cũng không thuộc bản sao (cùng cuốn được mượn nhiều lần) — nó chỉ có nghĩa với **một cặp cụ thể**, nên phải sinh thực thể kết hợp `MUON(MADG, MABANSAO, NGAYMUON, NGAYHENTRA)`."
+    },
+    {
+      "id": "c2q11",
+      "block": "V",
+      "clo": "CLO3",
+      "q": "Quy tắc: *\"Mỗi lớp phải thuộc một khóa học; một khóa học có thể chưa mở lớp nào.\"* Tính tham gia của hai chiều là gì?",
+      "options": [
+        "Cả hai chiều đều bắt buộc",
+        "Chiều từ `LOP` bắt buộc; chiều từ `KHOAHOC` tùy chọn",
+        "Chiều từ `LOP` tùy chọn; chiều từ `KHOAHOC` bắt buộc",
+        "Cả hai chiều đều tùy chọn"
+      ],
+      "answer": 1,
+      "explain": "Toàn bộ thông tin nằm ở hai cụm từ: chữ **phải** báo hiệu tham gia bắt buộc cho chiều từ `LOP`; cụm **có thể chưa** báo hiệu tham gia tùy chọn cho chiều từ `KHOAHOC`. Hãy tập khoanh tròn hai cụm này ngay khi đọc đề — chúng là thông tin thiết kế chứ không phải lời văn thừa, và sẽ thành ràng buộc *không được rỗng* trên khóa ngoại ở Chương 3."
+    },
+    {
+      "id": "c2q12",
+      "block": "V",
+      "clo": "CLO3",
+      "q": "Đề bài: *\"Mỗi đầu sách có mã, tên sách, năm xuất bản và **nhiều tác giả**.\"* Ở Bước 2 của quy trình năm bước, phải làm gì với **nhiều tác giả**?",
+      "options": [
+        "Tách ngay thành thực thể `TACGIA` rồi mới đi tiếp",
+        "Đánh dấu là thuộc tính đa trị và tiếp tục liệt kê, để dành xử lý ở Bước 4",
+        "Bỏ qua vì tác giả không thuộc phạm vi quản lý sách",
+        "Tạo ba cột `TACGIA1`, `TACGIA2`, `TACGIA3`"
+      ],
+      "answer": 1,
+      "explain": "Bước 2 chỉ **liệt kê và đánh dấu**; việc tách thuộc về Bước 4. Tách ngay tại chỗ chính là sai lầm gộp hai bước — đang liệt kê dở một thực thể lại nhảy sang tạo thực thể mới rồi quên quay về, rất dễ bỏ sót. Phương án tạo ba cột lặp lại đúng lỗi đã phân tích ở mục 2.2.4: có người bốn tác giả là phải sửa cấu trúc bảng."
+    },
+    {
+      "id": "c2q13",
+      "block": "V",
+      "clo": "CLO3",
+      "q": "Quy tắc: *\"Mỗi nhân viên có đúng một người quản lý trực tiếp, trừ giám đốc là người không có quản lý. Một người quản lý phụ trách nhiều nhân viên.\"* Đây là liên kết loại gì?",
+      "options": [
+        "Liên kết bậc hai 1:M giữa `NHANVIEN` và `QUANLY`",
+        "Liên kết đệ quy bậc một, kết nối 1:M, chiều \"có quản lý\" là tùy chọn",
+        "Liên kết đệ quy bậc một, kết nối M:N",
+        "Liên kết bậc ba giữa nhân viên, quản lý và phòng ban"
+      ],
+      "answer": 1,
+      "explain": "Chỉ có **một** loại sự vật tham gia là nhân viên, nên đây là liên kết **đệ quy** bậc một — không được tách `QUANLY` thành thực thể riêng, vì người quản lý cũng là một nhân viên. Hỏi hai chiều: một nhân viên có nhiều nhất một quản lý, một quản lý phụ trách nhiều nhân viên → **1:M**. Cụm *trừ giám đốc* cho biết chiều \"có quản lý\" là **tùy chọn**, `min = 0`."
+    },
+    {
+      "id": "c2q14",
+      "block": "V",
+      "clo": "CLO3",
+      "q": "Bệnh viện có **bác sĩ** (chuyên khoa, số chứng chỉ) và **điều dưỡng** (khoa công tác, ca trực); cả hai đều có mã, họ tên, ngày sinh, ngày vào làm. Bệnh viện còn có nhân viên hành chính chưa được mô hình hóa. Hai ràng buộc của phân cấp là gì?",
+      "options": [
+        "Rời nhau và đầy đủ",
+        "Rời nhau và không đầy đủ",
+        "Chồng lấn và đầy đủ",
+        "Chồng lấn và không đầy đủ"
+      ],
+      "answer": 1,
+      "explain": "Tách thành hai câu hỏi độc lập. **Có kiêm nhiệm không?** Một người không thể vừa là bác sĩ vừa là điều dưỡng → **rời nhau**. **Có ai đứng ngoài mọi nhóm con không?** Nhân viên hành chính chưa được mô hình hóa thành nhóm con nhưng vẫn là nhân viên y tế trong hệ thống → **không đầy đủ**. Nếu bệnh viện chỉ có đúng hai nhóm thì ràng buộc thứ hai sẽ là *đầy đủ*."
+    },
+    {
+      "id": "c2q15",
+      "block": "V",
+      "clo": "CLO3",
+      "q": "Chạy xong Bước 5 cho bài toán Trung tâm ABC, ta thu được bảy thực thể trong khi Chương 1 chỉ tìm ra ba bảng. Bốn thực thể chênh lệch nói lên điều gì?",
+      "options": [
+        "Chương 1 tính sai, ba bảng là thiếu sót cần sửa lại",
+        "Trực giác chỉ nhìn được dữ liệu đã có, còn bốn thực thể ấy không lộ ra dưới dạng lặp lại",
+        "Càng nhiều thực thể thì thiết kế càng tốt",
+        "Bảy thực thể là con số chuẩn cho mọi bài toán cỡ này"
+      ],
+      "answer": 1,
+      "explain": "`KHOAHOC` không xuất hiện vì bảng phẳng chưa có cột nào về khóa học; `DIENTHOAI` không xuất hiện vì bảng chỉ chừa chỗ cho một số; `GHIDANH` bị che khuất vì bảng phẳng gán mỗi học viên đúng một lớp; `TIENQUYET` nằm trong **quy tắc nghiệp vụ** chứ không nằm trong dữ liệu. Đây là bài học lớn nhất của chương: thiết kế là **mô hình hóa nghiệp vụ**, không phải dọn dẹp dữ liệu có sẵn. Không có con số thực thể chuẩn — đổi quy tắc là đổi lược đồ."
+    }
+  ],
+  "cards": [
+    {
+      "front": "Quy tắc nghiệp vụ",
+      "back": "Phát biểu **ngắn gọn, rõ ràng, bằng ngôn ngữ tự nhiên** mô tả một chính sách, quy trình hoặc ràng buộc của tổ chức. Tiêu chí then chốt: **đếm được**."
+    },
+    {
+      "front": "Thực thể và thể hiện thực thể",
+      "back": "**Thực thể** là loại sự vật cần lưu thông tin — cái khuôn. **Thể hiện** là một cá thể cụ thể đúc ra từ khuôn ấy. Lược đồ chỉ vẽ thực thể."
+    },
+    {
+      "front": "Bốn cặp phân loại thuộc tính",
+      "back": "Đơn ↔ phức hợp · đơn trị ↔ **đa trị** · lưu trữ ↔ dẫn xuất · bắt buộc ↔ tùy chọn. Bốn cặp **độc lập** nhau, mỗi thuộc tính mang bốn nhãn."
+    },
+    {
+      "front": "Hai tiêu chí của thuộc tính khóa",
+      "back": "**Duy nhất** — không hai thể hiện cùng giá trị. **Tối thiểu** — bỏ bất kỳ thành phần nào là mất tính duy nhất. Phải thỏa mãn **đồng thời**."
+    },
+    {
+      "front": "Kỹ thuật hỏi hai chiều",
+      "back": "Hỏi *một A liên quan bao nhiêu B*, rồi hỏi ngược lại *một B liên quan bao nhiêu A*, sau đó ghép hai câu trả lời. Chiều bị quên luôn là chiều làm hỏng thiết kế."
+    },
+    {
+      "front": "Thực thể yếu",
+      "back": "Thỏa mãn **đồng thời** hai điều kiện: phụ thuộc tồn tại vào thực thể chủ, **và** khóa không đầy đủ nên phải mượn khóa của thực thể chủ. Vẽ chữ nhật hai viền."
+    },
+    {
+      "front": "Thực thể kết hợp",
+      "back": "Sinh ra từ việc **tách liên kết M:N**. Khóa phức hợp ghép từ khóa hai thực thể gốc, và nó mang được thuộc tính riêng. Mẹo nhận biết: **phép thử tờ phiếu**."
+    },
+    {
+      "front": "Hai ràng buộc của phân cấp cha–con",
+      "back": "**Rời nhau (d) hay chồng lấn (o)** — một cá thể thuộc mấy nhóm con. **Đầy đủ hay không đầy đủ** — có ai đứng ngoài mọi nhóm con không. Hai câu hỏi độc lập, bốn tổ hợp."
+    }
+  ],
+  "selfcheck": [
+    { "clo": "CLO2", "text": "Trình bày được ba mức thiết kế và đánh giá được một quy tắc nghiệp vụ có đếm được không" },
+    { "clo": "CLO2", "text": "Mô tả được ba thành phần của lược đồ ER và đọc thành lời một lược đồ đơn giản" },
+    { "clo": "CLO3", "text": "Phân biệt được thực thể với thể hiện; phân loại thuộc tính theo bốn cặp và xử lý đúng đa trị" },
+    { "clo": "CLO3", "text": "Xác định được thuộc tính khóa theo hai tiêu chí và chọn được giữa khóa tự nhiên và khóa thay thế" },
+    { "clo": "CLO3", "text": "Vận dụng được kỹ thuật hỏi hai chiều để xác định 1:1, 1:M hay M:N" },
+    { "clo": "CLO3", "text": "Xác định được lực lượng và tính tham gia; đọc và vẽ được lược đồ theo ký pháp Chen" },
+    { "clo": "CLO3", "text": "Nhận diện và xử lý được ba ca đặc biệt: đệ quy, thực thể yếu, liên kết M:N" },
+    { "clo": "CLO2", "text": "Trình bày được các khái niệm EER và xác định được hai ràng buộc của phân cấp cha–con" },
+    { "clo": "CLO3", "text": "Thực hiện được trọn vẹn quy trình năm bước cho một bài toán thực tế" }
+  ]
+}

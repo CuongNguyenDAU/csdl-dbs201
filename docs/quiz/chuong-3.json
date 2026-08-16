@@ -1,0 +1,260 @@
+{
+  "chuong": 3,
+  "title": "Trắc nghiệm củng cố — Chương 3",
+  "questions": [
+    {
+      "id": "c3q01",
+      "block": "A",
+      "clo": "CLO2",
+      "q": "**Bậc** và **lực lượng** của một quan hệ lần lượt là gì?",
+      "options": [
+        "Bậc là số dòng; lực lượng là số cột",
+        "Bậc là số cột (thuộc tính); lực lượng là số dòng (bộ)",
+        "Bậc là số khóa; lực lượng là số ràng buộc",
+        "Bậc là số bảng liên kết tới; lực lượng là số khóa ngoại"
+      ],
+      "answer": 1,
+      "explain": "**Bậc** *(degree)* đếm theo chiều ngang — số thuộc tính, và nó là thuộc tính của **lược đồ** nên rất ít khi đổi. **Lực lượng** *(cardinality)* đếm theo chiều dọc — số bộ, và nó là thuộc tính của **thể hiện** nên đổi liên tục. Đây đúng là cặp lược đồ – thể hiện đã gặp ở Chương 1."
+    },
+    {
+      "id": "c3q02",
+      "block": "A",
+      "clo": "CLO2",
+      "q": "Hai quan hệ được gọi là **khả hợp** khi nào?",
+      "options": [
+        "Khi chúng có cùng số dòng",
+        "Khi chúng có cùng tên thuộc tính",
+        "Khi chúng có cùng số thuộc tính và các thuộc tính tương ứng cùng miền giá trị",
+        "Khi chúng có chung ít nhất một khóa ngoại"
+      ],
+      "answer": 2,
+      "explain": "Hai điều kiện phải thỏa **đồng thời**: cùng **bậc**, và các thuộc tính tương ứng theo thứ tự phải cùng **miền giá trị**. Tên thuộc tính **không** cần giống nhau — `A(MASV, HOTEN)` và `B(MAGV, HOTEN_GV)` vẫn khả hợp nếu hai cột tương ứng cùng kiểu. Số dòng hoàn toàn không liên quan. Khả hợp là điều kiện bắt buộc của bốn phép toán tập hợp ∪, ∩, −."
+    },
+    {
+      "id": "c3q03",
+      "block": "A",
+      "clo": "CLO2",
+      "q": "Phân biệt **toàn vẹn thực thể** và **toàn vẹn tham chiếu**.",
+      "options": [
+        "Toàn vẹn thực thể: khóa chính duy nhất và không rỗng · Toàn vẹn tham chiếu: khóa ngoại hoặc rỗng hoặc khớp một khóa chính đang tồn tại",
+        "Toàn vẹn thực thể: mọi cột đều không rỗng · Toàn vẹn tham chiếu: mọi bảng đều có khóa ngoại",
+        "Toàn vẹn thực thể áp cho bảng cha · Toàn vẹn tham chiếu áp cho bảng con, cả hai đều cấm rỗng",
+        "Hai khái niệm này là một, chỉ khác tên gọi"
+      ],
+      "answer": 0,
+      "explain": "Điểm bất đối xứng đáng nhớ: khóa chính **cấm rỗng** vì rỗng nghĩa là *chưa biết*, mà một thực thể không thể tồn tại nếu chưa biết nó là ai. Khóa ngoại thì **cho phép rỗng** — đó chính là cách mô hình quan hệ diễn tả tính **tham gia tùy chọn** của Chương 2, ví dụ một giáo viên chưa được phân lớp nào."
+    },
+    {
+      "id": "c3q04",
+      "block": "A",
+      "clo": "CLO2",
+      "q": "Phụ thuộc hàm `A → B` có tính **có chiều**. Điều đó nghĩa là gì?",
+      "options": [
+        "`A → B` luôn kéo theo `B → A`",
+        "`A → B` không kéo theo `B → A`; mỗi giá trị của `A` xác định duy nhất một giá trị của `B`, chiều ngược lại chưa chắc",
+        "`A → B` chỉ đúng khi `A` là khóa chính",
+        "`A → B` nghĩa là `A` và `B` luôn nằm cùng một bảng"
+      ],
+      "answer": 1,
+      "explain": "`MAHV → HOTEN` đúng: biết mã học viên là biết duy nhất một họ tên. Nhưng `HOTEN → MAHV` **sai**: hai học viên có thể trùng tên. Tính có chiều này là nền tảng của toàn bộ Chương 5 — nếu phụ thuộc hàm đối xứng thì khái niệm khóa không còn ý nghĩa. `A` không nhất thiết là khóa chính; `A` chỉ cần xác định được `B`."
+    },
+    {
+      "id": "c3q05",
+      "block": "A",
+      "clo": "CLO2",
+      "q": "Trong bốn quy tắc ánh xạ ER sang quan hệ, liên kết **M:N** được xử lý thế nào?",
+      "options": [
+        "Đặt khóa ngoại ở bên có ít bản ghi hơn",
+        "Đặt khóa ngoại ở cả hai bên",
+        "Sinh một quan hệ mới, khóa chính là khóa phức hợp ghép từ khóa chính hai bên",
+        "Giữ nguyên, mô hình quan hệ biểu diễn trực tiếp được M:N"
+      ],
+      "answer": 2,
+      "explain": "Mô hình quan hệ **không** biểu diễn trực tiếp được liên kết nhiều–nhiều — đây chính là câu trả lời cho câu hỏi bỏ ngỏ ở Chương 2 về việc vì sao M:N *bắt buộc* phải tách chứ không phải *nên* tách. Đặt khóa ngoại ở một bên chỉ diễn tả được 1:M; đặt ở cả hai bên thì sinh dư thừa và không nhất quán."
+    },
+    {
+      "id": "c3q06",
+      "block": "A",
+      "clo": "CLO2",
+      "q": "Phép **chiếu** `π` khác phép **chọn** `σ` ở điểm nào?",
+      "options": [
+        "Chiếu lấy ra các cột; chọn lấy ra các dòng thỏa điều kiện",
+        "Chiếu lấy ra các dòng; chọn lấy ra các cột",
+        "Chiếu dùng cho một quan hệ; chọn dùng cho hai quan hệ",
+        "Hai phép cho kết quả giống nhau, chỉ khác ký hiệu"
+      ],
+      "answer": 0,
+      "explain": "**Chọn `σ` cắt ngang** — giữ lại các bộ thỏa điều kiện, số cột không đổi. **Chiếu `π` cắt dọc** — giữ lại các thuộc tính được nêu, và **tự động loại bỏ bộ trùng lặp** vì quan hệ là một tập hợp. Đặc điểm loại trùng này hay bị quên và làm lệch kết quả đếm."
+    },
+    {
+      "id": "c3q07",
+      "block": "A",
+      "clo": "CLO2",
+      "q": "Phép **kết ngoài** *(outer join)* khác phép kết tự nhiên ở chỗ nào, và dùng để làm gì?",
+      "options": [
+        "Kết ngoài nhanh hơn vì không so khớp giá trị",
+        "Kết ngoài giữ lại cả những bộ **không khớp**, điền rỗng vào phần thiếu — dùng để dò lỗi toàn vẹn tham chiếu",
+        "Kết ngoài chỉ dùng được khi hai quan hệ khả hợp",
+        "Kết ngoài luôn cho ít bộ hơn kết tự nhiên"
+      ],
+      "answer": 1,
+      "explain": "Kết tự nhiên **âm thầm loại bỏ** các bộ không khớp — chính vì vậy nó không giúp phát hiện lỗi. Kết ngoài giữ chúng lại và điền rỗng, nên các dòng có giá trị rỗng ở phần ghép chính là các bộ **mồ côi**. Đây là kỹ thuật thực dụng để dò lỗi toàn vẹn tham chiếu, và kết ngoài luôn cho **nhiều hoặc bằng** số bộ của kết tự nhiên."
+    },
+    {
+      "id": "c3q08",
+      "block": "A",
+      "clo": "CLO2",
+      "q": "Phép **chia** `R ÷ S` trả lời loại câu hỏi nghiệp vụ nào?",
+      "options": [
+        "Đếm số bộ của `R` chia cho số bộ của `S`",
+        "Tìm những giá trị của `R` liên quan tới **tất cả** các giá trị trong `S`",
+        "Tách `R` thành nhiều quan hệ nhỏ hơn",
+        "Loại bỏ khỏi `R` những bộ có mặt trong `S`"
+      ],
+      "answer": 1,
+      "explain": "Dấu hiệu nhận biết trong đề bài là chữ **tất cả** hoặc **mọi**: *\"độc giả đã mượn tất cả đầu sách thể loại Tin học\"*, *\"học viên ghi danh mọi lớp bắt buộc\"*. Phương án cuối mô tả phép **hiệu** `−`. Phép chia không liên quan gì tới phép chia số học."
+    },
+    {
+      "id": "c3q09",
+      "block": "A",
+      "clo": "CLO2",
+      "q": "Toàn vẹn thực thể và toàn vẹn tham chiếu **không** phát hiện được loại lỗi nào?",
+      "options": [
+        "Khóa chính bị trùng giá trị",
+        "Khóa ngoại trỏ tới một khóa chính không tồn tại",
+        "Dữ liệu sai về mặt nghiệp vụ nhưng hợp lệ về mặt cấu trúc",
+        "Khóa chính nhận giá trị rỗng"
+      ],
+      "answer": 2,
+      "explain": "Hai ràng buộc ấy chỉ bảo vệ **cấu trúc**. Một lượt ghi danh với `HOCPHI = -5000000`, một ngày sinh năm 1850, hay một lớp có ngày khai giảng trước ngày thành lập trung tâm đều **hợp lệ về cấu trúc** nhưng sai về nghiệp vụ. Đây chính là khoảng trống mà Chương 4 lấp vào bằng các ràng buộc toàn vẹn khác."
+    },
+    {
+      "id": "c3q10",
+      "block": "V",
+      "clo": "CLO3",
+      "q": "Cho `SANPHAM(MASP, TENSP, DONGIA, MANCC)` có 120 dòng, trong đó `MANCC` trỏ tới `NHACUNGCAP`. Bậc, lực lượng và các khóa là gì?",
+      "options": [
+        "Bậc 120, lực lượng 4; khóa chính `TENSP`",
+        "Bậc 4, lực lượng 120; khóa chính `MASP`, khóa ngoại `MANCC`",
+        "Bậc 4, lực lượng 120; khóa chính `(MASP, MANCC)`",
+        "Bậc 120, lực lượng 4; khóa ngoại `MASP`"
+      ],
+      "answer": 1,
+      "explain": "Bậc = số **cột** = 4; lực lượng = số **dòng** = 120. Khóa chính là `MASP` — duy nhất và tối thiểu; thêm `MANCC` vào là vi phạm **tính tối thiểu** vì riêng `MASP` đã đủ. `TENSP` không làm khóa được vì hai sản phẩm có thể trùng tên. `MANCC` trỏ sang bảng khác nên là **khóa ngoại**, và nó được phép rỗng nếu sản phẩm chưa xác định nhà cung cấp."
+    },
+    {
+      "id": "c3q11",
+      "block": "V",
+      "clo": "CLO3",
+      "q": "Xét ba cặp quan hệ. Cặp nào **khả hợp**? `A(MASV, HOTEN)` · `B(MAGV, HOTEN_GV)` · `C(MASV, HOTEN, DIEM)` · `D(MASV, NGAYSINH)`",
+      "options": [
+        "Chỉ cặp `A` và `C`, vì trùng tên hai thuộc tính đầu",
+        "Chỉ cặp `A` và `B`, nếu hai cột tương ứng cùng miền giá trị",
+        "Cả ba cặp đều khả hợp",
+        "Chỉ cặp `A` và `D`, vì cùng có `MASV`"
+      ],
+      "answer": 1,
+      "explain": "`A` và `B` cùng bậc 2, và nếu mã sinh viên với mã giáo viên cùng miền chuỗi, họ tên với họ tên giáo viên cùng miền chuỗi thì **khả hợp** — tên khác nhau không sao. `A` và `C` khác bậc (2 với 3) nên **không**. `A` và `D` cùng bậc nhưng cột thứ hai là *họ tên* với *ngày sinh*, khác miền giá trị, nên **không** — và đây là bẫy hay mắc nhất vì nhìn qua thấy cùng số cột."
+    },
+    {
+      "id": "c3q12",
+      "block": "V",
+      "clo": "CLO3",
+      "q": "Bảng `GHIDANH` có dòng `(HV99, A1, '2025-09-01', 2000000)` trong khi `HOCVIEN` không hề có `HV99`. Ràng buộc nào bị vi phạm và phát hiện bằng biểu thức nào?",
+      "options": [
+        "Toàn vẹn thực thể; phát hiện bằng `σ(GHIDANH)`",
+        "Toàn vẹn tham chiếu; phát hiện bằng `π_MAHV(GHIDANH) − π_MAHV(HOCVIEN)`",
+        "Toàn vẹn tham chiếu; phát hiện bằng `GHIDANH ⋈ HOCVIEN`",
+        "Không vi phạm gì, vì `HOCPHI` vẫn hợp lệ"
+      ],
+      "answer": 1,
+      "explain": "`MAHV` trong `GHIDANH` là **khóa ngoại**, nó phải khớp một khóa chính đang tồn tại — đây là vi phạm **toàn vẹn tham chiếu**, và `HV99` là một bộ **mồ côi**. Phép **hiệu** trên hai tập mã cho ra đúng những mã có ở bảng con mà không có ở bảng cha. Phép **kết tự nhiên** không dùng được vì nó **âm thầm loại bỏ** chính những dòng ta đang muốn tìm."
+    },
+    {
+      "id": "c3q13",
+      "block": "V",
+      "clo": "CLO3",
+      "q": "Yêu cầu: *\"liệt kê **mọi** độc giả, kể cả người chưa mượn cuốn nào, kèm tên sách nếu có\"*. Phép toán nào đúng?",
+      "options": [
+        "Kết tự nhiên `DOCGIA ⋈ MUON`",
+        "Kết ngoài trái `DOCGIA ⟕ MUON`",
+        "Tích Descartes `DOCGIA × MUON`",
+        "Phép chia `DOCGIA ÷ MUON`"
+      ],
+      "answer": 1,
+      "explain": "Chữ **kể cả người chưa mượn** là dấu hiệu bắt buộc dùng **kết ngoài**. Kết tự nhiên sẽ loại mất đúng nhóm độc giả ta cần giữ. Tích Descartes ghép mọi độc giả với mọi lượt mượn, cho ra dữ liệu vô nghĩa. Phép chia dành cho câu hỏi có chữ *tất cả* ở vị trí khác hẳn."
+    },
+    {
+      "id": "c3q14",
+      "block": "V",
+      "clo": "CLO3",
+      "q": "Phân cấp `NHANVIENYTE` → `BACSI` / `DIEUDUONG` với ràng buộc **rời nhau + đầy đủ**. Phương án ánh xạ nào phù hợp nhất?",
+      "options": [
+        "Chỉ tạo một bảng `NHANVIENYTE` chứa mọi thuộc tính của cả hai nhóm",
+        "Bỏ bảng cha, tạo hai bảng `BACSI` và `DIEUDUONG`, mỗi bảng đủ thuộc tính chung lẫn riêng",
+        "Tạo ba bảng: cha và hai con, con dùng chung khóa với cha",
+        "Tạo hai bảng con và một bảng trung gian nối chúng bằng M:N"
+      ],
+      "answer": 1,
+      "explain": "Với **rời nhau + đầy đủ**, mọi nhân viên thuộc đúng một nhóm con và không ai đứng ngoài, nên bỏ được bảng cha mà không mất dữ liệu — đổi lại truy vấn toàn bộ nhân sự phải hợp hai bảng. Phương án ba bảng an toàn và luôn dùng được, nhưng ở tổ hợp này nó thừa một phép kết cho mọi truy vấn. Phương án gộp một bảng chỉ hợp khi ràng buộc là **chồng lấn**. Phương án cuối sai hẳn: cha–con không phải liên kết M:N."
+    },
+    {
+      "id": "c3q15",
+      "block": "V",
+      "clo": "CLO3",
+      "q": "Cần tìm *\"độc giả đã mượn **tất cả** đầu sách thuộc thể loại Tin học\"*. Chuỗi phép toán nào đúng về ý tưởng?",
+      "options": [
+        "Chọn thể loại Tin học rồi kết tự nhiên với bảng mượn",
+        "Chiếu ra cặp (độc giả, đầu sách) từ bảng mượn, rồi **chia** cho tập đầu sách Tin học",
+        "Hợp bảng mượn với bảng đầu sách Tin học",
+        "Lấy hiệu giữa bảng độc giả và bảng đầu sách Tin học"
+      ],
+      "answer": 1,
+      "explain": "Chữ **tất cả** là dấu hiệu của phép **chia**. Số bị chia phải là quan hệ hai cột dạng `(MADG, MADS)` lấy từ lịch sử mượn; số chia là tập `MADS` của thể loại Tin học. Kết quả gồm những `MADG` xuất hiện cùng **mọi** đầu sách trong tập chia. Kết tự nhiên chỉ cho ra ai đã mượn **ít nhất một** cuốn — một câu hỏi khác hẳn. Phép hợp và phép hiệu đòi hai quan hệ khả hợp, ở đây không thỏa."
+    }
+  ],
+  "cards": [
+    {
+      "front": "Bậc và lực lượng",
+      "back": "**Bậc** = số thuộc tính, thuộc về lược đồ, ít khi đổi. **Lực lượng** = số bộ, thuộc về thể hiện, đổi liên tục."
+    },
+    {
+      "front": "Phụ thuộc hàm `A → B`",
+      "back": "Mỗi giá trị của `A` xác định **duy nhất** một giá trị của `B`. Có **chiều**: `A → B` không kéo theo `B → A`."
+    },
+    {
+      "front": "Năm loại khóa",
+      "back": "**Siêu khóa** — phân biệt được, có thể thừa. **Khóa dự tuyển** — siêu khóa tối thiểu. **Khóa chính** — một khóa dự tuyển được chọn. **Khóa ngoại** — trỏ sang khóa chính bảng khác. **Khóa phụ** — dùng để tìm kiếm."
+    },
+    {
+      "front": "Toàn vẹn thực thể",
+      "back": "Khóa chính phải **duy nhất** và **không rỗng** ở mọi thành phần. Rỗng nghĩa là *chưa biết*, mà thực thể không thể tồn tại nếu chưa biết nó là ai."
+    },
+    {
+      "front": "Toàn vẹn tham chiếu",
+      "back": "Khóa ngoại **hoặc rỗng, hoặc khớp** một khóa chính đang tồn tại. Cho phép rỗng chính là cách diễn tả **tham gia tùy chọn** của Chương 2."
+    },
+    {
+      "front": "Khả hợp",
+      "back": "Cùng **bậc** và các thuộc tính tương ứng cùng **miền giá trị**. Tên thuộc tính không cần giống. Là điều kiện của ∪, ∩, −."
+    },
+    {
+      "front": "Phép kết ngoài",
+      "back": "Giữ lại cả bộ **không khớp** và điền rỗng. Dòng có rỗng ở phần ghép chính là **bộ mồ côi** — dùng để dò lỗi toàn vẹn tham chiếu."
+    },
+    {
+      "front": "Phép chia `R ÷ S`",
+      "back": "Tìm giá trị liên quan tới **tất cả** phần tử của `S`. Dấu hiệu trong đề: chữ **tất cả** hoặc **mọi**."
+    }
+  ],
+  "selfcheck": [
+    { "clo": "CLO2", "text": "Trình bày được khái niệm quan hệ, bộ, thuộc tính, miền giá trị và tám đặc trưng của bảng quan hệ" },
+    { "clo": "CLO3", "text": "Xác định được phụ thuộc hàm và giải thích được tính có chiều của nó" },
+    { "clo": "CLO2", "text": "Phân biệt được năm loại khóa: siêu khóa, dự tuyển, chính, ngoại, phụ" },
+    { "clo": "CLO2", "text": "Trình bày được hai ràng buộc toàn vẹn thực thể và tham chiếu, giải thích được vì sao khóa chính cấm rỗng" },
+    { "clo": "CLO3", "text": "Vận dụng được bốn quy tắc ánh xạ ER sang quan hệ, kể cả thực thể yếu và liên kết M:N" },
+    { "clo": "CLO3", "text": "Thực hiện được phép chọn, chiếu, bốn phép toán tập hợp và các biến thể của phép kết" },
+    { "clo": "CLO3", "text": "Vận dụng được phép kết ngoài để phát hiện lỗi toàn vẹn tham chiếu" },
+    { "clo": "CLO3", "text": "Diễn đạt được một yêu cầu truy vấn bằng lời thành biểu thức đại số quan hệ" }
+  ]
+}

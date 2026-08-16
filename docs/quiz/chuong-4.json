@@ -1,0 +1,256 @@
+{
+  "chuong": 4,
+  "title": "Trắc nghiệm củng cố — Chương 4",
+  "questions": [
+    {
+      "id": "c4q01",
+      "block": "A",
+      "clo": "CLO2",
+      "q": "Vì sao nên đặt ràng buộc toàn vẹn ở **tầng cơ sở dữ liệu** thay vì chỉ ở tầng ứng dụng?",
+      "options": [
+        "Vì hệ quản trị kiểm tra nhanh hơn mã ứng dụng",
+        "Vì dữ liệu vào được bằng nhiều đường; đặt ở cơ sở dữ liệu thì mọi đường đều bị kiểm",
+        "Vì chuẩn SQL bắt buộc như vậy",
+        "Vì tầng ứng dụng không có khái niệm ràng buộc"
+      ],
+      "answer": 1,
+      "explain": "Ứng dụng chính không phải con đường duy nhất: còn nhập hàng loạt từ tệp, khôi phục sao lưu, công cụ quản trị, và các ứng dụng viết sau. Ràng buộc đặt trong ứng dụng chỉ bảo vệ đúng con đường đi qua ứng dụng ấy. Đặt ở cơ sở dữ liệu thì nó là **hàng rào cuối cùng**, mọi đường vào đều phải qua."
+    },
+    {
+      "id": "c4q02",
+      "block": "A",
+      "clo": "CLO2",
+      "q": "Ba yếu tố mô tả đầy đủ một ràng buộc toàn vẹn là gì?",
+      "options": [
+        "Tên, kiểu dữ liệu, giá trị mặc định",
+        "Điều kiện, bối cảnh, bảng tầm ảnh hưởng",
+        "Bảng cha, bảng con, khóa ngoại",
+        "Điều kiện, hành động khi vi phạm, người chịu trách nhiệm"
+      ],
+      "answer": 1,
+      "explain": "**Điều kiện** nói dữ liệu phải thỏa gì. **Bối cảnh** là tập quan hệ mà điều kiện nhắc tới. **Bảng tầm ảnh hưởng** cho biết thao tác nào trên quan hệ nào có thể phá vỡ điều kiện — tức là những chỗ phải đặt điểm kiểm tra. Thiếu yếu tố thứ ba thì biết ràng buộc mà không biết kiểm ở đâu."
+    },
+    {
+      "id": "c4q03",
+      "block": "A",
+      "clo": "CLO2",
+      "q": "Sáu loại ràng buộc được phân theo hai chiều nào?",
+      "options": [
+        "Theo mức độ quan trọng và theo tần suất kiểm tra",
+        "Theo **bối cảnh** (một hay nhiều quan hệ) và theo **phạm vi** (một ô, nhiều ô cùng dòng, nhiều dòng)",
+        "Theo kiểu dữ liệu và theo tên bảng",
+        "Theo người khai báo và theo thời điểm kiểm tra"
+      ],
+      "answer": 1,
+      "explain": "Hai chiều nhân nhau cho đúng sáu ô. Bối cảnh **một** quan hệ: miền giá trị *(một ô)*, liên thuộc tính *(nhiều ô cùng dòng)*, liên bộ *(nhiều dòng)*. Bối cảnh **nhiều** quan hệ: khóa ngoại *(giá trị khóa)*, liên thuộc tính liên quan hệ, liên bộ liên quan hệ. Đi lần lượt qua sáu dòng là cách bảo đảm không bỏ sót loại nào."
+    },
+    {
+      "id": "c4q04",
+      "block": "A",
+      "clo": "CLO2",
+      "q": "Quy tắc lập bảng tầm ảnh hưởng là gì?",
+      "options": [
+        "Đánh dấu `+` ở mọi thao tác trên mọi quan hệ trong bối cảnh, cho chắc",
+        "Đánh dấu `+` khi thao tác **có thể biến điều kiện đang đúng thành sai**",
+        "Đánh dấu `+` ở thao tác thêm, `−` ở thao tác xóa",
+        "Đánh dấu `+` ở bảng cha, `−` ở bảng con"
+      ],
+      "answer": 1,
+      "explain": "Quy tắc **\"đúng thành sai\"**: xét từng ô và tự hỏi *nếu điều kiện đang đúng, thao tác này có thể làm nó sai không*. Đánh `+` khắp nơi là bỏ mất giá trị của bảng — nó tồn tại chính để **giảm** số điểm phải kiểm. Với ràng buộc khóa ngoại, thao tác *thêm* ở bảng cha là an toàn còn *xóa* ở bảng cha thì nguy hiểm, nên không có quy tắc cố định theo tên thao tác."
+    },
+    {
+      "id": "c4q05",
+      "block": "A",
+      "clo": "CLO2",
+      "q": "Câu thần chú **\"Thêm ở con, Xóa ở cha\"** mô tả điều gì?",
+      "options": [
+        "Thứ tự thao tác khi nhập dữ liệu vào cơ sở dữ liệu",
+        "Cấu trúc đối xứng chéo của bảng tầm ảnh hưởng cho mọi ràng buộc khóa ngoại",
+        "Quy tắc đặt khóa ngoại ở bên nhiều khi ánh xạ ER",
+        "Cách chọn hành động lan truyền khi xóa"
+      ],
+      "answer": 1,
+      "explain": "Với **mọi** ràng buộc khóa ngoại, bảng tầm ảnh hưởng có dạng chéo: bên **con** nguy hiểm khi *thêm* và khi *sửa* khóa ngoại; bên **cha** nguy hiểm khi *xóa* và khi *sửa* khóa chính. Nhớ câu này là lập được bảng cho bất kỳ khóa ngoại nào mà không cần suy lại từ đầu."
+    },
+    {
+      "id": "c4q06",
+      "block": "A",
+      "clo": "CLO2",
+      "q": "Ba hành động khi phát hiện vi phạm là gì, và ai quyết định chọn hành động nào?",
+      "options": [
+        "Từ chối · lan truyền · gán rỗng — do **nghiệp vụ** quyết định",
+        "Từ chối · lan truyền · gán rỗng — do hệ quản trị tự chọn tối ưu",
+        "Cảnh báo · ghi log · bỏ qua — do lập trình viên quyết định",
+        "Khóa bảng · hoàn tác · thử lại — do quản trị viên quyết định"
+      ],
+      "answer": 0,
+      "explain": "Ba hành động là **từ chối** *(RESTRICT)*, **lan truyền** *(CASCADE)* và **gán rỗng** *(SET NULL)*. Điểm quan trọng nhất của mục này: lựa chọn do **nghiệp vụ** quyết định chứ không phải kỹ thuật. Cùng thao tác xóa giáo viên, cả ba hành động đều khả thi về kỹ thuật nhưng chỉ một hợp với quy định của trung tâm."
+    },
+    {
+      "id": "c4q07",
+      "block": "A",
+      "clo": "CLO2",
+      "q": "**Trigger** là gì?",
+      "options": [
+        "Một câu truy vấn được lưu sẵn để chạy nhanh hơn",
+        "Đoạn chương trình lưu trong cơ sở dữ liệu, tự động chạy khi một sự kiện xảy ra",
+        "Một loại khóa ngoại đặc biệt cho ràng buộc liên bộ",
+        "Công cụ sao lưu dữ liệu tự động theo lịch"
+      ],
+      "answer": 1,
+      "explain": "Trigger là cơ chế mạnh nhất trong bốn cơ chế khai báo ràng buộc, dùng cho những ràng buộc mà `CHECK` và `FOREIGN KEY` không diễn tả nổi — điển hình là ràng buộc **liên bộ liên quan hệ** cần đếm hoặc tính tổng qua nhiều bảng. Đổi lại nó khó viết, khó gỡ lỗi, và chạy ngầm nên dễ gây bất ngờ."
+    },
+    {
+      "id": "c4q08",
+      "block": "A",
+      "clo": "CLO2",
+      "q": "**Cờ đỏ thiết kế** trong Chương 4 nghĩa là gì?",
+      "options": [
+        "Ràng buộc bị vi phạm quá nhiều lần trong thực tế",
+        "Một ràng buộc quá khó thực thi thường là dấu hiệu thiết kế cần cải thiện",
+        "Bảng có quá nhiều khóa ngoại trỏ tới",
+        "Cơ sở dữ liệu chưa khai báo ràng buộc nào"
+      ],
+      "answer": 1,
+      "explain": "Khi bảng tầm ảnh hưởng của một ràng buộc dày đặc dấu `+`, chi phí thực thi rất cao và khả năng bỏ sót điểm kiểm tra cũng cao. Thay vì gồng lên viết trigger cho mọi ô, nên quay lại xem **thiết kế** có vấn đề gì không — thường là một thuộc tính dẫn xuất được lưu thừa. Sửa thiết kế thì ràng buộc **biến mất** thay vì phải thực thi."
+    },
+    {
+      "id": "c4q09",
+      "block": "A",
+      "clo": "CLO2",
+      "q": "Ràng buộc nào **không** khai báo được bằng `CHECK` trên một bảng?",
+      "options": [
+        "`HOCPHI > 0`",
+        "`NGAYKT >= NGAYKG`",
+        "`SUCCHUA BETWEEN 5 AND 40`",
+        "`LOP.SISO` bằng số dòng `GHIDANH` tương ứng"
+      ],
+      "answer": 3,
+      "explain": "Ba phương án đầu chỉ nhắc tới các cột **trong cùng một dòng của cùng một bảng** nên `CHECK` xử lý được. Phương án cuối là ràng buộc **liên bộ liên quan hệ**: nó cần đếm số dòng ở một bảng khác, vượt quá khả năng của `CHECK`. Loại này phải dùng **trigger**, và chính nó là ví dụ mẫu của cờ đỏ thiết kế."
+    },
+    {
+      "id": "c4q10",
+      "block": "B1",
+      "clo": "CLO3",
+      "q": "Phân loại ràng buộc: *\"mỗi độc giả mượn không quá 5 cuốn cùng lúc\"*. Loại nào và bối cảnh gồm mấy quan hệ?",
+      "options": [
+        "Miền giá trị — 1 quan hệ",
+        "Liên thuộc tính — 1 quan hệ",
+        "Liên bộ liên quan hệ — 2 quan hệ (`DOCGIA`, `MUON`)",
+        "Khóa ngoại — 2 quan hệ"
+      ],
+      "answer": 2,
+      "explain": "Điều kiện phải **đếm số dòng** trong `MUON` ứng với một độc giả, rồi so với 5. Đếm nhiều dòng ⇒ **liên bộ**; các dòng ấy nằm ở bảng khác với bảng chứa độc giả ⇒ **liên quan hệ**. Không phải miền giá trị vì không có ô nào chứa sẵn con số ấy; không phải khóa ngoại vì không nói về sự tồn tại của giá trị khóa."
+    },
+    {
+      "id": "c4q11",
+      "block": "B1",
+      "clo": "CLO3",
+      "q": "Ràng buộc `∀g ∈ GHIDANH, ∃h ∈ HOCVIEN : g.MAHV = h.MAHV`. Bảng tầm ảnh hưởng đúng là gì?",
+      "options": [
+        "`HOCVIEN`: thêm −, xóa +, sửa + · `GHIDANH`: thêm +, xóa −, sửa +",
+        "`HOCVIEN`: thêm +, xóa −, sửa − · `GHIDANH`: thêm −, xóa +, sửa +",
+        "Cả hai bảng đều `+` ở cả ba thao tác",
+        "`HOCVIEN`: thêm +, xóa +, sửa + · `GHIDANH`: thêm −, xóa −, sửa −"
+      ],
+      "answer": 0,
+      "explain": "Áp câu thần chú **\"Thêm ở con, Xóa ở cha\"**. Bên con `GHIDANH`: *thêm* một dòng với mã không tồn tại là trỏ vào hư vô ⇒ `+`; *xóa* thì bớt một thứ cần kiểm ⇒ `−`; *sửa* `MAHV` sang mã lạ ⇒ `+`. Bên cha `HOCVIEN`: *thêm* học viên mới không đụng tham chiếu nào ⇒ `−`; *xóa* học viên còn dòng con trỏ tới ⇒ `+`; *sửa* khóa chính làm mọi dòng con lệch ⇒ `+`."
+    },
+    {
+      "id": "c4q12",
+      "block": "B1",
+      "clo": "CLO3",
+      "q": "Xóa một **giáo viên** đang phụ trách 4 lớp. Trung tâm quy định *lớp vẫn tiếp tục, sẽ phân người phụ trách mới sau*. Hành động nào đúng?",
+      "options": [
+        "Từ chối — không cho xóa khi còn phụ trách lớp",
+        "Gán rỗng — cho xóa, `LOP.MAGV` thành rỗng nghĩa là tạm chưa có người phụ trách",
+        "Lan truyền — xóa giáo viên thì xóa luôn 4 lớp",
+        "Không cần hành động nào vì `MAGV` cho phép rỗng"
+      ],
+      "answer": 1,
+      "explain": "Nghiệp vụ nói rõ **lớp vẫn tiếp tục**, nên phương án lan truyền là thảm họa: xóa một người làm bốc hơi 4 lớp cùng toàn bộ học viên đang học. Từ chối cũng khả thi về kỹ thuật nhưng buộc phải bàn giao trước khi xóa, trái với quy định đã nêu. **Gán rỗng** diễn tả đúng trạng thái *tạm chưa có người phụ trách*. Phương án cuối nhầm: cho phép rỗng là điều kiện cần để gán rỗng chạy được, không phải hành động."
+    },
+    {
+      "id": "c4q13",
+      "block": "B1",
+      "clo": "CLO3",
+      "q": "Đọc khai báo `MAGV VARCHAR(10) NULL, CONSTRAINT fk_lop_gv FOREIGN KEY (MAGV) REFERENCES GIAOVIEN(MAGV) ON DELETE SET NULL`. Nó diễn đạt những gì?",
+      "options": [
+        "Mỗi lớp bắt buộc phải có giáo viên; xóa giáo viên thì bị chặn",
+        "Lớp có thể tạm chưa có giáo viên; nếu có thì mã ấy phải tồn tại; xóa giáo viên thì lớp thành chưa có người phụ trách",
+        "Xóa lớp thì xóa luôn giáo viên",
+        "Mỗi giáo viên chỉ được phụ trách một lớp"
+      ],
+      "answer": 1,
+      "explain": "Ba mẩu thông tin trong một dòng. `NULL` cho phép khóa ngoại rỗng ⇒ **tham gia tùy chọn** phía lớp. `FOREIGN KEY … REFERENCES` là **toàn vẹn tham chiếu**: nếu có giá trị thì phải khớp một `MAGV` đang tồn tại. `ON DELETE SET NULL` là **hành động khi vi phạm**. Chiều lan truyền luôn đi từ **cha sang con**, không bao giờ ngược lại."
+    },
+    {
+      "id": "c4q14",
+      "block": "B1",
+      "clo": "CLO3",
+      "q": "Thư viện lưu thêm cột `SOCUONDANGMUON` trong `DOCGIA`. Bảng tầm ảnh hưởng của ràng buộc *\"cột này bằng số phiếu mượn chưa trả\"* cho kết quả gì?",
+      "options": [
+        "Chỉ một ô `+`, ràng buộc rất dễ thực thi",
+        "Nhiều ô `+` ở cả hai bảng — đây là **cờ đỏ thiết kế**, nên bỏ cột và tính lại khi cần",
+        "Không ô nào `+`, vì cột chỉ để đọc",
+        "Chỉ bảng `DOCGIA` có ô `+`"
+      ],
+      "answer": 1,
+      "explain": "Mọi thao tác *thêm*, *xóa*, *sửa* trên `MUON` đều làm con số phải đổi; *sửa* trực tiếp cột ấy ở `DOCGIA` cũng phá được điều kiện. Bảng dày đặc `+` chính là cờ đỏ. **Đơn thuốc**: bỏ cột, tính lại bằng phép đếm khi cần — ràng buộc khó nhất **biến mất** thay vì phải viết trigger cho từng ô. Đây đúng là thuộc tính dẫn xuất đã cảnh báo ở Chương 2."
+    },
+    {
+      "id": "c4q15",
+      "block": "B1",
+      "clo": "CLO3",
+      "q": "Tiếp quản một cơ sở dữ liệu cũ chưa khai báo ràng buộc nào và đang có dữ liệu mồ côi. Vì sao **không thể** khai báo khóa ngoại ngay?",
+      "options": [
+        "Vì hệ quản trị không cho thêm ràng buộc sau khi bảng đã có dữ liệu",
+        "Vì hệ quản trị kiểm tra dữ liệu hiện có trước khi bật ràng buộc, và các dòng mồ côi sẽ làm lệnh khai báo thất bại",
+        "Vì phải xóa toàn bộ dữ liệu rồi nhập lại từ đầu",
+        "Vì khóa ngoại chỉ khai báo được lúc tạo bảng"
+      ],
+      "answer": 1,
+      "explain": "Khi bật một ràng buộc, hệ quản trị **kiểm tra toàn bộ dữ liệu đang có**; còn dòng vi phạm thì lệnh bị từ chối. Quy trình đúng gồm ba bước: **phát hiện** dòng mồ côi bằng phép hiệu hoặc kết ngoài như đã học ở Chương 3, **xử lý** chúng *(sửa về mã đúng, hoặc gán rỗng, hoặc xóa)*, rồi mới **khai báo** ràng buộc để chặn từ đó về sau."
+    }
+  ],
+  "cards": [
+    {
+      "front": "Ràng buộc toàn vẹn",
+      "back": "Điều kiện mà dữ liệu phải **luôn luôn** thỏa mãn, ở mọi thời điểm. Mô tả đầy đủ bằng ba yếu tố: **điều kiện · bối cảnh · bảng tầm ảnh hưởng**."
+    },
+    {
+      "front": "Bối cảnh của ràng buộc",
+      "back": "Tập các quan hệ mà **điều kiện nhắc tới**. Bối cảnh một quan hệ hay nhiều quan hệ là chiều thứ nhất để phân sáu loại."
+    },
+    {
+      "front": "Bảng tầm ảnh hưởng",
+      "back": "Liệt kê mỗi quan hệ trong bối cảnh × mỗi thao tác thêm/xóa/sửa, đánh `+` khi thao tác **có thể biến đúng thành sai**. Chính là danh sách điểm phải kiểm."
+    },
+    {
+      "front": "Sáu loại ràng buộc",
+      "back": "Một quan hệ: **miền giá trị · liên thuộc tính · liên bộ**. Nhiều quan hệ: **khóa ngoại · liên thuộc tính liên quan hệ · liên bộ liên quan hệ**."
+    },
+    {
+      "front": "Thêm ở con, Xóa ở cha",
+      "back": "Bảng tầm ảnh hưởng của **mọi** ràng buộc khóa ngoại có dạng đối xứng chéo: con nguy hiểm khi *thêm* và *sửa khóa ngoại*; cha nguy hiểm khi *xóa* và *sửa khóa chính*."
+    },
+    {
+      "front": "Ba hành động khi vi phạm",
+      "back": "**Từ chối** — chặn và báo lỗi. **Lan truyền** — làm dây chuyền. **Gán rỗng** — đặt khóa ngoại về rỗng. Chọn cái nào do **nghiệp vụ** quyết định."
+    },
+    {
+      "front": "Cờ đỏ thiết kế",
+      "back": "Ràng buộc **quá khó thực thi** thường là dấu hiệu thiết kế cần sửa, không phải dấu hiệu cần viết trigger giỏi hơn. Sửa thiết kế thì ràng buộc biến mất."
+    }
+  ],
+  "selfcheck": [
+    { "clo": "CLO2", "text": "Trình bày được khái niệm ràng buộc toàn vẹn và giải thích vì sao đặt ở tầng cơ sở dữ liệu" },
+    { "clo": "CLO2", "text": "Mô tả được một ràng buộc qua đủ ba yếu tố: điều kiện, bối cảnh, bảng tầm ảnh hưởng" },
+    { "clo": "CLO3", "text": "Lập được bảng tầm ảnh hưởng cho một ràng buộc bất kỳ theo quy tắc \"đúng thành sai\"" },
+    { "clo": "CLO3", "text": "Chọn được hành động khi vi phạm — từ chối, lan truyền, gán rỗng — dựa trên lý do nghiệp vụ" },
+    { "clo": "CLO2", "text": "Đọc hiểu được câu lệnh khai báo ràng buộc và đối chiếu với phát biểu bằng lời" },
+    { "clo": "CLO3", "text": "Phân loại được một ràng buộc vào đúng một trong sáu loại" },
+    { "clo": "CLO3", "text": "Phát hiện được đầy đủ tập ràng buộc của một bài toán, không bỏ sót loại nào" },
+    { "clo": "CLO3", "text": "Nhận diện được cờ đỏ thiết kế và đề xuất được đơn thuốc sửa thiết kế" }
+  ]
+}

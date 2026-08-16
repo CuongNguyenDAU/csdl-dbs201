@@ -26,29 +26,29 @@ pháp cho ra bảy thực thể. Bốn thứ chênh lệch đó chính là nội
 
 - **[Chương 1 — Tổng quan về cơ sở dữ liệu](chuong-1/index.md)**
 
-    *4 tiết.* Dữ liệu và thông tin, metadata, hệ quản trị, kiến trúc ba mức,
-    và chuỗi nhân quả **dư thừa → dị thường** — thứ sẽ dùng để phán xét mọi
+    *4 tiết · tuần 1.* Dữ liệu và thông tin, metadata, hệ quản trị, kiến trúc ba
+    mức, và chuỗi nhân quả **dư thừa → dị thường** — thứ sẽ dùng để phán xét mọi
     quyết định thiết kế về sau.
 
-- **Chương 2 — Mô hình thực thể – liên kết**
+- **[Chương 2 — Mô hình thực thể – liên kết](chuong-2/index.md)**
 
-    *8 tiết.* Quy tắc nghiệp vụ, lược đồ ER, kỹ thuật hỏi hai chiều, ba ca đặc
-    biệt, mô hình mở rộng EER, và quy trình năm bước.
+    *8 tiết · tuần 2–3.* Quy tắc nghiệp vụ, lược đồ ER, kỹ thuật hỏi hai chiều,
+    ba ca đặc biệt, mô hình mở rộng EER, và quy trình năm bước.
 
-- **Chương 3 — Mô hình dữ liệu quan hệ**
+- **[Chương 3 — Mô hình dữ liệu quan hệ](chuong-3/index.md)**
 
-    *8 tiết.* Quan hệ và khóa, bốn quy tắc ánh xạ từ lược đồ ER sang bảng,
-    và đại số quan hệ.
+    *8 tiết · tuần 4–5.* Quan hệ và năm loại khóa, bốn quy tắc ánh xạ từ lược đồ
+    ER sang bảng, và tám phép toán đại số quan hệ.
 
-- **Chương 4 — Ràng buộc toàn vẹn**
+- **[Chương 4 — Ràng buộc toàn vẹn](chuong-4/index.md)**
 
-    *8 tiết.* Ba yếu tố của một ràng buộc, bảng tầm ảnh hưởng, sáu loại ràng
-    buộc, và cách xử lý khi bị vi phạm.
+    *8 tiết · tuần 6–7.* Ba yếu tố của một ràng buộc, bảng tầm ảnh hưởng, sáu
+    loại ràng buộc, và cách xử lý khi bị vi phạm.
 
-- **Chương 5 — Lý thuyết thiết kế và chuẩn hóa**
+- **[Chương 5 — Lý thuyết thiết kế và chuẩn hóa](chuong-5/index.md)**
 
-    *12 tiết.* Phụ thuộc hàm, bao đóng, thuật toán tìm khóa, phủ tối thiểu,
-    các dạng chuẩn và phép tách bảo toàn thông tin.
+    *12 tiết · tuần 8–10.* Phụ thuộc hàm, bao đóng, thuật toán tìm khóa, phủ tối
+    thiểu, các dạng chuẩn và phép tách bảo toàn thông tin.
 
 </div>
 

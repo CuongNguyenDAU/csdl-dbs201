@@ -1,0 +1,304 @@
+{
+  "chuong": 5,
+  "title": "Trắc nghiệm củng cố — Chương 5",
+  "questions": [
+    {
+      "id": "c5q01",
+      "block": "A",
+      "clo": "CLO2",
+      "q": "Phân biệt phụ thuộc hàm **đầy đủ** và **bộ phận**.",
+      "options": [
+        "Đầy đủ khi vế trái có nhiều thuộc tính; bộ phận khi vế trái có một thuộc tính",
+        "`X → Y` đầy đủ khi không tập con thực sự nào của `X` cũng xác định được `Y`; bộ phận khi có",
+        "Đầy đủ khi `Y` là thuộc tính khóa; bộ phận khi `Y` không phải thuộc tính khóa",
+        "Hai khái niệm này chỉ khác nhau về cách viết"
+      ],
+      "answer": 1,
+      "explain": "Với `F = {AB → C, A → C}`, phụ thuộc `AB → C` là **bộ phận** vì riêng `A` đã đủ xác định `C`. Số lượng thuộc tính ở vế trái không quyết định: `AB → C` vẫn đầy đủ nếu cả `A` lẫn `B` đứng riêng đều không xác định được `C`. Phụ thuộc bộ phận chính là thứ làm hỏng **2NF**."
+    },
+    {
+      "id": "c5q02",
+      "block": "A",
+      "clo": "CLO2",
+      "q": "Phụ thuộc hàm **bắc cầu** là gì?",
+      "options": [
+        "Chuỗi `K → Z → Y` với `K` là khóa, `Z` không phải khóa và không phải tập con của khóa",
+        "Bất kỳ chuỗi `X → Y → Z` nào",
+        "Phụ thuộc mà vế trái có từ ba thuộc tính trở lên",
+        "Phụ thuộc giữa hai thuộc tính ở hai bảng khác nhau"
+      ],
+      "answer": 0,
+      "explain": "Ba điều kiện phải có đủ. Nếu `Z` là khóa hoặc tập con của khóa thì **không** tính là bắc cầu — đây là chỗ hay bỏ sót. Ví dụ `MAHV → MALOP → TENLOP` là bắc cầu nếu `MALOP` không phải khóa, và chính nó làm hỏng **3NF**: tên lớp bị lặp ở mọi dòng học viên cùng lớp."
+    },
+    {
+      "id": "c5q03",
+      "block": "A",
+      "clo": "CLO2",
+      "q": "**Bao đóng `X⁺`** khác `F⁺` ở điểm nào?",
+      "options": [
+        "`X⁺` là tập thuộc tính suy ra được từ `X`; `F⁺` là tập mọi phụ thuộc hàm suy ra được từ `F`",
+        "`X⁺` và `F⁺` là một, chỉ khác ký hiệu",
+        "`X⁺` dùng cho lược đồ; `F⁺` dùng cho thể hiện",
+        "`X⁺` là tập con của `F⁺`"
+      ],
+      "answer": 0,
+      "explain": "`X⁺` là tập **thuộc tính**, tính bằng thuật toán lặp và luôn hữu hạn nhỏ. `F⁺` là tập **phụ thuộc hàm**, thường rất lớn và hiếm khi cần tính hết. Hai công dụng của `X⁺`: kiểm tra `X → Y` có suy ra được không *(xem `Y ⊆ X⁺`)*, và kiểm tra `X` có phải siêu khóa không *(xem `X⁺` có bằng toàn bộ thuộc tính không)*."
+    },
+    {
+      "id": "c5q04",
+      "block": "A",
+      "clo": "CLO2",
+      "q": "Trong thuật toán tìm khóa, ba nhóm `TN`, `TG`, `TĐ` được chia theo tiêu chí nào?",
+      "options": [
+        "Theo thứ tự xuất hiện của thuộc tính trong lược đồ",
+        "`TN` chỉ ở vế trái · `TG` ở cả hai vế · `TĐ` chỉ ở vế phải hoặc không xuất hiện",
+        "`TN` là thuộc tính khóa · `TG` là thuộc tính không khóa · `TĐ` là thuộc tính thừa",
+        "Theo số lần thuộc tính xuất hiện trong tập phụ thuộc hàm"
+      ],
+      "answer": 1,
+      "explain": "`TN` gồm thuộc tính **chỉ** ở vế trái hoặc không xuất hiện ở vế nào — chúng **luôn** thuộc mọi khóa. `TĐ` gồm thuộc tính **chỉ** ở vế phải — chúng **không bao giờ** thuộc khóa nào. `TG` là phần còn lại, và chỉ cần duyệt các tập con của `TG` chứ không phải mọi tập con của lược đồ. Đó chính là chỗ thuật toán tiết kiệm công."
+    },
+    {
+      "id": "c5q05",
+      "block": "A",
+      "clo": "CLO2",
+      "q": "**Phủ tối thiểu** phải thỏa mãn đồng thời ba điều kiện nào?",
+      "options": [
+        "Vế phải một thuộc tính · không phụ thuộc nào thừa · không thuộc tính nào ở vế trái thừa",
+        "Vế trái một thuộc tính · vế phải một thuộc tính · không có phụ thuộc trùng nhau",
+        "Số phụ thuộc ít nhất có thể · vế trái ngắn nhất · không có phụ thuộc bắc cầu",
+        "Mọi phụ thuộc đều đầy đủ · không có bắc cầu · đạt 3NF"
+      ],
+      "answer": 0,
+      "explain": "Ba điều kiện của Định nghĩa 5.9, và chúng cũng chính là ba bước của thuật toán. Vế **trái** vẫn được phép nhiều thuộc tính, chỉ cần không có thuộc tính nào **thừa** trong đó. Phủ tối thiểu không nhất thiết duy nhất — thứ tự loại bỏ khác nhau có thể cho kết quả khác nhau nhưng đều tương đương với `F`."
+    },
+    {
+      "id": "c5q06",
+      "block": "A",
+      "clo": "CLO2",
+      "q": "Câu thần chú *\"the key, the whole key, and nothing but the key\"* ứng với ba dạng chuẩn nào?",
+      "options": [
+        "1NF · 2NF · 3NF",
+        "2NF · 3NF · BCNF",
+        "the key ⇒ 1NF · the whole key ⇒ 2NF · nothing but the key ⇒ 3NF",
+        "3NF · BCNF · 4NF"
+      ],
+      "answer": 2,
+      "explain": "**the key** — mọi thuộc tính phải phụ thuộc vào khóa, tức phải có khóa và mỗi ô một giá trị đơn *(1NF)*. **the whole key** — phụ thuộc vào **toàn bộ** khóa, không phải một phần *(2NF, loại phụ thuộc bộ phận)*. **nothing but the key** — chỉ phụ thuộc vào khóa, không qua trung gian nào *(3NF, loại phụ thuộc bắc cầu)*."
+    },
+    {
+      "id": "c5q07",
+      "block": "A",
+      "clo": "CLO2",
+      "q": "**Bộ giả** *(spurious tuple)* là gì?",
+      "options": [
+        "Bộ có giá trị rỗng ở khóa chính",
+        "Bộ xuất hiện khi ghép các bảng con nhưng không có trong quan hệ gốc",
+        "Bộ bị trùng lặp trong cùng một bảng",
+        "Bộ vi phạm ràng buộc toàn vẹn tham chiếu"
+      ],
+      "answer": 1,
+      "explain": "Bộ giả là bằng chứng cho thấy phép tách **không bảo toàn thông tin**. Nguy hiểm ở chỗ nó trông hoàn toàn hợp lệ — đúng kiểu dữ liệu, đúng ràng buộc — nhưng mô tả một sự thật **chưa từng tồn tại**. Ghép lại mà ra nhiều bộ hơn ban đầu nghĩa là ta đã **bịa ra thông tin**, và không cách nào biết bộ nào thật bộ nào giả."
+    },
+    {
+      "id": "c5q08",
+      "block": "A",
+      "clo": "CLO2",
+      "q": "Điều kiện để phép tách `R` thành `R1` và `R2` **bảo toàn thông tin** là gì?",
+      "options": [
+        "`R1` và `R2` phải có số thuộc tính bằng nhau",
+        "Phần giao `R1 ∩ R2` phải xác định được ít nhất một trong hai bảng, tức là siêu khóa của `R1` hoặc của `R2`",
+        "`R1` và `R2` không được có thuộc tính chung",
+        "Cả hai bảng con đều phải đạt 3NF"
+      ],
+      "answer": 1,
+      "explain": "Phần giao phải là **siêu khóa của ít nhất một** bảng con. Trực giác: chỗ nối phải đủ mạnh để mỗi giá trị chỉ khớp đúng một dòng ở một bên, nếu không phép kết sẽ ghép chéo và sinh bộ giả. Hai bảng **không** có thuộc tính chung là trường hợp tệ nhất — kết tự nhiên thành tích Descartes."
+    },
+    {
+      "id": "c5q09",
+      "block": "A",
+      "clo": "CLO2",
+      "q": "`R` đạt **BCNF** khi nào, và nó chặt hơn 3NF ở chỗ nào?",
+      "options": [
+        "Khi mọi phụ thuộc không tầm thường `X → A` đều có `X` là siêu khóa; 3NF còn cho phép `A` là thuộc tính khóa",
+        "Khi `R` không còn phụ thuộc bắc cầu; giống hệt 3NF",
+        "Khi mọi thuộc tính đều là thuộc tính khóa",
+        "Khi `R` chỉ có đúng một khóa"
+      ],
+      "answer": 0,
+      "explain": "3NF cho một ngoại lệ: `X → A` được chấp nhận nếu `A` là **thuộc tính khóa**, kể cả khi `X` không phải siêu khóa. BCNF bỏ ngoại lệ ấy. Vì vậy mọi quan hệ BCNF đều 3NF, chiều ngược lại không đúng. Cái giá của BCNF là **có thể mất phụ thuộc hàm** — nên nhiều trường hợp nên dừng ở 3NF."
+    },
+    {
+      "id": "c5q10",
+      "block": "A",
+      "clo": "CLO2",
+      "q": "**Phi chuẩn hóa** hợp lý khi nào?",
+      "options": [
+        "Khi lược đồ có quá nhiều bảng khiến sơ đồ khó nhìn",
+        "Khi đọc rất nhiều, ghi rất ít, và có cơ chế bảo đảm dữ liệu dư thừa luôn khớp",
+        "Khi hệ quản trị không hỗ trợ phép kết",
+        "Bất cứ khi nào truy vấn chạy chậm"
+      ],
+      "answer": 1,
+      "explain": "Chuỗi nhân quả *dư thừa → không nhất quán → dị thường* khởi động từ thao tác **cập nhật**. Dữ liệu hầu như không đổi thì mắt xích đầu tiên gần như không bao giờ kích hoạt — đó là điều kiện khiến đánh đổi hợp lệ. Truy vấn chậm mới chỉ là **triệu chứng**; trước khi phi chuẩn hóa phải thử thêm chỉ mục, viết lại truy vấn, xem lại thiết kế."
+    },
+    {
+      "id": "c5q11",
+      "block": "B2",
+      "clo": "CLO3",
+      "q": "Cho `R(A,B,C,D,E)` và `F = {A → B, BC → D, D → E}`. Tính `(AC)⁺`.",
+      "options": [
+        "`{A, C}`",
+        "`{A, B, C}`",
+        "`{A, B, C, D}`",
+        "`{A, B, C, D, E}`"
+      ],
+      "answer": 3,
+      "explain": "Vòng 1: `X = {A, C}`. Vòng 2: `A → B` áp được vì `A ⊆ X` ⇒ `X = {A, B, C}`. Vòng 3: `BC → D` áp được vì `{B,C} ⊆ X` ⇒ `X = {A, B, C, D}`. Vòng 4: `D → E` áp được ⇒ `X = {A, B, C, D, E}`. Không còn phụ thuộc nào áp thêm được ⇒ dừng. Vì `(AC)⁺` bằng toàn bộ thuộc tính nên `AC` là **siêu khóa**."
+    },
+    {
+      "id": "c5q12",
+      "block": "B2",
+      "clo": "CLO3",
+      "q": "Cho `R(A,B,C,D)` và `F = {AB → C, A → D, D → B}`. Ba nhóm `TN`, `TG`, `TĐ` là gì?",
+      "options": [
+        "`TN = {A}` · `TG = {B, D}` · `TĐ = {C}`",
+        "`TN = {A, B}` · `TG = {D}` · `TĐ = {C}`",
+        "`TN = {}` · `TG = {A, B, D}` · `TĐ = {C}`",
+        "`TN = {A}` · `TG = {B}` · `TĐ = {C, D}`"
+      ],
+      "answer": 0,
+      "explain": "Xét từng thuộc tính. `A` xuất hiện ở vế trái *(`AB → C`, `A → D`)* và **không** ở vế phải nào ⇒ thuộc `TN`. `B` ở vế trái *(`AB → C`)* và cũng ở vế phải *(`D → B`)* ⇒ `TG`. `C` **chỉ** ở vế phải ⇒ `TĐ`. `D` ở vế phải *(`A → D`)* và vế trái *(`D → B`)* ⇒ `TG`. Vậy chỉ cần duyệt các tập con của `{B, D}` thay vì cả 16 tập con của lược đồ."
+    },
+    {
+      "id": "c5q13",
+      "block": "B2",
+      "clo": "CLO3",
+      "q": "Cho `R(A,B,C,D)` với `F = {A → B, B → C}` và khóa chính là `A`. Dạng chuẩn cao nhất `R` đạt được là gì?",
+      "options": [
+        "1NF",
+        "2NF",
+        "3NF",
+        "BCNF"
+      ],
+      "answer": 1,
+      "explain": "Khóa là `A`, một thuộc tính, nên **không thể có phụ thuộc bộ phận** ⇒ đạt **2NF**. Nhưng có chuỗi `A → B → C` với `B` không phải khóa và `C` là thuộc tính không khóa ⇒ **phụ thuộc bắc cầu** ⇒ **không đạt 3NF**. Vậy dạng chuẩn cao nhất là 2NF. Muốn lên 3NF phải tách `C` ra bảng riêng theo `B`."
+    },
+    {
+      "id": "c5q14",
+      "block": "B2",
+      "clo": "CLO3",
+      "q": "Cho `DONHANG(MADH, NGAYDAT, MAKH, TENKH, MASP, TENSP, SOLUONG)` với khóa `(MADH, MASP)` và `MAKH → TENKH`, `MASP → TENSP`, `MADH → NGAYDAT, MAKH`. Phụ thuộc nào là **bộ phận**?",
+      "options": [
+        "`MAKH → TENKH`",
+        "`MADH → NGAYDAT` và `MASP → TENSP`",
+        "Không có phụ thuộc bộ phận nào",
+        "`(MADH, MASP) → SOLUONG`"
+      ],
+      "answer": 1,
+      "explain": "Khóa là cặp `(MADH, MASP)`. `NGAYDAT` chỉ cần **một nửa** khóa là `MADH` ⇒ bộ phận. `TENSP` chỉ cần nửa kia là `MASP` ⇒ bộ phận. `MAKH → TENKH` không bộ phận mà là **bắc cầu**, vì `MAKH` không phải tập con của khóa: chuỗi là `MADH → MAKH → TENKH`. `SOLUONG` phụ thuộc đầy đủ vào cả cặp nên hoàn toàn hợp lệ."
+    },
+    {
+      "id": "c5q15",
+      "block": "B2",
+      "clo": "CLO3",
+      "q": "Tách `R(A,B,C)` thành `R1(A,B)` và `R2(B,C)`, biết `F = {A → B, B → C}`. Phép tách có bảo toàn thông tin không?",
+      "options": [
+        "Không, vì phần giao chỉ có một thuộc tính",
+        "Có, vì `R1 ∩ R2 = {B}` và `B → C` nên `B` là siêu khóa của `R2`",
+        "Không, vì `A` không xuất hiện trong `R2`",
+        "Không xác định được nếu chưa biết dữ liệu cụ thể"
+      ],
+      "answer": 1,
+      "explain": "Phần giao là `{B}`. Kiểm tra `B` có là siêu khóa của bảng con nào không: `B⁺ = {B, C}` chứa trọn `R2(B,C)` ⇒ `B` là siêu khóa của `R2` ⇒ **bảo toàn thông tin**. Điều kiện chỉ đòi phần giao là siêu khóa của **một trong hai** bảng, không đòi cả hai. Số thuộc tính ở phần giao không quyết định, và điều kiện này kiểm được trên **lược đồ** chứ không cần dữ liệu."
+    },
+    {
+      "id": "c5q16",
+      "block": "B2",
+      "clo": "CLO3",
+      "q": "Cho `R(A,B,C)` và `F = {AB → C, C → B}`. Nhận định nào đúng?",
+      "options": [
+        "`R` đạt BCNF vì mọi vế trái đều là siêu khóa",
+        "`R` đạt 3NF nhưng không đạt BCNF, vì `C` không là siêu khóa nhưng `B` là thuộc tính khóa",
+        "`R` không đạt 2NF vì có phụ thuộc bộ phận",
+        "`R` không đạt 1NF"
+      ],
+      "answer": 1,
+      "explain": "Khóa của `R` là `AB` và `AC` *(vì `AC⁺ = {A,C,B}`)*. Thuộc tính khóa: `A`, `B`, `C` — tất cả. Xét `C → B`: `C` **không** là siêu khóa nên vi phạm **BCNF**. Nhưng `B` **là thuộc tính khóa** nên 3NF vẫn chấp nhận. Đây là ví dụ kinh điển cho thấy 3NF chặt hơn 2NF nhưng lỏng hơn BCNF, và tách về BCNF ở đây sẽ **mất phụ thuộc** `AB → C`."
+    },
+    {
+      "id": "c5q17",
+      "block": "B2",
+      "clo": "CLO3",
+      "q": "Bảng `NV_KYNANG_NGOAINGU(MANV, KYNANG, NGOAINGU)` với kỹ năng và ngoại ngữ **độc lập** nhau. Một nhân viên có 4 kỹ năng và 3 ngoại ngữ thì bảng chứa bao nhiêu dòng, và sau khi tách về 4NF còn bao nhiêu?",
+      "options": [
+        "7 dòng trước, 7 dòng sau — không đổi",
+        "12 dòng trước, 7 dòng sau",
+        "12 dòng trước, 12 dòng sau",
+        "7 dòng trước, 12 dòng sau"
+      ],
+      "answer": 1,
+      "explain": "Vì hai thuộc tính độc lập, bảng phải chứa **mọi tổ hợp**: 4 × 3 = **12 dòng**. Sau khi tách theo hai phụ thuộc đa trị `MANV ↠ KYNANG` và `MANV ↠ NGOAINGU` thành hai bảng riêng, còn 4 + 3 = **7 dòng**. Tiết kiệm ≈ 42%, và tỷ lệ ấy càng lớn khi số kỹ năng và ngoại ngữ tăng. Bảng gốc vẫn **đạt BCNF** — đây chính là lý do cần tới 4NF."
+    },
+    {
+      "id": "c5q18",
+      "block": "B2",
+      "clo": "CLO3",
+      "q": "Cho `F = {A → BC, CD → E, B → D}`. Bước đầu tiên của thuật toán tìm phủ tối thiểu làm gì?",
+      "options": [
+        "Loại bỏ các phụ thuộc thừa",
+        "Tách vế phải để mỗi phụ thuộc chỉ còn một thuộc tính bên phải",
+        "Loại bỏ thuộc tính thừa ở vế trái",
+        "Tính bao đóng của mọi tập thuộc tính"
+      ],
+      "answer": 1,
+      "explain": "Ba bước theo đúng thứ tự: **(1) tách vế phải** — `A → BC` thành `A → B` và `A → C`; **(2) loại thuộc tính thừa ở vế trái** — với `CD → E`, thử xem `C → E` hay `D → E` có suy ra được không; **(3) loại phụ thuộc thừa** — bỏ từng cái rồi kiểm bằng bao đóng xem còn suy lại được không. Làm sai thứ tự, chẳng hạn loại phụ thuộc thừa trước khi tách vế phải, có thể bỏ sót cơ hội rút gọn."
+    }
+  ],
+  "cards": [
+    {
+      "front": "Phụ thuộc bộ phận",
+      "back": "`X → Y` mà **một phần** của `X` đã đủ xác định `Y`. Chỉ xảy ra khi khóa có từ hai thuộc tính. Là thứ làm hỏng **2NF**."
+    },
+    {
+      "front": "Phụ thuộc bắc cầu",
+      "back": "Chuỗi `K → Z → Y` với `K` là khóa, `Z` **không** phải khóa và **không** phải tập con của khóa. Là thứ làm hỏng **3NF**."
+    },
+    {
+      "front": "Bao đóng `X⁺`",
+      "back": "Tập mọi thuộc tính suy ra được từ `X`. Hai công dụng: kiểm `X → Y` *(xem `Y ⊆ X⁺`)* và kiểm `X` có là siêu khóa *(xem `X⁺` có đủ mọi thuộc tính)*."
+    },
+    {
+      "front": "Ba nhóm TN · TG · TĐ",
+      "back": "**TN** chỉ ở vế trái — luôn thuộc mọi khóa. **TĐ** chỉ ở vế phải — không bao giờ thuộc khóa. **TG** phần còn lại — chỉ cần duyệt tập con của nhóm này."
+    },
+    {
+      "front": "Phủ tối thiểu",
+      "back": "Ba điều kiện: vế phải **một** thuộc tính · không thuộc tính nào ở vế trái thừa · không phụ thuộc nào thừa. Không nhất thiết duy nhất."
+    },
+    {
+      "front": "the key, the whole key, nothing but the key",
+      "back": "**the key** ⇒ 1NF · **the whole key** ⇒ 2NF, loại phụ thuộc bộ phận · **nothing but the key** ⇒ 3NF, loại phụ thuộc bắc cầu."
+    },
+    {
+      "front": "Bảo toàn thông tin",
+      "back": "Phép tách bảo toàn thông tin khi **phần giao** `R1 ∩ R2` là **siêu khóa của ít nhất một** bảng con. Không thỏa thì ghép lại sinh **bộ giả**."
+    },
+    {
+      "front": "BCNF và cái giá của nó",
+      "back": "Mọi `X → A` không tầm thường đều có `X` là **siêu khóa**. Chặt hơn 3NF vì bỏ ngoại lệ *A là thuộc tính khóa*. Đổi lại **có thể mất phụ thuộc hàm**."
+    }
+  ],
+  "selfcheck": [
+    { "clo": "CLO2", "text": "Phát biểu được định nghĩa đo được của một cơ sở dữ liệu tốt và vị trí của chuẩn hóa" },
+    { "clo": "CLO3", "text": "Phân biệt được ba loại phụ thuộc hàm và chỉ ra được chúng trên một lược đồ cụ thể" },
+    { "clo": "CLO3", "text": "Vận dụng được hệ luật dẫn Armstrong để suy ra phụ thuộc hàm mới" },
+    { "clo": "CLO3", "text": "Tính được bao đóng `X⁺` và phân biệt được nó với `F⁺`" },
+    { "clo": "CLO3", "text": "Tìm được tất cả khóa của một lược đồ bằng thuật toán TN–TG" },
+    { "clo": "CLO3", "text": "Tìm được phủ tối thiểu theo thuật toán ba bước" },
+    { "clo": "CLO3", "text": "Xác định được dạng chuẩn cao nhất mà một lược đồ đạt được, có chứng minh" },
+    { "clo": "CLO3", "text": "Xác định được một phép tách có bảo toàn thông tin hay không" },
+    { "clo": "CLO3", "text": "Chuẩn hóa trọn vẹn một lược đồ từ bảng phẳng về 3NF, có lập luận từng bước" },
+    { "clo": "CLO2", "text": "Trình bày được BCNF, phụ thuộc đa trị, 4NF và biết khi nào phi chuẩn hóa là hợp lý" }
+  ]
+}
