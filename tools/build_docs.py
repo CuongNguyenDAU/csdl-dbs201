@@ -333,6 +333,72 @@ DE_CUONG_LAY = [
     r"^8\.", r"^9\.", r"^10\.", r"^11\.",
 ]
 
+# Trang đề cương trên site chỉ công bố KẾT LUẬN CUỐI CÙNG. Những đoạn dưới đây
+# là lập luận, giải trình thay đổi so với bản gốc, hoặc hướng dẫn dành riêng cho
+# người ra đề — không đăng cho người học.
+#
+# Khớp theo cụm mở đầu của đoạn hoặc của khối trích dẫn. Thêm bớt ở đây khi đề
+# cương đổi; script in ra danh sách đã bỏ và đã giữ để soát lại.
+DE_CUONG_BO = [
+    # giải trình thay đổi so với bản đề cương gốc
+    "Về bộ chuẩn đầu ra",
+    "Một điều chỉnh về câu chữ của CLO3",
+    # lập luận vì sao có tiêu chí rubric
+    "Tiêu chí 1.3 là mắt xích",
+    "Tiêu chí 1.4 là chỗ duy nhất",
+    "Đây là thành phần đánh giá giữa học phần và nằm đúng giữa",
+    # hướng dẫn dành cho người ra đề và người chấm
+    "Bắt buộc khi ra đề",
+    "Khuyến nghị 2 giảng viên chấm độc lập",
+    "Sơ đồ ER phát trong đề",
+    "Cảnh báo về tính giá trị",
+    "Ma trận đề bắt buộc",
+    "Ví dụ câu đúng chuẩn cho khối",
+    "CLO3 tuyên bố ở mức Nhận thức",
+    "Lưu ý kỹ thuật khi nhập điểm",
+    # tính toán phân bổ quỹ tự học nội bộ
+    "Tỷ lệ chuẩn",
+]
+
+
+def _mo_dau(dong):
+    """Bỏ dấu trích dẫn, emoji và đánh dấu đậm để lấy cụm mở đầu."""
+    t = re.sub(r"^>\s*", "", dong)
+    t = re.sub(r"[\U0001F300-\U0001FAFF☀-➿]", "", t)
+    return re.sub(r"[*_`]", "", t).strip()
+
+
+def bo_dien_giai(body, bo_ra, giu_lai):
+    """Loại các đoạn và khối trích dẫn mang tính diễn giải khỏi trang đề cương."""
+    khoi, cur, la_tq = [], [], False
+    for ln in body.split("\n") + [""]:
+        tq = ln.startswith(">")
+        if ln.strip() == "" or tq != la_tq:
+            if cur:
+                khoi.append((la_tq, cur))
+            cur, la_tq = [], tq
+            if ln.strip() == "":
+                khoi.append((None, [""]))
+                continue
+        cur.append(ln)
+        la_tq = tq
+    if cur:
+        khoi.append((la_tq, cur))
+
+    out = []
+    for loai, dong in khoi:
+        if loai is None:
+            out += dong
+            continue
+        dau = _mo_dau(dong[0])
+        if any(dau.startswith(p) for p in DE_CUONG_BO):
+            bo_ra.append(dau[:60])
+            continue
+        if loai:
+            giu_lai.append(dau[:60])
+        out += dong
+    return re.sub(r"\n{3,}", "\n\n", "\n".join(out))
+
 
 def dung_de_cuong():
     p = os.path.join(SRC, "De-cuong_DBS201_2026.md")
@@ -343,16 +409,21 @@ def dung_de_cuong():
     out = ["# Đề cương học phần", "",
            "Trích các phần liên quan trực tiếp tới người học: mục tiêu, chuẩn đầu ra,",
            "cách đánh giá kèm rubric, kế hoạch giảng dạy và kế hoạch tự học.", ""]
-    giu = 0
+    giu, bo_ra, giu_lai = 0, [], []
     for tieu, body in cat_sections(txt):
         lay = any(re.match(r, tieu) for r in DE_CUONG_LAY)
         if not lay:
             continue
         giu += 1
+        body = bo_dien_giai(body, bo_ra, giu_lai)
         out += ["## %s" % re.sub(r"\s*\*\(.*?\)\*\s*$", "", tieu).strip(),
                 "", don(ha_bac(go_khung(body))), ""]
     ghi(os.path.join(DOCS, "de-cuong.md"), "\n".join(out))
-    print("  Đề cương: giữ %d mục cho người học" % giu)
+    print("  Đề cương: giữ %d mục · bỏ %d đoạn diễn giải" % (giu, len(bo_ra)))
+    for t in bo_ra:
+        print("      ✂ bỏ  : %s…" % t)
+    for t in giu_lai:
+        print("      ✓ giữ : %s…" % t)
 
 
 def main():

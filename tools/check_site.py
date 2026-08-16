@@ -10,8 +10,11 @@ gặp nhất khi soạn tay: chèn hoặc xóa một phương án rồi quên s�
 Mắt người không bắt được lỗi này, máy bắt trong tích tắc.
 
 Ngoài phần kỹ thuật, script còn soát cả **chất lượng sư phạm**: đủ số câu theo
-kế hoạch từng chương, có phủ cả CLO2 lẫn CLO3, và tỷ lệ Khối A / Khối B bám
-đúng ma trận đề của Rubric 4 (40% CLO2 — 60% CLO3).
+kế hoạch từng chương, mỗi câu gắn đúng khối và đúng CLO mà chương ấy phục vụ
+theo ma trận mục 6.1 của đề cương, và Chương 4, 5 có đủ tỷ lệ câu tình huống.
+
+Nó cũng soát trang Đề cương: trang này chỉ được đăng **kết luận cuối cùng**,
+không đăng đoạn giải trình thay đổi hay ghi chú dành cho người ra đề.
 """
 import io
 import json
@@ -171,6 +174,32 @@ def soat_chuong(n, path, loi, canh):
              len(d.get("cards") or []), len(d.get("selfcheck") or [])))
 
 
+# Trang đề cương chỉ đăng kết luận cuối cùng. Những cụm này là dấu hiệu của
+# đoạn giải trình thay đổi hoặc ghi chú dành cho người ra đề — nếu lọt lên site
+# nghĩa là bộ lọc DE_CUONG_BO trong build_docs.py cần bổ sung.
+DAU_HIEU_DIEN_GIAI = [
+    "bản đề cương gốc", "người ra đề", "đoàn kiểm định", "constructive alignment",
+    "Bắt buộc khi ra đề", "Khuyến nghị 2 giảng viên", "Cảnh báo về tính giá trị",
+    "Ma trận đề bắt buộc", "Lưu ý kỹ thuật khi nhập điểm", "khoản dư",
+    "bỏ tiêu chí này", "là mắt xích duy nhất", "là chỗ duy nhất đo",
+]
+
+
+def soat_de_cuong(canh):
+    """Bắt đoạn diễn giải lọt lên trang đề cương dành cho người học."""
+    p = os.path.join(DOCS, "de-cuong.md")
+    if not os.path.exists(p):
+        return
+    txt = io.open(p, encoding="utf-8").read()
+    thay = [c for c in DAU_HIEU_DIEN_GIAI if c in txt]
+    if thay:
+        for c in thay:
+            canh.append('de-cuong.md: còn đoạn diễn giải chứa "%s" — bổ sung vào '
+                        'DE_CUONG_BO trong build_docs.py' % c)
+    else:
+        print("  Đề cương: sạch, không còn đoạn diễn giải nào")
+
+
 def soat_lien_ket(loi):
     """Mọi data-src trong trang phải trỏ tới file có thật."""
     for thu_muc, _, files in os.walk(DOCS):
@@ -205,6 +234,7 @@ def main():
     if not co:
         loi.append("chưa có file câu hỏi nào trong docs/quiz")
 
+    soat_de_cuong(canh)
     soat_lien_ket(loi)
 
     print()

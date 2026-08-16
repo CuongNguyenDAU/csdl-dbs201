@@ -9,10 +9,6 @@ Học phần Cơ sở dữ liệu trang bị nền tảng mô hình hóa và thi
 
 > 📌 Ngôn ngữ SQL, an toàn – bảo mật và quản lý giao dịch được bố trí ở học phần Hệ quản trị cơ sở dữ liệu kế tiếp; học phần này tập trung vào THIẾT KẾ ĐÚNG — nền móng cho mọi hệ thống dữ liệu.
 
-Về bộ chuẩn đầu ra: CO4/CLO4 của bản đề cương gốc (an toàn, giao dịch, kiến trúc Client–Server) đã được bỏ và phần *toàn vẹn dữ liệu* gộp vào CLO3, do nội dung ấy hoãn sang học phần sau; ma trận CLO ↔ PLO ở mục 6 đã được rà để đóng góp của CLO4 cũ chuyển sang CLO2 và CLO3, tránh hụt phủ PLO ở cấp chương trình. Hai chuyên đề tách riêng của bản gốc (*chuẩn hóa – phụ thuộc hàm* và *phép tách – thuật toán nâng cao*) đã tích hợp trọn vẹn vào Chương 5; các nội dung nâng cao lấy từ [3] Coronel & Morris được đưa thẳng vào đề mục tương ứng, không tách thành phụ lục rời.
-
-Một điều chỉnh về câu chữ của CLO3 cần nêu rõ để người ra đề nắm được: mệnh đề cuối của CLO3 là **"xác định một phép tách có bảo toàn thông tin hay không"** chứ không phải *"chứng minh phép tách bảo toàn thông tin"*. Lý do: nội dung Chương 4 và Chương 5 — 20/45 tiết của học phần — được đo bằng khối tình huống của đề trắc nghiệm cuối kỳ; câu hỏi trắc nghiệm có dữ kiện đo được việc sinh viên **chạy thuật toán rồi kết luận**, nhưng không đo được việc **viết ra một chứng minh**. Giữ động từ "chứng minh" thì đề cương tuyên bố một năng lực không có công cụ nào đo — vì vậy động từ được chỉnh cho khớp đúng công cụ đánh giá hiện có.
-
 *The course provides foundations of database modeling and design: basic concepts of a database system and the three-level architecture; Entity–Relationship (ER) and Extended ER (EER) models; the relational data model and relational algebra; data integrity constraints; design theory — functional dependencies, normal forms (1NF–BCNF) and normalization techniques. Content is organised into five chapters, each occupying whole weeks, closing with a synthesis week featuring a group assignment that designs a complete database from a real-world brief. (SQL, security, and transaction management are placed in the subsequent Database Management Systems course.)*
 
 
@@ -98,10 +94,6 @@ Dùng **thang điểm 10** để chấm, lấy đến **1 chữ số thập phâ
 | **1.3.** Chủ động học tập — nộp sản phẩm tự học (11 nhiệm vụ, mục Kế hoạch tự học) | 30 | CLO1 | Nộp < 30% số nhiệm vụ (0–3 / 11) | Nộp 30–49% số nhiệm vụ (4–5 / 11) | Nộp 50–69% số nhiệm vụ (6–7 / 11) | Nộp 70–89% số nhiệm vụ (8–9 / 11), đa số đúng hạn | Nộp ≥ 90% số nhiệm vụ (10–11 / 11), đúng hạn, trình bày đúng quy ước của lớp |
 | **1.4.** Hợp tác nhóm trong bài tập tổng hợp (tuần 11) | 20 | CLO1 | Không tham gia bài tập nhóm | Có tên trong nhóm nhưng đóng góp không đáng kể; không trao đổi với nhóm | Làm phần được giao ở mức tối thiểu, phải nhắc; chỉ phối hợp khi được yêu cầu | Hoàn thành đầy đủ phần được giao đúng hạn; trao đổi chủ động, tôn trọng ý kiến khác | Chủ động nhận thêm việc, chất lượng cao; điều phối hoặc hỗ trợ thành viên khác, sản phẩm nhóm thống nhất |
 
-> Tiêu chí 1.3 là mắt xích duy nhất nối 90 tiết tự học vào điểm số — bỏ tiêu chí này thì hai phần ba khối lượng học phần không gắn với đầu điểm nào và sinh viên không có động lực thực hiện. Mẫu số là 11 nhiệm vụ công bố ở mục Kế hoạch tự học; điều chỉnh số nhiệm vụ thì phải công bố lại mẫu số trước tuần 1.
-
-> Tiêu chí 1.4 là chỗ duy nhất đo mệnh đề "hợp tác nhóm hiệu quả" của CLO1. Bỏ tiêu chí này thì CLO1 hụt phủ: các tiêu chí còn lại chỉ đo việc đi học, nội quy và nộp bài.
-
 > **Phiếu đánh giá đồng đẳng — bắt buộc nộp cùng sản phẩm nhóm.** Giảng viên không quan sát được phần việc mỗi thành viên làm ở nhà, nên tiêu chí 1.4 cần thêm dữ liệu từ chính nhóm: mỗi sinh viên phân bổ 100 điểm cho tất cả thành viên (kể cả bản thân) theo mức đóng góp thực tế, kèm một câu giải thích cho người được cho điểm cao nhất và thấp nhất. Tỷ lệ đóng góp của một sinh viên = trung bình cộng số điểm các bạn dành cho người đó. Mốc đối chiếu là mức chia đều 100 ÷ n. Tỷ lệ < 60% mốc thì hạ một mức; > 140% thì nâng một mức. Phiếu nộp riêng, không công khai giữa các thành viên.
 
 > Việc vắng học vượt tỷ lệ quy định vẫn xử lý theo quy chế đào tạo của Trường, độc lập với điểm rubric này.
@@ -115,13 +107,9 @@ Dùng **thang điểm 10** để chấm, lấy đến **1 chữ số thập phâ
 | **2.3.** Xác định liên kết, lực lượng và sự tham gia | 30 | CLO3 | Không xác định được liên kết nào | Đúng < 50% số liên kết trong đáp án; sai loại 1:1 / 1:M / M:N | Đúng 50–69% số liên kết; chưa xác định lực lượng hoặc chưa nêu sự tham gia | Đúng 70–89% số liên kết kèm lực lượng; có nêu sự tham gia bắt buộc / tùy chọn | Đúng ≥ 90% số liên kết; áp dụng đúng kỹ thuật hỏi hai chiều và xử lý được liên kết đệ quy hoặc liên kết bậc ba |
 | **2.4.** Hoàn chỉnh sơ đồ ER: ký pháp, thực thể yếu, liên kết M:N | 20 | CLO3 | Không vẽ được sơ đồ, hoặc sơ đồ không dùng ký pháp nào | Sai ≥ 3 loại ký hiệu; sơ đồ không đánh dấu khóa | Ký pháp đúng cơ bản, còn sai 1–2 ký hiệu; chưa xử lý thực thể yếu hoặc liên kết M:N | Ký pháp đúng và nhất quán một hệ (Chen hoặc Crow's Foot); xử lý đúng thực thể yếu và M:N | Như mức Khá, đồng thời sơ đồ khớp hoàn toàn với danh mục quy tắc nghiệp vụ đã phát biểu ở tiêu chí 2.1 |
 
-> Bắt buộc khi ra đề: đề cho một **tình huống nghiệp vụ mô tả bằng lời thường**, chưa xuất hiện trên lớp. Đáp án phải liệt kê sẵn ba mẫu số: **số quy tắc nghiệp vụ N** (khuyến nghị N = 8–12), **số thực thể** và **số liên kết** — bốn tiêu chí của rubric đều neo theo tỷ lệ trên ba mẫu số này. Thiếu chúng thì quay lại chấm cảm tính.
-
 > Sinh viên được vẽ sơ đồ bằng tay trên giấy thi; không yêu cầu dùng phần mềm. Chấp nhận cả ký pháp Chen và Crow's Foot, miễn là nhất quán trong toàn bài.
 
 > Bài kiểm tra tổ chức ở tuần 5, sau khi đã dạy xong Chương 2 ở tuần 3; phạm vi giới hạn ở Chương 2 và công bố cho sinh viên chậm nhất tuần 3.
-
-> Khuyến nghị 2 giảng viên chấm độc lập một mẫu ~10% số bài để đối chiếu, vì bài thiết kế có biên độ đánh giá rộng hơn bài tính toán.
 
 ### Rubric 3 — Bài kiểm tra viết — ánh xạ mô hình ER sang lược đồ quan hệ và đại số quan hệ · *đo **CLO3*** · trọng số học phần **20%** · tuần 6
 
@@ -132,13 +120,7 @@ Dùng **thang điểm 10** để chấm, lấy đến **1 chữ số thập phâ
 | **3.3.** Viết biểu thức đại số quan hệ trả lời yêu cầu truy vấn | 30 | CLO3 | Không viết được biểu thức nào | Đúng < 30% số câu truy vấn; dùng sai ký hiệu phép toán | Đúng 30–59% số câu; làm được phép chọn và phép chiếu, chưa dùng được phép kết | Đúng 60–84% số câu; dùng đúng phép kết và các phép toán tập hợp, có kiểm tra điều kiện khả hợp | Đúng ≥ 85% số câu; biểu thức gọn, dùng được phép chia hoặc phép kết ngoài khi đề yêu cầu |
 | **3.4.** Trình bày lược đồ và thuyết minh quyết định ánh xạ | 10 | CLO3 | Không trình bày lược đồ theo dạng quy định | Có lược đồ nhưng không đánh dấu khóa; không viết phần thuyết minh | Lược đồ có đánh dấu khóa; thuyết minh nêu chung chung, không gắn với quyết định ánh xạ nào | Lược đồ rõ ràng, đánh dấu đủ khóa chính và khóa ngoại; giải thích được ≥ 2 quyết định ánh xạ | Như mức Khá, đồng thời nêu được một phương án ánh xạ thay thế đã cân nhắc và lý do loại |
 
-> Bắt buộc khi ra đề: (1) đề **phát sẵn một sơ đồ ER** — không bắt sinh viên vẽ lại, vì phần thiết kế ER đã đo ở Rubric 2 và lặp lại sẽ đo trùng; (2) đáp án phải liệt kê sẵn **số quan hệ**, **số khóa chính và khóa ngoại**, **số câu truy vấn** — ba mẫu số neo cho tiêu chí 3.1, 3.2 và 3.3; (3) đề phải có **một câu thuyết minh bắt buộc**, dạng *"Giải thích ít nhất 2 quyết định ánh xạ của em — ví dụ: vì sao tách bảng cho liên kết M:N, vì sao khóa ngoại đặt ở bên này"*. Không có câu này thì tiêu chí 3.4 không có gì để chấm.
-
-> Sơ đồ ER phát trong đề nên là sơ đồ của một nghiệp vụ khác với đề Rubric 2, để bài giữa kỳ không thành bài làm lại.
-
 > Bài kiểm tra tổ chức ở tuần 6, sau khi đã dạy xong Chương 3 ở tuần 5; phạm vi Chương 2 và Chương 3, công bố cho sinh viên chậm nhất tuần 4.
-
-> Đây là thành phần đánh giá giữa học phần và nằm đúng giữa 11 tuần của học phần — khác với phương án đặt bài thiết kế tổng hợp ở tuần cuối, vốn khiến tên gọi "giữa học phần" không khớp thời điểm tổ chức.
 
 ### Rubric 4 — Bài kiểm tra trắc nghiệm theo khối kiến thức · *đo **CLO2+CLO3*** · trọng số học phần **50%** · tuần 12 — theo lịch thi của Trường
 
@@ -147,16 +129,6 @@ Dùng **thang điểm 10** để chấm, lấy đến **1 chữ số thập phâ
 | **A.** Khối khái niệm nền — dữ liệu và metadata, CSDL – DBMS – hệ CSDL, kiến trúc ba mức, mô hình ER/EER, mô hình quan hệ và tám đặc trưng, đại số quan hệ, khái niệm ràng buộc toàn vẹn, phụ thuộc hàm và các dạng chuẩn | 60 | CLO2 | Đúng ≤ 30% số câu của khối | Đúng 31–54% số câu của khối | Đúng 55–69% số câu của khối | Đúng 70–84% số câu của khối | Đúng 85–100% số câu của khối |
 | **B1.** Khối tình huống — ràng buộc toàn vẹn: đọc bảng tầm ảnh hưởng, chọn hành động khi vi phạm, phát hiện ràng buộc bị vi phạm trên bộ dữ liệu mẫu | 15 | CLO3 | Đúng ≤ 30% số câu của khối | Đúng 31–54% số câu của khối | Đúng 55–69% số câu của khối | Đúng 70–84% số câu của khối | Đúng 85–100% số câu của khối |
 | **B2.** Khối tình huống — chuẩn hóa: tính bao đóng, tìm khóa, xác định dạng chuẩn cao nhất, xác định phép tách có bảo toàn thông tin hay không | 25 | CLO3 | Đúng ≤ 30% số câu của khối | Đúng 31–54% số câu của khối | Đúng 55–69% số câu của khối | Đúng 70–84% số câu của khối | Đúng 85–100% số câu của khối |
-
-> **Cảnh báo về tính giá trị — điều quan trọng nhất khi ra đề này.** Chương 4 (Ràng buộc toàn vẹn, 8 tiết) và Chương 5 (Chuẩn hóa, 12 tiết) chiếm 20/45 tiết — 44% thời lượng học phần — và **chỉ được đo bằng đề trắc nghiệm này**. Vì vậy hai khối B1 và B2 phải chiếm **ít nhất 40% tổng số câu của đề**, tương ứng với 40% trọng số của rubric.
-
-> **Ma trận đề bắt buộc.** Khối A: 60% số câu, mức Nhớ – Hiểu, phải có câu phân biệt các cặp khái niệm dễ nhầm (CSDL ↔ DBMS; khóa chính ↔ khóa dự tuyển; thực thể ↔ kiểu thực thể; toàn vẹn thực thể ↔ toàn vẹn tham chiếu). Khối B1 và B2: 40% số câu, **mỗi câu BẮT BUỘC kèm dữ kiện** — lược đồ quan hệ, tập phụ thuộc hàm, bảng tầm ảnh hưởng, bộ dữ liệu mẫu, hoặc một phép tách cho sẵn — để sinh viên phải chạy thuật toán rồi mới chọn được đáp án.
-
-> Ví dụ câu đúng chuẩn cho khối B2: *Cho R(A, B, C, D) với F = {A → B, B → C} và khóa chính là A. Lược đồ R đạt dạng chuẩn cao nhất là: A. 1NF · B. 2NF · C. 3NF · D. BCNF.* Sinh viên buộc phải tìm khóa và phát hiện phụ thuộc bắc cầu A → B → C mới trả lời được. Câu KHÔNG được dùng ở khối B: *"Dạng chuẩn 3NF là gì?"* — đó là câu tái hiện định nghĩa, thuộc khối A.
-
-> CLO3 tuyên bố ở mức Nhận thức 5/6 và nhận 20/50 điểm từ đề trắc nghiệm này. Nếu khối B ra theo lối tái hiện định nghĩa thì đề cương khai đo Tổng hợp – đánh giá nhưng thực tế chỉ đo Ghi nhớ — đây là lỗi constructive alignment mà đoàn kiểm định soi trước tiên.
-
-> **Lưu ý kỹ thuật khi nhập điểm:** phải tách riêng điểm khối A và tổng điểm khối B1 + B2, vì mục Ngưỡng đạt CLO cần hai con số này để tính mức đạt CLO2 và CLO3. Nếu chỉ lưu tổng điểm trắc nghiệm thì không báo cáo được mức đạt CLO.
 
 ## 7.4. Cách tính điểm học phần
 
@@ -235,8 +207,6 @@ Dùng **thang điểm 10** để chấm, lấy đến **1 chữ số thập phâ
 
 
 ## 9. Kế hoạch tự học
-
-> Tỷ lệ chuẩn: 1 tiết lên lớp ⇒ 2 tiết tự học. Quỹ tự học khai ở mục 2.5 là 90 tiết — đây là mức TRẦN. Đề cương định giao 78 tiết và **chừa lại 12 tiết (13,3%) làm khoản dư**, dành để hấp thụ phần phát sinh khi biên soạn tập bài giảng và độ chậm thực tế của người học. Khi phải dùng tới khoản dư, ghi rõ tuần nào vượt và vượt bao nhiêu vào chính chương đó của tập bài giảng, đồng thời cập nhật lại bảng này.
 
 **Nguyên tắc thiết kế nhiệm vụ:** mọi nhiệm vụ chỉ cần **giấy bút** và **công cụ vẽ sơ đồ miễn phí** (draw.io) — **KHÔNG yêu cầu cài đặt hay sử dụng hệ quản trị CSDL / SQL**, vì các kỹ năng đó thuộc học phần Hệ quản trị CSDL kế tiếp mà sinh viên chưa học. Phần thao tác trên DBMS do giảng viên demo trên lớp để minh họa.
 
