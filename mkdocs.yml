@@ -2,7 +2,7 @@ site_name: Cơ sở dữ liệu — DBS201
 site_description: Học liệu học phần Cơ sở dữ liệu · Khoa Công nghệ Thông tin · Đại học Kiến trúc Đà Nẵng
 site_author: Nguyễn Tất Phú Cường
 site_url: https://cuongnguyendau.github.io/csdl-dbs201/
-copyright: Khoa Công nghệ Thông tin · Đại học Kiến trúc Đà Nẵng
+copyright: "Giảng viên: Nguyễn Tất Phú Cường, khoa Công nghệ thông tin, Đại học Kiến trúc Đà Nẵng"
 
 docs_dir: docs
 use_directory_urls: true
@@ -105,6 +105,7 @@ extra_javascript:
   - assets/hoclieu.js
 
 extra:
+  generator: false
   social:
     - icon: fontawesome/solid/graduation-cap
       link: https://dau.edu.vn
@@ -125,7 +126,6 @@ nav:
       - "Tóm tắt": chuong-1/tom-tat.md
       - "Ôn tập và trắc nghiệm": chuong-1/on-tap.md
       - "Bài tập": chuong-1/bai-tap.md
-      - "Slide bài giảng": chuong-1/slide.md
   - Chương 2. Mô hình thực thể – liên kết:
       - "Mở đầu chương": chuong-2/index.md
       - "2.1. Quá trình thiết kế và quy tắc nghiệp vụ": chuong-2/2-1-qua-trinh-thiet-ke-co-so-du-lieu-va-quy-tac-nghiep-vu.md
@@ -140,7 +140,6 @@ nav:
       - "Tóm tắt": chuong-2/tom-tat.md
       - "Ôn tập và trắc nghiệm": chuong-2/on-tap.md
       - "Bài tập": chuong-2/bai-tap.md
-      - "Slide bài giảng": chuong-2/slide.md
   - Chương 3. Mô hình dữ liệu quan hệ:
       - "Mở đầu chương": chuong-3/index.md
       - "3.1. Quan hệ, bộ, thuộc tính và miền giá trị": chuong-3/3-1-quan-he-bo-thuoc-tinh-va-mien-gia-tri.md
@@ -154,7 +153,6 @@ nav:
       - "Tóm tắt": chuong-3/tom-tat.md
       - "Ôn tập và trắc nghiệm": chuong-3/on-tap.md
       - "Bài tập": chuong-3/bai-tap.md
-      - "Slide bài giảng": chuong-3/slide.md
   - Chương 4. Ràng buộc toàn vẹn:
       - "Mở đầu chương": chuong-4/index.md
       - "4.1. Khái niệm ràng buộc toàn vẹn": chuong-4/4-1-khai-niem-rang-buoc-toan-ven.md

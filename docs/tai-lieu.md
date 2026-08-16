@@ -5,17 +5,12 @@ sinh viên tìm ở thư viện Trường hoặc theo hướng dẫn trên lớp
 
 ## Giáo trình chính
 
-- **[1]** Tô Văn Nam (2005). *Giáo trình cơ sở dữ liệu*. NXB Giáo dục.
-
-## Tài liệu tham khảo
-
-- **[2]** Vũ Đức Thi (1997). *Cơ sở dữ liệu — kiến thức và thực hành*. NXB Thống kê.
-- **[3]** Coronel, C. & Morris, S. *Database Systems: Design, Implementation &
+- **[1]** Coronel, C. & Morris, S. *Database Systems: Design, Implementation &
   Management*. Cengage Learning.
 
-Tài liệu [3] là nguồn của các nội dung nâng cao đã tích hợp vào bài giảng:
+Tài liệu [1] là nguồn của các nội dung nâng cao đã tích hợp vào bài giảng:
 
-| Chương của [3] | Nội dung dùng trong học phần |
+| Chương của [1] | Nội dung dùng trong học phần |
 |---|---|
 | Ch.1 | Khái niệm cơ bản, từ điển dữ liệu |
 | Ch.3 | Mô hình quan hệ, ràng buộc, phép kết ngoài để dò lỗi toàn vẹn tham chiếu |
@@ -25,8 +20,8 @@ Tài liệu [3] là nguồn của các nội dung nâng cao đã tích hợp và
 
 ## Học liệu khác
 
-- **Tập bài giảng** năm chương kèm hình minh họa và **bộ slide bài giảng** do Bộ môn
-  Công nghệ Thông tin biên soạn — chính là nội dung trên site này.
+- **Tập bài giảng** năm chương kèm hình minh họa do Bộ môn Công nghệ Thông tin
+  biên soạn — chính là nội dung trên site này.
 - **Bộ đề tình huống nghiệp vụ** dùng cho bài kiểm tra viết tuần 5 và bài kiểm tra
   giữa học phần tuần 6. Mỗi học kỳ thay đề.
 - **Ngân hàng câu hỏi trắc nghiệm** phân theo ba khối A, B1, B2.

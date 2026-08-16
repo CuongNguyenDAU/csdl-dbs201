@@ -210,25 +210,6 @@ def khoi_tuong_tac(n):
     ])
 
 
-def trang_slide(n):
-    """Liệt kê các buổi slide có sẵn của chương."""
-    files = sorted(f for f in os.listdir(os.path.join(DOCS, "slide"))
-                   if re.match(r"Slide_Chuong-%d_Buoi-\d+\.html$" % n, f))
-    if not files:
-        return None
-    out = ["# Slide bài giảng — Chương %d" % n, "",
-           "Bản trình chiếu tương tác: trắc nghiệm tự chấm, thẻ lật, kéo–thả.",
-           "Dùng phím `→` `←` để chạy từng đoạn, `N` để xem kịch bản.", ""]
-    for f in files:
-        buoi = re.search(r"Buoi-(\d+)", f).group(1)
-        out += ["## Buổi %s" % buoi, "",
-                '[Mở toàn màn hình](../slide/%s){ .md-button .md-button--primary target=_blank }' % f,
-                "",
-                '<iframe src="../slide/%s" loading="lazy" class="hl-slide"></iframe>' % f,
-                ""]
-    return "\n".join(out)
-
-
 def dung_chuong(n):
     fn, ten = CHUONG[n]
     txt = io.open(os.path.join(SRC, fn), encoding="utf-8").read()
@@ -307,12 +288,6 @@ def dung_chuong(n):
           chen_loi_giai(don(sua_anh(ha_bac(go_khung(bai_tap)))), giai), ""]
     ghi(os.path.join(out, "bai-tap.md"), "\n".join(bt))
     nav.append(("Bài tập", "chuong-%d/bai-tap.md" % n))
-
-    # --- slide ---
-    sl = trang_slide(n)
-    if sl:
-        ghi(os.path.join(out, "slide.md"), sl)
-        nav.append(("Slide bài giảng", "chuong-%d/slide.md" % n))
 
     print("  Chương %d: %d mục lớn → %d trang · %d lời giải chèn vào"
           % (n, len(trang_muc), len(nav), len(giai)))

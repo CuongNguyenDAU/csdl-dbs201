@@ -3,8 +3,8 @@
 **Mã học phần DBS201 · 3 tín chỉ · 45 tiết lên lớp**
 Khoa Công nghệ Thông tin — Trường Đại học Kiến trúc Đà Nẵng
 
-Đây là trang học liệu điện tử của học phần. Toàn bộ nội dung năm chương, slide bài
-giảng, câu hỏi ôn tập và bài tập đều nằm ở đây, đọc được trên máy tính lẫn điện thoại.
+Đây là trang học liệu điện tử của học phần. Toàn bộ nội dung năm chương, câu hỏi
+ôn tập và bài tập đều nằm ở đây, đọc được trên máy tính lẫn điện thoại.
 
 ## Học phần này dạy điều gì
 
@@ -60,7 +60,6 @@ pháp cho ra bảy thực thể. Bốn thứ chênh lệch đó chính là nội
 | **Tóm tắt chương** | Ôn nhanh trước khi thi; kèm danh mục hình, bảng, từ viết tắt |
 | **Ôn tập và trắc nghiệm** | Câu hỏi tự luận, **trắc nghiệm tự chấm có giải thích**, thẻ lật khái niệm, bảng tự đánh giá |
 | **Bài tập** | Ba mức A, B, C kèm lời giải đầy đủ, mở ra sau khi đã tự làm |
-| **Slide bài giảng** | Bản trình chiếu tương tác của từng buổi học |
 
 !!! tip "Cách dùng phần trắc nghiệm cho hiệu quả"
 
