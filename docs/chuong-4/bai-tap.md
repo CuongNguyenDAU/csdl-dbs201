@@ -126,7 +126,7 @@ CREATE TABLE LOP (
 
     **Chín ràng buộc, phủ đủ sáu loại** — vượt yêu cầu tối thiểu tám. Cách làm để không bỏ sót: đi lần lượt sáu dòng của Bảng 4.3 và tự hỏi *bài này có ràng buộc loại đó không*, thay vì nghĩ tự do rồi đếm lại.
 
-**Bài B2.** Chọn **ba ràng buộc** trong Bài B1 — một loại dễ, một loại trung bình, một loại khó — và lập **bảng tầm ảnh hưởng** đầy đủ cho từng ràng buộc, kèm **suy luận từng ô** theo mẫu Bảng 4.4.
+**Bài B2.** Chọn **ba ràng buộc** trong Bài B1 — một loại dễ, một loại trung bình, một loại khó — và lập **bảng tầm ảnh hưởng** đầy đủ cho từng ràng buộc, kèm **suy luận từng ô** theo mẫu Bảng 4.9.
 
 
 ??? success "Lời giải bài B2"

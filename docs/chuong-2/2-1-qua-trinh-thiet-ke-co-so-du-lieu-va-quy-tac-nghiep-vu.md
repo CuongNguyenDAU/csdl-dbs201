@@ -24,6 +24,10 @@ Thiết kế quan niệm cần nguyên liệu, và nguyên liệu ấy là quy t
 
     **Quy tắc nghiệp vụ** *(business rule)* là một **phát biểu ngắn gọn, rõ ràng, bằng ngôn ngữ tự nhiên**, mô tả một chính sách, một quy trình hoặc một ràng buộc trong hoạt động của tổ chức.
 
+![](../hinh-ve/slide/internet/bang_noi_quy.jpg){width=55%}
+
+*Ảnh minh họa: bảng nội quy học sinh treo ở một trường học. Mỗi dòng là một phát biểu ngắn, rõ, về việc được làm và không được làm — đúng nghĩa một tập quy tắc nghiệp vụ — Nguồn: Wikimedia Commons · Danhviet1493 · CC BY-SA 4.0.*
+
 Quy tắc nghiệp vụ không do người thiết kế nghĩ ra. Chúng được **thu thập** từ ba nguồn: phỏng vấn người sử dụng hệ thống, đọc tài liệu và biểu mẫu hiện hành, và quan sát quy trình làm việc thực tế. Đây là công việc của con người với con người, không phải công việc kỹ thuật — nhưng chất lượng của toàn bộ thiết kế phụ thuộc vào nó.
 
 Vai trò của quy tắc nghiệp vụ đối với người thiết kế có ba mặt. Thứ nhất, chúng **xác định phạm vi**: cái gì cần lưu, cái gì không. Thứ hai, chúng **quyết định cấu trúc**: mỗi quy tắc thường ứng với một thành phần cụ thể của lược đồ ER. Thứ ba, chúng là **căn cứ để tranh luận**: khi hai người thiết kế bất đồng, cách giải quyết không phải là ai lớn tiếng hơn mà là quay lại đọc quy tắc nghiệp vụ.
@@ -99,6 +103,10 @@ Ba thành phần trên mới là bộ khung. Trên bộ khung ấy, mô hình ER
 
 Đã có nguyên liệu *(quy tắc nghiệp vụ, mục 2.1.2)* và đã biết sản phẩm cần làm ra trông như thế nào *(lược đồ ER, mục 2.1.4)*, còn lại là câu hỏi nối hai đầu ấy: **đọc một câu quy tắc nghiệp vụ thì rút ra được thành phần nào của lược đồ?**
 
+![](../hinh-ve/slide/internet/ban_ve_kien_truc.jpg){width=70%}
+
+*Ảnh minh họa: mô hình mặt bằng một căn hộ. Người thiết kế cơ sở dữ liệu cũng làm việc như kiến trúc sư: thống nhất ý tưởng với chủ nhà (quy tắc nghiệp vụ) trước, rồi mới vẽ bản vẽ (lược đồ ER), sau cùng mới thi công (tạo bảng) — Nguồn: Wikimedia Commons · Tallbox · CC BY-SA 4.0.*
+
 Có một quy luật rất tiện dụng: **loại từ trong câu quy tắc nghiệp vụ gợi ý loại thành phần trong lược đồ ER**. Quy luật này không phải là công thức máy móc, nhưng nó cho người thiết kế một điểm khởi đầu vững chắc.
 
 **Bảng 2.1. Phiên dịch quy tắc nghiệp vụ sang thành phần ER**
@@ -112,6 +120,39 @@ Có một quy luật rất tiện dụng: **loại từ trong câu quy tắc ngh
 | Cụm **"có thể"**, **"chưa có"** | **Tham gia tùy chọn** *(mục 2.5)* | *"giáo viên **có thể chưa** phụ trách lớp nào"* |
 | Cụm **"bắt buộc"**, **"phải"** | **Tham gia bắt buộc** *(mục 2.5)* | *"mỗi lớp **phải** thuộc một khóa học"* |
 | **Nhiều giá trị** cho cùng một đặc điểm | **Thuộc tính đa trị** → phải tách *(mục 2.2.4)* | *"học viên có **nhiều số điện thoại**"* |
+
+Để thấy bảng trên vận hành ra sao, hãy áp nó vào quy tắc **(c)** của Ví dụ 2.1 — quy tắc "tốt" duy nhất trong ba phát biểu. Mỗi cụm từ trong câu rơi đúng vào một dòng của bảng, và mỗi dòng cho ra một mảnh lược đồ.
+
+**Hình 2.2. Áp Bảng 2.1 vào quy tắc (c) của Ví dụ 2.1 — từ câu chữ tới mảnh lược đồ**
+
+```mermaid
+flowchart LR
+    T1["<b>danh từ</b><br/>học viên, lớp"]
+    T2["<b>động từ</b><br/>ghi danh"]
+    T3["<b>số lượng</b><br/>nhiều lớp · nhiều học viên"]
+    T4["<b>đặc điểm của lượt ghi danh</b><br/>ngày ghi danh, học phí"]
+    HV["HOCVIEN"] ---|"M"| R{"ghi danh"}
+    R ---|"N"| LOP["LOP"]
+    R --- A1(["NGAYGHIDANH"])
+    R --- A2(["HOCPHI"])
+    T1 -.-> HV
+    T1 -.-> LOP
+    T2 -.-> R
+    T3 -.-> R
+    T4 -.-> A1
+    T4 -.-> A2
+    style HV fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
+    style LOP fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
+    style R fill:#FFD9D9,stroke:#C00000,stroke-width:2px
+    style A1 fill:#fff,stroke:#1F4E79
+    style A2 fill:#fff,stroke:#1F4E79
+    style T1 fill:#FFF2CC,stroke:#BF9000
+    style T2 fill:#FFF2CC,stroke:#BF9000
+    style T3 fill:#FFF2CC,stroke:#BF9000
+    style T4 fill:#FFF2CC,stroke:#BF9000
+```
+
+Đọc hình từ trái sang phải. Hai danh từ *học viên*, *lớp* thành hai **hình chữ nhật**; động từ *ghi danh* thành **hình thoi** nối chúng; hai chữ *nhiều* thành hai chữ cái `M`, `N` ở hai đầu — tức liên kết nhiều–nhiều; và hai đặc điểm *ngày ghi danh*, *học phí* thành hai **oval treo trên hình thoi**, vì chúng không thuộc riêng học viên hay lớp mà thuộc về *lượt ghi danh*. Hình thoi được tô đỏ để đánh dấu một việc còn phải làm: liên kết nhiều–nhiều có thuộc tính riêng sẽ được xử lý ở mục 2.6.4. Ở đây người học chưa cần hiểu vì sao — chỉ cần thấy rằng **một câu quy tắc tốt tự nó đã vẽ ra được lược đồ**.
 
 Cột giữa có ghi kèm số mục, vì ở đây người học mới chỉ cần **nhận ra tên gọi** của từng thành phần chứ chưa cần nắm hết sắc thái của nó; mỗi thành phần sẽ được học kỹ ở mục tương ứng. Bảng này vì vậy nên được xem như một **bảng tra dùng lại nhiều lần**: mục 2.9 sẽ quay lại dùng đúng nó để giải trọn vẹn bài toán Trung tâm ABC.
 

@@ -10,7 +10,7 @@
 
 So sánh với định nghĩa 3NF ở mục 5.7.4, khác biệt nằm ở chỗ BCNF **bỏ đi vế "hoặc `A` là thuộc tính khóa"**. Đó là điều kiện chặt hơn.
 
-**Bảng 5.10. 3NF và BCNF khác nhau ở đâu**
+**Bảng 5.22. 3NF và BCNF khác nhau ở đâu**
 
 | | 3NF | BCNF |
 |---|---|---|
@@ -24,7 +24,7 @@ So sánh với định nghĩa 3NF ở mục 5.7.4, khác biệt nằm ở chỗ 
 
 Có một loại dư thừa mà **BCNF không diệt được**. Xét tình huống sau tại Trung tâm ABC.
 
-!!! example "Ví dụ 5.8"
+!!! example "Ví dụ 5.10"
 
     Trung tâm muốn lưu: mỗi giáo viên dạy những lớp nào, và có những chứng chỉ gì. Hai thông tin này **hoàn toàn độc lập với nhau** — chứng chỉ của giáo viên không liên quan gì tới lớp cụ thể mà người ấy dạy.
 
@@ -41,11 +41,13 @@ Có một loại dư thừa mà **BCNF không diệt được**. Xét tình hu�
 
     Điều đáng chú ý: bảng này **đạt BCNF**. Khóa là cả ba thuộc tính `(MAGV, MALOP, CHUNGCHI)`, và **không có phụ thuộc hàm không tầm thường nào** — nên điều kiện BCNF thỏa mãn một cách rỗng. Vậy mà dư thừa vẫn còn nguyên.
 
-    **Định nghĩa 5.18.** Cho quan hệ `R` và ba tập thuộc tính `X`, `Y`, `Z` với `Z = R − X − Y`. Ta nói `Y` **phụ thuộc đa trị** vào `X`, ký hiệu **`X ↠ Y`**, nếu: với mọi cặp bộ `t₁`, `t₂` có `t₁[X] = t₂[X]`, luôn tồn tại bộ `t₃` trong `R` sao cho `t₃[X] = t₁[X]`, `t₃[Y] = t₁[Y]` và `t₃[Z] = t₂[Z]`.
+!!! note "Định nghĩa 5.18"
+
+    Cho quan hệ `R` và ba tập thuộc tính `X`, `Y`, `Z` với `Z = R − X − Y`. Ta nói `Y` **phụ thuộc đa trị** vào `X`, ký hiệu **`X ↠ Y`**, nếu: với mọi cặp bộ `t₁`, `t₂` có `t₁[X] = t₂[X]`, luôn tồn tại bộ `t₃` trong `R` sao cho `t₃[X] = t₁[X]`, `t₃[Y] = t₁[Y]` và `t₃[Z] = t₂[Z]`.
 
 Cách hiểu thực dụng, bỏ qua ký hiệu: **`X ↠ Y` nghĩa là với mỗi giá trị của `X`, tập giá trị `Y` là cố định và hoàn toàn độc lập với tập giá trị `Z`.**
 
-**Hình 5.11. Phụ thuộc đa trị — hai nhánh độc lập gây bùng nổ tích**
+**Hình 5.12. Phụ thuộc đa trị — hai nhánh độc lập gây bùng nổ tích**
 
 ```mermaid
 flowchart LR
@@ -85,7 +87,7 @@ LẶP cho tới khi không còn vi phạm:
 
 Đây là một kết quả rất tiện: khác với BCNF, ta không phải lo kiểm tra điều kiện lossless — tách theo phụ thuộc đa trị thì tự động bảo toàn.
 
-!!! example "Ví dụ 5.9 — áp dụng cho Ví dụ 5.8"
+!!! example "Ví dụ 5.11 — áp dụng cho Ví dụ 5.10"
 
     Trong `GV_LOP_CC(MAGV, MALOP, CHUNGCHI)` ta có `MAGV ↠ MALOP` *(và do đó `MAGV ↠ CHUNGCHI`)*, mà `MAGV` **không phải siêu khóa** — khóa là cả ba thuộc tính. Vậy lược đồ **vi phạm 4NF**.
 
@@ -114,7 +116,9 @@ LẶP cho tới khi không còn vi phạm:
 
     Theo Định lý 5.3, phép tách này bảo toàn thông tin — ghép `GV_LOP ⋈ GV_CC` cho lại đúng bảng gốc.
 
-    **Chú ý — dấu hiệu nhận biết trên thực tế.** Vi phạm 4NF thường lộ ra khi một bảng chứa **hai danh sách độc lập** gắn với cùng một chủ thể. Câu hỏi để kiểm tra: *"hai thông tin này có liên quan gì tới nhau không, hay chúng chỉ tình cờ cùng thuộc về một người?"* Nếu chúng độc lập, bảng đang vi phạm 4NF và phải tách.
+!!! warning "Chú ý — dấu hiệu nhận biết trên thực tế"
+
+    Vi phạm 4NF thường lộ ra khi một bảng chứa **hai danh sách độc lập** gắn với cùng một chủ thể. Câu hỏi để kiểm tra: *"hai thông tin này có liên quan gì tới nhau không, hay chúng chỉ tình cờ cùng thuộc về một người?"* Nếu chúng độc lập, bảng đang vi phạm 4NF và phải tách.
 
     Trên 4NF còn có **5NF** *(dạng chuẩn nối)*, xử lý các trường hợp phải tách thành **ba bảng trở lên** mới bảo toàn thông tin. Loại này rất hiếm trong thực tế và nằm ngoài phạm vi học phần.
 
@@ -126,9 +130,13 @@ Toàn bộ chương này hướng tới việc chuẩn hóa. Mục cuối cùng 
 
     **Phi chuẩn hóa** *(denormalization)* là việc **cố ý đưa dư thừa trở lại** lược đồ đã chuẩn hóa, nhằm đánh đổi lấy **tốc độ truy vấn**.
 
+![](../hinh-ve/slide/internet/kho_hang.jpg){width=60%}
+
+*Ảnh minh họa: kho hàng xếp pa-lét. Kho là nơi "đọc nhiều, sửa ít": hàng được nạp vào theo đợt rồi chủ yếu chỉ xuất ra. Kho dữ liệu báo cáo cũng vậy, và đó là nơi phi chuẩn hóa thường được chấp nhận — Nguồn: Wikimedia Commons · Shixart1985 · CC BY 2.0.*
+
 Lý do rất thực tế. Chuẩn hóa tách bảng ra nhiều, mà càng nhiều bảng thì truy vấn càng phải **ghép nhiều lần**. Với hệ thống báo cáo chạy trên hàng chục triệu dòng, chi phí ghép bảng có thể lớn tới mức không chấp nhận được.
 
-**Bảng 5.11. Khi nào phi chuẩn hóa là hợp lý**
+**Bảng 5.23. Khi nào phi chuẩn hóa là hợp lý**
 
 | Điều kiện | Vì sao |
 |---|---|

@@ -4,9 +4,31 @@
 
 ## 4.1.1. Ba lỗ hổng còn lại từ Chương 3
 
-Mục 3.3.4 đã liệt kê ba loại lỗi mà hai ràng buộc toàn vẹn thực thể và tham chiếu không phát hiện được. Chương này nhận lại đúng ba món nợ ấy.
+Mục 3.3.4 đã liệt kê ba loại lỗi mà hai ràng buộc toàn vẹn thực thể và tham chiếu không phát hiện được. Chương này nhận lại đúng ba món nợ ấy. Trước khi gọi tên chúng, hãy nhìn ba món nợ ấy **bằng dữ liệu thật** — ba ô in đậm dưới đây đều đã lọt vào cơ sở dữ liệu mà không có một lời cảnh báo.
 
-**Bảng 4.1. Ba lỗ hổng của một cơ sở dữ liệu "hoàn hảo"**
+**Bảng 4.1. Ba dòng dữ liệu vô lý lọt qua hai ràng buộc của Chương 3**
+
+| `KHOAHOC` | MAKH | TENKH | NGAYTL |
+|---|---|---|---|
+| | KH01 | Anh cơ bản | 2020-01-15 |
+| | KH02 | Anh giao tiếp | 2021-03-15 |
+
+| `LOP` | MALOP | TENLOP | MAKH↗ | NGAYKG | SUCCHUA | *số dòng `GHIDANH`* |
+|---|---|---|---|---|---|---|
+| | A1 | Anh cơ bản 1 | KH01 | 2026-09-01 | 25 | 22 |
+| | A2 | Anh cơ bản 2 | KH01 | 2026-09-08 | **25** | **40** |
+| | A3 | Anh giao tiếp 1 | KH02 | **1990-09-01** | 20 | 15 |
+
+| `GHIDANH` | MAHV↗ | MALOP↗ | HOCPHI |
+|---|---|---|---|
+| | HV01 | A1 | 1 500 000 |
+| | HV02 | A1 | **−500 000** |
+| | HV03 | A2 | 1 500 000 |
+| | … | … | *(còn 74 dòng nữa)* |
+
+Hãy kiểm tra thử bằng hai ràng buộc đã học: mọi khóa chính đều không rỗng, không trùng; mọi khóa ngoại `MAKH`, `MAHV`, `MALOP` đều trỏ tới dòng có thật. **Không có gì để bắt lỗi.** Thế nhưng học phí âm, lớp khai giảng trước khi khóa học ra đời ba mươi năm, và lớp 25 chỗ nhận 40 người — ba điều vô lý ấy vẫn nằm yên trong bảng. Bảng 4.2 gọi tên từng lỗ hổng và cho biết cần loại ràng buộc nào để bịt.
+
+**Bảng 4.2. Ba lỗ hổng của một cơ sở dữ liệu "hoàn hảo"**
 
 | Dữ liệu vô lý | Vì sao lọt qua | Cần loại ràng buộc nào |
 |---|---|---|
@@ -21,6 +43,10 @@ Ba dòng trên cũng chính là ba mức độ khó tăng dần mà chương s�
 !!! note "Định nghĩa 4.1"
 
     **Ràng buộc toàn vẹn** *(integrity constraint)* là một **điều kiện mà dữ liệu trong cơ sở dữ liệu phải luôn luôn thỏa mãn**, ở mọi thời điểm, nhằm phản ánh đúng các quy tắc nghiệp vụ của tổ chức.
+
+![](../hinh-ve/slide/internet/bien_suc_chua.jpg){width=50%}
+
+*Ảnh minh họa: biển "sức chứa tối đa" gắn ở cửa một hội trường. Con số ấy phải đúng ở mọi thời điểm chứ không chỉ lúc mở cửa — đúng tinh thần "luôn luôn" của ràng buộc toàn vẹn, và cũng là ràng buộc "lớp không vượt sức chứa" của Trung tâm ABC — Nguồn: Wikimedia Commons · Dan Keck · CC0.*
 
 Ba chữ đáng chú ý trong định nghĩa là **"luôn luôn"**. Một ràng buộc không phải là điều kiện chỉ đúng lúc nhập liệu rồi thôi; nó phải đúng **trước và sau mọi thao tác**, trong suốt vòng đời hệ thống.
 
@@ -57,7 +83,7 @@ Cách nhìn này có giá trị thực tiễn: người học không phải nh�
 
 Một quy tắc nghiệp vụ có thể được kiểm tra ở ba nơi khác nhau.
 
-**Bảng 4.2. Ba tầng có thể đặt ràng buộc**
+**Bảng 4.3. Ba tầng có thể đặt ràng buộc**
 
 | Tầng | Cách làm | Ưu điểm | Nhược điểm |
 |---|---|---|---|
@@ -88,6 +114,10 @@ flowchart LR
     style C5 fill:#FFD9D9,stroke:#C00000
     style DB fill:#1F4E79,color:#fff,stroke:#1F4E79,stroke-width:2px
 ```
+
+![](../hinh-ve/slide/internet/cua_soat_ve.jpg){width=60%}
+
+*Ảnh minh họa: dãy cửa soát vé ở một ga tàu điện. Ga có nhiều lối vào; chỉ đặt máy soát ở một cửa thì hành khách không vé vẫn vào được bằng những cửa còn lại — kiểm tra ở tầng ứng dụng cũng chỉ khóa được một cửa như vậy — Nguồn: Wikimedia Commons · GK tramrunner RU · CC BY-SA 4.0.*
 
 Trong hình, chỉ **cửa 1** có kiểm tra vì đó là ứng dụng đã cài logic. Bốn cửa còn lại **hoàn toàn mở**. Và bốn cửa ấy đều là những đường vào rất thật trong thực tế: ứng dụng di động do nhóm khác viết và có thể quên một điều kiện, quản trị viên sửa dữ liệu trực tiếp lúc cần gấp, kịch bản nạp dữ liệu hàng loạt bỏ qua mọi tầng ứng dụng, và hệ thống của đối tác gọi thẳng vào.
 

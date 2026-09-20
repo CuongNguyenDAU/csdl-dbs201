@@ -30,6 +30,22 @@ flowchart LR
 
 Lý do đằng sau ba nhóm rất trực quan. Thuộc tính thuộc **`TN`** không nằm ở vế phải của bất kỳ phụ thuộc nào, nên **không có cách nào suy ra nó** — muốn suy ra toàn bộ lược đồ thì buộc phải có nó ngay từ đầu. Ngược lại, thuộc tính thuộc **`TĐ`** luôn suy ra được từ thứ khác, nên đưa nó vào khóa chỉ làm khóa thừa, vi phạm tính tối thiểu. Chỉ nhóm **`TG`** là còn phải thử.
 
+Thử phân nhóm ngay trên bảng phẳng của Trung tâm ABC — bảy thuộc tính và bốn phụ thuộc hàm rút từ nghiệp vụ *(tập `F` này sẽ được lập chính thức ở Bảng 5.18)*: `MAHV → HOTEN`, `MALOP → TENLOP, MAGV`, `MAGV → HOTEN_GV`, `(MAHV, MALOP) → HOCPHI`.
+
+**Bảng 5.11. Phân nhóm bảy thuộc tính của `GHIDANH_PHANG` — gạch vế trái, gạch vế phải**
+
+| Thuộc tính | Có ở vế trái? | Có ở vế phải? | Nhóm | Vì sao |
+|:--:|:--:|:--:|:--:|---|
+| `MAHV` | có | không | **TN** | không suy ra được từ đâu → chắc chắn trong khóa |
+| `MALOP` | có | không | **TN** | như trên |
+| `MAGV` | có | có | **TG** | suy ra được từ `MALOP`, nhưng cũng suy ra thứ khác → phải thử |
+| `HOTEN` | không | có | **TĐ** | luôn suy ra được từ `MAHV` |
+| `TENLOP` | không | có | **TĐ** | luôn suy ra được từ `MALOP` |
+| `HOTEN_GV` | không | có | **TĐ** | luôn suy ra được từ `MAGV` |
+| `HOCPHI` | không | có | **TĐ** | luôn suy ra được từ cặp khóa |
+
+Bảy thuộc tính rút xuống còn **hai bắt buộc và một phải thử** — phạm vi tìm khóa từ `2⁷ = 128` tập con giảm còn `2¹ = 2` tập con của `TG`.
+
 ## 5.5.2. Thuật toán tìm một khóa
 
 Với nhiều bài toán, chỉ cần **một** khóa là đủ để chuẩn hóa. Khi ấy có một lối tắt:
@@ -105,6 +121,56 @@ Mẹo này dựa trên một nhận xét đơn giản: bao đóng có tính **đ
     **Lược đồ có ba khóa: `AD`, `BD`, `CD`.**
 
     Hệ quả: thuộc tính khóa là `A`, `B`, `C`, `D` — **tất cả**. Khi mọi thuộc tính đều là thuộc tính khóa, lược đồ **tự động đạt 3NF** *(xem mục 5.7.4)*.
+
+Tám tập con của `TG` xếp thành bốn tầng theo kích thước. Vẽ ra, mẹo rút gọn trở nên hiển nhiên: một khi tầng 1 đã cho siêu khóa, **mọi thứ nằm phía trên nó** đều bị loại mà không cần tính.
+
+**Hình 5.6. Lưới tám tập con của `TG = {A, B, C}` — ba siêu khóa ở tầng 1 chặn toàn bộ các tầng trên**
+
+```mermaid
+flowchart BT
+    E["∅ → D<br/>(D)⁺ = {D}<br/><i>không phải siêu khóa</i>"]
+    A["{A} → AD<br/><b>siêu khóa</b>"]
+    B["{B} → BD<br/><b>siêu khóa</b>"]
+    C["{C} → CD<br/><b>siêu khóa</b>"]
+    AB["{A,B} → ABD<br/><i>chứa AD → loại</i>"]
+    AC["{A,C} → ACD<br/><i>chứa AD → loại</i>"]
+    BC["{B,C} → BCD<br/><i>chứa BD → loại</i>"]
+    ABC["{A,B,C} → ABCD<br/><i>loại</i>"]
+    E --> A
+    E --> B
+    E --> C
+    A --> AB
+    A --> AC
+    B --> AB
+    B --> BC
+    C --> AC
+    C --> BC
+    AB --> ABC
+    AC --> ABC
+    BC --> ABC
+    style E fill:#FFD9D9,stroke:#C00000
+    style A fill:#E2F0D9,stroke:#548235,stroke-width:2px
+    style B fill:#E2F0D9,stroke:#548235,stroke-width:2px
+    style C fill:#E2F0D9,stroke:#548235,stroke-width:2px
+    style AB fill:#EDEDED,stroke:#999,color:#777
+    style AC fill:#EDEDED,stroke:#999,color:#777
+    style BC fill:#EDEDED,stroke:#999,color:#777
+    style ABC fill:#EDEDED,stroke:#999,color:#777
+```
+
+Chỉ **bốn** bao đóng phải tính *(tầng 0 và tầng 1)* thay vì tám; với `TG` lớn hơn, phần tiết kiệm còn lớn hơn nhiều.
+
+!!! question "Tự kiểm tra 5.5"
+
+    *(tự trả lời trước, rồi mở đáp án bên dưới)*
+
+    1. Cho `R(A, B, C, D, E)` và `F = {A → B, BC → D, D → E}`. Lập bảng phân nhóm `TN`, `TG`, `TĐ`.
+    2. Tính `(TN)⁺`. Có kết luận được khóa ngay chưa? Lược đồ có mấy khóa?
+    3. Vì sao không cần thử bất kỳ tập con nào có chứa `E`?
+
+??? success "Đáp án tự kiểm tra 5.5"
+
+    *(1)* Vế trái: `A, B, C, D`; vế phải: `B, D, E` → `TN = {A, C}`, `TG = {B, D}`, `TĐ = {E}`. *(2)* `(AC)⁺`: `A → B` → `{A, C, B}`; `BC → D` → `{A, B, C, D}`; `D → E` → toàn bộ. `(TN)⁺` phủ hết ⟹ **`AC` là khóa duy nhất**, không cần thử tập con nào của `TG`. *(3)* `E` thuộc `TĐ` — chỉ ở vế phải — luôn suy ra được từ `D`; đưa `E` vào chỉ làm khóa thừa, vi phạm tính tối thiểu.
 
 ---
 

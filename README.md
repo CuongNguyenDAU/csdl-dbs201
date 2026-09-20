@@ -3,8 +3,9 @@
 Website học liệu của học phần Cơ sở dữ liệu — Khoa Công nghệ Thông tin, Trường Đại
 học Kiến trúc Đà Nẵng. Sinh viên đọc tại **<https://cuongnguyendau.github.io/csdl-dbs201/>**.
 
-Site gồm năm chương bài giảng, slide từng buổi, và phần củng cố kiến thức mỗi chương:
-trắc nghiệm tự chấm có giải thích, thẻ lật khái niệm, bảng tự đánh giá theo chuẩn đầu ra.
+Site gồm năm chương bài giảng và phần củng cố kiến thức mỗi chương: hộp tự kiểm tra
+cuối các mục (đáp án gập ngay bên dưới), trắc nghiệm tự chấm có giải thích, thẻ lật
+khái niệm, bảng tự đánh giá theo chuẩn đầu ra.
 
 ## Cách sửa nội dung
 
@@ -14,6 +15,7 @@ script sinh ra và sẽ bị ghi đè.
 | Muốn sửa gì | Sửa ở đâu |
 |---|---|
 | Nội dung bài giảng | `noi-dung/Bai-giang_Chuong-N_*.md` |
+| Ảnh minh họa trong bài | chép từ thư mục soạn thảo bằng `tools/chep_anh.py` (xem dưới) |
 | Câu trắc nghiệm, thẻ lật, bảng tự đánh giá | `docs/quiz/chuong-N.json` |
 | Lời giải bài tập | `loi-giai/chuong-N.md` |
 | Trang chủ, tài liệu tham khảo | `docs/index.md`, `docs/tai-lieu.md` |
@@ -25,6 +27,15 @@ Sau khi sửa nội dung bài giảng hoặc lời giải, chạy lại script s
 ```bash
 python tools/build_docs.py        # cả 5 chương
 python tools/build_docs.py 2      # chỉ chương 2
+```
+
+Bài giảng có thêm ảnh mới thì chép ảnh vào trước khi build. Script chỉ lấy những ảnh
+mà `noi-dung/*.md` thật sự tham chiếu, nén JPEG về cỡ web (tối đa 1400 px, ~100–300
+KB) rồi đặt vào `docs/hinh-ve/` đúng đường dẫn tương đối:
+
+```bash
+python tools/chep_anh.py                          # nguồn mặc định: ../BAI-GIANG-MOI/hinh-ve
+python tools/chep_anh.py "D:/duong/dan/hinh-ve"   # nguồn khác
 ```
 
 ## Chạy thử trên máy
@@ -67,9 +78,20 @@ nghiệm chấm đúng chưa, tiến độ có được nhớ không, và các k
   thường thì trắc nghiệm chỉ hiện khi tải lại trang.
 - **Phụ lục "Gợi ý tổ chức dạy học" không lên site.** Script loại bỏ khi sinh trang,
   vì phần đó bài giảng ghi rõ là dành cho giảng viên.
+- **Đáp án tự kiểm tra đi theo từng hộp.** Bản in gom mục "Đáp án tự kiểm tra" ở cuối
+  chương; script tách từng đáp án và chèn thành khối gập ngay dưới hộp "Tự kiểm tra"
+  tương ứng, để sinh viên tự làm rồi mở.
+- **Hai khối `>` cách nhau một dòng trống là hai khối riêng** (đúng CommonMark). Trong
+  khối, dòng trống giữa các đoạn phải viết `>`; script không nối hai khối qua dòng
+  trống trần — nếu nối thì "Chú ý" rồi tới "Tự kiểm tra" sẽ bị gộp làm một.
+- **Nút mermaid nền đậm cần chữ trắng.** Material ép `.nodeLabel p` về màu chữ mặc định,
+  đè lên `color:#fff` trong nguồn; `overrides/main.html` bọc `mermaid.initialize` để
+  nối thêm một luật vào `themeCSS` vì SVG nằm trong shadow DOM đóng.
 
 ## Bản quyền
 
-Nội dung bài giảng, slide và hình vẽ do giảng viên biên soạn. Sách của nhà xuất bản
+Nội dung bài giảng và hình vẽ do giảng viên biên soạn. Ảnh minh họa thực tế trong
+`docs/hinh-ve/slide/internet/` lấy từ Wikimedia Commons (CC BY / CC BY-SA / CC0 / PD),
+tác giả và giấy phép ghi ngay dưới mỗi ảnh trong bài. Sách của nhà xuất bản
 **không** được đưa vào repo này — xem danh mục tham khảo trong `docs/tai-lieu.md`.
 `.gitignore` và một bước trong workflow cùng chặn `*.pdf`, `*.pptx`, `*.docx`.

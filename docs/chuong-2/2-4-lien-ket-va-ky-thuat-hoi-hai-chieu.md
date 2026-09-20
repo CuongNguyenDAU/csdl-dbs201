@@ -20,7 +20,7 @@ Việc phát hiện ra có một liên kết thường không khó. Cái khó n�
 
 Có một kỹ thuật đơn giản loại bỏ gần như hoàn toàn khả năng nhầm lẫn: **luôn đặt hai câu hỏi, mỗi câu cho một chiều**, rồi ghép hai câu trả lời lại.
 
-**Hình 2.5. Kỹ thuật hỏi hai chiều — quy trình xác định loại liên kết**
+**Hình 2.7. Kỹ thuật hỏi hai chiều — quy trình xác định loại liên kết**
 
 ```mermaid
 flowchart TB
@@ -40,9 +40,40 @@ flowchart TB
 
 Sức mạnh của kỹ thuật này nằm ở chỗ nó **buộc người thiết kế phải hỏi cả chiều ngược lại** — mà chiều ngược lại chính là chiều người ta hay quên. Khi nghe *"một giáo viên phụ trách nhiều lớp"*, phản xạ tự nhiên là kết luận ngay 1:M. Nhưng nếu không hỏi tiếp *"một lớp do bao nhiêu giáo viên phụ trách?"*, ta có thể bỏ sót trường hợp trung tâm cho phép hai giáo viên đồng phụ trách một lớp — và khi ấy liên kết thật sự là M:N.
 
+Cách chắc chắn nhất để không nhầm là **nhìn xuống mức thể hiện** — liệt kê vài giáo viên, vài lớp cụ thể, và nối ai với lớp nào. Bảng dưới đây làm đúng việc ấy cho ba tình huống nghiệp vụ khác nhau của **cùng một cặp** `GIAOVIEN` – `LOP`. Mỗi dòng là một "sợi dây" nối một giáo viên với một lớp; hai câu hỏi của kỹ thuật hỏi hai chiều trở thành hai phép đếm: *đếm xem một mã giáo viên xuất hiện mấy dòng* và *đếm xem một mã lớp xuất hiện mấy dòng*.
+
+**Bảng 2.10. Cùng cặp `GIAOVIEN` – `LOP`, ba tình huống nghiệp vụ nhìn ở mức thể hiện**
+
+*Tình huống A — "mỗi giáo viên chỉ dạy một lớp, mỗi lớp chỉ một giáo viên":*
+
+| GIAOVIEN | | LOP |
+|:--:|:--:|:--:|
+| GV01 | ─── | L01 |
+| GV02 | ─── | L02 |
+| GV03 | ─── | L03 |
+
+*Tình huống B — "một giáo viên phụ trách nhiều lớp; mỗi lớp đúng một giáo viên; giáo viên mới có thể chưa có lớp":*
+
+| GIAOVIEN | | LOP |
+|:--:|:--:|:--:|
+| GV01 | ─── | L01 |
+| GV01 | ─── | L02 |
+| GV02 | ─── | L03 |
+| GV03 | | *(chưa có lớp)* |
+
+*Tình huống C — "một giáo viên phụ trách nhiều lớp; một lớp có thể do hai giáo viên đồng phụ trách":*
+
+| GIAOVIEN | | LOP |
+|:--:|:--:|:--:|
+| GV01 | ─── | L01 |
+| GV01 | ─── | L02 |
+| GV02 | ─── | L01 |
+
+Đếm trên từng bảng. Ở tình huống A, mỗi mã giáo viên và mỗi mã lớp đều xuất hiện **đúng một dòng** → **1:1**. Ở tình huống B, `GV01` xuất hiện **hai dòng** nhưng mỗi mã lớp chỉ **một dòng** → một giáo viên nhiều lớp, một lớp một giáo viên → **1:M**. Ở tình huống C, `GV01` xuất hiện hai dòng **và** `L01` cũng xuất hiện hai dòng → cả hai chiều đều "nhiều" → **M:N**. Điểm mấu chốt: chỉ nhìn cột `GIAOVIEN` thì tình huống B và C **giống hệt nhau** — phải nhìn sang cột `LOP` mới phân biệt được. Đó chính là lý do phải hỏi chiều thứ hai.
+
 ## 2.4.3. Áp dụng cho Trung tâm Anh ngữ ABC
 
-**Bảng 2.7. Bảng hỏi hai chiều cho Trung tâm ABC**
+**Bảng 2.11. Bảng hỏi hai chiều cho Trung tâm ABC**
 
 | Cặp thực thể | Câu hỏi chiều thứ nhất | Câu hỏi chiều thứ hai | Kết luận |
 |---|---|---|:--:|

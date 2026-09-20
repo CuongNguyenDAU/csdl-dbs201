@@ -39,9 +39,25 @@ flowchart LR
 
 ## 4.3.3. Ví dụ mẫu — ràng buộc khóa ngoại
 
-Xét ràng buộc: *"mọi `MAHV` trong `GHIDANH` phải tồn tại trong `HOCVIEN`"*. Bối cảnh gồm hai quan hệ, nên bảng có **hai dòng và ba cột**, tức sáu ô cần xét.
+Xét ràng buộc: *"mọi `MAHV` trong `GHIDANH` phải tồn tại trong `HOCVIEN`"*. Bối cảnh gồm hai quan hệ, nên bảng có **hai dòng và ba cột**, tức sáu ô cần xét. Để suy luận không bị trừu tượng, hãy đặt hai bảng dữ liệu nhỏ trước mặt và **giả thiết chúng đang đúng**: cả ba mã học viên trong `GHIDANH` đều có trong `HOCVIEN`.
 
-**Bảng 4.4. Suy luận từng ô — ràng buộc khóa ngoại**
+**Bảng 4.8. Dữ liệu đang đúng — dùng để thử sáu thao tác**
+
+| `HOCVIEN` *(cha)* | MAHV | HOTEN |
+|---|---|---|
+| | HV01 | Trần An |
+| | HV02 | Lê Bình |
+| | HV03 | Phạm Cường |
+
+| `GHIDANH` *(con)* | MAHV↗ | MALOP↗ |
+|---|---|---|
+| | HV01 | A1 |
+| | HV01 | A2 |
+| | HV02 | A1 |
+
+Với mỗi ô, hãy thử **một thao tác cụ thể** trên hai bảng này rồi hỏi câu hỏi vàng.
+
+**Bảng 4.9. Suy luận từng ô — ràng buộc khóa ngoại**
 
 | Ô cần xét | Suy luận: *"có thể biến đúng thành sai không?"* | Kết quả |
 |---|---|:--:|
@@ -58,6 +74,8 @@ Xét ràng buộc: *"mọi `MAHV` trong `GHIDANH` phải tồn tại trong `HOCV
 |---|:--:|:--:|:--:|
 | `HOCVIEN` *(cha)* | − | **+** | **+** *(MAHV)* |
 | `GHIDANH` *(con)* | **+** | − | **+** *(MAHV)* |
+
+Đối chiếu lại với Bảng 4.8 để thấy ba ô `+` "đáng sợ" nhất: thêm dòng `(HV99, A1)` vào `GHIDANH` là tạo ra một mũi tên trỏ vào chỗ trống; xóa `HV01` khỏi `HOCVIEN` là để lại **hai** dòng con `(HV01, A1)` và `(HV01, A2)` không còn cha; đổi `HV02` thành `HV22` ở `HOCVIEN` là làm dòng `(HV02, A1)` lệch đích. Ba ô `−` thì ngược lại: xóa dòng `(HV02, A1)` hay thêm `HV04` vào `HOCVIEN` chỉ khiến dữ liệu **an toàn hơn**.
 
 ## 4.3.4. Câu thần chú "Thêm ở con, Xóa ở cha"
 
@@ -84,6 +102,28 @@ Lý do đằng sau câu thần chú rất trực quan. Thêm vào bảng con là
 **Lỗi thứ hai — quên ghi thuộc tính ở cột "sửa".** Ghi `+` suông ở cột sửa là chưa đủ, vì sửa `HOTEN` thì vô hại còn sửa `MAHV` thì nguy hiểm. Phải ghi rõ `+ (MAHV)`.
 
 **Lỗi thứ ba — quên rằng bối cảnh có bao nhiêu quan hệ thì bảng có bấy nhiêu dòng.** Ràng buộc bối cảnh hai quan hệ phải có **hai dòng**; chỉ lập một dòng là đã bỏ sót một nửa số ô cần xét.
+
+Ba lỗi ấy trông thế nào trên giấy? Bảng 4.10 đặt bài làm sai cạnh bài làm đúng cho cùng ràng buộc khóa ngoại `GHIDANH.MAHV → HOCVIEN`.
+
+**Bảng 4.10. Ba lỗi khi lập bảng tầm ảnh hưởng — cách sai và cách đúng**
+
+| Lỗi | Bài làm **sai** | Bài làm **đúng** | Người chấm nhận ra vì |
+|---|---|---|---|
+| ① Đánh `+` cho chắc | `HOCVIEN`: **+ + +**  ·  `GHIDANH`: **+ + +** | `HOCVIEN`: − **+** **+**(MAHV)  ·  `GHIDANH`: **+** − **+**(MAHV) | Xóa ở con và thêm ở cha **không thể** làm khóa ngoại treo — sáu dấu `+` chứng tỏ chưa hề suy luận |
+| ② `+` suông ở cột sửa | `HOCVIEN`: − + **+**  ·  `GHIDANH`: + − **+** | `HOCVIEN`: − + **+ (MAHV)**  ·  `GHIDANH`: + − **+ (MAHV)** | Sửa `HOTEN` vô hại, chỉ sửa `MAHV` mới nguy hiểm; không ghi thuộc tính thì chốt kiểm tra sẽ chạy cả khi đổi tên |
+| ③ Thiếu dòng | `GHIDANH`: + − +(MAHV) *(chỉ một dòng)* | `HOCVIEN`: − + +(MAHV)  ·  `GHIDANH`: + − +(MAHV) | Bối cảnh có **hai** quan hệ; bỏ dòng `HOCVIEN` là bỏ luôn ô nguy hiểm nhất — *xóa ở cha* |
+
+!!! question "Tự kiểm tra 4.3"
+
+    *(tự trả lời trước, rồi mở đáp án bên dưới)*
+
+    1. Lập bảng tầm ảnh hưởng cho **R2**: `∀t ∈ LOP : t.NGAYKT ≥ t.NGAYKG`. Bảng có mấy dòng, mấy ô `+`?
+    2. Với khóa ngoại `DIENTHOAI.MAHV → HOCVIEN`, không cần suy luận lại từng ô, hãy viết ngay bảng tầm ảnh hưởng bằng câu thần chú ở Hình 4.5.
+    3. Một bạn lập bảng cho R2 và đánh `+` ở ô *xóa*. Dùng câu hỏi vàng để chỉ ra bạn ấy sai ở đâu.
+
+??? success "Đáp án tự kiểm tra 4.3"
+
+    *(1)* Một dòng `LOP`: thêm **+** · xóa − · sửa **+** *(NGAYKG, NGAYKT)* — hai ô `+`. *(2)* Thêm ở con, xóa ở cha, sửa khóa ở cả hai: `HOCVIEN`: − **+** **+** *(MAHV)*; `DIENTHOAI`: **+** − **+** *(MAHV)*. *(3)* Giả thiết mọi dòng đang đúng; xóa đi một dòng thì các dòng còn lại **vẫn đúng như cũ** — không có cách nào biến đúng thành sai, nên ô *xóa* phải là `−`.
 
 ---
 

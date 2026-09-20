@@ -9,10 +9,28 @@
   bản của mình. Thẻ script đặt trước {{ super() }} nên chắc chắn chạy trước.
 
   Chỉ nạp ở trang thật sự có sơ đồ — tệp nặng 3,5 MB, không bắt trang nào cũng tải.
+
+  Kèm một vá nhỏ: bài giảng tô nút nền đậm bằng `style X fill:#1F4E79,color:#fff`.
+  Mermaid đặt color lên <span class="nodeLabel">, nhưng themeCSS của Material có
+  luật `.nodeLabel p { color: var(--md-mermaid-label-fg-color) }` ép thẻ <p> bên
+  trong về màu chữ mặc định — chữ tối trên nền tối, không đọc được. SVG nằm trong
+  shadow DOM đóng nên CSS ngoài không với tới; chỉ còn cách nối thêm luật vào
+  themeCSS ngay lúc Material gọi mermaid.initialize.
 #}
 {% block scripts %}
   {% if page and page.content and 'class="mermaid"' in page.content %}
     <script src="{{ 'assets/mermaid.min.js' | url }}"></script>
+    <script>
+      (function () {
+        var goc = mermaid.initialize;
+        mermaid.initialize = function (cfg) {
+          cfg = cfg || {};
+          cfg.themeCSS = (cfg.themeCSS || "") +
+            '.nodeLabel[style*="color"] p{color:inherit}';
+          return goc.call(mermaid, cfg);
+        };
+      })();
+    </script>
   {% endif %}
   {{ super() }}
 {% endblock %}

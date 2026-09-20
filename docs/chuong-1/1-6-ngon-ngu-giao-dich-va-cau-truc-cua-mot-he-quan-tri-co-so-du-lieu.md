@@ -6,7 +6,7 @@
 
 Muốn làm việc với cơ sở dữ liệu, người dùng phải "nói chuyện" với hệ quản trị bằng một ngôn ngữ. Các câu lệnh được chia thành bốn nhóm theo mục đích sử dụng.
 
-**Bảng 1.9. Bốn nhóm ngôn ngữ cơ sở dữ liệu**
+**Bảng 1.20. Bốn nhóm ngôn ngữ cơ sở dữ liệu**
 
 | Nhóm | Tên đầy đủ | Mục đích | Lệnh tiêu biểu |
 |---|---|---|---|
@@ -29,11 +29,25 @@ Cần nhắc lại phạm vi: học phần này **không dạy viết câu lện
 
     **Giao dịch** *(transaction)* là một **dãy các thao tác trên cơ sở dữ liệu được xem như một đơn vị công việc không thể chia nhỏ**: hoặc toàn bộ dãy thao tác đó được thực hiện trọn vẹn, hoặc không thao tác nào có hiệu lực.
 
+![](../hinh-ve/slide/internet/may_atm.jpg){width=45%}
+
+*Ảnh minh họa: một buồng ATM ở Hà Nội. Mỗi lần rút tiền là một giao dịch: trừ tài khoản và nhả tiền phải cùng xảy ra hoặc cùng không xảy ra — máy mất điện giữa chừng thì tài khoản phải được hoàn lại — Nguồn: Wikimedia Commons · Phan Minh Tuấn · CC BY-SA 4.0.*
+
 Ví dụ kinh điển là chuyển khoản ngân hàng. Chuyển 1 triệu đồng từ tài khoản A sang tài khoản B gồm hai thao tác: trừ 1 triệu ở A, rồi cộng 1 triệu vào B. Nếu hệ thống mất điện đúng vào khoảnh khắc giữa hai thao tác, tiền đã bị trừ ở A nhưng chưa được cộng vào B — **1 triệu đồng biến mất**. Cơ chế giao dịch bảo đảm tình huống đó không xảy ra: khi hệ thống khởi động lại, thao tác trừ tiền dở dang sẽ được hoàn tác, số dư của A trở về nguyên trạng.
+
+**Bảng 1.21. Số dư hai tài khoản qua bốn thời điểm của một lần chuyển 1 triệu đồng**
+
+| Thời điểm | Tài khoản A | Tài khoản B | Tổng A + B | Nhận xét |
+|---|:--:|:--:|:--:|---|
+| Trước giao dịch | 5.000.000 | 2.000.000 | 7.000.000 | |
+| Sau bước 1 (trừ A) | 4.000.000 | 2.000.000 | 6.000.000 | trạng thái trung gian, tổng đang sai |
+| Mất điện ngay lúc này, **không có** cơ chế giao dịch | 4.000.000 | 2.000.000 | 6.000.000 | **1 triệu biến mất vĩnh viễn** |
+| Mất điện, **có** cơ chế giao dịch: hoàn tác bước 1 | 5.000.000 | 2.000.000 | 7.000.000 | như chưa có gì xảy ra |
+| Hoàn tất bình thường (bước 2 cộng B) | 4.000.000 | 3.000.000 | 7.000.000 | tổng bảo toàn |
 
 Một giao dịch đúng đắn phải thỏa mãn bốn tính chất, gọi tắt là **ACID**.
 
-**Bảng 1.10. Bốn tính chất ACID của giao dịch**
+**Bảng 1.22. Bốn tính chất ACID của giao dịch**
 
 | Chữ | Tính chất | Nội dung | Ví dụ với thao tác chuyển khoản |
 |:--:|---|---|---|
@@ -49,6 +63,17 @@ Nội dung giao dịch chỉ được trình bày ở **mức nhận biết** tr
 ## 1.6.3. Các chức năng của một hệ quản trị cơ sở dữ liệu
 
 Một hệ quản trị cơ sở dữ liệu hiện đại đảm nhận đồng thời nhiều chức năng, có thể nhóm thành sáu nhóm chính [3, tr. 12–15].
+
+**Bảng 1.23. Sáu nhóm chức năng của hệ quản trị và việc cụ thể tại Trung tâm ABC**
+
+| Chức năng | Việc cụ thể tại ABC | Liên hệ |
+|---|---|---|
+| Quản lý từ điển dữ liệu | Lưu metadata của mọi bảng, tra mỗi khi xử lý yêu cầu | mục 1.1.4, 1.6.5 |
+| Quản lý lưu trữ | Quyết định cất bảng `HOCVIEN` ở tệp nào, tạo chỉ mục trên `HOTEN` | độc lập vật lý, mục 1.5.3 |
+| Biến đổi và trình bày | Lưu ngày sinh dạng số, hiển thị `12/04/2005` | |
+| Quản lý an toàn | Kế toán xem học phí, không xem điểm | khung nhìn, mục 1.5.1 |
+| Điều khiển truy cập đồng thời | Hai nhân viên cùng ghi danh vào chỗ trống cuối cùng: chỉ một người thành công | tính cô lập, mục 1.6.2 |
+| Sao lưu và phục hồi | Sao lưu hằng đêm, khôi phục sau sự cố đĩa | tính bền vững, mục 1.6.2 |
 
 **Quản lý từ điển dữ liệu.** Hệ quản trị lưu trữ toàn bộ metadata và tra cứu chúng mỗi khi xử lý một yêu cầu. Đây là chức năng nền tảng nhất — mọi chức năng khác đều dựa lên nó.
 
@@ -66,7 +91,7 @@ Một hệ quản trị cơ sở dữ liệu hiện đại đảm nhận đồng
 
 Như đã phân biệt ở mục 1.2.2, *hệ cơ sở dữ liệu* rộng hơn nhiều so với phần mềm hệ quản trị. Nó gồm **năm thành phần**.
 
-**Hình 1.7. Năm thành phần của một hệ cơ sở dữ liệu**
+**Hình 1.10. Năm thành phần của một hệ cơ sở dữ liệu**
 
 ```mermaid
 flowchart LR
@@ -100,7 +125,7 @@ Metadata đã được giới thiệu ở mục 1.1.4 như một khái niệm. M
     | SINHVIEN | NGAYSINH | date | YES | *(trống)* |
     | SINHVIEN | DIEMTB | decimal | YES | *(trống)* |
 
-    Hãy đối chiếu kết quả này với Bảng 1.3 ở mục 1.1.4. Đó chính là **cùng một metadata**: một bên là cách con người ghi ra giấy khi thiết kế, một bên là cách hệ quản trị tự lưu lại để máy sử dụng.
+    Hãy đối chiếu kết quả này với Bảng 1.5 ở mục 1.1.4. Đó chính là **cùng một metadata**: một bên là cách con người ghi ra giấy khi thiết kế, một bên là cách hệ quản trị tự lưu lại để máy sử dụng.
 
 Quan sát này có ý nghĩa vượt xa một thao tác kỹ thuật. Nó cho thấy metadata **không phải là tài liệu đi kèm cơ sở dữ liệu, mà là một bộ phận của chính cơ sở dữ liệu**. Nhờ vậy hệ quản trị có thể tự đọc metadata để kiểm tra dữ liệu nhập vào, và các công cụ bên ngoài có thể tự sinh ra tài liệu thiết kế hoặc mã nguồn từ cơ sở dữ liệu đang chạy.
 

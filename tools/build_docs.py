@@ -15,6 +15,8 @@ chương, nên cắt được bằng cách tách theo dòng `## `. Ánh xạ:
     CÂU HỎI ÔN TẬP                     → chuong-N/on-tap.md   (+ khối tương tác)
     BÀI TẬP CHƯƠNG                     → chuong-N/bai-tap.md  (+ lời giải)
     TÀI LIỆU THAM KHẢO                 → gộp vào tom-tat.md
+    ĐÁP ÁN TỰ KIỂM TRA                 → tách từng đáp án, chèn thành khối gập
+                                         ngay dưới hộp "Tự kiểm tra" tương ứng
     PHỤ LỤC nA (dành cho giảng viên)   → BỎ, không lên site sinh viên
 
 Script chạy lại được nhiều lần. Nó KHÔNG đụng tới `docs/quiz/*.json` và
@@ -47,6 +49,8 @@ KHUNG = [
     (r"Ví dụ", "example", "Ví dụ"),
     (r"Chú ý", "warning", "Chú ý"),
     (r"Ghi nhớ", "tip", "Ghi nhớ"),
+    (r"Tự kiểm tra", "question", "Tự kiểm tra"),
+    (r"Công thức", "abstract", "Công thức"),
 ]
 
 
@@ -92,14 +96,10 @@ def go_khung(body):
         tieu = ("%s %s" % (nhan, so)).strip()
         block = [dau] if dau.strip() else []
         i += 1
-        while i < len(lines) and (lines[i].startswith(">") or lines[i].strip() == ""):
-            if lines[i].strip() == "":
-                # dòng trống chỉ thuộc khối nếu ngay sau đó vẫn còn `>`
-                if i + 1 < len(lines) and lines[i + 1].startswith(">"):
-                    block.append("")
-                    i += 1
-                    continue
-                break
+        # Dòng trống kết thúc khối (đúng CommonMark). Đoạn trong khối viết `>`
+        # trên cả dòng trống; hai khối `>` cách nhau một dòng trống là hai khối
+        # riêng — Chú ý rồi tới Tự kiểm tra chẳng hạn.
+        while i < len(lines) and lines[i].startswith(">"):
             block.append(re.sub(r"^> ?", "", lines[i]))
             i += 1
         out.append('!!! %s "%s"' % (kieu, tieu.replace('"', "'")))
@@ -179,6 +179,45 @@ def go_goi_y(body):
     return dau.rstrip() + "\n\n" + "\n".join(khoi) + "\n"
 
 
+def doc_dap_an(body):
+    """Mục ĐÁP ÁN TỰ KIỂM TRA: mỗi đoạn `**Tự kiểm tra 3.5–3.6.** …` → {'3.5–3.6': '…'}."""
+    out = {}
+    for m in re.finditer(r"^\*\*Tự kiểm tra ([\d.–\-]+?)\.?\*\*\s*(.+?)(?=\n\s*\n|\Z)",
+                         body, flags=re.M | re.S):
+        out[m.group(1)] = m.group(2).strip()
+    return out
+
+
+def chen_dap_an(body, dap_an):
+    """Sau khối `!!! question "Tự kiểm tra 1.1"` chèn `??? success "Đáp án"`.
+
+    Chạy trên markdown ĐÃ qua go_khung. Nguồn in sách ghi *(đáp án ở cuối
+    chương)*; trên web đáp án nằm ngay dưới, gập lại để sinh viên tự làm trước."""
+    if not dap_an:
+        return body
+    lines = body.split("\n")
+    out, i = [], 0
+    while i < len(lines):
+        m = re.match(r'^!!! question "Tự kiểm tra ([\d.–\-]+)"', lines[i])
+        if not m or m.group(1) not in dap_an:
+            out.append(lines[i])
+            i += 1
+            continue
+        out.append(lines[i])
+        i += 1
+        while i < len(lines) and (lines[i].startswith("    ") or lines[i].strip() == ""):
+            out.append(lines[i].replace("*(đáp án ở cuối chương)*",
+                                        "*(tự trả lời trước, rồi mở đáp án bên dưới)*"))
+            i += 1
+        while out and out[-1].strip() == "":
+            out.pop()
+        out += ["", '??? success "Đáp án tự kiểm tra %s"' % m.group(1), ""]
+        for ln in dap_an[m.group(1)].split("\n"):
+            out.append(("    " + ln) if ln.strip() else "")
+        out.append("")
+    return "\n".join(out)
+
+
 def khoi_tuong_tac(n):
     """Ba khối củng cố kiến thức, dữ liệu nằm ở docs/quiz/chuong-N.json.
 
@@ -221,7 +260,7 @@ def dung_chuong(n):
         os.makedirs(out)
 
     muc_tieu = dan_nhap = tom_tat = on_tap = bai_tap = tai_lieu = ""
-    danh_muc, trang_muc, nav = [], [], []
+    danh_muc, trang_muc, nav, dap_an = [], [], [], {}
 
     for tieu, body in secs:
         if tieu.startswith("MỤC TIÊU"):
@@ -236,6 +275,8 @@ def dung_chuong(n):
             bai_tap = body
         elif tieu.startswith("TÀI LIỆU THAM KHẢO"):
             tai_lieu = body
+        elif tieu.startswith("ĐÁP ÁN"):
+            dap_an = doc_dap_an(body)
         elif tieu.startswith("PHỤ LỤC"):
             continue                      # dành cho giảng viên — không lên site
         elif tieu.startswith("DANH MỤC"):
@@ -257,7 +298,7 @@ def dung_chuong(n):
     # --- mỗi mục lớn một trang ---
     for i, (a, b, t, body) in enumerate(trang_muc):
         name = "%s-%s-%s.md" % (a, b, slug(t))
-        page = ["# %s.%s. %s" % (a, b, t), "", chuan(body), ""]
+        page = ["# %s.%s. %s" % (a, b, t), "", chen_dap_an(chuan(body), dap_an), ""]
         prev_ = "index.md" if i == 0 else "%s-%s-%s.md" % (
             trang_muc[i - 1][0], trang_muc[i - 1][1], slug(trang_muc[i - 1][2]))
         next_ = "tom-tat.md" if i == len(trang_muc) - 1 else "%s-%s-%s.md" % (
@@ -289,8 +330,8 @@ def dung_chuong(n):
     ghi(os.path.join(out, "bai-tap.md"), "\n".join(bt))
     nav.append(("Bài tập", "chuong-%d/bai-tap.md" % n))
 
-    print("  Chương %d: %d mục lớn → %d trang · %d lời giải chèn vào"
-          % (n, len(trang_muc), len(nav), len(giai)))
+    print("  Chương %d: %d mục lớn → %d trang · %d lời giải · %d đáp án tự kiểm tra"
+          % (n, len(trang_muc), len(nav), len(giai), len(dap_an)))
     return nav
 
 

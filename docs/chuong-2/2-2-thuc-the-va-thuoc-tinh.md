@@ -14,6 +14,10 @@ Cặp khái niệm này song song hoàn toàn với cặp *lược đồ – th�
 
 Câu hỏi khó hơn là: **khi nào một danh từ xứng đáng trở thành thực thể?** Có ba tiêu chí thực dụng.
 
+![](../hinh-ve/slide/internet/cccd.jpg){width=70%}
+
+*Ảnh minh họa: mẫu Căn cước công dân. Nhìn tấm thẻ như một thực thể `CONGDAN`: mỗi ô trên thẻ là một thuộc tính; số định danh là thuộc tính khóa; nơi thường trú gồm nhiều phần là thuộc tính phức hợp — Nguồn: Wikimedia Commons · Chính phủ Việt Nam · Public domain.*
+
 Thứ nhất, nó phải có **nhiều hơn một đặc điểm** cần lưu. Nếu về "màu sắc" ta chỉ cần lưu duy nhất tên màu, thì màu sắc nên là một thuộc tính chứ không phải một thực thể. Nhưng nếu ta còn cần lưu mã màu, nhà cung cấp sơn và ngày cập nhật bảng màu, thì nó đã đủ tư cách làm thực thể.
 
 Thứ hai, nó phải có **nhiều cá thể phân biệt được**. Một sự vật chỉ tồn tại đúng một bản — chẳng hạn "bản thân trung tâm ABC" — không nên làm thực thể, vì bảng dữ liệu tương ứng sẽ chỉ có một dòng.
@@ -39,10 +43,14 @@ Thứ nhất, đây là **ký pháp gốc**, do chính Peter Chen đề xuất n
 | **Thuộc tính phức hợp** | Oval mẹ, các oval con nối vào | |
 | **Liên kết** | Hình **thoi** đặt giữa hai thực thể | Ghi động từ |
 | **Liên kết định danh** | Hình thoi **hai đường viền** | Nối tới thực thể yếu |
-| **Lực lượng** | Ghi `1`, `M`, `N` **trên cạnh nối** | Xem mục 2.5 |
-| **Tham gia bắt buộc** | Cạnh nối vẽ **hai vạch** | |
+| **Kết nối** | Ghi `1`, `M`, `N` **trên cạnh nối**, ở đầu nào mô tả số lượng thực thể ở đầu đó | Xem mục 2.5.1 |
+| **Lực lượng và tham gia** | Cặp `(min, max)` ghi **cạnh thực thể**, cho biết một thể hiện của thực thể ấy tham gia liên kết ít nhất/nhiều nhất bao nhiêu lần; `min = 0` là tùy chọn, `min ≥ 1` là bắt buộc | Xem mục 2.5.1 và 2.5.3 |
+| **Tham gia bắt buộc** *(cách vẽ gốc)* | Cạnh nối vẽ **hai vạch** | Giáo trình dùng cặp `(min, max)` thay cho cách này |
+| **Thuộc tính của liên kết** | Oval nối vào **hình thoi** thay vì vào chữ nhật | Xem mục 2.6.4 |
+| **Thực thể cha – con** | **Vòng tròn** đặt giữa cha và các con, trong ghi `d` *(rời nhau)* hoặc `o` *(chồng lấn)* | Xem mục 2.7 |
+| **Phân cấp đầy đủ** | Cạnh nối cha với vòng tròn ghi **"đầy đủ"** *(cách vẽ gốc: hai vạch)*; **"không đầy đủ"** là một vạch | Xem mục 2.7.5 |
 
-**Hình 2.2. Bộ ký hiệu Chen — tổng quan**
+**Hình 2.3. Bộ ký hiệu Chen — tổng quan**
 
 ```mermaid
 flowchart TB
@@ -97,9 +105,9 @@ Thuộc tính được phân loại theo bốn cặp tiêu chí độc lập v�
 | **Theo nguồn gốc** | **Lưu trữ** *(stored)* — được nhập vào và cất giữ | **Dẫn xuất** *(derived)* — tính ra từ thuộc tính khác | `NGAYSINH` là lưu trữ; `TUOI` là **dẫn xuất** |
 | **Theo tính bắt buộc** | **Bắt buộc** *(required)* — không được để trống | **Tùy chọn** *(optional)* — được phép trống | `HOTEN` bắt buộc; `EMAIL` có thể tùy chọn |
 
-Để thấy rõ hai ký pháp khác nhau thế nào, hãy vẽ **cùng một thực thể** theo cả hai cách.
+Bốn cặp tiêu chí trên đều có chỗ trên lược đồ Chen. Hãy vẽ **một thực thể `HOCVIEN` mang đủ mọi loại thuộc tính** theo cả hai ký pháp để thấy điều đó.
 
-**Hình 2.3. Thuộc tính của thực thể `HOCVIEN` — ký pháp Chen và ký pháp Crow's Foot**
+**Hình 2.4. Thuộc tính của thực thể `HOCVIEN` — bốn cặp phân loại trong ký pháp Chen, đối chiếu Crow's Foot**
 
 ```mermaid
 flowchart LR
@@ -107,11 +115,17 @@ flowchart LR
         K(["<u>MAHV</u>"]) --- E["HOCVIEN"]
         A1(["HOTEN"]) --- E
         A2(["NGAYSINH"]) --- E
+        E --- A5(["TUOI"])
         E --- A3(["EMAIL"])
         E --- A4(["SDT"])
+        E --- A6(["DIACHI"])
+        A6 --- A61(["SONHA"])
+        A6 --- A62(["DUONG"])
+        A6 --- A63(["QUAN"])
+        A6 --- A64(["TINH"])
     end
     subgraph CF["KÝ PHÁP CROW'S FOOT"]
-        T["<b>HOCVIEN</b><br/>─────────<br/><u>MAHV</u><br/>HOTEN<br/>NGAYSINH<br/>EMAIL<br/>SDT"]
+        T["<b>HOCVIEN</b><br/>─────────<br/><u>MAHV</u><br/>HOTEN<br/>NGAYSINH<br/>EMAIL<br/>SDT<br/>DIACHI"]
     end
     E ~~~ T
     style E fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
@@ -121,11 +135,23 @@ flowchart LR
     style A2 fill:#fff,stroke:#1F4E79
     style A3 fill:#fff,stroke:#1F4E79
     style A4 fill:#fff,stroke:#1F4E79,stroke-width:4px
+    style A5 fill:#fff,stroke:#1F4E79,stroke-dasharray: 5 5
+    style A6 fill:#FFF2CC,stroke:#1F4E79
+    style A61 fill:#fff,stroke:#1F4E79
+    style A62 fill:#fff,stroke:#1F4E79
+    style A63 fill:#fff,stroke:#1F4E79
+    style A64 fill:#fff,stroke:#1F4E79
 ```
+
+Phía Chen đọc từ trên xuống: `MAHV` **gạch chân** là thuộc tính khóa; `HOTEN`, `NGAYSINH`, `EMAIL` là thuộc tính **đơn, đơn trị, lưu trữ**; `TUOI` vẽ **nét đứt** vì là thuộc tính **dẫn xuất**; `SDT` vẽ **viền kép** vì là thuộc tính **đa trị**; `DIACHI` là thuộc tính **phức hợp** — một oval mẹ với bốn oval con `SONHA`, `DUONG`, `QUAN`, `TINH` nối vào. Cặp tiêu chí thứ tư *(bắt buộc/tùy chọn)* là cặp duy nhất ký pháp Chen **không có ký hiệu riêng**; nó được ghi chú bằng lời và sẽ trở thành ràng buộc *không rỗng* ở Chương 3.
 
 Hai cách vẽ chứa **cùng một lượng thông tin**, nhưng phân bố khác hẳn. Ký pháp Chen **trải thuộc tính ra ngoài** thành các oval riêng biệt: nhờ vậy mỗi thuộc tính có chỗ để mang ký hiệu riêng của nó — gạch chân cho khóa, viền kép cho đa trị, nét đứt cho dẫn xuất. Ký pháp Crow's Foot **gom thuộc tính vào trong ô chữ nhật** thành một danh sách: gọn hơn rất nhiều, nhưng vì mỗi thuộc tính chỉ còn là một dòng chữ nên nó **mất chỗ để thể hiện các sắc thái ấy** — thường chỉ giữ lại được gạch chân cho khóa.
 
 Đó là lý do giáo trình chọn Chen cho phần học lý thuyết và phần giải bài, còn Crow's Foot dùng khi cần trình bày lược đồ lớn. Mục 2.8.3 sẽ trình bày kỹ ký pháp Crow's Foot.
+
+![](../hinh-ve/slide/internet/phong_bi_thu.jpg){width=60%}
+
+*Ảnh minh họa: địa chỉ trên một phong bì thư gồm tên người nhận, đường, thành phố, bang. Giữ nguyên một khối để in, hay tách ra để thống kê theo thành phố — đó là quyết định về thuộc tính phức hợp — Nguồn: Wikimedia Commons · DPLA · CC BY 4.0.*
 
 Hai cặp đầu có hệ quả thiết kế trực tiếp. Với thuộc tính **phức hợp**, người thiết kế phải quyết định: tách thành các thuộc tính con hay giữ nguyên một khối? Nguyên tắc là **tách nếu về sau còn cần truy vấn theo từng phần**. Nếu trung tâm cần thống kê học viên theo quận, thì `DIACHI` phải tách. Nếu địa chỉ chỉ dùng để in lên giấy chứng nhận, giữ nguyên một khối là đủ.
 
@@ -139,22 +165,43 @@ Với thuộc tính **đa trị**, không có lựa chọn nào cả — nó **b
 
     Học viên Trần An có **ba số điện thoại**. Cần lưu trữ như thế nào?
 
-**Hình 2.4. Ba cách xử lý thuộc tính đa trị — chỉ một cách đúng**
+Trước khi bàn đúng sai, hãy nhìn thẳng vào **dữ liệu** mà mỗi cách sẽ tạo ra. Trần An có ba số; Lê Bình và Phạm Chi mỗi người một số.
 
-```mermaid
-flowchart TB
-    P["<b>Trần An có 3 số điện thoại</b><br/>Lưu thế nào?"]
-    P --> C1["<b>CÁCH 1 — nhồi vào một ô</b><br/>SDT = '0905111, 0906222, 0907333'"]
-    P --> C2["<b>CÁCH 2 — nhiều cột</b><br/>SDT1, SDT2, SDT3"]
-    P --> C3["<b>CÁCH 3 — tách thành thực thể</b><br/>DIENTHOAI(MAHV, SODT) — liên kết 1:M"]
-    C1 --> E1["Không tìm kiếm được<br/>Không ràng buộc được kiểu dữ liệu<br/><b>Vi phạm: mỗi ô một giá trị đơn</b>"]
-    C2 --> E2["Có người 4 số → <b>phải SỬA CẤU TRÚC BẢNG</b><br/>= tái phạm phụ thuộc dữ liệu<br/>90% chỉ có 1 số → <b>ô trống tràn lan</b>"]
-    C3 --> E3["Thêm số thứ tư, thứ mười?<br/>→ <b>chỉ thêm một dòng</b><br/>Không ô trống · Tìm kiếm dễ"]
-    style C1 fill:#FFD9D9,stroke:#C00000
-    style C2 fill:#FFD9D9,stroke:#C00000
-    style C3 fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
-    style E3 fill:#E2F0D9,stroke:#548235
-```
+**Bảng 2.4. Ba cách lưu số điện thoại của học viên — nhìn ở mức dữ liệu**
+
+*Cách 1 — nhồi mọi số vào một ô:*
+
+| MAHV | HOTEN | SDT |
+|---|---|---|
+| HV01 | Trần An | `0905111222, 0906333444, 0907555666` |
+| HV02 | Lê Bình | `0912000111` |
+| HV03 | Phạm Chi | `0933222333` |
+
+*Cách 2 — tạo sẵn ba cột:*
+
+| MAHV | HOTEN | SDT1 | SDT2 | SDT3 |
+|---|---|---|---|---|
+| HV01 | Trần An | `0905111222` | `0906333444` | `0907555666` |
+| HV02 | Lê Bình | `0912000111` | *(trống)* | *(trống)* |
+| HV03 | Phạm Chi | `0933222333` | *(trống)* | *(trống)* |
+
+*Cách 3 — tách thành thực thể riêng, mỗi số một dòng:*
+
+| MAHV | HOTEN |
+|---|---|
+| HV01 | Trần An |
+| HV02 | Lê Bình |
+| HV03 | Phạm Chi |
+
+| MAHV | SODT |
+|---|---|
+| HV01 | `0905111222` |
+| HV01 | `0906333444` |
+| HV01 | `0907555666` |
+| HV02 | `0912000111` |
+| HV03 | `0933222333` |
+
+Ba bảng trên tự chúng đã nói lên phần lớn câu chuyện. Ở cách 1, ô `SDT` của Trần An chứa một **chuỗi ba giá trị** — hệ quản trị chỉ thấy một dòng chữ. Ở cách 2, bốn trong sáu ô số điện thoại **để trống**, và bảng đã "đóng đinh" con số ba. Ở cách 3, bảng `HOCVIEN` sạch sẽ, còn bảng `DIENTHOAI` cứ mỗi số **một dòng** — Trần An chiếm ba dòng, hai người kia mỗi người một dòng, không ô nào trống.
 
 **Cách 1 — nhồi mọi số vào một ô**, ngăn cách bằng dấu phẩy. Cách này hỏng vì ba lý do. Không tìm kiếm được: câu hỏi *"số 0906222 là của ai?"* buộc hệ thống phải dò từng chuỗi ký tự. Không kiểm tra được: hệ quản trị chỉ thấy một chuỗi văn bản nên không thể bảo đảm mỗi phần tử đều là số điện thoại hợp lệ. Và quan trọng nhất, nó vi phạm nguyên tắc **mỗi ô chứa đúng một giá trị đơn** — nguyên tắc này sẽ được gọi tên chính thức ở Chương 5 là **dạng chuẩn 1**.
 
@@ -162,7 +209,36 @@ flowchart TB
 
 **Cách 3 — tách thành một thực thể riêng** `DIENTHOAI` với liên kết một–nhiều tới `HOCVIEN`. Đây là cách duy nhất đúng. Muốn thêm số thứ tư, thứ mười, chỉ cần **thêm một dòng**; không có ô trống nào; và tìm kiếm theo số điện thoại trở thành một truy vấn bình thường.
 
-**Bảng 2.4. Kiểm chứng cách 3 bằng bốn câu hỏi khó**
+Trên lược đồ Chen, cách 3 là một phép biến đổi rất dễ nhận ra: **oval viền kép biến mất, thay bằng một hình chữ nhật mới** nối về thực thể gốc qua một liên kết 1:M.
+
+**Hình 2.5. Thuộc tính đa trị `SDT` trước và sau khi tách — ký pháp Chen**
+
+```mermaid
+flowchart LR
+    subgraph TRUOC["TRƯỚC — thuộc tính đa trị"]
+        K1(["<u>MAHV</u>"]) --- HV1["HOCVIEN"]
+        HV1 --- S1(["SDT"])
+    end
+    subgraph SAU["SAU — tách thành thực thể riêng"]
+        K2(["<u>MAHV</u>"]) --- HV2["HOCVIEN"]
+        HV2 ---|"1"| R{"có"}
+        R ---|"M"| DT[["DIENTHOAI"]]
+        DT --- S2(["<u>SODT</u>"])
+    end
+    TRUOC ~~~ SAU
+    style HV1 fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
+    style HV2 fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
+    style DT fill:#FFF2CC,stroke:#C00000,stroke-width:3px
+    style R fill:#E2F0D9,stroke:#548235,stroke-width:3px
+    style K1 fill:#fff,stroke:#1F4E79
+    style K2 fill:#fff,stroke:#1F4E79
+    style S1 fill:#fff,stroke:#C00000,stroke-width:4px
+    style S2 fill:#fff,stroke:#1F4E79
+```
+
+Thực thể `DIENTHOAI` được vẽ **chữ nhật hai viền** và liên kết *"có"* vẽ **hình thoi hai viền**: đó là ký hiệu của *thực thể yếu* và *liên kết định danh*, sẽ được giải thích ở mục 2.6.3. Ở đây chỉ cần ghi nhớ hình dạng của phép biến đổi.
+
+**Bảng 2.5. Kiểm chứng cách 3 bằng bốn câu hỏi khó**
 
 | Câu hỏi | Cách 1 | Cách 2 | Cách 3 |
 |---|:--:|:--:|:--:|

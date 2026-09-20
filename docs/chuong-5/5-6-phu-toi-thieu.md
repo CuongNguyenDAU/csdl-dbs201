@@ -22,7 +22,7 @@ Tập `F` thu thập được từ nghiệp vụ thường **thừa**: có phụ
 
 ## 5.6.3. Thuật toán ba bước
 
-**Hình 5.6. Thuật toán tìm phủ tối thiểu — phải làm đúng thứ tự**
+**Hình 5.7. Thuật toán tìm phủ tối thiểu — phải làm đúng thứ tự**
 
 ```mermaid
 flowchart LR
@@ -56,7 +56,10 @@ flowchart LR
 
     **Bước 2 — bỏ thuộc tính thừa ở vế trái.** Chỉ `AB → D` có vế trái nhiều hơn một thuộc tính.
 
-    - Thử bỏ `B`, xét `A → D`: tính `A⁺` trên `F₁` khi chưa dùng `AB → D` — ta có `A⁺ = {A, B, C}`. Vì `A → B` nên `A` suy ra `B`, do đó `AB` và `A` là tương đương. Vậy `B` **thừa**, thay `AB → D` bằng `A → D`.
+    | Thử bỏ | Phụ thuộc còn lại | Tính bao đóng của vế trái mới *(trên `F₁`, tạm không dùng `AB → D`)* | Kết luận |
+    |---|---|---|---|
+    | `B` | `A → D` | `A⁺ = {A, B, C}` — **có chứa `B`** | `A` một mình đã suy ra `B`, nên `B` **thừa** → thay `AB → D` bằng `A → D` |
+    | `A` | `B → D` | `B⁺ = {B, C}` — không chứa `A` | `A` **không thừa** *(và sau khi bỏ `B`, vế trái chỉ còn một thuộc tính nên dừng)* |
 
     `F₂ = {A → B, A → C, B → C, A → D}`
 

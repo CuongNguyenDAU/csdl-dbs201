@@ -6,6 +6,10 @@ Mục này là khoảnh khắc mà cả học phần hướng tới: **chuẩn h
 
 ## 5.9.1. Bài toán xuất phát
 
+![](../hinh-ve/slide/internet/thoi_khoa_bieu.jpg){width=65%}
+
+*Ảnh minh họa: một thời khóa biểu treo tường. Đây là bảng phẳng điển hình: tên môn, tên lớp chép lặp ở nhiều ô, và mọi thông tin dồn vào một bảng — đúng dạng xuất phát mà quy trình chuẩn hóa dưới đây xử lý — Nguồn: Wikimedia Commons · Lop5a3maidinh52 · CC BY-SA 4.0.*
+
 `GHIDANH_PHANG(MAHV, HOTEN, MALOP, TENLOP, MAGV, HOTEN_GV, HOCPHI)`
 
 | MAHV | HOTEN | MALOP | TENLOP | MAGV | HOTEN_GV | HOCPHI |
@@ -16,7 +20,7 @@ Mục này là khoảnh khắc mà cả học phần hướng tới: **chuẩn h
 
 ## 5.9.2. Bước 1 — xác định tập phụ thuộc hàm
 
-**Bảng 5.7. Tập phụ thuộc hàm `F` — rút từ quy tắc nghiệp vụ**
+**Bảng 5.18. Tập phụ thuộc hàm `F` — rút từ quy tắc nghiệp vụ**
 
 | Phụ thuộc hàm | Quy tắc nghiệp vụ tương ứng |
 |---|---|
@@ -27,7 +31,7 @@ Mục này là khoảnh khắc mà cả học phần hướng tới: **chuẩn h
 
 ## 5.9.3. Bước 2 — tìm khóa
 
-Vế phải xuất hiện: `HOTEN`, `TENLOP`, `MAGV`, `HOTEN_GV`, `HOCPHI`. Vậy:
+Vế phải xuất hiện: `HOTEN`, `TENLOP`, `MAGV`, `HOTEN_GV`, `HOCPHI`. Vậy *(đúng như đã phân nhóm ở Bảng 5.11)*:
 
 - `TN = {MAHV, MALOP}` — chỉ ở vế trái
 - `TG = {MAGV}` — ở cả hai vế
@@ -51,7 +55,7 @@ Vế phải xuất hiện: `HOTEN`, `TENLOP`, `MAGV`, `HOTEN_GV`, `HOCPHI`. Vậ
 
 ## 5.9.4. Bước 3 — chẩn đoán dạng chuẩn
 
-**Bảng 5.8. Chẩn đoán với khóa `K = (MAHV, MALOP)`**
+**Bảng 5.19. Chẩn đoán với khóa `K = (MAHV, MALOP)`**
 
 | Dạng chuẩn | Kết luận | Bằng chứng |
 |---|:--:|---|
@@ -63,7 +67,7 @@ Hai thủ phạm đã bị chỉ đích danh.
 
 ## 5.9.5. Bước 4 và 5 — tách về 2NF rồi 3NF
 
-**Hình 5.10. Quy trình chuẩn hóa từng bước**
+**Hình 5.11. Quy trình chuẩn hóa từng bước**
 
 ```mermaid
 flowchart LR
@@ -84,11 +88,28 @@ LOP      (MALOP, TENLOP, MAGV↗GIAOVIEN)
 GHIDANH  (MAHV↗HOCVIEN, MALOP↗LOP, HOCPHI)
 ```
 
+Đổ ba dòng của bảng phẳng ở mục 5.9.1 vào bốn bảng ấy, ta nhìn thấy điều mà lý thuyết vừa chứng minh: **mỗi sự thật chỉ còn ở một chỗ**.
+
+**Bảng 5.20. Ba dòng của `GHIDANH_PHANG` sau khi tách — bốn bảng, không còn giá trị nào chép lặp**
+
+| `HOCVIEN` | MAHV | HOTEN | | `GIAOVIEN` | MAGV | HOTEN_GV |
+|---|---|---|---|---|---|---|
+| | HV01 | Trần An | | | GV1 | Lê Hoa |
+| | HV02 | Lê Bình | | | GV2 | Trần Mai |
+
+| `LOP` | MALOP | TENLOP | MAGV↗ | | `GHIDANH` | MAHV↗ | MALOP↗ | HOCPHI |
+|---|---|---|---|---|---|---|---|---|
+| | A1 | Anh cơ bản 1 | GV1 | | | HV01 | A1 | 2.000.000 |
+| | A2 | Anh giao tiếp | GV2 | | | HV01 | A2 | 2.500.000 |
+| | | | | | | HV02 | A1 | 2.000.000 |
+
+"Trần An", "Lê Hoa", "Anh cơ bản 1" — mỗi giá trị từng chép hai lần trong bảng phẳng nay xuất hiện **đúng một lần**. Và bốn bảng này chính là ba bảng mà Chương 1 đã tách bằng trực giác, cộng thêm `GHIDANH` mà Chương 2 tìm ra bằng phép thử tờ phiếu.
+
 ## 5.9.6. Kiểm chứng bảo toàn thông tin
 
 Áp Định lý 5.1 cho từng phép tách:
 
-**Bảng 5.9. Kiểm chứng từng phép tách**
+**Bảng 5.21. Kiểm chứng từng phép tách**
 
 | Phép tách | Thuộc tính chung | Có là khóa của bảng con nào? | Kết luận |
 |---|---|---|:--:|

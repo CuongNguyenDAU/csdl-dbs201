@@ -33,11 +33,30 @@ flowchart LR
     style D fill:#E2F0D9,stroke:#548235,stroke-width:2px
 ```
 
+![](../hinh-ve/slide/internet/qua_cau_tuyet.jpg){width=40%}
+
+*Ảnh minh họa: cậu bé lăn tuyết đắp người tuyết. Quả cầu bắt đầu từ một nắm nhỏ, lăn tới đâu dính thêm tuyết tới đó, cho tới khi không dính thêm được nữa — thuật toán bao đóng lăn qua từng phụ thuộc hàm đúng như thế — Nguồn: Wikimedia Commons · DPLA · Public domain.*
+
 Phép loại suy **quả cầu tuyết** nắm đúng bản chất: bắt đầu từ một nhúm nhỏ, lăn qua từng phụ thuộc và **dính thêm** thuộc tính mới, cho tới khi không dính thêm được gì nữa thì dừng.
 
 !!! warning "Chú ý — điểm dễ sai nhất"
 
     Phải **lặp lại nhiều vòng**, không chỉ quét `F` một lượt. Ở Hình 5.4, `HOTEN_GV` chỉ dính vào **sau khi** `MAGV` đã dính — nếu chỉ quét một lượt theo thứ tự viết trong `F`, rất dễ bỏ sót. Cách an toàn là **quét lại từ đầu mỗi khi `X⁺` thay đổi**.
+
+Bảng dưới đây dựng cố tình một `F` viết "ngược thứ tự" để thấy lỗi ấy xảy ra thế nào.
+
+**Bảng 5.8. Tính `A⁺` với `F = {B → C, A → B}` — quét một lượt thì sót, hai vòng mới đủ**
+
+| Vòng | Xét phụ thuộc | Vế trái `⊆ X⁺`? | `X⁺` sau bước |
+|:--:|---|:--:|---|
+| — | *khởi tạo* | — | `{A}` |
+| 1 | `B → C` | `B ∉ {A}` → **bỏ qua** | `{A}` |
+| 1 | `A → B` | Có | `{A, B}` |
+| 2 | `B → C` | **Có** *(giờ đã có B)* | `{A, B, C}` |
+| 2 | `A → B` | Có, không thêm gì | `{A, B, C}` |
+| 3 | *quét lại* | — | không đổi → **dừng** |
+
+Nếu dừng ngay sau vòng 1, ta kết luận sai `A⁺ = {A, B}` và tưởng `A` không phải siêu khóa của `R(A, B, C)` — trong khi thật ra `A⁺` là toàn bộ lược đồ. Chỉ một dòng bỏ sót ở đây kéo theo sai khóa, sai dạng chuẩn ở các mục sau.
 
 ## 5.4.2. Ví dụ tính từng bước
 
@@ -69,11 +88,23 @@ Phép loại suy **quả cầu tuyết** nắm đúng bản chất: bắt đầu
 
 Công dụng này là nền tảng của thuật toán tìm khóa ở mục 5.5.
 
+Cả hai công dụng đều quy về **một phép tính bao đóng rồi một phép so sánh**, như ba câu hỏi dưới đây trên lược đồ của Ví dụ 5.3.
+
+**Bảng 5.9. Ba câu hỏi, ba bao đóng — `R(A, B, C, D)`, `F = {A → B, B → C, CD → A}`**
+
+| Câu hỏi | Quy về | Tính | So sánh | Kết luận |
+|---|---|---|---|---|
+| `B → A` có suy ra được từ `F`? | `A ∈ B⁺`? | `B⁺ = {B, C}` | không chứa `A` | **Không** suy ra được |
+| `AC → D` có suy ra được? | `D ∈ (AC)⁺`? | `(AC)⁺ = {A, C, B}` | không chứa `D` | **Không** |
+| `BD` có phải siêu khóa? | `(BD)⁺ = R`? | `(BD)⁺ = {B, D, C, A}` | bằng toàn bộ `R` | **Có** — `BD` là siêu khóa |
+
+Không cần áp luật Armstrong bằng tay lần nào; mọi câu hỏi "suy ra được không" đều trả lời bằng cách tính một bao đóng.
+
 ## 5.4.4. Phân biệt `F⁺` và `X⁺`
 
 Hai ký hiệu trông giống nhau nhưng là **hai thứ hoàn toàn khác**, và đây là chỗ nhầm lẫn kinh điển.
 
-**Bảng 5.5. `F⁺` và `X⁺` — hai thứ khác nhau**
+**Bảng 5.10. `F⁺` và `X⁺` — hai thứ khác nhau**
 
 | | `F⁺` | `X⁺` |
 |---|---|---|
@@ -88,6 +119,18 @@ Câu phân biệt gọn nhất: **`F⁺` là tập các mũi tên; `X⁺` là t�
 !!! warning "Chú ý"
 
     Chính vì `F⁺` quá lớn để tính mà toàn bộ lý thuyết chuẩn hóa được xây trên `X⁺`. Mọi câu hỏi tưởng như cần `F⁺` — *"phụ thuộc này có đúng không"*, *"tập này có phải khóa không"* — đều được quy về việc tính một vài bao đóng `X⁺`. Đó là đóng góp thực dụng lớn nhất của khái niệm bao đóng.
+
+!!! question "Tự kiểm tra 5.4"
+
+    *(tự trả lời trước, rồi mở đáp án bên dưới)*
+
+    1. Với `R(A, B, C, D)` và `F = {A → B, B → C, CD → A}` của Ví dụ 5.3, tính `(CD)⁺` và `C⁺`, ghi rõ từng vòng.
+    2. `C → B` có suy ra được từ `F` không? Trả lời bằng một bao đóng.
+    3. Một bạn tính `F⁺` để trả lời câu 2. Bạn ấy có sai không? Vì sao giáo trình khuyên dùng `X⁺`?
+
+??? success "Đáp án tự kiểm tra 5.4"
+
+    *(1)* `(CD)⁺`: khởi tạo `{C, D}` → `CD → A` thêm `A` → `A → B` thêm `B` → `B → C` không đổi → vòng 2 không đổi → `{A, B, C, D}`. `C⁺`: `A → B` không áp *(A ∉)*, `B → C` không áp, `CD → A` không áp *(thiếu D)* → `{C}`. *(2)* `C → B` suy ra được khi và chỉ khi `B ∈ C⁺ = {C}` → **không**. *(3)* Không sai về lý thuyết nhưng **không khả thi**: `F⁺` cỡ hàm mũ; câu hỏi chỉ cần một bao đóng `C⁺` gồm một thuộc tính.
 
 ---
 

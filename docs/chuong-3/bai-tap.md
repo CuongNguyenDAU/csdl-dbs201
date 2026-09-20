@@ -57,7 +57,7 @@
 
 ## Mức B — Vận dụng
 
-**Bài B1.** Dùng lược đồ ER của **thư viện** đã vẽ ở Bài B1 Chương 2, hãy: (a) áp bốn quy tắc ánh xạ để thu được lược đồ quan hệ đầy đủ; (b) chỉ rõ khóa chính, khóa ngoại của từng bảng; (c) lập bảng đối chiếu toàn vẹn theo mẫu Bảng 3.11, ghi rõ khóa ngoại nào được phép rỗng và vì sao.
+**Bài B1.** Dùng lược đồ ER của **thư viện** đã vẽ ở Bài B1 Chương 2, hãy: (a) áp bốn quy tắc ánh xạ để thu được lược đồ quan hệ đầy đủ; (b) chỉ rõ khóa chính, khóa ngoại của từng bảng; (c) lập bảng đối chiếu toàn vẹn theo mẫu Bảng 3.28, ghi rõ khóa ngoại nào được phép rỗng và vì sao.
 
 
 ??? success "Lời giải bài B1"

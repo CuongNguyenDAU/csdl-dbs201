@@ -50,6 +50,20 @@ Phát biểu này giải thích ngay nhận xét ở cuối Ví dụ 5.4: nếu 
 
 **Cách sửa khi vi phạm:** tách chuỗi bắc cầu `K → Z → Y` thành hai bảng — một bảng chứa `(K, Z)`, một bảng chứa `(Z, Y)`.
 
+Phát biểu tương đương cho một **cách làm bài rất máy móc**: đi qua từng phụ thuộc hàm, hỏi hai câu, ghi kết luận. Bảng dưới đây làm điều đó cho bảng phẳng của Trung tâm ABC với khóa duy nhất `(MAHV, MALOP)` *(cách tìm khóa này ở mục 5.9.3)*.
+
+**Bảng 5.12. Chẩn đoán từng phụ thuộc hàm của `GHIDANH_PHANG` bằng hai câu hỏi**
+
+| Phụ thuộc `X → A` | `X` là siêu khóa? | `A` là thuộc tính khóa? | `X` là **một phần** của khóa? | Kết luận |
+|---|:--:|:--:|:--:|---|
+| `MAHV → HOTEN` | không | không | **có** *(nửa khóa)* | **bộ phận** → vi phạm 2NF |
+| `MALOP → TENLOP` | không | không | **có** | **bộ phận** → vi phạm 2NF |
+| `MALOP → MAGV` | không | không | **có** | **bộ phận** → vi phạm 2NF |
+| `MAGV → HOTEN_GV` | không | không | không *(`MAGV` ngoài khóa)* | **bắc cầu** → vi phạm 3NF |
+| `(MAHV, MALOP) → HOCPHI` | **có** | — | — | đạt |
+
+Quy tắc đọc bảng: cột 2 "có" thì đạt ngay; cột 2 và 3 đều "không" thì vi phạm, và cột 4 cho biết vi phạm loại nào — vế trái là **một phần khóa** thì bộ phận, vế trái **ngoài khóa** thì bắc cầu. Đây chính là bước 3 của quy trình ở mục 5.9.4, nhìn theo từng mũi tên.
+
 ## 5.7.5. Câu thần chú và cây quyết định
 
 Có một câu tiếng Anh tóm tắt cả ba dạng chuẩn, được dùng rộng rãi:
@@ -58,7 +72,7 @@ Có một câu tiếng Anh tóm tắt cả ba dạng chuẩn, được dùng r�
 
 Cách đọc: mọi thuộc tính không khóa phải phụ thuộc vào **khóa** *(1NF — có khóa)*, vào **toàn bộ khóa** *(2NF — không bộ phận)*, và **không phụ thuộc vào gì khác ngoài khóa** *(3NF — không bắc cầu)*.
 
-**Hình 5.7. Cây quyết định — xác định dạng chuẩn cao nhất**
+**Hình 5.8. Cây quyết định — xác định dạng chuẩn cao nhất**
 
 ```mermaid
 flowchart LR
@@ -81,7 +95,7 @@ flowchart LR
 
 Đây là bảng nối thẳng Chương 5 về Chương 1, và cũng là câu trả lời cho câu hỏi *"chuẩn hóa để làm gì"*.
 
-**Bảng 5.6. Dạng chuẩn diệt dị thường nào**
+**Bảng 5.13. Dạng chuẩn diệt dị thường nào**
 
 | Dạng chuẩn | Diệt thủ phạm | Dị thường bị loại bỏ |
 |---|---|---|
@@ -93,6 +107,18 @@ flowchart LR
 !!! warning "Chú ý"
 
     Ở Chương 1 người học **thấy** ba dị thường nhưng **không gọi tên được nguyên nhân**. Bảng trên chỉ đích danh: dị thường không phải hiện tượng ngẫu nhiên mà là **hệ quả trực tiếp** của phụ thuộc bộ phận và phụ thuộc bắc cầu. Đó là khác biệt giữa *thấy triệu chứng* và *chẩn đoán được bệnh*.
+
+!!! question "Tự kiểm tra 5.6–5.7"
+
+    *(tự trả lời trước, rồi mở đáp án bên dưới)*
+
+    1. `F = {A → B, B → C, A → C}` — phụ thuộc nào thừa? Chứng minh bằng bao đóng.
+    2. `LOP(MALOP, TENLOP, MAGV, HOTEN_GV)` với khóa `MALOP` và `F` như Bảng 5.5: đạt dạng chuẩn cao nhất nào? Chỉ đích danh thủ phạm.
+    3. `GHIDANH_MORONG(MAHV, MALOP, HOTEN, HOCPHI)` với khóa `(MAHV, MALOP)`: đạt dạng chuẩn nào? Nêu cách sửa.
+
+??? success "Đáp án tự kiểm tra 5.6–5.7"
+
+    *(1)* `A → C` thừa: tạm bỏ nó, `A⁺ = {A, B, C}` *(nhờ `A → B` rồi `B → C`)* vẫn chứa `C`. *(2)* Đạt **2NF** *(khóa đơn nên không có bộ phận)* nhưng **vi phạm 3NF**: thủ phạm `MALOP → MAGV → HOTEN_GV`, `MAGV` không phải khóa. Dạng chuẩn cao nhất: 2NF. *(3)* Chỉ đạt **1NF**: `MAHV → HOTEN` là phụ thuộc **bộ phận**. Sửa: tách `HOCVIEN(MAHV, HOTEN)` ra, còn lại `GHIDANH(MAHV, MALOP, HOCPHI)` đạt 3NF.
 
 ---
 

@@ -38,34 +38,56 @@
 |---|---|---|
 | Hình 3.1 | Từ điển phiên dịch — từ mô hình ER sang mô hình quan hệ | 3.1.4 |
 | Hình 3.2 | Phụ thuộc hàm có chiều — như một mũi tên một chiều | 3.2.2 |
-| Hình 3.3 | Khóa chính là "căn cước", khóa ngoại là "địa chỉ liên hệ" | 3.2.4 |
-| Hình 3.4 | Làm sai để thấy vì sao — khóa ngoại đặt nhầm bên | 3.4.2 |
-| Hình 3.5 | Ba phương án ánh xạ phân cấp cha/con | 3.4.5 |
-| Hình 3.6 | Phép chọn cắt ngang, phép chiếu cắt dọc | 3.5.2 |
-| Hình 3.7 | Phép kết tự nhiên thực chất là ba bước | 3.7.1 |
-| Hình 3.8 | Dùng kết ngoài trái để phát hiện khóa ngoại mồ côi | 3.7.3 |
-| Hình 3.9 | Tám phép toán của đại số quan hệ | 3.7.5 |
-| Hình 3.10 | Ánh xạ lược đồ Chen sang tập quan hệ | 3.8.1 |
-| Hình 3.11 | Lược đồ quan hệ của Trung tâm Anh ngữ ABC — bảy bảng | 3.8.2 |
+| Hình 3.3 | Ba loại khóa lồng nhau — thu hẹp dần từ siêu khóa tới khóa chính | 3.2.3 |
+| Hình 3.4 | Khóa chính là "căn cước", khóa ngoại là "địa chỉ liên hệ" | 3.2.4 |
+| Hình 3.5 | Bốn quy tắc ánh xạ và trường hợp thực thể yếu — từ mảnh lược đồ Chen sang bảng | 3.4.1 |
+| Hình 3.6 | Làm sai để thấy vì sao — khóa ngoại đặt nhầm bên | 3.4.2 |
+| Hình 3.7 | Ba phương án ánh xạ phân cấp cha/con | 3.4.5 |
+| Hình 3.8 | Phép chọn cắt ngang, phép chiếu cắt dọc | 3.5.2 |
+| Hình 3.9 | Cây biểu thức của Ví dụ 3.9 — tính từ lá lên ngọn | 3.5.3 |
+| Hình 3.10 | Phép kết tự nhiên thực chất là ba bước | 3.7.1 |
+| Hình 3.11 | Dùng kết ngoài trái để phát hiện khóa ngoại mồ côi | 3.7.3 |
+| Hình 3.12 | Tám phép toán của đại số quan hệ | 3.7.5 |
+| Hình 3.13 | Ánh xạ lược đồ Chen sang tập quan hệ | 3.8.1 |
+| Hình 3.14 | Lược đồ quan hệ của Trung tâm Anh ngữ ABC — bảy bảng | 3.8.2 |
 
 
 ## Danh Mục Bảng (Chương 3)
 
 | Bảng | Tên bảng | Mục |
 |---|---|---|
-| Bảng 3.1 | Ba lớp thuật ngữ song song | 3.1.2 |
-| Bảng 3.2 | Tám đặc trưng của một bảng quan hệ | 3.1.3 |
-| Bảng 3.3 | Năm loại khóa | 3.2.3 |
-| Bảng 3.4 | Ba loại lỗi mà toàn vẹn thực thể và tham chiếu không phát hiện được | 3.3.4 |
-| Bảng 3.5 | Bốn quy tắc ánh xạ ER sang quan hệ | 3.4.1 |
-| Bảng 3.6 | Chọn phương án ánh xạ phân cấp theo hai ràng buộc | 3.4.5 |
-| Bảng 3.7 | Bốn phép toán tập hợp — đối chiếu | 3.6.3 |
-| Bảng 3.8 | Các biến thể của phép kết | 3.7.2 |
-| Bảng 3.9 | Từ điển dịch yêu cầu bằng lời sang phép toán | 3.7.5 |
-| Bảng 3.10 | Ánh xạ từng thành phần của lược đồ ABC | 3.8.1 |
-| Bảng 3.11 | Đối chiếu toàn vẹn cho bảy bảng | 3.8.3 |
-| Bảng 3.12 | Sáu truy vấn trên lược đồ ABC | 3.8.4 |
-| Bảng 3.13 | Ba chương, ba mức độ trưởng thành của cùng một thiết kế | 3.8.5 |
+| Bảng 3.1 | Hai thuật ngữ dễ lẫn — *quan hệ* và *liên kết* | 3.1.1 |
+| Bảng 3.2 | Ba lớp thuật ngữ song song | 3.1.2 |
+| Bảng 3.3 | Bậc, lực lượng và miền giá trị nhìn trên một bảng `HOCVIEN` thu nhỏ | 3.1.2 |
+| Bảng 3.4 | Tám đặc trưng của một bảng quan hệ | 3.1.3 |
+| Bảng 3.5 | Một bảng tính trông hợp lý nhưng không phải là quan hệ | 3.1.3 |
+| Bảng 3.6 | Bảng tính và bảng quan hệ — hai cách nghĩ về "vị trí" | 3.1.3 |
+| Bảng 3.7 | Phép thử hai dòng cho hai phụ thuộc hàm ngược chiều nhau | 3.2.2 |
+| Bảng 3.8 | Năm loại khóa — minh họa trên bảng `HOCVIEN(MAHV, CCCD, HOTEN, NGAYSINH, MALOP)` | 3.2.3 |
+| Bảng 3.9 | Dữ liệu `HOCVIEN` có hai cột cùng đủ tư cách khóa dự tuyển | 3.2.3 |
+| Bảng 3.10 | Cùng một cột `MAGV`, hai vai trò ở hai bảng | 3.2.4 |
+| Bảng 3.11 | Bốn lần thử chèn dữ liệu và phán quyết của hai ràng buộc toàn vẹn | 3.3.3 |
+| Bảng 3.12 | Ba loại lỗi mà toàn vẹn thực thể và tham chiếu không phát hiện được | 3.3.4 |
+| Bảng 3.13 | Bốn quy tắc ánh xạ ER sang quan hệ | 3.4.1 |
+| Bảng 3.14 | Cùng một sự thật "cô Lê Hoa phụ trách bốn lớp", hai cách đặt khóa ngoại | 3.4.2 |
+| Bảng 3.15 | Dữ liệu của hai liên kết đệ quy sau khi ánh xạ | 3.4.4 |
+| Bảng 3.16 | Ba người, ba phương án — ô rỗng, dòng lặp và người "mất chỗ" hiện ra ở đâu | 3.4.5 |
+| Bảng 3.17 | Chọn phương án theo hai ràng buộc của phân cấp | 3.4.5 |
+| Bảng 3.18 | Kiểm tra khả hợp bằng cách xếp cột thẳng hàng | 3.6.1 |
+| Bảng 3.19 | Bốn phép toán tập hợp tính trên hai bảng khả hợp `A` và `B` | 3.6.2 |
+| Bảng 3.20 | Bốn phép toán tập hợp — đối chiếu | 3.6.3 |
+| Bảng 3.21 | Tích Descartes `LOP × GIAOVIEN` — mọi cặp, kể cả cặp vô nghĩa | 3.6.3 |
+| Bảng 3.22 | Các biến thể của phép kết | 3.7.2 |
+| Bảng 3.23 | Kết trong và ba kết ngoài trên cùng một cặp bảng có bộ không khớp ở cả hai phía | 3.7.2 |
+| Bảng 3.24 | `GHIDANH` xếp thành ma trận học viên × lớp — phép chia là "đủ ✓ ở các cột bắt buộc" | 3.7.4 |
+| Bảng 3.25 | Bảng tra ký hiệu đại số quan hệ | 3.7.5 |
+| Bảng 3.26 | Từ điển dịch yêu cầu bằng lời sang phép toán | 3.7.5 |
+| Bảng 3.27 | Ánh xạ từng thành phần | 3.8.1 |
+| Bảng 3.28 | Đối chiếu toàn vẹn cho bảy bảng | 3.8.3 |
+| Bảng 3.29 | Sáu truy vấn trên lược đồ ABC | 3.8.4 |
+| Bảng 3.30 | Bộ dữ liệu mẫu để tính tay sáu truy vấn | 3.8.4 |
+| Bảng 3.31 | Kết quả sáu truy vấn trên bộ dữ liệu mẫu | 3.8.4 |
+| Bảng 3.32 | Ba chương, ba mức độ trưởng thành của cùng một thiết kế | 3.8.5 |
 
 
 ## Danh Mục Từ Viết Tắt

@@ -54,19 +54,32 @@
 
 | Bảng | Tên bảng | Mục |
 |---|---|---|
-| Bảng 4.1 | Ba lỗ hổng của một cơ sở dữ liệu "hoàn hảo" | 4.1.1 |
-| Bảng 4.2 | Ba tầng có thể đặt ràng buộc | 4.1.4 |
-| Bảng 4.3 | Sáu loại ràng buộc toàn vẹn | 4.2.4 |
-| Bảng 4.4 | Suy luận từng ô — ràng buộc khóa ngoại | 4.3.3 |
-| Bảng 4.5 | Ba hành động khi phát hiện vi phạm | 4.4.1 |
-| Bảng 4.6 | Bốn cơ chế khai báo ràng buộc | 4.4.3 |
-| Bảng 4.7 | Hai cách đối phó với lỗi toàn vẹn tham chiếu | 4.4.4 |
-| Bảng 4.8 | Sáu câu hỏi phát hiện ràng buộc | 4.7.2 |
-| Bảng 4.9 | Sáu ràng buộc toàn vẹn của Trung tâm ABC | 4.7.3 |
-| Bảng 4.10 | Bảng tầm ảnh hưởng của R6 | 4.7.5 |
-| Bảng 4.11 | So sánh mức độ khó của hai ràng buộc | 4.7.5 |
-| Bảng 4.12 | Cùng thao tác "xóa", ba khóa ngoại, ba hành động khác nhau | 4.8.1 |
-| Bảng 4.13 | Bốn chương — và một điểm chung đáng lo | 4.8.3 |
+| Bảng 4.1 | Ba dòng dữ liệu vô lý lọt qua hai ràng buộc của Chương 3 | 4.1.1 |
+| Bảng 4.2 | Ba lỗ hổng của một cơ sở dữ liệu "hoàn hảo" | 4.1.1 |
+| Bảng 4.3 | Ba tầng có thể đặt ràng buộc | 4.1.4 |
+| Bảng 4.4 | Đọc công thức `∀t ∈ GHIDANH : t.HOCPHI > 0` từng mảnh một | 4.2.2 |
+| Bảng 4.5 | Hai ràng buộc mô tả đầy đủ theo ba yếu tố | 4.2.3 |
+| Bảng 4.6 | Sáu loại ràng buộc toàn vẹn | 4.2.4 |
+| Bảng 4.7 | Sáu loại ràng buộc là ma trận 2 × 3 — bối cảnh nhân phạm vi | 4.2.4 |
+| Bảng 4.8 | Dữ liệu đang đúng — dùng để thử sáu thao tác | 4.3.3 |
+| Bảng 4.9 | Suy luận từng ô — ràng buộc khóa ngoại | 4.3.3 |
+| Bảng 4.10 | Ba lỗi khi lập bảng tầm ảnh hưởng — cách sai và cách đúng | 4.3.5 |
+| Bảng 4.11 | Ba hành động khi phát hiện vi phạm | 4.4.1 |
+| Bảng 4.12 | Cùng một lệnh "xóa GV1" — dữ liệu sau khi thực hiện theo ba hành động | 4.4.2 |
+| Bảng 4.13 | Bốn cơ chế khai báo ràng buộc | 4.4.3 |
+| Bảng 4.14 | Hai cách đối phó với lỗi toàn vẹn tham chiếu | 4.4.4 |
+| Bảng 4.15 | Một bảng `LOP`, ba dòng sai, ba loại ràng buộc khác nhau | 4.5.3 |
+| Bảng 4.16 | Kiểm tra R5 phải đặt hai bảng cạnh nhau | 4.6.2 |
+| Bảng 4.17 | Bảng tầm ảnh hưởng của R5 | 4.6.2 |
+| Bảng 4.18 | Kiểm tra R6 — phải đếm trên bảng khác rồi mới so | 4.6.3 |
+| Bảng 4.19 | Chạy tay trigger `kiem_tra_suc_chua` cho hai lần thêm vào `GHIDANH` | 4.6.4 |
+| Bảng 4.20 | Bảng tầm ảnh hưởng của ràng buộc "không vượt sức chứa" — ba ô `+`, ba trigger | 4.6.4 |
+| Bảng 4.21 | Sáu câu hỏi phát hiện ràng buộc | 4.7.2 |
+| Bảng 4.22 | Sáu ràng buộc toàn vẹn của Trung tâm ABC | 4.7.3 |
+| Bảng 4.23 | Bảng tầm ảnh hưởng của R6 | 4.7.5 |
+| Bảng 4.24 | So sánh mức độ khó của hai ràng buộc | 4.7.5 |
+| Bảng 4.25 | Cùng thao tác "xóa", ba khóa ngoại, ba hành động khác nhau | 4.8.1 |
+| Bảng 4.26 | Bốn chương — và một điểm chung đáng lo | 4.8.3 |
 
 
 ## Danh Mục Từ Viết Tắt

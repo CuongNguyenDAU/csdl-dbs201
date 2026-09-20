@@ -49,14 +49,15 @@
 | Hình 5.3 | Phụ thuộc bắc cầu — phải đi hai chặng | 5.2.4 |
 | Hình 5.4 | Bao đóng — phép loại suy quả cầu tuyết | 5.4.1 |
 | Hình 5.5 | Ba nhóm thuộc tính — và vì sao phân nhóm | 5.5.1 |
-| Hình 5.6 | Thuật toán tìm phủ tối thiểu — phải làm đúng thứ tự | 5.6.3 |
-| Hình 5.7 | Cây quyết định — xác định dạng chuẩn cao nhất | 5.7.5 |
-| Hình 5.8 | Nghịch lý bộ giả — không mất dòng nào mà vẫn mất sự thật | 5.8.1 |
-| Hình 5.9 | Leo cao hơn chưa chắc tốt hơn | 5.8.4 |
-| Hình 5.10 | Quy trình chuẩn hóa từng bước | 5.9.5 |
-| Hình 5.11 | Phụ thuộc đa trị — hai nhánh độc lập gây bùng nổ tích | 5.10.2 |
-| Hình 5.12 | Trực giác, bản vẽ, toán học — cùng ra một kết quả | 5.11.1 |
-| Hình 5.13 | Hành trình năm chương | 5.11.4 |
+| Hình 5.6 | Lưới tám tập con của `TG = {A, B, C}` — ba siêu khóa ở tầng 1 chặn toàn bộ các tầng trên | 5.5.5 |
+| Hình 5.7 | Thuật toán tìm phủ tối thiểu — phải làm đúng thứ tự | 5.6.3 |
+| Hình 5.8 | Cây quyết định — xác định dạng chuẩn cao nhất | 5.7.5 |
+| Hình 5.9 | Nghịch lý bộ giả — không mất dòng nào mà vẫn mất sự thật | 5.8.1 |
+| Hình 5.10 | Leo cao hơn chưa chắc tốt hơn | 5.8.4 |
+| Hình 5.11 | Quy trình chuẩn hóa từng bước | 5.9.5 |
+| Hình 5.12 | Phụ thuộc đa trị — hai nhánh độc lập gây bùng nổ tích | 5.10.2 |
+| Hình 5.13 | Trực giác, bản vẽ, toán học — cùng ra một kết quả | 5.11.1 |
+| Hình 5.14 | Hành trình năm chương | 5.11.4 |
 
 
 ## Danh Mục Bảng (Chương 5)
@@ -66,16 +67,28 @@
 | Bảng 5.1 | Bốn chương — căn cứ ra quyết định | 5.1.1 |
 | Bảng 5.2 | Bốn tiêu chí — công cụ kiểm tra tương ứng | 5.1.2 |
 | Bảng 5.3 | Ba loại phụ thuộc hàm | 5.2.1 |
-| Bảng 5.4 | Ba luật gốc và ba luật dẫn xuất | 5.3.2 |
-| Bảng 5.5 | `F⁺` và `X⁺` — hai thứ khác nhau | 5.4.4 |
-| Bảng 5.6 | Dạng chuẩn diệt dị thường nào | 5.7.6 |
-| Bảng 5.7 | Tập phụ thuộc hàm `F` — rút từ quy tắc nghiệp vụ | 5.9.2 |
-| Bảng 5.8 | Chẩn đoán với khóa `K = (MAHV, MALOP)` | 5.9.4 |
-| Bảng 5.9 | Kiểm chứng từng phép tách | 5.9.6 |
-| Bảng 5.10 | 3NF và BCNF khác nhau ở đâu | 5.10.1 |
-| Bảng 5.11 | Khi nào phi chuẩn hóa là hợp lý | 5.10.4 |
-| Bảng 5.12 | Ba dị thường trên lược đồ 3NF | 5.11.2 |
-| Bảng 5.13 | Mọi lời hẹn và nơi trả | 5.11.3 |
+| Bảng 5.4 | Phụ thuộc bộ phận nhìn trên dữ liệu — `GHIDANH_MORONG` với khóa `(MAHV, MALOP)` | 5.2.3 |
+| Bảng 5.5 | Phụ thuộc bắc cầu nhìn trên dữ liệu — `LOP` với khóa `MALOP` | 5.2.4 |
+| Bảng 5.6 | Ba luật gốc và ba luật dẫn xuất | 5.3.2 |
+| Bảng 5.7 | Sáu luật, mỗi luật một ví dụ tại ABC | 5.3.2 |
+| Bảng 5.8 | Tính `A⁺` với `F = {B → C, A → B}` — quét một lượt thì sót, hai vòng mới đủ | 5.4.1 |
+| Bảng 5.9 | Ba câu hỏi, ba bao đóng — `R(A, B, C, D)`, `F = {A → B, B → C, CD → A}` | 5.4.3 |
+| Bảng 5.10 | `F⁺` và `X⁺` — hai thứ khác nhau | 5.4.4 |
+| Bảng 5.11 | Phân nhóm bảy thuộc tính của `GHIDANH_PHANG` — gạch vế trái, gạch vế phải | 5.5.1 |
+| Bảng 5.12 | Chẩn đoán từng phụ thuộc hàm của `GHIDANH_PHANG` bằng hai câu hỏi | 5.7.4 |
+| Bảng 5.13 | Dạng chuẩn diệt dị thường nào | 5.7.6 |
+| Bảng 5.14 | Tách sai `R` theo `MAGV` — không mất dòng nào, ghép lại sinh hai bộ giả | 5.8.1 |
+| Bảng 5.15 | Tách đúng `R` theo `MALOP` — ghép lại được đúng ba dòng gốc | 5.8.2 |
+| Bảng 5.16 | Phép tách bảo toàn thông tin nhưng "xé" mất `MAGV → HOTEN_GV` | 5.8.3 |
+| Bảng 5.17 | `HV_KH_GV` đạt 3NF nhưng không đạt BCNF — và cái giá khi tách lên BCNF | 5.8.4 |
+| Bảng 5.18 | Tập phụ thuộc hàm `F` — rút từ quy tắc nghiệp vụ | 5.9.2 |
+| Bảng 5.19 | Chẩn đoán với khóa `K = (MAHV, MALOP)` | 5.9.4 |
+| Bảng 5.20 | Ba dòng của `GHIDANH_PHANG` sau khi tách — bốn bảng, không còn giá trị nào chép lặp | 5.9.5 |
+| Bảng 5.21 | Kiểm chứng từng phép tách | 5.9.6 |
+| Bảng 5.22 | 3NF và BCNF khác nhau ở đâu | 5.10.1 |
+| Bảng 5.23 | Khi nào phi chuẩn hóa là hợp lý | 5.10.4 |
+| Bảng 5.24 | Ba dị thường trên lược đồ 3NF | 5.11.2 |
+| Bảng 5.25 | Mọi lời hẹn và nơi trả | 5.11.3 |
 
 
 ## Danh Mục Từ Viết Tắt

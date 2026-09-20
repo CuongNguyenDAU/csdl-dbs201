@@ -20,7 +20,7 @@
     ngữ cảnh và đã xử lý hay chưa. Cùng dãy `28, 31, 30, 29`, nếu nói thêm "đây là số
     ngày của bốn tháng liên tiếp" thì nó đã thành thông tin.
 
-**Bài A2.** Chọn một bảng dữ liệu quen thuộc trong đời sống của bạn — danh bạ điện thoại, bảng điểm cá nhân, sổ chi tiêu. Lập **bảng metadata** cho bảng đó theo mẫu Bảng 1.3, gồm bốn cột: tên cột, kiểu dữ liệu, bắt buộc hay không, ràng buộc.
+**Bài A2.** Chọn một bảng dữ liệu quen thuộc trong đời sống của bạn — danh bạ điện thoại, bảng điểm cá nhân, sổ chi tiêu. Lập **bảng metadata** cho bảng đó theo mẫu Bảng 1.5, gồm bốn cột: tên cột, kiểu dữ liệu, bắt buộc hay không, ràng buộc.
 
 
 ??? success "Lời giải bài A2"
@@ -45,7 +45,7 @@
     Lưu ý bảng trên chính là **metadata** của sổ chi tiêu. Nó mô tả dữ liệu chứ không phải
     là dữ liệu — trong sổ không có dòng nào tên là "Chuỗi, 8 ký tự".
 
-**Bài A3.** Lập bảng đối chiếu hai cột giữa hệ thống tệp và cách tiếp cận cơ sở dữ liệu, theo **năm tiêu chí** do bạn tự chọn trong Bảng 1.6.
+**Bài A3.** Lập bảng đối chiếu hai cột giữa hệ thống tệp và cách tiếp cận cơ sở dữ liệu, theo **năm tiêu chí** do bạn tự chọn trong Bảng 1.12.
 
 
 ??? success "Lời giải bài A3"
@@ -76,7 +76,7 @@
 
 a) Đếm số ô dư thừa và tính tỷ lệ phần trăm.
 b) Chỉ ra **ba dị thường** thêm, sửa, xóa bằng ba tình huống cụ thể.
-c) Đề xuất cách **tách bảng** và vẽ sơ đồ tương tự Hình 1.8.
+c) Đề xuất cách **tách bảng** và vẽ sơ đồ tương tự Hình 1.11.
 
 
 ??? success "Lời giải bài B1"

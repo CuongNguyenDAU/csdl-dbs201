@@ -8,9 +8,15 @@
 
     **Quan hệ** *(relation)* là một **bảng hai chiều** gồm các dòng và các cột, trong đó mỗi dòng biểu diễn một thể hiện thực thể và mỗi cột biểu diễn một thuộc tính.
 
+![](../hinh-ve/slide/internet/bang_tinh.jpg){width=70%}
+
+*Ảnh minh họa: một bảng tính LibreOffice Calc. Nó có dòng, cột, ô — trông giống bảng quan hệ, nhưng cho phép gộp ô, nhồi nhiều giá trị vào một ô, để hai dòng trùng nhau; mục 3.1.3 sẽ chỉ ra bảng nào mới được gọi là quan hệ — Nguồn: Wikimedia Commons · Jasozh · CC BY-SA 4.0.*
+
 Trước khi đi tiếp, cần gỡ ngay một hiểu nhầm rất phổ biến, và cũng là hiểu nhầm được Coronel cảnh báo riêng [3, tr. 60].
 
 Nhiều người tưởng mô hình được gọi là *"mô hình **quan hệ**"* vì nó có **"quan hệ giữa các bảng"**. Điều đó **sai**. Codd là một **nhà toán học**, và trong toán học **"relation"** là một thuật ngữ đã có sẵn từ trước, **đồng nghĩa với "bảng"** — cụ thể là một tập các bộ. Ông dùng từ ấy để chỉ **chính cái bảng**, không phải mối liên hệ giữa các bảng.
+
+**Bảng 3.1. Hai thuật ngữ dễ lẫn — *quan hệ* và *liên kết***
 
 | Thuật ngữ | Nghĩa | Học ở |
 |---|---|---|
@@ -27,7 +33,7 @@ Có một lập luận phản bác rất gọn cho cách hiểu sai. Mô hình *
 
 Mô hình quan hệ có một bộ thuật ngữ toán học riêng, song song với cách gọi thông thường.
 
-**Bảng 3.1. Ba lớp thuật ngữ song song**
+**Bảng 3.2. Ba lớp thuật ngữ song song**
 
 | Thuật ngữ toán học | Cách gọi trong cơ sở dữ liệu | Cách gọi thông thường |
 |---|---|---|
@@ -42,7 +48,22 @@ Mô hình quan hệ có một bộ thuật ngữ toán học riêng, song song v
 
     **Bậc** *(degree)* của một quan hệ là **số thuộc tính** của nó. **Lực lượng** *(cardinality)* của một quan hệ là **số bộ** hiện có trong nó.
 
-    **Ví dụ 3.1.** Quan hệ `HOCVIEN(MAHV, HOTEN, NGAYSINH)` có **bậc bằng 3**. Nếu trung tâm hiện có 250 học viên thì **lực lượng bằng 250**. Miền giá trị của `NGAYSINH` là *"mọi ngày hợp lệ, trước ngày hiện tại"*; miền giá trị của `MAHV` là *"chuỗi 4 ký tự, bắt đầu bằng HV"*.
+!!! example "Ví dụ 3.1"
+
+    Quan hệ `HOCVIEN(MAHV, HOTEN, NGAYSINH)` có **bậc bằng 3**. Nếu trung tâm hiện có 250 học viên thì **lực lượng bằng 250**. Miền giá trị của `NGAYSINH` là *"mọi ngày hợp lệ, trước ngày hiện tại"*; miền giá trị của `MAHV` là *"chuỗi 4 ký tự, bắt đầu bằng HV"*.
+
+Ba khái niệm ấy nhìn thấy được ngay trên một bảng nhỏ. Dòng in nghiêng ngay dưới tiêu đề cột không phải dữ liệu — nó là **miền giá trị** của từng cột, thứ mà hệ quản trị sẽ dùng để từ chối một giá trị không hợp lệ.
+
+**Bảng 3.3. Bậc, lực lượng và miền giá trị nhìn trên một bảng `HOCVIEN` thu nhỏ**
+
+| | MAHV | HOTEN | NGAYSINH |
+|---|---|---|---|
+| *miền giá trị* | *chuỗi 4 ký tự, bắt đầu "HV"* | *chuỗi tối đa 50 ký tự* | *ngày hợp lệ, trước hôm nay* |
+| bộ 1 | HV01 | Trần An | 12/04/2005 |
+| bộ 2 | HV02 | Lê Bình | 30/09/2004 |
+| bộ 3 | HV03 | Phạm Cường | 15/01/2006 |
+
+**Bậc** = đếm số cột = **3**. **Lực lượng** = đếm số bộ = **3**. Ngày mai trung tâm nhận thêm một học viên thì lực lượng thành 4, còn bậc vẫn là 3 — vì thêm học viên không làm bảng mọc thêm cột.
 
 Cần lưu ý rằng **bậc là đặc trưng của lược đồ** nên gần như không đổi, còn **lực lượng là đặc trưng của thể hiện** nên thay đổi liên tục — đúng cặp khái niệm lược đồ và thể hiện đã học ở mục 1.4.4.
 
@@ -54,7 +75,7 @@ Cần lưu ý rằng **bậc là đặc trưng của lược đồ** nên gần 
 
 Không phải bảng nào cũng là quan hệ. Một bảng chỉ được coi là quan hệ khi thỏa mãn tám đặc trưng sau [3, tr. 60].
 
-**Bảng 3.2. Tám đặc trưng của một bảng quan hệ**
+**Bảng 3.4. Tám đặc trưng của một bảng quan hệ**
 
 | # | Đặc trưng |
 |:--:|---|
@@ -67,11 +88,30 @@ Không phải bảng nào cũng là quan hệ. Một bảng chỉ được coi l
 | 7 | ⭐ **Thứ tự dòng và thứ tự cột không quan trọng** |
 | 8 | Mỗi bảng phải có thuộc tính hoặc tổ hợp thuộc tính **định danh duy nhất** mỗi dòng |
 
+Để thấy tám đặc trưng ấy không phải lý thuyết suông, hãy xem một bảng rất "bình thường" mà nhiều người vẫn quản lý học viên bằng bảng tính — và đếm xem nó vi phạm bao nhiêu đặc trưng.
+
+**Bảng 3.5. Một bảng tính trông hợp lý nhưng không phải là quan hệ**
+
+| STT | Mã HV | Họ tên | Điện thoại | Lớp | Lớp |
+|:--:|---|---|---|---|---|
+| 1 | HV01 | Trần An | 0905111222, 0906333444 | A1 | A2 |
+| 2 | HV02 | Lê Bình | 0912000111 | A1 | |
+| 3 | | Phạm Cường | 0933222333 | A2 | |
+| 4 | HV01 | Trần An | 0905111222, 0906333444 | A1 | A2 |
+
+Bảng này vi phạm **năm** đặc trưng cùng lúc. Ô *Điện thoại* của dòng 1 chứa **hai giá trị** — vi phạm đặc trưng 4. Hai cột **cùng tên** *Lớp* — vi phạm đặc trưng 3. Dòng 3 **không có mã** nên không định danh được — vi phạm đặc trưng 8. Dòng 4 **trùng hệt** dòng 1 — một tập hợp không chứa hai phần tử giống nhau, cũng vi phạm đặc trưng 8. Và cột *STT* chỉ có nghĩa nếu thứ tự dòng có nghĩa — trái với đặc trưng 7. Chương 5 sẽ gọi việc sửa bảng này là *chuẩn hóa*; ở đây chỉ cần nhận ra rằng **bảng tính và bảng quan hệ là hai thứ khác nhau**, dù trông giống nhau.
+
 Hai đặc trưng được đánh dấu sao đáng dừng lại phân tích, vì chúng có hệ quả trực tiếp tới công việc thiết kế.
 
 **Đặc trưng 4 — mỗi ô một giá trị đơn.** Người học đã gặp nguyên tắc này ở Chương 2 mà chưa biết tên nó. Chính vì nguyên tắc này mà cách nhồi ba số điện thoại vào một ô bị bác bỏ ở mục 2.2.4. Hôm nay ta gọi đúng tên, và ở mục 3.4.2 sẽ dùng nó thêm một lần nữa để **chứng minh** vì sao khóa ngoại bắt buộc phải đặt ở phía "nhiều". Ở Chương 5, nguyên tắc này sẽ được nâng lên thành **dạng chuẩn 1**.
 
+![](../hinh-ve/slide/internet/bo_bai_xao.jpg){width=50%}
+
+*Ảnh minh họa: máy xáo bài. Sau khi xáo, không có khái niệm "lá thứ năm"; muốn lấy một lá phải gọi tên nó. Bảng quan hệ là một tập hợp, cũng không có thứ tự — muốn lấy một dòng phải gọi bằng giá trị khóa — Nguồn: Wikimedia Commons · thekirbster · CC BY 2.0.*
+
 **Đặc trưng 7 — thứ tự không quan trọng.** Đây là đặc trưng nghe lạ nhất với người quen dùng bảng tính, nên cần một bảng đối chiếu.
+
+**Bảng 3.6. Bảng tính và bảng quan hệ — hai cách nghĩ về "vị trí"**
 
 | | Trong bảng tính | Trong cơ sở dữ liệu |
 |---|---|---|

@@ -36,32 +36,49 @@
 
 | Hình | Tên hình | Mục |
 |---|---|---|
-| Hình 1.1 | Vai trò trung gian của hệ quản trị cơ sở dữ liệu | 1.2.1 |
-| Hình 1.2 | Hệ thống tệp và cách tiếp cận cơ sở dữ liệu | 1.3.1 |
-| Hình 1.3 | Trung tâm ABC trong mô hình phân cấp — Trần An buộc phải lưu hai lần | 1.4.2 |
-| Hình 1.4 | Trung tâm ABC trong mô hình mạng — Trần An chỉ còn một bản | 1.4.2 |
-| Hình 1.5 | Một lược đồ — nhiều thể hiện theo thời gian | 1.4.4 |
-| Hình 1.6 | Kiến trúc ba mức ANSI/SPARC và hai loại độc lập dữ liệu | 1.5.1 |
-| Hình 1.7 | Năm thành phần của một hệ cơ sở dữ liệu | 1.6.4 |
-| Hình 1.8 | Từ một bảng phẳng thành ba bảng liên kết | 1.7 |
+| Hình 1.1 | Tháp DIKW — cơ sở dữ liệu ở hai tầng dưới, tổn thất bộc lộ ở tầng trên cùng | 1.1.2 |
+| Hình 1.2 | Vai trò trung gian của hệ quản trị cơ sở dữ liệu | 1.2.1 |
+| Hình 1.3 | Hệ thống tệp và cách tiếp cận cơ sở dữ liệu | 1.3.1 |
+| Hình 1.4 | Chuỗi nhân quả từ dư thừa tới quyết định sai — chi phí tăng theo từng mắt xích | 1.3.3 |
+| Hình 1.5 | Trung tâm ABC trong mô hình phân cấp — Trần An buộc phải lưu hai lần | 1.4.2 |
+| Hình 1.6 | Trung tâm ABC trong mô hình mạng — Trần An chỉ còn một bản | 1.4.2 |
+| Hình 1.7 | Ba mức của mô hình dữ liệu — ba chặng của một hành trình thiết kế | 1.4.3 |
+| Hình 1.8 | Một lược đồ — nhiều thể hiện theo thời gian | 1.4.4 |
+| Hình 1.9 | Kiến trúc ba mức ANSI/SPARC và hai loại độc lập dữ liệu | 1.5.1 |
+| Hình 1.10 | Năm thành phần của một hệ cơ sở dữ liệu | 1.6.4 |
+| Hình 1.11 | Từ một bảng phẳng thành ba bảng liên kết | 1.7 |
 
 
 ## Danh Mục Bảng (Chương 1)
 
 | Bảng | Tên bảng | Mục |
 |---|---|---|
-| Bảng 1.1 | Bốn tầng của tháp DIKW, minh họa tại Trung tâm Anh ngữ ABC | 1.1.2 |
-| Bảng 1.2 | Ba dạng dữ liệu | 1.1.3 |
-| Bảng 1.3 | Metadata của bảng `SINHVIEN` | 1.1.4 |
-| Bảng 1.4 | Ba cách phân loại hệ quản trị cơ sở dữ liệu | 1.2.3 |
-| Bảng 1.5 | Tệp phẳng `HOCVIEN_LOP` của Trung tâm Anh ngữ ABC | 1.3.2 |
-| Bảng 1.6 | So sánh hệ thống tệp và cách tiếp cận cơ sở dữ liệu | 1.3.4 |
-| Bảng 1.7 | Các thế hệ mô hình dữ liệu | 1.4.2 |
-| Bảng 1.8 | Hai bộ "ba mức" — không được lẫn lộn | 1.5.2 |
-| Bảng 1.9 | Bốn nhóm ngôn ngữ cơ sở dữ liệu | 1.6.1 |
-| Bảng 1.10 | Bốn tính chất ACID của giao dịch | 1.6.2 |
-| Bảng 1.11 | Ba dị thường trên bảng phẳng và cách thiết kế mới khắc phục | 1.7 |
-| Bảng 1.12 | Cùng dữ liệu ấy sau khi tách thành ba bảng | 1.7 |
+| Bảng 1.1 | Một dữ liệu, ba ngữ cảnh, ba hành động — Ví dụ 1.1 nhìn theo công thức | 1.1.1 |
+| Bảng 1.2 | Bốn tầng của tháp DIKW, minh họa tại Trung tâm Anh ngữ ABC | 1.1.2 |
+| Bảng 1.3 | Ba dạng dữ liệu | 1.1.3 |
+| Bảng 1.4 | Phép loại suy mẫu đơn: cái gì in sẵn, cái gì được điền vào | 1.1.4 |
+| Bảng 1.5 | Metadata của bảng `SINHVIEN` | 1.1.4 |
+| Bảng 1.6 | Ba dòng bảng tính chấp nhận, hệ quản trị từ chối | 1.1.4 |
+| Bảng 1.7 | Ba khái niệm qua phép loại suy thư viện | 1.2.2 |
+| Bảng 1.8 | Ba cách phân loại hệ quản trị cơ sở dữ liệu | 1.2.3 |
+| Bảng 1.9 | Cùng một học viên trong ba tệp của ba phòng — tình huống ở phần Dẫn nhập | 1.3.1 |
+| Bảng 1.10 | Tệp phẳng `HOCVIEN_LOP` của Trung tâm Anh ngữ ABC | 1.3.2 |
+| Bảng 1.11 | Đếm ô thừa theo từng cột của Bảng 1.10 | 1.3.2 |
+| Bảng 1.12 | So sánh hệ thống tệp và cách tiếp cận cơ sở dữ liệu | 1.3.4 |
+| Bảng 1.13 | Các thế hệ mô hình dữ liệu | 1.4.2 |
+| Bảng 1.14 | Bốn mô hình, một sự thật — khác nhau ở cách biểu diễn liên kết | 1.4.2 |
+| Bảng 1.15 | Ba mức kiến trúc qua phép loại suy nhà hàng | 1.5.1 |
+| Bảng 1.16 | Hai bộ "ba mức" — không được lẫn lộn | 1.5.2 |
+| Bảng 1.17 | Khung nhìn của phòng Kế toán trước và sau khi thêm cột `EMAIL` vào mức quan niệm | 1.5.3 |
+| Bảng 1.18 | Bốn thay đổi thường gặp và loại độc lập dữ liệu tương ứng | 1.5.3 |
+| Bảng 1.19 | Dòng dữ liệu cố định độ rộng trong `HOCVIEN.dat` — trước và sau khi chèn 30 ký tự email | 1.5.4 |
+| Bảng 1.20 | Bốn nhóm ngôn ngữ cơ sở dữ liệu | 1.6.1 |
+| Bảng 1.21 | Số dư hai tài khoản qua bốn thời điểm của một lần chuyển 1 triệu đồng | 1.6.2 |
+| Bảng 1.22 | Bốn tính chất ACID của giao dịch | 1.6.2 |
+| Bảng 1.23 | Sáu nhóm chức năng của hệ quản trị và việc cụ thể tại Trung tâm ABC | 1.6.3 |
+| Bảng 1.24 | Ba dị thường trên bảng phẳng và cách thiết kế mới khắc phục | 1.7 |
+| Bảng 1.25 | Cùng dữ liệu ấy sau khi tách thành ba bảng | 1.7 |
+| Bảng 1.26 | Số ô của hai thiết kế theo quy mô — n là số học viên lớp A1 | 1.7 |
 
 
 ## Danh Mục Từ Viết Tắt

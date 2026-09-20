@@ -1,6 +1,6 @@
 # CHƯƠNG 1. TỔNG QUAN VỀ CƠ SỞ DỮ LIỆU
 
-> **Ghi chú biên soạn (v4 — bản giáo trình).** Bản này viết lại Chương 1 theo **văn phong giáo trình**: nội dung trình bày thành văn xuôi liền mạch, các khái niệm được nêu dưới dạng **Định nghĩa** có đánh số, minh họa bằng **Ví dụ** có đánh số. Hệ thống đánh số mục **1.1–1.6 khớp tuyệt đối với Mục 8 của đề cương chi tiết**, kèm thời lượng từng mục. Số hình vẽ rút từ 11 xuống **6**, số bảng rút còn **11** — chỉ giữ những hình và bảng mà văn xuôi không diễn đạt thay được. Các hoạt động tổ chức lớp học được chuyển xuống **Phụ lục 1A**. Thời lượng: **4 tiết** — gắn **CLO2**. Tài liệu tham khảo chính: [1] Tô Văn Nam (2005); [3] Coronel & Morris, *Database Systems*, Ch.1–Ch.2. Quy cách trình bày (Times New Roman 13, giãn dòng 1,5) áp khi định dạng bản Word.
+> **Ghi chú biên soạn (v5 — bản giáo trình, tăng cường hình, bảng dữ liệu và ảnh thực tế cho người tự học).** Bản này giữ cấu trúc mục **1.1–1.6 khớp với Mục 8 của đề cương chi tiết** *(4 tiết · CLO2)* và văn phong giáo trình của bản v4. So với v4: ① **mọi ví dụ và phép loại suy trước đây chỉ diễn giải bằng lời nay có bảng hoặc hình đi kèm** — Ví dụ 1.1 theo công thức *(Bảng 1.1)*, tháp DIKW *(Hình 1.1)*, mẫu đơn in sẵn *(Bảng 1.4)*, ba dòng bảng tính chấp nhận mà hệ quản trị từ chối *(Bảng 1.6)*, loại suy thư viện *(Bảng 1.7)*, ba tệp cùng chứa một học viên *(Bảng 1.9)*, đếm ô thừa theo cột kèm công thức tỷ lệ *(Bảng 1.11)*, chuỗi nhân quả *(Hình 1.4)*, bốn mô hình một sự thật *(Bảng 1.14)*, ba mức mô hình *(Hình 1.7)*, loại suy nhà hàng *(Bảng 1.15)*, khung nhìn trước/sau và bốn loại thay đổi *(Bảng 1.17, 1.18)*, dòng dữ liệu cố định độ rộng *(Bảng 1.19)*, số dư qua bốn thời điểm của một giao dịch *(Bảng 1.21)*, sáu chức năng *(Bảng 1.23)*, số ô hai thiết kế theo quy mô kèm công thức *(Bảng 1.26)*; ② **9 ảnh minh họa thực tế** không đánh số (Wikimedia Commons, giấy phép CC/PD, ghi nguồn dưới ảnh); ③ bốn hộp **Tự kiểm tra** cuối các mục 1.1, 1.3, 1.5, 1.7 với đáp án trước phần Câu hỏi ôn tập. Số hình: **11**; số bảng: **26**. Các hoạt động tổ chức lớp học ở **Phụ lục 1A**. Tài liệu tham khảo chính: [1] Tô Văn Nam (2005); [3] Coronel & Morris, *Database Systems*, Ch.1–Ch.2.
 
 ---
 
@@ -53,6 +53,18 @@ Yếu tố then chốt trong công thức trên là **ngữ cảnh**. Một dữ
 
 > **Ví dụ 1.1.** Xét con số `38`. Tự thân nó vô nghĩa — đó là dữ liệu. Nếu biết thêm rằng đây là *nhiệt độ cơ thể tính bằng độ C của một bệnh nhân*, con số ấy trở thành thông tin "bệnh nhân đang sốt" và dẫn tới hành động cho khám ngay. Nếu đó là *sĩ số của lớp CNTT01*, nó thành thông tin "lớp có quy mô trung bình" và dẫn tới quyết định xếp phòng học bình thường. Còn nếu đó là *nhiệt độ ngoài trời*, thông tin thu được là "trời nắng gắt" và hành động hợp lý là hoãn hoạt động ngoài trời. Một dữ liệu, ba ngữ cảnh, ba hành động khác nhau.
 
+Xếp ba ngữ cảnh ấy cạnh nhau, công thức ở trên hiện ra từng cột một.
+
+**Bảng 1.1. Một dữ liệu, ba ngữ cảnh, ba hành động — Ví dụ 1.1 nhìn theo công thức**
+
+| Dữ liệu | + Ngữ cảnh | + Xử lý | = Thông tin | → Hành động |
+|:--:|---|---|---|---|
+| `38` | nhiệt độ cơ thể bệnh nhân (°C) | so với ngưỡng 37,5 | "bệnh nhân đang sốt" | cho khám ngay |
+| `38` | sĩ số lớp CNTT01 | so với sức chứa phòng | "lớp quy mô trung bình" | xếp phòng bình thường |
+| `38` | nhiệt độ ngoài trời (°C) | so với ngưỡng an toàn | "trời nắng gắt" | hoãn hoạt động ngoài trời |
+
+Cột đầu tiên **giống hệt nhau** ở cả ba dòng; mọi khác biệt nằm ở cột ngữ cảnh. Đó là lý do một cơ sở dữ liệu không thể chỉ lưu cột đầu tiên.
+
 Ví dụ trên dẫn tới một hệ quả thiết kế rất quan trọng, mà toàn bộ chương này sẽ khai triển: **một cơ sở dữ liệu không thể chỉ lưu dữ liệu; nó buộc phải lưu kèm cả phần mô tả ngữ cảnh của dữ liệu đó.** Phần mô tả ấy có tên riêng — *metadata* — và sẽ được trình bày ở mục 1.1.4.
 
 > **Chú ý.** Một nhầm lẫn phổ biến là nghĩ rằng "thông tin chỉ là dữ liệu được trình bày đẹp hơn". Không phải như vậy. Bước xử lý có thể rất đơn giản (sắp xếp, đếm, cộng dồn) hoặc rất phức tạp (dự báo thống kê), nhưng **bắt buộc phải có bước xử lý và phải có ngữ cảnh** thì dữ liệu mới trở thành thông tin. Trình bày lại một danh sách cho gọn gàng không tạo ra thông tin mới.
@@ -61,7 +73,7 @@ Ví dụ trên dẫn tới một hệ quả thiết kế rất quan trọng, mà
 
 Trong khoa học thông tin, người ta sắp xếp bốn tầng giá trị theo thứ tự tăng dần, gọi là **tháp DIKW** — viết tắt của *Data – Information – Knowledge – Wisdom*. Mô hình này giúp người học định vị được cơ sở dữ liệu nằm ở đâu trong toàn bộ chuỗi giá trị của một tổ chức.
 
-**Bảng 1.1. Bốn tầng của tháp DIKW, minh họa tại Trung tâm Anh ngữ ABC**
+**Bảng 1.2. Bốn tầng của tháp DIKW, minh họa tại Trung tâm Anh ngữ ABC**
 
 | Tầng | Tên gọi | Trả lời câu hỏi | Ví dụ tại Trung tâm ABC |
 |:--:|---|---|---|
@@ -70,13 +82,30 @@ Trong khoa học thông tin, người ta sắp xếp bốn tầng giá trị the
 | 3 | **Knowledge** — tri thức | *Như thế nào?* — quy luật | Lớp buổi tối luôn đông hơn lớp buổi sáng |
 | 4 | **Wisdom** — minh triết | *Nên làm gì?* — quyết định | Nên mở thêm lớp tối và giảm bớt lớp sáng |
 
+**Hình 1.1. Tháp DIKW — cơ sở dữ liệu ở hai tầng dưới, tổn thất bộc lộ ở tầng trên cùng**
+
+```mermaid
+flowchart BT
+    W["<b>WISDOM — minh triết</b><br/>Nên mở thêm lớp tối"]
+    K["<b>KNOWLEDGE — tri thức</b><br/>Lớp tối luôn đông hơn lớp sáng"]
+    I["<b>INFORMATION — thông tin</b><br/>Doanh thu lớp A1 quý này: 6.300.000 đ"]
+    D["<b>DATA — dữ liệu</b><br/>2.000.000 · 2.500.000 · 1.800.000"]
+    D --> I --> K --> W
+    style D fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
+    style I fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
+    style K fill:#FFF2CC,stroke:#BF9000
+    style W fill:#FFD9D9,stroke:#C00000,stroke-width:2px
+```
+
+Hai tầng tô xanh là phạm vi của học phần. Hai tầng trên là đích đến của tổ chức — và cũng là nơi một thiết kế tồi ở tầng dưới cùng để lại hậu quả đắt nhất.
+
 Cơ sở dữ liệu mà học phần này bàn tới nằm ở **tầng 1 và tầng 2**. Nhưng mục đích cuối cùng của mọi tổ chức lại nằm ở tầng 3 và tầng 4 — họ cần rút ra quy luật và ra quyết định. Điều này giải thích vì sao thiết kế cơ sở dữ liệu lại quan trọng đến vậy: **một cơ sở dữ liệu thiết kế tồi sẽ chặn đứng con đường đi lên các tầng trên**. Dữ liệu sai dẫn tới thông tin sai, thông tin sai dẫn tới quy luật rút ra sai, và cuối cùng là quyết định sai. Tổn thất không nằm ở tầng dữ liệu mà bộc lộ ở tầng quyết định, thường là rất muộn và rất đắt.
 
 ### 1.1.3. Ba dạng dữ liệu
 
 Không phải mọi dữ liệu đều có hình dạng giống nhau, và điều này quyết định loại công nghệ nào phù hợp để lưu trữ chúng. Người ta phân biệt ba dạng [3, tr. 22–24].
 
-**Bảng 1.2. Ba dạng dữ liệu**
+**Bảng 1.3. Ba dạng dữ liệu**
 
 | Dạng | Đặc điểm | Ví dụ | Công nghệ phù hợp |
 |---|---|---|---|
@@ -85,6 +114,10 @@ Không phải mọi dữ liệu đều có hình dạng giống nhau, và điề
 | **Phi cấu trúc** *(unstructured)* | Không có tổ chức nội tại để máy khai thác trực tiếp | Ảnh chụp, video, bản ghi âm, văn bản tự do | Hệ thống tệp, kho đối tượng |
 
 Điều người học cần nắm là: **học phần này, và cơ sở dữ liệu quan hệ nói chung, xử lý dữ liệu có cấu trúc.** Đây là một giới hạn có chủ ý chứ không phải một khiếm khuyết. Chính vì buộc dữ liệu phải có cấu trúc rõ ràng mà cơ sở dữ liệu quan hệ mới có thể kiểm tra tính đúng đắn, bảo đảm nhất quán và trả lời truy vấn nhanh — những việc mà một kho ảnh hay một thư mục tài liệu không làm được.
+
+![](hinh-ve/slide/internet/cccd.jpg){width=55%}
+
+*Ảnh minh họa: mẫu Căn cước công dân. Bức ảnh chụp tấm thẻ là dữ liệu phi cấu trúc; thứ được đưa vào cơ sở dữ liệu là các trường rút ra từ nó: số định danh, họ tên, ngày sinh, cùng đường dẫn tới tệp ảnh gốc — Nguồn: Wikimedia Commons · Chính phủ Việt Nam · Public domain.*
 
 Một điểm thường bị hiểu nhầm: dữ liệu phi cấu trúc không hề "kém giá trị" hơn. Thực tế trong nhiều tổ chức, phần lớn khối lượng dữ liệu là phi cấu trúc. Nhưng để khai thác được chúng, người ta phải **rút ra phần có cấu trúc** rồi lưu vào cơ sở dữ liệu. Chẳng hạn với một ảnh chụp thẻ học viên, cái được đưa vào cơ sở dữ liệu không phải bản thân bức ảnh mà là các trường trích xuất từ ảnh: mã học viên, họ tên, ngày cấp, cùng với đường dẫn tới tệp ảnh gốc.
 
@@ -101,11 +134,25 @@ Ba tính từ trong định nghĩa trên đều mang ý nghĩa cụ thể, khôn
 
 > **Định nghĩa 1.3.** **Metadata** là phần dữ liệu **mô tả đặc trưng của chính dữ liệu** được lưu trong cơ sở dữ liệu: tên các trường, kiểu dữ liệu, độ dài, tính bắt buộc, các ràng buộc phải thỏa mãn và mối liên hệ giữa các nhóm dữ liệu.
 
+![](hinh-ve/slide/internet/mau_don.jpg){width=50%}
+
+*Ảnh minh họa: một mẫu đơn đã điền. Phần in sẵn — nhãn ô, chỗ chia ngăn, chỉ dẫn — có trước khi ai điền và quy định người ta được điền gì: đó là metadata; phần viết tay vào ô là dữ liệu — Nguồn: Wikimedia Commons · Unknown author · Public domain.*
+
 Khái niệm metadata thường gây khó khăn ở lần tiếp xúc đầu tiên vì nó có tính tự quy chiếu. Một phép loại suy giúp làm rõ: hãy nghĩ tới một **mẫu đơn đăng ký in sẵn**. Những gì *người ta điền vào* mẫu đơn — "Trần An", "12/04/2005" — đó là **dữ liệu**. Còn những gì *đã in sẵn trên mẫu đơn* — dòng chữ "Họ và tên" bên cạnh ô trống, ghi chú "chỉ nhận chữ cái", dấu sao đỏ báo hiệu trường bắt buộc, ô "Ngày sinh" chia sẵn thành ba ngăn ngày/tháng/năm — đó là **metadata**. Mẫu đơn tồn tại trước khi có người điền, và nó quy định người ta được phép điền cái gì.
+
+**Bảng 1.4. Phép loại suy mẫu đơn: cái gì in sẵn, cái gì được điền vào**
+
+| Trên mẫu đơn | Là gì? | Trong cơ sở dữ liệu |
+|---|---|---|
+| Dòng chữ "Họ và tên" bên cạnh ô trống | in sẵn → **metadata** | tên cột `HOTEN` |
+| Ghi chú "chỉ nhận chữ cái", ô ngày sinh chia ba ngăn | in sẵn → **metadata** | kiểu dữ liệu `chuỗi`, `ngày tháng` |
+| Dấu sao đỏ báo trường bắt buộc | in sẵn → **metadata** | ràng buộc *không rỗng* |
+| "Trần An", "12/04/2005" viết tay vào ô | người điền → **dữ liệu** | một dòng của bảng |
+| Mẫu đơn tồn tại trước khi có ai điền | metadata có trước dữ liệu | lược đồ được thiết kế trước |
 
 Trong một cơ sở dữ liệu, metadata cũng có hình dạng tương tự. Bảng dưới đây trình bày metadata của một bảng `SINHVIEN`.
 
-**Bảng 1.3. Metadata của bảng `SINHVIEN`**
+**Bảng 1.5. Metadata của bảng `SINHVIEN`**
 
 | Tên cột | Kiểu dữ liệu | Bắt buộc? | Ràng buộc |
 |---|---|:--:|---|
@@ -116,7 +163,29 @@ Trong một cơ sở dữ liệu, metadata cũng có hình dạng tương tự. 
 
 Chính nhờ có metadata mà hệ quản trị cơ sở dữ liệu mới **tự động kiểm tra** được dữ liệu nhập vào. Khi người dùng gõ nhầm điểm trung bình là `40` thay vì `4.0`, hệ thống từ chối ngay lập tức vì nó biết trường này chỉ nhận giá trị từ 0 đến 4 — biết được điều đó là nhờ đọc metadata. Không có metadata, hệ quản trị cơ sở dữ liệu chỉ còn là một nơi chứa dữ liệu thụ động, không khác gì một thư mục tệp.
 
+![](hinh-ve/slide/internet/bang_tinh.jpg){width=70%}
+
+*Ảnh minh họa: một bảng tính. Với phần mềm bảng tính, tiêu đề cột "Điểm trung bình" chỉ là một ô chứa chữ như mọi ô khác — không có metadata nào để nó biết cột ấy phải là số trong khoảng 0–4 — Nguồn: Wikimedia Commons · Jasozh · CC BY-SA 4.0.*
+
+Muốn thấy metadata "làm việc", hãy thử nhập ba dòng dưới đây vào một bảng tính và vào một bảng `SINHVIEN` đã khai báo metadata như Bảng 1.5.
+
+**Bảng 1.6. Ba dòng bảng tính chấp nhận, hệ quản trị từ chối**
+
+| MASV | HOTEN | NGAYSINH | DIEMTB | Bảng tính | Hệ quản trị nói gì |
+|---|---|---|---|:--:|---|
+| SV01 | Trần An | 12/04/2005 | 3.2 | ✓ | ✓ hợp lệ |
+| SV01 | Lê Bình | 30/09/2004 | chưa có | ✓ | ✗ `MASV` trùng; `DIEMTB` phải là số |
+| SV03 | Phạm Cường | 15/01/2030 | 40 | ✓ | ✗ ngày sinh sau hôm nay; điểm ngoài khoảng 0–4 |
+
+Bảng tính nhận cả ba dòng mà không phàn nàn, vì với nó mọi ô đều chỉ là chữ. Hệ quản trị từ chối hai dòng sau ngay lúc nhập — không phải vì nó "thông minh hơn", mà vì nó **đọc được metadata**.
+
 > **Chú ý.** Trong bảng tính, metadata gần như không tồn tại dưới dạng máy hiểu được. Tiêu đề cột "Điểm trung bình" ở dòng đầu tiên chỉ là một ô chứa chữ, đối với phần mềm bảng tính nó không khác gì các ô còn lại. Vì vậy bảng tính không thể ngăn người dùng gõ chữ "chưa có" vào cột điểm số, cũng không thể ngăn hai người nhập cùng một mã học viên. **Đây là khác biệt căn bản đầu tiên giữa bảng tính và cơ sở dữ liệu.**
+
+> **Tự kiểm tra 1.1.** *(đáp án ở cuối chương)*
+>
+> 1. Con số `7,5` là dữ liệu hay thông tin? Thêm ngữ cảnh nào để nó thành thông tin và dẫn tới một hành động?
+> 2. Trên thẻ sinh viên của bạn, chỉ ra hai thứ là metadata và hai thứ là dữ liệu.
+> 3. Bảng tính có ngăn được việc gõ chữ "chưa có" vào cột điểm không? Vì sao?
 
 ---
 
@@ -132,7 +201,7 @@ Bản thân cơ sở dữ liệu chỉ là dữ liệu nằm trên đĩa. Để 
 
 Từ khóa cần nhấn mạnh là **trung gian**. Không ai — kể cả lập trình viên — được phép đọc hay ghi trực tiếp lên tệp dữ liệu. Mọi yêu cầu đều phải đi qua hệ quản trị cơ sở dữ liệu, và chính vì mọi thứ đều đi qua một cửa duy nhất mà phần mềm này mới có thể kiểm soát được tính đúng đắn, phân quyền truy cập và xử lý tình huống nhiều người cùng thao tác một lúc.
 
-**Hình 1.1. Vai trò trung gian của hệ quản trị cơ sở dữ liệu**
+**Hình 1.2. Vai trò trung gian của hệ quản trị cơ sở dữ liệu**
 
 ```mermaid
 flowchart LR
@@ -156,7 +225,19 @@ Ba thuật ngữ này rất hay bị dùng lẫn, kể cả trong tài liệu ch
 - **Hệ quản trị cơ sở dữ liệu** *(DBMS)* là **phần mềm** quản lý cơ sở dữ liệu đó. MySQL, SQL Server, PostgreSQL, Oracle là những hệ quản trị cơ sở dữ liệu.
 - **Hệ cơ sở dữ liệu** *(database system)* là **toàn bộ hệ thống** gồm cơ sở dữ liệu, hệ quản trị cơ sở dữ liệu, phần cứng, các ứng dụng, quy trình vận hành và con người sử dụng nó.
 
+![](hinh-ve/slide/internet/thu_vien.jpg){width=70%}
+
+*Ảnh minh họa: phòng đọc của một thư viện đại học. Sách trên giá là cơ sở dữ liệu; thủ thư cùng hệ thống phiếu mượn và quy tắc xếp giá là hệ quản trị; cả tòa nhà với giá sách, thủ thư, nội quy và bạn đọc là hệ cơ sở dữ liệu — Nguồn: Wikimedia Commons · Dr. Marcus Gossler · CC BY-SA 3.0.*
+
 Một cách ghi nhớ: nếu ví cơ sở dữ liệu là **sách trong thư viện**, thì hệ quản trị cơ sở dữ liệu là **người thủ thư** cùng toàn bộ hệ thống phiếu mượn và quy tắc sắp xếp, còn hệ cơ sở dữ liệu là **cả thư viện** — bao gồm tòa nhà, giá sách, thủ thư, nội quy và bạn đọc.
+
+**Bảng 1.7. Ba khái niệm qua phép loại suy thư viện**
+
+| Khái niệm | Trong thư viện | Bản chất | Ví dụ |
+|---|---|---|---|
+| **Cơ sở dữ liệu** | Sách trên giá | **Dữ liệu** được lưu, gồm dữ liệu người dùng và metadata | Toàn bộ bảng của Trung tâm ABC |
+| **Hệ quản trị CSDL** | Thủ thư, hệ thống phiếu mượn, quy tắc xếp giá | **Phần mềm** quản lý và điều khiển mọi truy cập | MySQL, SQL Server, PostgreSQL, Oracle |
+| **Hệ cơ sở dữ liệu** | Cả thư viện: tòa nhà, giá sách, thủ thư, nội quy, bạn đọc | **Toàn bộ hệ thống**: dữ liệu, phần mềm, phần cứng, ứng dụng, thủ tục, con người | Hệ thống quản lý đào tạo đang chạy của trường |
 
 > **Chú ý.** Câu nói thường gặp "*tôi đã cài đặt cơ sở dữ liệu MySQL*" là chưa chính xác về thuật ngữ. Cái được cài đặt là **hệ quản trị** cơ sở dữ liệu MySQL; cơ sở dữ liệu là thứ được tạo ra *sau đó*, bên trong hệ quản trị ấy. Một hệ quản trị có thể chứa nhiều cơ sở dữ liệu độc lập với nhau.
 
@@ -164,7 +245,7 @@ Một cách ghi nhớ: nếu ví cơ sở dữ liệu là **sách trong thư vi�
 
 Người học thường đặt câu hỏi rất tự nhiên: *"Có nhiều hệ quản trị như vậy thì chúng khác nhau ở đâu, và khi nào dùng cái nào?"* Có ba tiêu chí phân loại thông dụng [3, tr. 15–19].
 
-**Bảng 1.4. Ba cách phân loại hệ quản trị cơ sở dữ liệu**
+**Bảng 1.8. Ba cách phân loại hệ quản trị cơ sở dữ liệu**
 
 | Tiêu chí | Các loại | Đặc điểm và ví dụ |
 |---|---|---|
@@ -187,9 +268,13 @@ Mục này trả lời câu hỏi nền tảng nhất của chương: **nếu đ
 
 ### 1.3.1. Hệ thống tệp và bốn hạn chế của nó
 
+![](hinh-ve/slide/internet/tep_giay.jpg){width=60%}
+
+*Ảnh minh họa: tủ tệp hồ sơ giấy. Hệ thống tệp là phiên bản điện tử của cách quản lý này: mỗi bộ phận một ngăn riêng, cùng một người có hồ sơ ở nhiều ngăn, sửa một ngăn thì các ngăn kia không biết — Nguồn: Wikimedia Commons · Tony Webster · CC BY-SA 2.0.*
+
 Trước khi cơ sở dữ liệu ra đời vào cuối những năm 1960, các tổ chức quản lý dữ liệu bằng **hệ thống tệp** *(file system)*: mỗi bộ phận nghiệp vụ có tệp dữ liệu riêng và chương trình xử lý riêng. Cách làm này vẫn còn phổ biến đến ngày nay dưới hình thức "mỗi phòng một tệp bảng tính".
 
-**Hình 1.2. Hệ thống tệp và cách tiếp cận cơ sở dữ liệu**
+**Hình 1.3. Hệ thống tệp và cách tiếp cận cơ sở dữ liệu**
 
 ```mermaid
 flowchart LR
@@ -211,7 +296,17 @@ flowchart LR
     style DB fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
 ```
 
-Nhìn vào **khối phía dưới** của hình vẽ — phần mô tả hệ thống tệp — có thể thấy ngay điều bất thường: **họ tên và số điện thoại của cùng một học viên xuất hiện trong cả ba tệp**. Từ quan sát đó, bốn hạn chế lần lượt lộ ra.
+Hình vẽ mới cho thấy *ai giữ tệp nào*. Hãy mở ba tệp ấy ra và nhìn vào một học viên cụ thể.
+
+**Bảng 1.9. Cùng một học viên trong ba tệp của ba phòng — tình huống ở phần Dẫn nhập**
+
+| Tệp | Phòng giữ | Dòng về Trần An | Số điện thoại |
+|---|---|---|---|
+| `HOCVIEN.xls` | Tuyển sinh | HV01 · Trần An · sinh 12/04/2005 | **0905111222** *(mới, đã cập nhật)* |
+| `LOP.xls` | Học vụ | A1 · Trần An | 0905111111 *(cũ)* |
+| `HOCPHI.xls` | Kế toán | Trần An · 3.000.000 · chưa đóng | 0905111111 *(cũ)* — kế toán gọi nhắc vào số này |
+
+Điều bất thường thấy ngay: **họ tên và số điện thoại của cùng một học viên xuất hiện trong cả ba tệp**, và khi Trần An báo đổi số cho phòng Tuyển sinh, hai tệp kia vẫn giữ số cũ. Từ quan sát đó, bốn hạn chế lần lượt lộ ra.
 
 **Hạn chế thứ nhất — dư thừa dữ liệu** *(data redundancy)*. Cùng một sự kiện được lưu ở nhiều nơi. Đây không đơn thuần là chuyện tốn dung lượng lưu trữ; dung lượng ngày nay rất rẻ. Vấn đề nằm ở chỗ dư thừa là **nguồn gốc** của ba hạn chế còn lại.
 
@@ -225,7 +320,7 @@ Nhìn vào **khối phía dưới** của hình vẽ — phần mô tả hệ th
 
 Nói "dư thừa gây hại" là nói định tính. Người thiết kế cần biết định lượng. Ta xét bảng dữ liệu phẳng của Trung tâm ABC — cùng chính là bảng sẽ được dùng lại ở mục 1.7 và ở các chương sau.
 
-**Bảng 1.5. Tệp phẳng `HOCVIEN_LOP` của Trung tâm Anh ngữ ABC**
+**Bảng 1.10. Tệp phẳng `HOCVIEN_LOP` của Trung tâm Anh ngữ ABC**
 
 | MAHV | HOTEN | MALOP | TENLOP | GIAOVIEN | SDT_GV |
 |---|---|---|---|---|---|
@@ -238,6 +333,22 @@ Bảng có 4 dòng và 6 cột, tổng cộng 24 ô. Hãy đếm xem bao nhiêu 
 
 Ba cột `MAHV`, `HOTEN` là dữ liệu riêng của từng học viên, không dòng nào lặp lại dòng nào: **8 ô, không thừa ô nào**. Cột `MALOP` chỉ có hai giá trị phân biệt là A1 và A2, nhưng mã lớp cần thiết để biết học viên nào học lớp nào, nên cũng **không thừa**. Ba cột còn lại thì khác. `TENLOP` phụ thuộc hoàn toàn vào `MALOP`: hễ biết A1 là biết ngay "Anh cơ bản 1". Ba dòng đầu cùng ghi "Anh cơ bản 1" nghĩa là **hai ô thừa**. Tương tự, `GIAOVIEN` và `SDT_GV` đều phụ thuộc vào `MALOP`, mỗi cột thừa hai ô ở ba dòng đầu — tổng cộng **bốn ô thừa** nữa.
 
+**Bảng 1.11. Đếm ô thừa theo từng cột của Bảng 1.10**
+
+| Cột | Số ô | Ô thừa | Vì sao |
+|---|:--:|:--:|---|
+| `MAHV` | 4 | 0 | mỗi dòng một mã khác nhau |
+| `HOTEN` | 4 | 0 | mỗi dòng một người khác nhau |
+| `MALOP` | 4 | 0 | lặp giá trị nhưng cần để biết ai học lớp nào |
+| `TENLOP` | 4 | 2 | biết `A1` là biết "Anh cơ bản 1" — ba dòng, thừa hai |
+| `GIAOVIEN` | 4 | 2 | cùng lý do: phụ thuộc vào `MALOP` |
+| `SDT_GV` | 4 | 2 | cùng lý do |
+| **Tổng** | **24** | **6** | **25 %** |
+
+Từ bảng trên rút ra công thức tổng quát: nếu lớp A1 có **n** học viên (và lớp A2 vẫn một học viên), bảng phẳng có `6(n + 1)` ô, trong đó ba cột phụ thuộc vào lớp mỗi cột thừa `n − 1` ô:
+
+> **Tỷ lệ ô thừa = 3(n − 1) / 6(n + 1)** — với n = 3 được 6/24 = 25 %; với n = 30 được 87/186 ≈ 47 %; khi n rất lớn tiến tới 50 %.
+
 Vậy trong 24 ô có **6 ô thừa, chiếm 25%**. Con số này không lớn vì bảng ví dụ chỉ có 4 dòng. Nhưng hãy để ý điều gì xảy ra khi trung tâm phát triển: nếu lớp A1 có 30 học viên thay vì 3, thì riêng thông tin của cô Lê Hoa sẽ bị lặp **30 lần**, và tỷ lệ ô thừa vọt lên xấp xỉ 50%. **Mức dư thừa tăng theo quy mô dữ liệu, trong khi lượng thông tin thật sự thì không đổi** — cô Lê Hoa vẫn chỉ có một số điện thoại duy nhất.
 
 > **Chú ý.** Cách nhận diện dư thừa ở đây vẫn dựa vào trực giác — "thấy giá trị lặp lại thì nghi ngờ". Trực giác này đủ dùng cho một bảng 6 cột, nhưng sẽ thất bại với hệ thống hàng chục bảng. Chương 5 sẽ thay trực giác bằng một công cụ toán học chính xác gọi là **phụ thuộc hàm**, và khi đó câu "`TENLOP` phụ thuộc hoàn toàn vào `MALOP`" sẽ được viết gọn thành `MALOP → TENLOP`.
@@ -248,6 +359,19 @@ Bốn hạn chế nêu ở mục 1.3.1 không đứng độc lập; chúng nối
 
 Dư thừa khiến cùng một sự thật được lưu ở nhiều chỗ. Vì nằm ở nhiều chỗ nên mỗi lần thay đổi phải cập nhật đồng loạt, mà cập nhật đồng loạt thì sớm muộn cũng sót — sinh ra **không nhất quán**. Khi dữ liệu đã mâu thuẫn, mọi báo cáo tổng hợp từ nó đều đáng ngờ: hai bộ phận cùng đếm số học viên đang theo học có thể ra hai con số khác nhau, và không ai biết con số nào đúng. Báo cáo sai dẫn tới **quyết định sai** — trung tâm mở thêm lớp trong khi thực ra đang thừa chỗ, hoặc ngược lại.
 
+**Hình 1.4. Chuỗi nhân quả từ dư thừa tới quyết định sai — chi phí tăng theo từng mắt xích**
+
+```mermaid
+flowchart LR
+    A["<b>DƯ THỪA</b><br/>một sự thật lưu ở nhiều chỗ<br/><i>tốn ít dung lượng</i>"] --> B["<b>KHÔNG NHẤT QUÁN</b><br/>cập nhật sót một chỗ<br/><i>hai giá trị mâu thuẫn, không ai báo</i>"]
+    B --> C["<b>BÁO CÁO SAI</b><br/>hai phòng đếm ra hai con số<br/><i>không biết số nào đúng</i>"]
+    C --> D["<b>QUYẾT ĐỊNH SAI</b><br/>mở lớp khi đang thừa chỗ<br/><i>hàng trăm triệu đồng</i>"]
+    style A fill:#E2F0D9,stroke:#548235
+    style B fill:#FFF2CC,stroke:#BF9000
+    style C fill:#FCE4D6,stroke:#C55A11
+    style D fill:#FFD9D9,stroke:#C00000,stroke-width:2px
+```
+
 Điều đáng lưu ý về mặt quản trị là **chi phí của chuỗi này tăng dần theo từng mắt xích**. Ở mắt xích đầu, dư thừa chỉ tốn ít dung lượng đĩa, gần như miễn phí. Ở mắt xích cuối, một quyết định kinh doanh sai có thể tốn hàng trăm triệu đồng. Nhưng vì tổn thất chỉ bộc lộ ở cuối chuỗi, người ta thường không truy ngược về nguyên nhân gốc, và tiếp tục sống chung với thiết kế tồi.
 
 Đây chính là lý do sâu xa để học phần này tồn tại: **chặn chuỗi nhân quả ngay tại mắt xích đầu tiên, bằng cách thiết kế cơ sở dữ liệu sao cho không có dư thừa ngay từ đầu.**
@@ -256,7 +380,7 @@ Dư thừa khiến cùng một sự thật được lưu ở nhiều chỗ. Vì 
 
 Cách tiếp cận cơ sở dữ liệu giải quyết bốn hạn chế trên bằng hai thay đổi căn bản: **gộp dữ liệu vào một kho dùng chung** và **đặt một phần mềm trung gian kiểm soát mọi truy cập**.
 
-**Bảng 1.6. So sánh hệ thống tệp và cách tiếp cận cơ sở dữ liệu**
+**Bảng 1.12. So sánh hệ thống tệp và cách tiếp cận cơ sở dữ liệu**
 
 | Tiêu chí | Hệ thống tệp | Cách tiếp cận cơ sở dữ liệu |
 |---|---|---|
@@ -271,6 +395,12 @@ Cách tiếp cận cơ sở dữ liệu giải quyết bốn hạn chế trên b
 
 Tuy vậy, cần giữ một cái nhìn cân bằng. Cách tiếp cận cơ sở dữ liệu cũng có **cái giá** của nó: chi phí mua bản quyền hoặc hạ tầng máy chủ, yêu cầu nhân sự có chuyên môn để quản trị, và độ phức tạp cao hơn hẳn khi bắt đầu. Với một cửa hàng nhỏ ghi chép mười khách hàng, dùng bảng tính vẫn là lựa chọn hợp lý. **Cơ sở dữ liệu trở nên đáng giá khi dữ liệu được dùng chung bởi nhiều người, khi tính đúng đắn là bắt buộc, và khi hệ thống còn phải sống lâu dài.** Ba điều kiện ấy đúng với hầu hết hệ thống nghiệp vụ thực tế.
 
+> **Tự kiểm tra 1.3.** *(đáp án ở cuối chương)*
+>
+> 1. Trong bốn hạn chế của hệ thống tệp, hạn chế nào là gốc rễ của ba hạn chế còn lại?
+> 2. Lớp A1 có 10 học viên, lớp A2 có 1. Bảng phẳng như Bảng 1.10 có bao nhiêu ô và bao nhiêu ô thừa?
+> 3. Một cửa hàng nhỏ ghi chép 10 khách hàng bằng bảng tính. Có nên chuyển sang cơ sở dữ liệu không? Nêu ba điều kiện để cơ sở dữ liệu trở nên đáng giá.
+
 ---
 
 ## 1.4. Mô hình dữ liệu, lược đồ và thể hiện
@@ -283,13 +413,17 @@ Tuy vậy, cần giữ một cái nhìn cân bằng. Cách tiếp cận cơ sở
 
 Mô hình dữ liệu đóng vai trò như một **bộ từ vựng chung**. Khi ta nói "hãy dùng mô hình quan hệ", điều đó có nghĩa là mọi người tham gia dự án cùng thống nhất rằng dữ liệu sẽ được tổ chức thành các *bảng* gồm *dòng* và *cột*, rằng các bảng liên hệ với nhau qua *khóa*, và rằng có một tập phép toán xác định để lấy dữ liệu ra. Không có bộ từ vựng chung ấy, mỗi người thiết kế theo một kiểu và không ai đọc được thiết kế của ai.
 
+![](hinh-ve/slide/internet/ban_ve_kien_truc.jpg){width=60%}
+
+*Ảnh minh họa: mô hình mặt bằng một căn hộ. Bản vẽ không phải ngôi nhà, nhưng nhờ quy ước chung về nét vẽ mà người ở nơi khác đọc vẫn hiểu — mô hình dữ liệu là bộ quy ước chung như thế cho dữ liệu — Nguồn: Wikimedia Commons · Tallbox · CC BY-SA 4.0.*
+
 Có thể so sánh mô hình dữ liệu với **bản vẽ kiến trúc** trong xây dựng. Bản vẽ không phải ngôi nhà, nhưng nó quy ước rằng đường nét đậm là tường chịu lực, ô vuông có hai đường chéo là cửa sổ. Nhờ quy ước ấy mà kiến trúc sư ở Đà Nẵng vẽ xong, thợ xây ở Hà Nội đọc vẫn hiểu.
 
 ### 1.4.2. Các thế hệ mô hình dữ liệu
 
 Mô hình quan hệ mà học phần này tập trung vào không phải là mô hình duy nhất, cũng không phải mô hình đầu tiên. Hiểu quá trình phát triển giúp người học nhận ra **vì sao** mô hình quan hệ chiếm ưu thế, thay vì chỉ chấp nhận nó như một sự đã rồi.
 
-**Bảng 1.7. Các thế hệ mô hình dữ liệu**
+**Bảng 1.13. Các thế hệ mô hình dữ liệu**
 
 | Thời kỳ | Mô hình | Cách tổ chức | Hạn chế chính |
 |---|---|---|---|
@@ -311,7 +445,7 @@ Bảng liệt kê ở trên mới chỉ cho biết các mô hình *tên gì*. Đ
 
 Mô hình phân cấp tổ chức dữ liệu thành cây, trong đó **mỗi nút con chỉ được có đúng một nút cha**. Với Trung tâm ABC, cách tổ chức tự nhiên là: giáo viên ở gốc, lớp là con của giáo viên, học viên là con của lớp.
 
-**Hình 1.3. Trung tâm ABC trong mô hình phân cấp — Trần An buộc phải lưu hai lần**
+**Hình 1.5. Trung tâm ABC trong mô hình phân cấp — Trần An buộc phải lưu hai lần**
 
 ```mermaid
 flowchart TB
@@ -339,7 +473,7 @@ Hậu quả thì người học đã quá quen từ mục 1.3: dữ liệu của
 
 Mô hình mạng ra đời để gỡ đúng nút thắt đó: nó cho phép **một nút có nhiều nút cha**.
 
-**Hình 1.4. Trung tâm ABC trong mô hình mạng — Trần An chỉ còn một bản**
+**Hình 1.6. Trung tâm ABC trong mô hình mạng — Trần An chỉ còn một bản**
 
 ```mermaid
 flowchart TB
@@ -359,7 +493,7 @@ flowchart TB
 
 Bài toán dư thừa được giải quyết: Trần An chỉ tồn tại **một bản duy nhất**, có hai mũi tên trỏ tới từ hai lớp. Nhưng mô hình mạng lại sinh ra một khó khăn mới, lần này nằm ở phía người lập trình.
 
-Các mũi tên trong Hình 1.4 không phải là dữ liệu — chúng là **con trỏ vật lý** tới địa chỉ lưu trữ. Muốn biết lớp A2 có những học viên nào, chương trình phải *tự lần theo* chuỗi con trỏ, từng bước một, theo đúng đường đi mà người thiết kế đã dựng sẵn. Người lập trình vì thế buộc phải thuộc lòng cấu trúc liên kết bên trong. Tệ hơn, nếu sau này muốn truy vấn theo một hướng chưa được dựng sẵn — chẳng hạn *"cô Lê Hoa đang dạy bao nhiêu học viên"* — thì phải **sửa lại cấu trúc dữ liệu**, không chỉ sửa chương trình.
+Các mũi tên trong Hình 1.6 không phải là dữ liệu — chúng là **con trỏ vật lý** tới địa chỉ lưu trữ. Muốn biết lớp A2 có những học viên nào, chương trình phải *tự lần theo* chuỗi con trỏ, từng bước một, theo đúng đường đi mà người thiết kế đã dựng sẵn. Người lập trình vì thế buộc phải thuộc lòng cấu trúc liên kết bên trong. Tệ hơn, nếu sau này muốn truy vấn theo một hướng chưa được dựng sẵn — chẳng hạn *"cô Lê Hoa đang dạy bao nhiêu học viên"* — thì phải **sửa lại cấu trúc dữ liệu**, không chỉ sửa chương trình.
 
 **c) Mô hình quan hệ — thay con trỏ bằng giá trị**
 
@@ -431,6 +565,15 @@ Nhưng hãy nhìn kỹ cấu trúc: đó chính là **một cái cây** — lớ
 
 > **Chú ý.** Điều này cho thấy sự đánh đổi trong thiết kế cơ sở dữ liệu là **có tính chu kỳ chứ không phải một chiều tiến hóa**. Mô hình văn kiện đổi *tính nhất quán do hệ thống bảo đảm* lấy *tốc độ đọc*. Sự đánh đổi ấy hợp lý với một trang thương mại điện tử hiển thị mô tả sản phẩm, nhưng không chấp nhận được với hệ thống quản lý điểm hay tài khoản ngân hàng.
 
+**Bảng 1.14. Bốn mô hình, một sự thật — khác nhau ở cách biểu diễn liên kết**
+
+| Mô hình | Liên kết biểu diễn bằng | Trần An học thêm lớp A2 | Hệ quả |
+|---|---|---|---|
+| Phân cấp | **vị trí** trong cây, mỗi con một cha | tạo **bản sao thứ hai** của Trần An dưới A2 | dư thừa quay lại, do mô hình ép buộc |
+| Mạng | **con trỏ vật lý** tới địa chỉ lưu trữ | thêm một con trỏ từ A2 tới Trần An | một bản, nhưng lập trình phải lần theo đường đi dựng sẵn |
+| Quan hệ | **giá trị** khớp nhau giữa các bảng | **thêm một dòng** `(HV01, A2)` vào `GHIDANH` | không bản sao, không con trỏ, hỏi được theo mọi hướng |
+| Văn kiện (NoSQL) | **vị trí** lồng nhau trong văn kiện | văn kiện A2 chứa **một bản sao nữa** của Trần An | đọc nhanh, nhưng người lập trình tự lo nhất quán |
+
 **Tổng kết ví dụ.** Bốn mô hình vừa xét đều lưu đúng một sự thật như nhau, nhưng khác nhau ở chỗ **liên kết được biểu diễn bằng cái gì**: mô hình phân cấp và mô hình văn kiện dùng *vị trí lồng nhau*, mô hình mạng dùng *con trỏ*, còn mô hình quan hệ dùng *giá trị*. Chính lựa chọn cuối cùng — dùng giá trị — mới cho phép mô hình quan hệ vừa loại bỏ được dư thừa, vừa giữ được sự đơn giản cho người lập trình.
 
 Bước ngoặt lớn nhất trong bảng trên xảy ra năm **1970**, khi E. F. Codd công bố mô hình quan hệ. Đóng góp mang tính cách mạng của Codd không phải là ý tưởng "lưu dữ liệu thành bảng" — bảng biểu đã có từ lâu — mà là hai điều sau.
@@ -449,6 +592,16 @@ Trong quá trình thiết kế, mô hình dữ liệu được xây dựng qua b
 - **Mô hình logic** *(logical model)*: chuyển mô hình quan niệm sang một mô hình dữ liệu cụ thể, thường là mô hình quan hệ, nhưng vẫn chưa gắn với một hệ quản trị nào. Ở mức này ta viết `HOCVIEN(MAHV, HOTEN, MALOP)` cùng các khóa. Đây là nội dung Chương 3.
 - **Mô hình vật lý** *(physical model)*: mô tả cách dữ liệu thực sự được lưu trữ trên thiết bị — kiểu dữ liệu cụ thể của hệ quản trị, chỉ mục, phân vùng. Mức này thuộc phạm vi học phần *Hệ quản trị cơ sở dữ liệu*.
 
+**Hình 1.7. Ba mức của mô hình dữ liệu — ba chặng của một hành trình thiết kế**
+
+```mermaid
+flowchart LR
+    Q["<b>MÔ HÌNH QUAN NIỆM</b><br/>Nghiệp vụ có những gì?<br/>─────────<br/>lược đồ ER<br/><i>Chương 2</i>"] --> L["<b>MÔ HÌNH LOGIC</b><br/>Tổ chức thành bảng ra sao?<br/>─────────<br/>HOCVIEN(<u>MAHV</u>, HOTEN, MALOP)<br/><i>Chương 3</i>"] --> V["<b>MÔ HÌNH VẬT LÝ</b><br/>Lưu lên đĩa thế nào?<br/>─────────<br/>kiểu dữ liệu, chỉ mục, phân vùng<br/><i>học phần Hệ quản trị</i>"]
+    style Q fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
+    style L fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
+    style V fill:#EDEDED,stroke:#7F7F7F
+```
+
 Ba mức này tương ứng với ba câu hỏi kế tiếp nhau: **"Nghiệp vụ có những gì?"** rồi **"Tổ chức thành bảng ra sao?"** rồi **"Lưu lên đĩa thế nào?"**. Người thiết kế đi tuần tự từ trên xuống; đi tắt là nguyên nhân phổ biến nhất của những thiết kế hỏng.
 
 ### 1.4.4. Lược đồ và thể hiện
@@ -459,9 +612,13 @@ Ba mức này tương ứng với ba câu hỏi kế tiếp nhau: **"Nghiệp v�
 >
 > **Thể hiện** *(instance)* là **tập dữ liệu thực tế** đang có trong cơ sở dữ liệu **tại một thời điểm cụ thể**. Thể hiện **thay đổi liên tục** theo từng thao tác thêm, sửa, xóa.
 
+![](hinh-ve/slide/internet/khuon_banh.jpg){width=55%}
+
+*Ảnh minh họa: một khuôn nướng nhiều ngăn. Khuôn dùng được hàng nghìn lần, mỗi lần cho ra mẻ bánh khác nhau về nhân và màu nhưng cùng hình dạng — lược đồ là cái khuôn, mỗi thể hiện là một mẻ bánh — Nguồn: Wikimedia Commons · Melissa · CC BY 2.0.*
+
 Cách phân biệt dễ nhớ nhất: **lược đồ là cái khuôn, thể hiện là cái bánh đúc ra từ khuôn đó**. Một cái khuôn dùng được hàng nghìn lần, mỗi lần cho ra một chiếc bánh khác nhau về nhân, về màu, nhưng tất cả đều cùng hình dạng.
 
-**Hình 1.5. Một lược đồ — nhiều thể hiện theo thời gian**
+**Hình 1.8. Một lược đồ — nhiều thể hiện theo thời gian**
 
 ```mermaid
 flowchart LR
@@ -493,7 +650,7 @@ Vấn đề đặt ra như sau. Cùng một cơ sở dữ liệu của trường
 
 Ủy ban ANSI/SPARC vào những năm 1970 đưa ra lời giải: **tách sự mô tả dữ liệu thành ba mức trừu tượng** [3, tr. 46–49].
 
-**Hình 1.6. Kiến trúc ba mức ANSI/SPARC và hai loại độc lập dữ liệu**
+**Hình 1.9. Kiến trúc ba mức ANSI/SPARC và hai loại độc lập dữ liệu**
 
 ```mermaid
 flowchart LR
@@ -516,13 +673,25 @@ flowchart LR
 
 **Mức trong** *(internal level)* là góc nhìn của hệ quản trị cơ sở dữ liệu: dữ liệu được lưu vào tệp nào, tổ chức theo cấu trúc gì, có chỉ mục nào để tìm nhanh. Mức này cũng chỉ có một.
 
+![](hinh-ve/slide/internet/thuc_don_combo.jpg){width=60%}
+
+*Ảnh minh họa: bảng thực đơn của một quán ăn nhanh. Khách chỉ thấy tên món và giá — đó là mức ngoài; sổ công thức của bếp là mức quan niệm; kho và tủ đông là mức trong — Nguồn: Wikimedia Commons · Dave O · CC BY-SA 2.0.*
+
 Một phép loại suy giúp ghi nhớ ba mức trên là **nhà hàng**. Mức ngoài là **thực đơn** mà khách cầm trên tay — chỉ ghi tên món và giá, và nhà hàng có thể có nhiều thực đơn khác nhau cho khách chay, cho trẻ em, cho tiệc cưới. Mức quan niệm là **sổ công thức tổng thể** mà bếp trưởng nắm giữ — đầy đủ mọi món, định lượng từng nguyên liệu. Mức trong là **kho và tủ đông** — nguyên liệu cất ở ngăn nào, sắp xếp ra sao. Điểm mấu chốt: **khách không cần biết kho lạnh nằm ở đâu, và bếp trưởng không cần biết khách đang đọc trang nào của thực đơn.** Mỗi mức làm việc của mình.
+
+**Bảng 1.15. Ba mức kiến trúc qua phép loại suy nhà hàng**
+
+| Mức | Trong nhà hàng | Trong cơ sở dữ liệu | Có mấy cái? | Ai quan tâm |
+|---|---|---|:--:|---|
+| **Ngoài** | Thực đơn khách cầm: chỉ tên món và giá; có thực đơn chay, trẻ em, tiệc | Khung nhìn: phòng Kế toán chỉ thấy `MASV, HOTEN, HOCPHI` | nhiều | từng nhóm người dùng |
+| **Quan niệm** | Sổ công thức tổng thể của bếp trưởng: đủ mọi món, định lượng | Toàn bộ bảng, cột, liên kết, ràng buộc — sản phẩm của thiết kế | một | người thiết kế |
+| **Trong** | Kho và tủ đông: nguyên liệu cất ngăn nào | Tệp, chỉ mục, phân vùng trên đĩa | một | hệ quản trị, quản trị viên |
 
 ### 1.5.2. Phân biệt kiến trúc ba mức với ba mức của mô hình dữ liệu
 
 Đến đây người học đã gặp **hai bộ ba mức** khác nhau: ba mức mô hình dữ liệu ở mục 1.4.3 và ba mức kiến trúc ở mục 1.5.1. Vì tên gọi có phần trùng nhau — cả hai đều có từ "quan niệm" và "vật lý" — nên đây là chỗ nhầm lẫn kinh điển. Cần phân biệt dứt khoát.
 
-**Bảng 1.8. Hai bộ "ba mức" — không được lẫn lộn**
+**Bảng 1.16. Hai bộ "ba mức" — không được lẫn lộn**
 
 | | **Ba mức của MÔ HÌNH dữ liệu** *(mục 1.4.3)* | **Ba mức của KIẾN TRÚC** *(mục 1.5.1)* |
 |---|---|---|
@@ -549,6 +718,27 @@ Lợi ích lớn nhất mà kiến trúc ba mức mang lại có tên riêng.
 
 > **Ví dụ 1.4 (độc lập logic).** Nhà trường quyết định bổ sung cột `EMAIL` vào bảng `SINHVIEN`. Đây là thay đổi ở mức quan niệm. Khung nhìn của phòng Kế toán vốn chỉ gồm `MASV, HOTEN, HOCPHI` nên **hoàn toàn không bị ảnh hưởng**, và phần mềm kế toán chạy bình thường như chưa có gì xảy ra.
 
+Ví dụ 1.4 nhìn trên dữ liệu: lược đồ quan niệm đổi, khung nhìn của phòng Kế toán **không đổi một cột**.
+
+**Bảng 1.17. Khung nhìn của phòng Kế toán trước và sau khi thêm cột `EMAIL` vào mức quan niệm**
+
+*Mức quan niệm — trước:* `SINHVIEN(MASV, HOTEN, NGAYSINH, DIEM, HOCPHI, MALOP)` · *sau:* `SINHVIEN(MASV, HOTEN, NGAYSINH, DIEM, HOCPHI, MALOP, EMAIL)`
+
+| Khung nhìn Kế toán — trước | | | | Khung nhìn Kế toán — sau | | |
+|---|---|---|---|---|---|---|
+| **MASV** | **HOTEN** | **HOCPHI** | | **MASV** | **HOTEN** | **HOCPHI** |
+| SV01 | Trần An | 3.000.000 | | SV01 | Trần An | 3.000.000 |
+| SV02 | Lê Bình | 2.500.000 | | SV02 | Lê Bình | 2.500.000 |
+
+**Bảng 1.18. Bốn thay đổi thường gặp và loại độc lập dữ liệu tương ứng**
+
+| Thay đổi | Xảy ra ở mức | Mức phía trên có phải sửa? | Loại độc lập |
+|---|---|---|---|
+| Thêm chỉ mục trên `HOTEN` (Ví dụ 1.3) | trong | không — lược đồ quan niệm nguyên vẹn | **vật lý** |
+| Chuyển dữ liệu sang ổ đĩa nhanh hơn | trong | không | **vật lý** |
+| Thêm cột `EMAIL` (Ví dụ 1.4) | quan niệm | không — khung nhìn Kế toán không dùng cột ấy | **logic** |
+| Xóa cột `HOCPHI` mà Kế toán đang dùng | quan niệm | **có** — không che giấu được với mức ngoài | logic *không đạt được* |
+
 Trong thực tế, **độc lập vật lý dễ đạt được hơn độc lập logic**. Các hệ quản trị hiện đại bảo đảm độc lập vật lý gần như trọn vẹn. Độc lập logic khó hơn vì có những thay đổi ở mức quan niệm — chẳng hạn xóa hẳn một cột mà khung nhìn đang dùng — thì không cách nào che giấu được với mức ngoài.
 
 ### 1.5.4. Điều gì xảy ra khi mất tính độc lập dữ liệu
@@ -557,9 +747,25 @@ Giá trị của tính độc lập dữ liệu chỉ thật sự hiện ra khi 
 
 Nay trung tâm cần lưu thêm địa chỉ thư điện tử. Vì không có tầng trung gian nào che chắn, hậu quả dây chuyền như sau. Cấu trúc dòng dữ liệu thay đổi, nên **cả năm chương trình** đều phải được mở ra, sửa lại phần đọc tệp, biên dịch lại và triển khai lại. Trong thời gian chuyển đổi, tệp cũ và tệp mới có cấu trúc khác nhau, nên phải viết thêm một chương trình chuyển đổi dữ liệu. Nếu một trong năm chương trình bị bỏ sót — điều rất dễ xảy ra khi hệ thống đã chạy nhiều năm và người viết ban đầu đã nghỉ việc — thì chương trình đó sẽ đọc sai toàn bộ dữ liệu từ vị trí ký tự thứ 71 trở đi, mà **không báo lỗi gì cả**, chỉ đơn giản là hiển thị những chuỗi ký tự vô nghĩa.
 
+**Bảng 1.19. Dòng dữ liệu cố định độ rộng trong `HOCVIEN.dat` — trước và sau khi chèn 30 ký tự email**
+
+| | Ký tự 1–10 | Ký tự 11–60 | Ký tự 61–70 | Ký tự 71–100 |
+|---|---|---|---|---|
+| **Quy ước cũ** | `HV01      ` | `Trần An` *(đệm tới 50)* | `0905111222` | *(không có)* |
+| **Quy ước mới** | `HV01      ` | `Trần An` *(đệm tới 50)* | `0905111222` | `an.tran@abc.edu.vn` *(đệm tới 30)* |
+| **Quy ước mới, nếu email chèn TRƯỚC số điện thoại** | `HV01      ` | `Trần An` | `an.tran@ab` | `c.edu.vn  0905111222` |
+
+Dòng cuối cho thấy điều nguy hiểm: chương trình cũ bị bỏ sót vẫn đọc ký tự 61–70 làm số điện thoại và nhận về `an.tran@ab` — một chuỗi vô nghĩa — mà **không có dòng báo lỗi nào**.
+
 Với kiến trúc ba mức, cũng yêu cầu ấy được xử lý bằng một thao tác duy nhất là thêm một cột vào lược đồ quan niệm. Các ứng dụng cũ vốn không hỏi tới cột mới nên tiếp tục chạy nguyên vẹn.
 
 **Đây chính là câu trả lời cho câu hỏi "học kiến trúc ba mức để làm gì".** Nó không phải là lý thuyết suông; nó là cơ chế quyết định chi phí bảo trì của hệ thống trong suốt vòng đời — thường kéo dài mười đến hai mươi năm.
+
+> **Tự kiểm tra 1.5.** *(đáp án ở cuối chương)*
+>
+> 1. "Cơ sở dữ liệu của tôi thay đổi liên tục" — câu này nói về lược đồ hay thể hiện?
+> 2. Quản trị viên chuyển toàn bộ dữ liệu sang máy chủ mới, ứng dụng không phải sửa. Đây là loại độc lập nào?
+> 3. Ba mức mô hình dữ liệu và ba mức kiến trúc ANSI/SPARC khác nhau ở điểm căn bản nào?
 
 ---
 
@@ -571,7 +777,7 @@ Với kiến trúc ba mức, cũng yêu cầu ấy được xử lý bằng mộ
 
 Muốn làm việc với cơ sở dữ liệu, người dùng phải "nói chuyện" với hệ quản trị bằng một ngôn ngữ. Các câu lệnh được chia thành bốn nhóm theo mục đích sử dụng.
 
-**Bảng 1.9. Bốn nhóm ngôn ngữ cơ sở dữ liệu**
+**Bảng 1.20. Bốn nhóm ngôn ngữ cơ sở dữ liệu**
 
 | Nhóm | Tên đầy đủ | Mục đích | Lệnh tiêu biểu |
 |---|---|---|---|
@@ -590,11 +796,25 @@ Cần nhắc lại phạm vi: học phần này **không dạy viết câu lện
 
 > **Định nghĩa 1.8.** **Giao dịch** *(transaction)* là một **dãy các thao tác trên cơ sở dữ liệu được xem như một đơn vị công việc không thể chia nhỏ**: hoặc toàn bộ dãy thao tác đó được thực hiện trọn vẹn, hoặc không thao tác nào có hiệu lực.
 
+![](hinh-ve/slide/internet/may_atm.jpg){width=45%}
+
+*Ảnh minh họa: một buồng ATM ở Hà Nội. Mỗi lần rút tiền là một giao dịch: trừ tài khoản và nhả tiền phải cùng xảy ra hoặc cùng không xảy ra — máy mất điện giữa chừng thì tài khoản phải được hoàn lại — Nguồn: Wikimedia Commons · Phan Minh Tuấn · CC BY-SA 4.0.*
+
 Ví dụ kinh điển là chuyển khoản ngân hàng. Chuyển 1 triệu đồng từ tài khoản A sang tài khoản B gồm hai thao tác: trừ 1 triệu ở A, rồi cộng 1 triệu vào B. Nếu hệ thống mất điện đúng vào khoảnh khắc giữa hai thao tác, tiền đã bị trừ ở A nhưng chưa được cộng vào B — **1 triệu đồng biến mất**. Cơ chế giao dịch bảo đảm tình huống đó không xảy ra: khi hệ thống khởi động lại, thao tác trừ tiền dở dang sẽ được hoàn tác, số dư của A trở về nguyên trạng.
+
+**Bảng 1.21. Số dư hai tài khoản qua bốn thời điểm của một lần chuyển 1 triệu đồng**
+
+| Thời điểm | Tài khoản A | Tài khoản B | Tổng A + B | Nhận xét |
+|---|:--:|:--:|:--:|---|
+| Trước giao dịch | 5.000.000 | 2.000.000 | 7.000.000 | |
+| Sau bước 1 (trừ A) | 4.000.000 | 2.000.000 | 6.000.000 | trạng thái trung gian, tổng đang sai |
+| Mất điện ngay lúc này, **không có** cơ chế giao dịch | 4.000.000 | 2.000.000 | 6.000.000 | **1 triệu biến mất vĩnh viễn** |
+| Mất điện, **có** cơ chế giao dịch: hoàn tác bước 1 | 5.000.000 | 2.000.000 | 7.000.000 | như chưa có gì xảy ra |
+| Hoàn tất bình thường (bước 2 cộng B) | 4.000.000 | 3.000.000 | 7.000.000 | tổng bảo toàn |
 
 Một giao dịch đúng đắn phải thỏa mãn bốn tính chất, gọi tắt là **ACID**.
 
-**Bảng 1.10. Bốn tính chất ACID của giao dịch**
+**Bảng 1.22. Bốn tính chất ACID của giao dịch**
 
 | Chữ | Tính chất | Nội dung | Ví dụ với thao tác chuyển khoản |
 |:--:|---|---|---|
@@ -610,6 +830,17 @@ Nội dung giao dịch chỉ được trình bày ở **mức nhận biết** tr
 ### 1.6.3. Các chức năng của một hệ quản trị cơ sở dữ liệu
 
 Một hệ quản trị cơ sở dữ liệu hiện đại đảm nhận đồng thời nhiều chức năng, có thể nhóm thành sáu nhóm chính [3, tr. 12–15].
+
+**Bảng 1.23. Sáu nhóm chức năng của hệ quản trị và việc cụ thể tại Trung tâm ABC**
+
+| Chức năng | Việc cụ thể tại ABC | Liên hệ |
+|---|---|---|
+| Quản lý từ điển dữ liệu | Lưu metadata của mọi bảng, tra mỗi khi xử lý yêu cầu | mục 1.1.4, 1.6.5 |
+| Quản lý lưu trữ | Quyết định cất bảng `HOCVIEN` ở tệp nào, tạo chỉ mục trên `HOTEN` | độc lập vật lý, mục 1.5.3 |
+| Biến đổi và trình bày | Lưu ngày sinh dạng số, hiển thị `12/04/2005` | |
+| Quản lý an toàn | Kế toán xem học phí, không xem điểm | khung nhìn, mục 1.5.1 |
+| Điều khiển truy cập đồng thời | Hai nhân viên cùng ghi danh vào chỗ trống cuối cùng: chỉ một người thành công | tính cô lập, mục 1.6.2 |
+| Sao lưu và phục hồi | Sao lưu hằng đêm, khôi phục sau sự cố đĩa | tính bền vững, mục 1.6.2 |
 
 **Quản lý từ điển dữ liệu.** Hệ quản trị lưu trữ toàn bộ metadata và tra cứu chúng mỗi khi xử lý một yêu cầu. Đây là chức năng nền tảng nhất — mọi chức năng khác đều dựa lên nó.
 
@@ -627,7 +858,7 @@ Một hệ quản trị cơ sở dữ liệu hiện đại đảm nhận đồng
 
 Như đã phân biệt ở mục 1.2.2, *hệ cơ sở dữ liệu* rộng hơn nhiều so với phần mềm hệ quản trị. Nó gồm **năm thành phần**.
 
-**Hình 1.7. Năm thành phần của một hệ cơ sở dữ liệu**
+**Hình 1.10. Năm thành phần của một hệ cơ sở dữ liệu**
 
 ```mermaid
 flowchart LR
@@ -659,7 +890,7 @@ Metadata đã được giới thiệu ở mục 1.1.4 như một khái niệm. M
 > | SINHVIEN | NGAYSINH | date | YES | *(trống)* |
 > | SINHVIEN | DIEMTB | decimal | YES | *(trống)* |
 >
-> Hãy đối chiếu kết quả này với Bảng 1.3 ở mục 1.1.4. Đó chính là **cùng một metadata**: một bên là cách con người ghi ra giấy khi thiết kế, một bên là cách hệ quản trị tự lưu lại để máy sử dụng.
+> Hãy đối chiếu kết quả này với Bảng 1.5 ở mục 1.1.4. Đó chính là **cùng một metadata**: một bên là cách con người ghi ra giấy khi thiết kế, một bên là cách hệ quản trị tự lưu lại để máy sử dụng.
 
 Quan sát này có ý nghĩa vượt xa một thao tác kỹ thuật. Nó cho thấy metadata **không phải là tài liệu đi kèm cơ sở dữ liệu, mà là một bộ phận của chính cơ sở dữ liệu**. Nhờ vậy hệ quản trị có thể tự đọc metadata để kiểm tra dữ liệu nhập vào, và các công cụ bên ngoài có thể tự sinh ra tài liệu thiết kế hoặc mã nguồn từ cơ sở dữ liệu đang chạy.
 
@@ -669,13 +900,13 @@ Quan sát này có ý nghĩa vượt xa một thao tác kỹ thuật. Nó cho th
 
 Mục này vận dụng toàn bộ khái niệm của chương vào một tình huống trọn vẹn. Ví dụ ở đây sẽ được dùng lại và mở rộng liên tục cho đến hết Chương 5, nên người học cần nắm thật chắc.
 
-**Tình huống.** Trung tâm Anh ngữ ABC quản lý toàn bộ hoạt động bằng **một bảng dữ liệu duy nhất**, chính là Bảng 1.5 đã trình bày ở mục 1.3.2. Ta phân tích tình huống này theo bốn bước.
+**Tình huống.** Trung tâm Anh ngữ ABC quản lý toàn bộ hoạt động bằng **một bảng dữ liệu duy nhất**, chính là Bảng 1.10 đã trình bày ở mục 1.3.2. Ta phân tích tình huống này theo bốn bước.
 
 **Bước 1 — Nhận diện dư thừa.** Như đã đếm ở mục 1.3.2, thông tin của cô Lê Hoa gồm họ tên và số điện thoại bị lặp lại **ba lần**, tên lớp "Anh cơ bản 1" cũng lặp **ba lần**. Sáu trong hai mươi tư ô là thừa.
 
 **Bước 2 — Chỉ ra ba dị thường.** Dư thừa không dừng lại ở lãng phí; nó sinh ra ba loại sự cố cụ thể khi vận hành.
 
-**Bảng 1.11. Ba dị thường trên bảng phẳng và cách thiết kế mới khắc phục**
+**Bảng 1.24. Ba dị thường trên bảng phẳng và cách thiết kế mới khắc phục**
 
 | Loại dị thường | Tình huống trên bảng phẳng | Hậu quả | Trên thiết kế ba bảng |
 |---|---|---|---|
@@ -687,7 +918,7 @@ Trong ba loại trên, **dị thường xóa nguy hiểm nhất** vì đó là m
 
 **Bước 3 — Tách bảng để khắc phục.** Nguyên tắc tách rất đơn giản về mặt trực giác: **mỗi loại sự vật được lưu vào một bảng riêng**. Ở đây có ba loại sự vật là học viên, lớp học và giáo viên, nên ta tách thành ba bảng.
 
-**Hình 1.8. Từ một bảng phẳng thành ba bảng liên kết**
+**Hình 1.11. Từ một bảng phẳng thành ba bảng liên kết**
 
 ```mermaid
 flowchart LR
@@ -710,9 +941,9 @@ Ba bảng thu được, viết theo quy ước sẽ dùng từ Chương 3 trở 
 - `LOP(MALOP, TENLOP, MAGV)` — trong đó `MAGV` liên kết tới bảng `GIAOVIEN`
 - `HOCVIEN(MAHV, HOTEN, MALOP)` — trong đó `MALOP` liên kết tới bảng `LOP`
 
-Nhưng lược đồ mới chỉ là cái khuôn. Điều thuyết phục nhất là nhìn **chính bốn dòng dữ liệu của Bảng 1.5** được phân bố lại vào ba bảng.
+Nhưng lược đồ mới chỉ là cái khuôn. Điều thuyết phục nhất là nhìn **chính bốn dòng dữ liệu của Bảng 1.10** được phân bố lại vào ba bảng.
 
-**Bảng 1.12. Cùng dữ liệu ấy sau khi tách thành ba bảng**
+**Bảng 1.25. Cùng dữ liệu ấy sau khi tách thành ba bảng**
 
 `GIAOVIEN`
 
@@ -737,19 +968,49 @@ Nhưng lược đồ mới chỉ là cái khuôn. Điều thuyết phục nhất
 | HV03 | Phạm Cường | A1 |
 | HV04 | Võ Dung | A2 |
 
-Hãy đối chiếu với Bảng 1.5. Cô **Lê Hoa** trước đây xuất hiện **ba lần**, nay chỉ còn **một dòng duy nhất** trong bảng `GIAOVIEN`. Tên lớp *"Anh cơ bản 1"* trước lặp ba lần, nay cũng chỉ còn một. Ba dòng học viên của lớp A1 giờ chỉ giữ lại mã lớp `A1` — một giá trị ngắn đóng vai trò **con đường dẫn** tới thông tin đầy đủ nằm ở bảng khác.
+Hãy đối chiếu với Bảng 1.10. Cô **Lê Hoa** trước đây xuất hiện **ba lần**, nay chỉ còn **một dòng duy nhất** trong bảng `GIAOVIEN`. Tên lớp *"Anh cơ bản 1"* trước lặp ba lần, nay cũng chỉ còn một. Ba dòng học viên của lớp A1 giờ chỉ giữ lại mã lớp `A1` — một giá trị ngắn đóng vai trò **con đường dẫn** tới thông tin đầy đủ nằm ở bảng khác.
 
 > **Chú ý — một con số bất ngờ, và bài học rút ra từ nó.** Hãy đếm số ô của thiết kế mới: `GIAOVIEN` có 2 × 3 = 6 ô, `LOP` có 2 × 3 = 6 ô, `HOCVIEN` có 4 × 3 = 12 ô. Tổng cộng **24 ô** — **đúng bằng** 24 ô của bảng phẳng ban đầu. Tách bảng ở quy mô này **không tiết kiệm được ô nào cả**, vì phần dư thừa loại bỏ được vừa đúng bằng phần cột khóa phải thêm vào.
 >
 > Điều đó dẫn tới một kết luận quan trọng: **chuẩn hóa không phải để tiết kiệm dung lượng.** Mục đích thật sự là **loại bỏ dị thường** — tức bảo đảm dữ liệu luôn đúng và không mâu thuẫn. Dung lượng chỉ là hệ quả phụ, và nó chỉ hiện ra khi dữ liệu lớn lên.
 >
+
+**Bảng 1.26. Số ô của hai thiết kế theo quy mô — n là số học viên lớp A1**
+
+| Quy mô | Bảng phẳng: `6(n + 1)` ô | Ba bảng: `12 + 3(n + 1)` ô | Tiết kiệm |
+|---|:--:|:--:|:--:|
+| n = 3 *(ví dụ trên)* | 24 | 24 | 0 % |
+| n = 10 | 66 | 45 | 32 % |
+| n = 30 | 186 | 105 | 44 % |
+| n = 300 | 1.806 | 915 | 49 % |
+
+Hai thiết kế bằng nhau đúng tại n = 3; từ đó trở đi ba bảng luôn ít ô hơn, và tỷ lệ tiết kiệm tiến tới 50 % khi n lớn.
+
 > Thử với quy mô thật: nếu lớp A1 có **30 học viên** thay vì 3, tổng cộng 31 học viên. Bảng phẳng cần 31 × 6 = **186 ô**. Thiết kế ba bảng cần 6 + 6 + 31 × 3 = **105 ô** — tiết kiệm khoảng **44%**. Càng nhiều dữ liệu, khoảng cách càng lớn; nhưng ngay cả khi nó bằng không như ví dụ trên, việc tách vẫn đáng làm, **vì lý do đúng đắn chứ không phải vì lý do dung lượng**.
 
-**Bước 4 — Kiểm chứng.** Cột cuối của Bảng 1.11 đã cho thấy cả ba dị thường đều biến mất trên thiết kế mới. Điều đáng chú ý là chúng biến mất **không phải nhờ một quy tắc vá lỗi nào**, mà nhờ nguyên nhân gốc rễ đã được loại bỏ: sau khi tách, mỗi sự thật chỉ còn được lưu ở **đúng một chỗ**.
+**Bước 4 — Kiểm chứng.** Cột cuối của Bảng 1.24 đã cho thấy cả ba dị thường đều biến mất trên thiết kế mới. Điều đáng chú ý là chúng biến mất **không phải nhờ một quy tắc vá lỗi nào**, mà nhờ nguyên nhân gốc rễ đã được loại bỏ: sau khi tách, mỗi sự thật chỉ còn được lưu ở **đúng một chỗ**.
 
 > **Chú ý — và một lời hẹn với các chương sau.** Ở chương này ta tách bảng **bằng trực giác**, theo cảm nhận "thấy giá trị lặp lại thì tách ra". Cách làm ấy đủ dùng cho một bảng sáu cột, nhưng sẽ sụp đổ khi đứng trước một hệ thống bốn mươi bảng: lúc đó không còn nhìn bằng mắt mà thấy được, và hai người thiết kế sẽ cho ra hai kết quả khác nhau mà không ai chứng minh được ai đúng.
 >
 > Vì vậy học phần cần một **phương pháp**. Chương 2 sẽ thay trực giác bằng một quy trình có kỷ luật để phát hiện ra các loại sự vật cần tách. Chương 3 cho ta cấu trúc chặt chẽ để biểu diễn chúng. Chương 4 bổ sung các ràng buộc bảo vệ tính đúng đắn. Và **Chương 5 sẽ chuẩn hóa lại đúng bảng phẳng này bằng công cụ toán học — kết quả thu được sẽ đúng bằng ba bảng mà hôm nay ta vừa đoán ra, nhưng lần đó ta chứng minh được vì sao nó đúng.**
+
+> **Tự kiểm tra 1.7.** *(đáp án ở cuối chương)*
+>
+> 1. Trên bảng phẳng của ABC, mở lớp A3 chưa có học viên gặp dị thường nào? Vì sao?
+> 2. Vì sao tách bảng ở quy mô 3 học viên không tiết kiệm được ô nào mà vẫn đáng làm?
+> 3. Lệnh `CREATE TABLE` thuộc nhóm ngôn ngữ nào và tác động lên lược đồ hay thể hiện?
+
+---
+
+## ĐÁP ÁN TỰ KIỂM TRA
+
+**Tự kiểm tra 1.1.** *(1)* `7,5` là dữ liệu. Thêm ngữ cảnh "điểm trung bình học kỳ của sinh viên X, thang 10" và xử lý "so với ngưỡng học bổng 8,0" thì thành thông tin "chưa đạt học bổng", dẫn tới hành động không xét học bổng. *(2)* Metadata: nhãn "Họ và tên", "Mã SV" in sẵn và định dạng ngày cấp; dữ liệu: tên của bạn, mã của bạn. *(3)* Không. Với bảng tính, tiêu đề "Điểm" chỉ là một ô chứa chữ; nó không có metadata để biết cột ấy phải là số.
+
+**Tự kiểm tra 1.3.** *(1)* Dư thừa dữ liệu. *(2)* 11 học viên → 66 ô; ba cột phụ thuộc lớp mỗi cột thừa 9 ô → 27 ô thừa (≈ 41 %). *(3)* Chưa cần. Cơ sở dữ liệu đáng giá khi dữ liệu dùng chung nhiều người, khi tính đúng đắn là bắt buộc, và khi hệ thống phải sống lâu dài.
+
+**Tự kiểm tra 1.5.** *(1)* Thể hiện; lược đồ gần như đứng yên. *(2)* Độc lập dữ liệu vật lý: thay đổi ở mức trong, lược đồ quan niệm không đổi. *(3)* Ba mức mô hình là ba chặng nối tiếp của quy trình thiết kế; ba mức kiến trúc là ba tầng mô tả cùng tồn tại suốt vòng đời hệ thống.
+
+**Tự kiểm tra 1.7.** *(1)* Dị thường thêm: mỗi dòng bắt buộc có mã học viên, chưa có học viên thì không thêm được lớp. *(2)* Vì mục đích của việc tách là loại bỏ ba dị thường, không phải tiết kiệm dung lượng; dung lượng chỉ là hệ quả phụ hiện ra khi dữ liệu lớn. *(3)* Nhóm DDL; tác động lên lược đồ (cái khuôn), không phải thể hiện.
 
 ---
 
@@ -808,9 +1069,9 @@ Người học tự trả lời trước khi đối chiếu với gợi ý ở c
 
 **Bài A1.** Với mỗi tình huống sau, cho biết đó là *dữ liệu* hay *thông tin*, và giải thích: (a) dãy số `28, 31, 30, 29`; (b) câu "nhiệt độ trung bình tháng này là 29,5 °C"; (c) ô ghi `0905111111` trong một bảng; (d) câu "80% học viên lớp tối đi học đầy đủ".
 
-**Bài A2.** Chọn một bảng dữ liệu quen thuộc trong đời sống của bạn — danh bạ điện thoại, bảng điểm cá nhân, sổ chi tiêu. Lập **bảng metadata** cho bảng đó theo mẫu Bảng 1.3, gồm bốn cột: tên cột, kiểu dữ liệu, bắt buộc hay không, ràng buộc.
+**Bài A2.** Chọn một bảng dữ liệu quen thuộc trong đời sống của bạn — danh bạ điện thoại, bảng điểm cá nhân, sổ chi tiêu. Lập **bảng metadata** cho bảng đó theo mẫu Bảng 1.5, gồm bốn cột: tên cột, kiểu dữ liệu, bắt buộc hay không, ràng buộc.
 
-**Bài A3.** Lập bảng đối chiếu hai cột giữa hệ thống tệp và cách tiếp cận cơ sở dữ liệu, theo **năm tiêu chí** do bạn tự chọn trong Bảng 1.6.
+**Bài A3.** Lập bảng đối chiếu hai cột giữa hệ thống tệp và cách tiếp cận cơ sở dữ liệu, theo **năm tiêu chí** do bạn tự chọn trong Bảng 1.12.
 
 ### Mức B — Vận dụng
 
@@ -824,7 +1085,7 @@ Người học tự trả lời trước khi đối chiếu với gợi ý ở c
 
 a) Đếm số ô dư thừa và tính tỷ lệ phần trăm.
 b) Chỉ ra **ba dị thường** thêm, sửa, xóa bằng ba tình huống cụ thể.
-c) Đề xuất cách **tách bảng** và vẽ sơ đồ tương tự Hình 1.8.
+c) Đề xuất cách **tách bảng** và vẽ sơ đồ tương tự Hình 1.11.
 
 **Bài B2.** Một trường đại học có phần mềm quản lý điểm đã chạy được tám năm. Nay nhà trường muốn bổ sung cột "điểm rèn luyện" vào hồ sơ sinh viên.
 a) Nếu hệ thống được xây bằng **tệp**, hãy liệt kê những việc phải làm và những rủi ro có thể gặp.
@@ -873,7 +1134,7 @@ Câu trả lời mà hoạt động này hướng tới là **metadata** — b�
 
 *(10 phút)*
 
-Yêu cầu mỗi người học lấy điện thoại, mở danh bạ, và viết ra giấy phần metadata của một mục trong danh bạ: những trường nào có sẵn, trường nào bắt buộc, trường nào chỉ nhận chữ số. Sau đó đối chiếu với Bảng 1.3.
+Yêu cầu mỗi người học lấy điện thoại, mở danh bạ, và viết ra giấy phần metadata của một mục trong danh bạ: những trường nào có sẵn, trường nào bắt buộc, trường nào chỉ nhận chữ số. Sau đó đối chiếu với Bảng 1.5.
 
 Hoạt động này biến khái niệm trừu tượng nhất của mục 1.1 thành thứ người học sờ được, và chuẩn bị trực tiếp cho nhiệm vụ tự học tuần 1.
 
@@ -908,31 +1169,48 @@ Kết quả dùng để điều chỉnh nhịp giảng ở buổi kế tiếp. N
 
 | Hình | Tên hình | Mục |
 |---|---|---|
-| Hình 1.1 | Vai trò trung gian của hệ quản trị cơ sở dữ liệu | 1.2.1 |
-| Hình 1.2 | Hệ thống tệp và cách tiếp cận cơ sở dữ liệu | 1.3.1 |
-| Hình 1.3 | Trung tâm ABC trong mô hình phân cấp — Trần An buộc phải lưu hai lần | 1.4.2 |
-| Hình 1.4 | Trung tâm ABC trong mô hình mạng — Trần An chỉ còn một bản | 1.4.2 |
-| Hình 1.5 | Một lược đồ — nhiều thể hiện theo thời gian | 1.4.4 |
-| Hình 1.6 | Kiến trúc ba mức ANSI/SPARC và hai loại độc lập dữ liệu | 1.5.1 |
-| Hình 1.7 | Năm thành phần của một hệ cơ sở dữ liệu | 1.6.4 |
-| Hình 1.8 | Từ một bảng phẳng thành ba bảng liên kết | 1.7 |
+| Hình 1.1 | Tháp DIKW — cơ sở dữ liệu ở hai tầng dưới, tổn thất bộc lộ ở tầng trên cùng | 1.1.2 |
+| Hình 1.2 | Vai trò trung gian của hệ quản trị cơ sở dữ liệu | 1.2.1 |
+| Hình 1.3 | Hệ thống tệp và cách tiếp cận cơ sở dữ liệu | 1.3.1 |
+| Hình 1.4 | Chuỗi nhân quả từ dư thừa tới quyết định sai — chi phí tăng theo từng mắt xích | 1.3.3 |
+| Hình 1.5 | Trung tâm ABC trong mô hình phân cấp — Trần An buộc phải lưu hai lần | 1.4.2 |
+| Hình 1.6 | Trung tâm ABC trong mô hình mạng — Trần An chỉ còn một bản | 1.4.2 |
+| Hình 1.7 | Ba mức của mô hình dữ liệu — ba chặng của một hành trình thiết kế | 1.4.3 |
+| Hình 1.8 | Một lược đồ — nhiều thể hiện theo thời gian | 1.4.4 |
+| Hình 1.9 | Kiến trúc ba mức ANSI/SPARC và hai loại độc lập dữ liệu | 1.5.1 |
+| Hình 1.10 | Năm thành phần của một hệ cơ sở dữ liệu | 1.6.4 |
+| Hình 1.11 | Từ một bảng phẳng thành ba bảng liên kết | 1.7 |
 
 ## DANH MỤC BẢNG (Chương 1)
 
 | Bảng | Tên bảng | Mục |
 |---|---|---|
-| Bảng 1.1 | Bốn tầng của tháp DIKW, minh họa tại Trung tâm Anh ngữ ABC | 1.1.2 |
-| Bảng 1.2 | Ba dạng dữ liệu | 1.1.3 |
-| Bảng 1.3 | Metadata của bảng `SINHVIEN` | 1.1.4 |
-| Bảng 1.4 | Ba cách phân loại hệ quản trị cơ sở dữ liệu | 1.2.3 |
-| Bảng 1.5 | Tệp phẳng `HOCVIEN_LOP` của Trung tâm Anh ngữ ABC | 1.3.2 |
-| Bảng 1.6 | So sánh hệ thống tệp và cách tiếp cận cơ sở dữ liệu | 1.3.4 |
-| Bảng 1.7 | Các thế hệ mô hình dữ liệu | 1.4.2 |
-| Bảng 1.8 | Hai bộ "ba mức" — không được lẫn lộn | 1.5.2 |
-| Bảng 1.9 | Bốn nhóm ngôn ngữ cơ sở dữ liệu | 1.6.1 |
-| Bảng 1.10 | Bốn tính chất ACID của giao dịch | 1.6.2 |
-| Bảng 1.11 | Ba dị thường trên bảng phẳng và cách thiết kế mới khắc phục | 1.7 |
-| Bảng 1.12 | Cùng dữ liệu ấy sau khi tách thành ba bảng | 1.7 |
+| Bảng 1.1 | Một dữ liệu, ba ngữ cảnh, ba hành động — Ví dụ 1.1 nhìn theo công thức | 1.1.1 |
+| Bảng 1.2 | Bốn tầng của tháp DIKW, minh họa tại Trung tâm Anh ngữ ABC | 1.1.2 |
+| Bảng 1.3 | Ba dạng dữ liệu | 1.1.3 |
+| Bảng 1.4 | Phép loại suy mẫu đơn: cái gì in sẵn, cái gì được điền vào | 1.1.4 |
+| Bảng 1.5 | Metadata của bảng `SINHVIEN` | 1.1.4 |
+| Bảng 1.6 | Ba dòng bảng tính chấp nhận, hệ quản trị từ chối | 1.1.4 |
+| Bảng 1.7 | Ba khái niệm qua phép loại suy thư viện | 1.2.2 |
+| Bảng 1.8 | Ba cách phân loại hệ quản trị cơ sở dữ liệu | 1.2.3 |
+| Bảng 1.9 | Cùng một học viên trong ba tệp của ba phòng — tình huống ở phần Dẫn nhập | 1.3.1 |
+| Bảng 1.10 | Tệp phẳng `HOCVIEN_LOP` của Trung tâm Anh ngữ ABC | 1.3.2 |
+| Bảng 1.11 | Đếm ô thừa theo từng cột của Bảng 1.10 | 1.3.2 |
+| Bảng 1.12 | So sánh hệ thống tệp và cách tiếp cận cơ sở dữ liệu | 1.3.4 |
+| Bảng 1.13 | Các thế hệ mô hình dữ liệu | 1.4.2 |
+| Bảng 1.14 | Bốn mô hình, một sự thật — khác nhau ở cách biểu diễn liên kết | 1.4.2 |
+| Bảng 1.15 | Ba mức kiến trúc qua phép loại suy nhà hàng | 1.5.1 |
+| Bảng 1.16 | Hai bộ "ba mức" — không được lẫn lộn | 1.5.2 |
+| Bảng 1.17 | Khung nhìn của phòng Kế toán trước và sau khi thêm cột `EMAIL` vào mức quan niệm | 1.5.3 |
+| Bảng 1.18 | Bốn thay đổi thường gặp và loại độc lập dữ liệu tương ứng | 1.5.3 |
+| Bảng 1.19 | Dòng dữ liệu cố định độ rộng trong `HOCVIEN.dat` — trước và sau khi chèn 30 ký tự email | 1.5.4 |
+| Bảng 1.20 | Bốn nhóm ngôn ngữ cơ sở dữ liệu | 1.6.1 |
+| Bảng 1.21 | Số dư hai tài khoản qua bốn thời điểm của một lần chuyển 1 triệu đồng | 1.6.2 |
+| Bảng 1.22 | Bốn tính chất ACID của giao dịch | 1.6.2 |
+| Bảng 1.23 | Sáu nhóm chức năng của hệ quản trị và việc cụ thể tại Trung tâm ABC | 1.6.3 |
+| Bảng 1.24 | Ba dị thường trên bảng phẳng và cách thiết kế mới khắc phục | 1.7 |
+| Bảng 1.25 | Cùng dữ liệu ấy sau khi tách thành ba bảng | 1.7 |
+| Bảng 1.26 | Số ô của hai thiết kế theo quy mô — n là số học viên lớp A1 | 1.7 |
 
 ## DANH MỤC TỪ VIẾT TẮT
 

@@ -543,7 +543,7 @@ d) Sau khi tách, cần bao nhiêu dòng? Tính tỷ lệ tiết kiệm.
 a) Đề xuất một phương án **phi chuẩn hóa** cụ thể.
 b) Chỉ ra **dư thừa** mà phương án ấy tạo ra và **dị thường** có thể phát sinh.
 c) Đề xuất **cơ chế bảo đảm** dữ liệu dư thừa luôn khớp.
-d) Nêu **điều kiện** để phương án này chấp nhận được, đối chiếu Bảng 5.11.
+d) Nêu **điều kiện** để phương án này chấp nhận được, đối chiếu Bảng 5.23.
 
 
 ??? success "Lời giải bài C3"

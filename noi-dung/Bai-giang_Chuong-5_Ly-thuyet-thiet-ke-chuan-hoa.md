@@ -1,6 +1,6 @@
 # CHƯƠNG 5. LÝ THUYẾT THIẾT KẾ CƠ SỞ DỮ LIỆU QUAN HỆ (CHUẨN HÓA)
 
-> **Ghi chú biên soạn (v4 — bản giáo trình).** Bản này viết lại Chương 5 theo **văn phong giáo trình**, thống nhất với bốn chương trước. Hệ thống mục **5.1–5.10 khớp tuyệt đối với Mục 8 của đề cương chi tiết** *(12 tiết · CLO2, CLO3)*, trong đó **đã tích hợp trọn vẹn hai chuyên đề cũ** — *chuẩn hóa và phụ thuộc hàm*, *phép tách lược đồ và thuật toán nâng cao*. So với bản trước, chương này **bổ sung bốn nội dung**: ① **thuật toán tìm TẤT CẢ khóa** kèm mẹo rút gọn *(đề cương mục 5.5)*; ② **hiện tượng bộ giả** *(spurious tuples)* được gọi đúng tên và minh họa bằng dữ liệu *(đề cương mục 5.8)*; ③ **phụ thuộc đa trị và dạng chuẩn 4** trình bày đầy đủ kèm thuật toán tách *(đề cương mục 5.10)*; ④ **mục 5.10** gom BCNF, 4NF và phi chuẩn hóa thành một mục hoàn chỉnh. Số hình: **13**. Hoạt động tổ chức lớp học ở **Phụ lục 5A**. Tài liệu tham khảo: [1] Tô Văn Nam (2005); [2] Vũ Đức Thi (1997); [3] Coronel & Morris, *Database Systems*, Ch.6.
+> **Ghi chú biên soạn (v5 — bản giáo trình, tăng cường dữ liệu minh họa cho người tự học).** Bản này giữ nguyên hệ thống mục **5.1–5.11 khớp với Mục 8 của đề cương chi tiết** *(12 tiết · CLO2, CLO3)*, văn phong giáo trình và bốn nội dung bổ sung của bản v4 *(thuật toán tìm tất cả khóa, bộ giả, phụ thuộc đa trị – 4NF, mục 5.10 hoàn chỉnh)*. So với v4, có ba nhóm thay đổi: ① **mọi khái niệm trước đây chỉ có ký hiệu nay đều có bảng dữ liệu để nhìn thấy** — phụ thuộc bộ phận và bắc cầu trên dữ liệu *(Bảng 5.4, 5.5)*, bao đóng quét một lượt thì sót *(Bảng 5.8)*, phân nhóm TN/TG/TĐ cho lược đồ ABC *(Bảng 5.11)*, chẩn đoán từng phụ thuộc hàm bằng hai câu hỏi *(Bảng 5.12)*, bộ giả và tách đúng trên cùng ba dòng *(Bảng 5.14, 5.15)*, phụ thuộc hàm bị "xé" *(Bảng 5.16)*, lược đồ 3NF-không-BCNF và cái giá khi tách *(Bảng 5.17, Ví dụ 5.9 mới)*, bốn bảng dữ liệu sau chuẩn hóa *(Bảng 5.20)*; ② **mỗi luật Armstrong một ví dụ ABC** *(Bảng 5.7)*, ba câu hỏi quy về bao đóng *(Bảng 5.9)*, lưới tám tập con minh họa mẹo rút gọn *(Hình 5.6)*, bước 2 của phủ tối thiểu viết thành bảng; Ví dụ 5.6 sửa lại dữ liệu cho nhất quán với quy tắc "mỗi lớp một giáo viên"; ③ thêm năm hộp **Tự kiểm tra** cuối các mục 5.2, 5.4, 5.5, 5.7, 5.8 với đáp án trước phần Câu hỏi ôn tập. Số hình: **14**; số bảng: **25**; ngoài ra có **6 ảnh minh họa thực tế** không đánh số (Wikimedia Commons, giấy phép CC/PD, ghi nguồn dưới ảnh). Hoạt động tổ chức lớp học ở **Phụ lục 5A**. Tài liệu tham khảo: [1] Tô Văn Nam (2005); [2] Vũ Đức Thi (1997); [3] Coronel & Morris, *Database Systems*, Ch.6.
 >
 > ⏱️ **Lưu ý về thời lượng.** Đề cương dành **0,5 tiết** cho mục 5.10, nhưng mục này nay chứa **BCNF**, **4NF đầy đủ kèm thuật toán tách**, và **phi chuẩn hóa**. Nếu lớp không kịp, khuyến nghị giảng trên lớp phần **5.10.1 (BCNF)** và **5.10.4 (phi chuẩn hóa)**, chuyển **5.10.2–5.10.3 (phụ thuộc đa trị và 4NF)** sang **tự học có hướng dẫn** — hai tiểu mục ấy đã được viết đủ chi tiết để người học tự đọc.
 
@@ -25,7 +25,7 @@ Sau khi học xong chương này, người học có thể:
 
 ## DẪN NHẬP
 
-Bảng 4.13 ở cuối Chương 4 kết thúc bằng một dòng đáng suy nghĩ. Bốn chương đã đi qua, thiết kế cơ sở dữ liệu của Trung tâm Anh ngữ ABC đã tốt lên rất nhiều — nhưng ở cột cuối cùng, câu hỏi *"chứng minh được không?"* nhận bốn lần trả lời **"không"**.
+Bảng 4.26 ở cuối Chương 4 kết thúc bằng một dòng đáng suy nghĩ. Bốn chương đã đi qua, thiết kế cơ sở dữ liệu của Trung tâm Anh ngữ ABC đã tốt lên rất nhiều — nhưng ở cột cuối cùng, câu hỏi *"chứng minh được không?"* nhận bốn lần trả lời **"không"**.
 
 Ở Chương 1 ta tách bảng vì *"thấy giá trị lặp lại"*. Ở Chương 2 ta tách thực thể vì *"thấy quan hệ nhiều–nhiều"*. Ở Chương 3 ta đặt khóa ngoại vì *"quy tắc ánh xạ bảo thế"*. Ở Chương 4 ta bỏ cột `SISO` vì *"bảng tầm ảnh hưởng có 5 trên 6 ô cộng"*. Mọi lần đều **đúng** — nhưng mọi lần đều dựa vào **kinh nghiệm và trực giác**, không phải chứng minh.
 
@@ -144,6 +144,10 @@ Hai loại sau là **hai thủ phạm** gây ra dị thường, và toàn bộ v
 
 > **Định nghĩa 5.3.** Phụ thuộc hàm `X → Y` là **bộ phận** nếu tồn tại tập con thực sự `X' ⊂ X` sao cho `X' → Y`. Nói cách khác: `Y` chỉ cần **một phần** của `X` là đã xác định được.
 
+![](hinh-ve/slide/internet/ket_hai_chia.jpg){width=45%}
+
+*Ảnh minh họa: phòng két an toàn của một ngân hàng. Mỗi ngăn chỉ mở được khi tra đủ hai chìa — chìa của ngân hàng và chìa của khách. Một khóa phức hợp cũng vậy: thuộc tính nào chỉ cần một trong hai chìa là đã mở được, thuộc tính ấy đang phụ thuộc bộ phận — Nguồn: Wikimedia Commons · FUAALIW kwo naucm · CC BY-SA 4.0.*
+
 Loại này chỉ xuất hiện khi khóa là **khóa phức hợp** — vì phải có "phần" thì mới có "một phần".
 
 **Hình 5.2. Phụ thuộc bộ phận — phép loại suy ổ khóa hai chìa**
@@ -160,7 +164,23 @@ flowchart LR
     style BAD2 fill:#FFD9D9,stroke:#C00000
 ```
 
-Vì sao phụ thuộc bộ phận gây hại? Vì nó **buộc dữ liệu phải lặp lại**. Nếu `HOTEN` chỉ phụ thuộc vào `MAHV` nhưng lại nằm trong bảng có khóa `(MAHV, MALOP)`, thì học viên ghi danh bao nhiêu lớp, tên của người đó **lặp lại bấy nhiêu lần** — đúng gốc rễ dư thừa của mục 1.3.
+Vì sao phụ thuộc bộ phận gây hại? Vì nó **buộc dữ liệu phải lặp lại**. Nếu `HOTEN` chỉ phụ thuộc vào `MAHV` nhưng lại nằm trong bảng có khóa `(MAHV, MALOP)`, thì học viên ghi danh bao nhiêu lớp, tên của người đó **lặp lại bấy nhiêu lần** — đúng gốc rễ dư thừa của mục 1.3. Bảng dưới đây cho thấy điều đó trên bốn dòng dữ liệu.
+
+**Bảng 5.4. Phụ thuộc bộ phận nhìn trên dữ liệu — `GHIDANH_MORONG` với khóa `(MAHV, MALOP)`**
+
+| MAHV | MALOP | HOTEN | HOCPHI |
+|---|---|---|---|
+| HV01 | A1 | **Trần An** | 2.000.000 |
+| HV01 | A2 | **Trần An** | 2.500.000 |
+| HV01 | A3 | **Trần An** | 2.200.000 |
+| HV02 | A1 | Lê Bình | 1.800.000 |
+
+| Thuộc tính | Phụ thuộc vào | Loại | Hệ quả trên bảng |
+|---|---|---|---|
+| `HOTEN` | chỉ `MAHV` — **nửa khóa** | **Bộ phận** | HV01 ghi danh ba lớp → "Trần An" chép **ba lần**; sửa một dòng thành "Trần Văn An" là mâu thuẫn ngay |
+| `HOCPHI` | cả `(MAHV, MALOP)` | Đầy đủ | Mỗi dòng một giá trị riêng, không lặp |
+
+Che cột `MALOP` đi, cột `HOTEN` vẫn đọc được từ `MAHV` — đó là dấu hiệu nhận biết phụ thuộc bộ phận nhanh nhất khi nhìn dữ liệu.
 
 ### 5.2.4. Phụ thuộc bắc cầu
 
@@ -180,7 +200,30 @@ flowchart LR
 
 Vì sao bắc cầu gây hại? Cũng vì lặp lại, nhưng theo cơ chế khác. Nếu `HOTEN_GV` nằm trong bảng `LOP`, thì một giáo viên phụ trách bao nhiêu lớp, tên của người ấy **lặp lại bấy nhiêu lần**. Đây chính xác là tình huống cô Lê Hoa lặp ba lần ở Bảng 1.5 của Chương 1 — nay đã có tên gọi.
 
+**Bảng 5.5. Phụ thuộc bắc cầu nhìn trên dữ liệu — `LOP` với khóa `MALOP`**
+
+| MALOP | TENLOP | MAGV | HOTEN_GV |
+|---|---|---|---|
+| A1 | Anh cơ bản 1 | GV1 | **Lê Hoa** |
+| A3 | Anh nâng cao | GV1 | **Lê Hoa** |
+| A4 | Luyện thi IELTS | GV1 | **Lê Hoa** |
+| A2 | Anh giao tiếp | GV2 | Trần Mai |
+
+| Chặng | Phụ thuộc | Đọc |
+|:--:|---|---|
+| 1 | `MALOP → MAGV` | biết lớp thì biết mã giáo viên |
+| 2 | `MAGV → HOTEN_GV` | biết mã giáo viên thì biết tên |
+| 1 + 2 | `MALOP → HOTEN_GV` *(đi vòng)* | tên giáo viên "bám" vào lớp qua trung gian `MAGV` — nên cô Lê Hoa dạy ba lớp thì tên chép ba lần |
+
+Hai dị thường lộ ra ngay: **sửa** tên ở dòng A1 thành "Lê Thị Hoa" thì hai dòng còn lại lệch; **xóa** lớp A2 thì mất luôn việc trung tâm có cô Trần Mai. Cả hai đều biến mất khi tách `GIAOVIEN(MAGV, HOTEN_GV)` ra riêng — tức cắt đứt chặng 2 khỏi bảng `LOP`.
+
 > **Chú ý — điều kiện `Z` không phải khóa là bắt buộc.** Nếu `Z` cũng là một khóa dự tuyển thì chuỗi `K → Z → Y` **không phải** phụ thuộc bắc cầu có hại, vì lúc ấy `Z` xác định duy nhất mỗi dòng nên không gây lặp. Bỏ sót điều kiện này dẫn tới việc tách bảng không cần thiết.
+
+> **Tự kiểm tra 5.2.** *(đáp án ở cuối chương)*
+>
+> 1. Thêm cột `TENLOP` vào bảng ở Bảng 5.4. Cột này phụ thuộc vào gì, thuộc loại nào, và giá trị nào sẽ bị chép lặp?
+> 2. Bảng `HOCVIEN(MAHV, CCCD, HOTEN)` có `MAHV → CCCD` và `CCCD → HOTEN`. Chuỗi này có phải phụ thuộc bắc cầu **có hại** không?
+> 3. Bảng `GHIDANH_MORONG` hiện có bốn dòng và không có hai dòng nào trùng `HOCPHI`. Có được kết luận `HOCPHI → MAHV` không?
 
 ---
 
@@ -206,7 +249,7 @@ Trong ba luật, **luật phản xạ** thoạt nhìn có vẻ vô nghĩa: *bi�
 
 Từ ba luật gốc suy ra được ba luật tiện dụng hơn khi làm bài.
 
-**Bảng 5.4. Ba luật gốc và ba luật dẫn xuất**
+**Bảng 5.6. Ba luật gốc và ba luật dẫn xuất**
 
 | Luật | Phát biểu | Loại |
 |---|---|---|
@@ -218,6 +261,21 @@ Từ ba luật gốc suy ra được ba luật tiện dụng hơn khi làm bài.
 | **Bắc cầu giả** *(pseudotransitivity)* | `X → Y`, `WY → Z` ⟹ `WX → Z` | Dẫn xuất |
 
 Hai luật **hợp** và **tách** dùng nhiều nhất trong thực hành, vì chúng cho phép **gộp** hoặc **tách** vế phải tùy tiện. Nhờ đó ta luôn có thể viết `F` ở dạng **mỗi phụ thuộc chỉ có một thuộc tính ở vế phải** — điều kiện đầu tiên của phủ tối thiểu ở mục 5.6.
+
+Sáu luật viết bằng `X`, `Y`, `Z` trông khô, nhưng thay bằng thuộc tính của Trung tâm ABC thì luật nào cũng chỉ là một câu nói hiển nhiên.
+
+**Bảng 5.7. Sáu luật, mỗi luật một ví dụ tại ABC**
+
+| Luật | Ví dụ | Đọc thành lời |
+|---|---|---|
+| Phản xạ | `(MAHV, MALOP) → MAHV` | biết cả cặp thì đương nhiên biết mã học viên |
+| Tăng trưởng | `MAGV → HOTEN_GV` ⟹ `(MAGV, MALOP) → (HOTEN_GV, MALOP)` | thêm cùng một thứ vào hai vế, phụ thuộc vẫn đúng |
+| Bắc cầu | `MALOP → MAGV`, `MAGV → HOTEN_GV` ⟹ `MALOP → HOTEN_GV` | biết lớp thì biết giáo viên, biết giáo viên thì biết tên — vậy biết lớp là biết tên |
+| Hợp | `MALOP → TENLOP`, `MALOP → MAGV` ⟹ `MALOP → (TENLOP, MAGV)` | hai điều cùng suy từ lớp thì gộp lại vẫn suy từ lớp |
+| Tách | `MALOP → (TENLOP, MAGV)` ⟹ `MALOP → TENLOP` và `MALOP → MAGV` | suy được cả cụm thì suy được từng phần |
+| Bắc cầu giả | `MALOP → MAGV`, `(NGAY, MAGV) → PHONG` ⟹ `(NGAY, MALOP) → PHONG` | nếu mỗi giáo viên mỗi ngày dạy ở một phòng, thì biết lớp và ngày là biết phòng |
+
+Dòng **bắc cầu** đáng chú ý nhất: hai phụ thuộc đầu vào đều "vô hại", nhưng kết quả `MALOP → HOTEN_GV` chính là phụ thuộc bắc cầu ở Bảng 5.5 — luật Armstrong làm lộ ra thủ phạm mà mắt thường dễ bỏ qua.
 
 > **Ví dụ 5.2.** Cho `F = {A → B, B → C}`. Chứng minh `A → BC`.
 >
@@ -271,9 +329,28 @@ flowchart LR
     style D fill:#E2F0D9,stroke:#548235,stroke-width:2px
 ```
 
+![](hinh-ve/slide/internet/qua_cau_tuyet.jpg){width=40%}
+
+*Ảnh minh họa: cậu bé lăn tuyết đắp người tuyết. Quả cầu bắt đầu từ một nắm nhỏ, lăn tới đâu dính thêm tuyết tới đó, cho tới khi không dính thêm được nữa — thuật toán bao đóng lăn qua từng phụ thuộc hàm đúng như thế — Nguồn: Wikimedia Commons · DPLA · Public domain.*
+
 Phép loại suy **quả cầu tuyết** nắm đúng bản chất: bắt đầu từ một nhúm nhỏ, lăn qua từng phụ thuộc và **dính thêm** thuộc tính mới, cho tới khi không dính thêm được gì nữa thì dừng.
 
 > **Chú ý — điểm dễ sai nhất.** Phải **lặp lại nhiều vòng**, không chỉ quét `F` một lượt. Ở Hình 5.4, `HOTEN_GV` chỉ dính vào **sau khi** `MAGV` đã dính — nếu chỉ quét một lượt theo thứ tự viết trong `F`, rất dễ bỏ sót. Cách an toàn là **quét lại từ đầu mỗi khi `X⁺` thay đổi**.
+
+Bảng dưới đây dựng cố tình một `F` viết "ngược thứ tự" để thấy lỗi ấy xảy ra thế nào.
+
+**Bảng 5.8. Tính `A⁺` với `F = {B → C, A → B}` — quét một lượt thì sót, hai vòng mới đủ**
+
+| Vòng | Xét phụ thuộc | Vế trái `⊆ X⁺`? | `X⁺` sau bước |
+|:--:|---|:--:|---|
+| — | *khởi tạo* | — | `{A}` |
+| 1 | `B → C` | `B ∉ {A}` → **bỏ qua** | `{A}` |
+| 1 | `A → B` | Có | `{A, B}` |
+| 2 | `B → C` | **Có** *(giờ đã có B)* | `{A, B, C}` |
+| 2 | `A → B` | Có, không thêm gì | `{A, B, C}` |
+| 3 | *quét lại* | — | không đổi → **dừng** |
+
+Nếu dừng ngay sau vòng 1, ta kết luận sai `A⁺ = {A, B}` và tưởng `A` không phải siêu khóa của `R(A, B, C)` — trong khi thật ra `A⁺` là toàn bộ lược đồ. Chỉ một dòng bỏ sót ở đây kéo theo sai khóa, sai dạng chuẩn ở các mục sau.
 
 ### 5.4.2. Ví dụ tính từng bước
 
@@ -303,11 +380,23 @@ Phép loại suy **quả cầu tuyết** nắm đúng bản chất: bắt đầu
 
 Công dụng này là nền tảng của thuật toán tìm khóa ở mục 5.5.
 
+Cả hai công dụng đều quy về **một phép tính bao đóng rồi một phép so sánh**, như ba câu hỏi dưới đây trên lược đồ của Ví dụ 5.3.
+
+**Bảng 5.9. Ba câu hỏi, ba bao đóng — `R(A, B, C, D)`, `F = {A → B, B → C, CD → A}`**
+
+| Câu hỏi | Quy về | Tính | So sánh | Kết luận |
+|---|---|---|---|---|
+| `B → A` có suy ra được từ `F`? | `A ∈ B⁺`? | `B⁺ = {B, C}` | không chứa `A` | **Không** suy ra được |
+| `AC → D` có suy ra được? | `D ∈ (AC)⁺`? | `(AC)⁺ = {A, C, B}` | không chứa `D` | **Không** |
+| `BD` có phải siêu khóa? | `(BD)⁺ = R`? | `(BD)⁺ = {B, D, C, A}` | bằng toàn bộ `R` | **Có** — `BD` là siêu khóa |
+
+Không cần áp luật Armstrong bằng tay lần nào; mọi câu hỏi "suy ra được không" đều trả lời bằng cách tính một bao đóng.
+
 ### 5.4.4. Phân biệt `F⁺` và `X⁺`
 
 Hai ký hiệu trông giống nhau nhưng là **hai thứ hoàn toàn khác**, và đây là chỗ nhầm lẫn kinh điển.
 
-**Bảng 5.5. `F⁺` và `X⁺` — hai thứ khác nhau**
+**Bảng 5.10. `F⁺` và `X⁺` — hai thứ khác nhau**
 
 | | `F⁺` | `X⁺` |
 |---|---|---|
@@ -320,6 +409,12 @@ Hai ký hiệu trông giống nhau nhưng là **hai thứ hoàn toàn khác**, v
 Câu phân biệt gọn nhất: **`F⁺` là tập các mũi tên; `X⁺` là tập các chữ cái.**
 
 > **Chú ý.** Chính vì `F⁺` quá lớn để tính mà toàn bộ lý thuyết chuẩn hóa được xây trên `X⁺`. Mọi câu hỏi tưởng như cần `F⁺` — *"phụ thuộc này có đúng không"*, *"tập này có phải khóa không"* — đều được quy về việc tính một vài bao đóng `X⁺`. Đó là đóng góp thực dụng lớn nhất của khái niệm bao đóng.
+
+> **Tự kiểm tra 5.4.** *(đáp án ở cuối chương)*
+>
+> 1. Với `R(A, B, C, D)` và `F = {A → B, B → C, CD → A}` của Ví dụ 5.3, tính `(CD)⁺` và `C⁺`, ghi rõ từng vòng.
+> 2. `C → B` có suy ra được từ `F` không? Trả lời bằng một bao đóng.
+> 3. Một bạn tính `F⁺` để trả lời câu 2. Bạn ấy có sai không? Vì sao giáo trình khuyên dùng `X⁺`?
 
 ---
 
@@ -352,6 +447,22 @@ flowchart LR
 ```
 
 Lý do đằng sau ba nhóm rất trực quan. Thuộc tính thuộc **`TN`** không nằm ở vế phải của bất kỳ phụ thuộc nào, nên **không có cách nào suy ra nó** — muốn suy ra toàn bộ lược đồ thì buộc phải có nó ngay từ đầu. Ngược lại, thuộc tính thuộc **`TĐ`** luôn suy ra được từ thứ khác, nên đưa nó vào khóa chỉ làm khóa thừa, vi phạm tính tối thiểu. Chỉ nhóm **`TG`** là còn phải thử.
+
+Thử phân nhóm ngay trên bảng phẳng của Trung tâm ABC — bảy thuộc tính và bốn phụ thuộc hàm rút từ nghiệp vụ *(tập `F` này sẽ được lập chính thức ở Bảng 5.18)*: `MAHV → HOTEN`, `MALOP → TENLOP, MAGV`, `MAGV → HOTEN_GV`, `(MAHV, MALOP) → HOCPHI`.
+
+**Bảng 5.11. Phân nhóm bảy thuộc tính của `GHIDANH_PHANG` — gạch vế trái, gạch vế phải**
+
+| Thuộc tính | Có ở vế trái? | Có ở vế phải? | Nhóm | Vì sao |
+|:--:|:--:|:--:|:--:|---|
+| `MAHV` | có | không | **TN** | không suy ra được từ đâu → chắc chắn trong khóa |
+| `MALOP` | có | không | **TN** | như trên |
+| `MAGV` | có | có | **TG** | suy ra được từ `MALOP`, nhưng cũng suy ra thứ khác → phải thử |
+| `HOTEN` | không | có | **TĐ** | luôn suy ra được từ `MAHV` |
+| `TENLOP` | không | có | **TĐ** | luôn suy ra được từ `MALOP` |
+| `HOTEN_GV` | không | có | **TĐ** | luôn suy ra được từ `MAGV` |
+| `HOCPHI` | không | có | **TĐ** | luôn suy ra được từ cặp khóa |
+
+Bảy thuộc tính rút xuống còn **hai bắt buộc và một phải thử** — phạm vi tìm khóa từ `2⁷ = 128` tập con giảm còn `2¹ = 2` tập con của `TG`.
 
 ### 5.5.2. Thuật toán tìm một khóa
 
@@ -427,6 +538,50 @@ Mẹo này dựa trên một nhận xét đơn giản: bao đóng có tính **đ
 >
 > Hệ quả: thuộc tính khóa là `A`, `B`, `C`, `D` — **tất cả**. Khi mọi thuộc tính đều là thuộc tính khóa, lược đồ **tự động đạt 3NF** *(xem mục 5.7.4)*.
 
+Tám tập con của `TG` xếp thành bốn tầng theo kích thước. Vẽ ra, mẹo rút gọn trở nên hiển nhiên: một khi tầng 1 đã cho siêu khóa, **mọi thứ nằm phía trên nó** đều bị loại mà không cần tính.
+
+**Hình 5.6. Lưới tám tập con của `TG = {A, B, C}` — ba siêu khóa ở tầng 1 chặn toàn bộ các tầng trên**
+
+```mermaid
+flowchart BT
+    E["∅ → D<br/>(D)⁺ = {D}<br/><i>không phải siêu khóa</i>"]
+    A["{A} → AD<br/><b>siêu khóa</b>"]
+    B["{B} → BD<br/><b>siêu khóa</b>"]
+    C["{C} → CD<br/><b>siêu khóa</b>"]
+    AB["{A,B} → ABD<br/><i>chứa AD → loại</i>"]
+    AC["{A,C} → ACD<br/><i>chứa AD → loại</i>"]
+    BC["{B,C} → BCD<br/><i>chứa BD → loại</i>"]
+    ABC["{A,B,C} → ABCD<br/><i>loại</i>"]
+    E --> A
+    E --> B
+    E --> C
+    A --> AB
+    A --> AC
+    B --> AB
+    B --> BC
+    C --> AC
+    C --> BC
+    AB --> ABC
+    AC --> ABC
+    BC --> ABC
+    style E fill:#FFD9D9,stroke:#C00000
+    style A fill:#E2F0D9,stroke:#548235,stroke-width:2px
+    style B fill:#E2F0D9,stroke:#548235,stroke-width:2px
+    style C fill:#E2F0D9,stroke:#548235,stroke-width:2px
+    style AB fill:#EDEDED,stroke:#999,color:#777
+    style AC fill:#EDEDED,stroke:#999,color:#777
+    style BC fill:#EDEDED,stroke:#999,color:#777
+    style ABC fill:#EDEDED,stroke:#999,color:#777
+```
+
+Chỉ **bốn** bao đóng phải tính *(tầng 0 và tầng 1)* thay vì tám; với `TG` lớn hơn, phần tiết kiệm còn lớn hơn nhiều.
+
+> **Tự kiểm tra 5.5.** *(đáp án ở cuối chương)*
+>
+> 1. Cho `R(A, B, C, D, E)` và `F = {A → B, BC → D, D → E}`. Lập bảng phân nhóm `TN`, `TG`, `TĐ`.
+> 2. Tính `(TN)⁺`. Có kết luận được khóa ngay chưa? Lược đồ có mấy khóa?
+> 3. Vì sao không cần thử bất kỳ tập con nào có chứa `E`?
+
 ---
 
 ## 5.6. Phủ tối thiểu
@@ -449,7 +604,7 @@ Tập `F` thu thập được từ nghiệp vụ thường **thừa**: có phụ
 
 ### 5.6.3. Thuật toán ba bước
 
-**Hình 5.6. Thuật toán tìm phủ tối thiểu — phải làm đúng thứ tự**
+**Hình 5.7. Thuật toán tìm phủ tối thiểu — phải làm đúng thứ tự**
 
 ```mermaid
 flowchart LR
@@ -479,7 +634,10 @@ flowchart LR
 >
 > **Bước 2 — bỏ thuộc tính thừa ở vế trái.** Chỉ `AB → D` có vế trái nhiều hơn một thuộc tính.
 >
-> - Thử bỏ `B`, xét `A → D`: tính `A⁺` trên `F₁` khi chưa dùng `AB → D` — ta có `A⁺ = {A, B, C}`. Vì `A → B` nên `A` suy ra `B`, do đó `AB` và `A` là tương đương. Vậy `B` **thừa**, thay `AB → D` bằng `A → D`.
+> | Thử bỏ | Phụ thuộc còn lại | Tính bao đóng của vế trái mới *(trên `F₁`, tạm không dùng `AB → D`)* | Kết luận |
+> |---|---|---|---|
+> | `B` | `A → D` | `A⁺ = {A, B, C}` — **có chứa `B`** | `A` một mình đã suy ra `B`, nên `B` **thừa** → thay `AB → D` bằng `A → D` |
+> | `A` | `B → D` | `B⁺ = {B, C}` — không chứa `A` | `A` **không thừa** *(và sau khi bỏ `B`, vế trái chỉ còn một thuộc tính nên dừng)* |
 >
 > `F₂ = {A → B, A → C, B → C, A → D}`
 >
@@ -540,6 +698,20 @@ Phát biểu này giải thích ngay nhận xét ở cuối Ví dụ 5.4: nếu 
 
 **Cách sửa khi vi phạm:** tách chuỗi bắc cầu `K → Z → Y` thành hai bảng — một bảng chứa `(K, Z)`, một bảng chứa `(Z, Y)`.
 
+Phát biểu tương đương cho một **cách làm bài rất máy móc**: đi qua từng phụ thuộc hàm, hỏi hai câu, ghi kết luận. Bảng dưới đây làm điều đó cho bảng phẳng của Trung tâm ABC với khóa duy nhất `(MAHV, MALOP)` *(cách tìm khóa này ở mục 5.9.3)*.
+
+**Bảng 5.12. Chẩn đoán từng phụ thuộc hàm của `GHIDANH_PHANG` bằng hai câu hỏi**
+
+| Phụ thuộc `X → A` | `X` là siêu khóa? | `A` là thuộc tính khóa? | `X` là **một phần** của khóa? | Kết luận |
+|---|:--:|:--:|:--:|---|
+| `MAHV → HOTEN` | không | không | **có** *(nửa khóa)* | **bộ phận** → vi phạm 2NF |
+| `MALOP → TENLOP` | không | không | **có** | **bộ phận** → vi phạm 2NF |
+| `MALOP → MAGV` | không | không | **có** | **bộ phận** → vi phạm 2NF |
+| `MAGV → HOTEN_GV` | không | không | không *(`MAGV` ngoài khóa)* | **bắc cầu** → vi phạm 3NF |
+| `(MAHV, MALOP) → HOCPHI` | **có** | — | — | đạt |
+
+Quy tắc đọc bảng: cột 2 "có" thì đạt ngay; cột 2 và 3 đều "không" thì vi phạm, và cột 4 cho biết vi phạm loại nào — vế trái là **một phần khóa** thì bộ phận, vế trái **ngoài khóa** thì bắc cầu. Đây chính là bước 3 của quy trình ở mục 5.9.4, nhìn theo từng mũi tên.
+
 ### 5.7.5. Câu thần chú và cây quyết định
 
 Có một câu tiếng Anh tóm tắt cả ba dạng chuẩn, được dùng rộng rãi:
@@ -548,7 +720,7 @@ Có một câu tiếng Anh tóm tắt cả ba dạng chuẩn, được dùng r�
 
 Cách đọc: mọi thuộc tính không khóa phải phụ thuộc vào **khóa** *(1NF — có khóa)*, vào **toàn bộ khóa** *(2NF — không bộ phận)*, và **không phụ thuộc vào gì khác ngoài khóa** *(3NF — không bắc cầu)*.
 
-**Hình 5.7. Cây quyết định — xác định dạng chuẩn cao nhất**
+**Hình 5.8. Cây quyết định — xác định dạng chuẩn cao nhất**
 
 ```mermaid
 flowchart LR
@@ -571,7 +743,7 @@ flowchart LR
 
 Đây là bảng nối thẳng Chương 5 về Chương 1, và cũng là câu trả lời cho câu hỏi *"chuẩn hóa để làm gì"*.
 
-**Bảng 5.6. Dạng chuẩn diệt dị thường nào**
+**Bảng 5.13. Dạng chuẩn diệt dị thường nào**
 
 | Dạng chuẩn | Diệt thủ phạm | Dị thường bị loại bỏ |
 |---|---|---|
@@ -582,11 +754,21 @@ flowchart LR
 
 > **Chú ý.** Ở Chương 1 người học **thấy** ba dị thường nhưng **không gọi tên được nguyên nhân**. Bảng trên chỉ đích danh: dị thường không phải hiện tượng ngẫu nhiên mà là **hệ quả trực tiếp** của phụ thuộc bộ phận và phụ thuộc bắc cầu. Đó là khác biệt giữa *thấy triệu chứng* và *chẩn đoán được bệnh*.
 
+> **Tự kiểm tra 5.6–5.7.** *(đáp án ở cuối chương)*
+>
+> 1. `F = {A → B, B → C, A → C}` — phụ thuộc nào thừa? Chứng minh bằng bao đóng.
+> 2. `LOP(MALOP, TENLOP, MAGV, HOTEN_GV)` với khóa `MALOP` và `F` như Bảng 5.5: đạt dạng chuẩn cao nhất nào? Chỉ đích danh thủ phạm.
+> 3. `GHIDANH_MORONG(MAHV, MALOP, HOTEN, HOCPHI)` với khóa `(MAHV, MALOP)`: đạt dạng chuẩn nào? Nêu cách sửa.
+
 ---
 
 ## 5.8. Phép tách lược đồ
 
 *(1,5 tiết)*
+
+![](hinh-ve/slide/internet/manh_ghep.jpg){width=55%}
+
+*Ảnh minh họa: các mảnh ghép hình. Tách một bức tranh thành mảnh thì phải ghép lại được đúng bức tranh ấy — không thiếu mảnh, và cũng không mọc thêm mảnh lạ. Phép tách lược đồ đặt ra đúng yêu cầu đó, và mảnh "mọc thêm" chính là bộ giả — Nguồn: Wikimedia Commons · Profpcde · CC0.*
 
 Chuẩn hóa được thực hiện bằng cách **tách** một lược đồ thành nhiều lược đồ nhỏ hơn. Nhưng không phải phép tách nào cũng dùng được.
 
@@ -594,52 +776,35 @@ Chuẩn hóa được thực hiện bằng cách **tách** một lược đồ t
 
 Hãy xem điều gì xảy ra khi tách sai.
 
-> **Ví dụ 5.6.** Cho quan hệ `R(MAHV, MALOP, MAGV)` với dữ liệu:
->
-> | MAHV | MALOP | MAGV |
-> |---|---|---|
-> | HV01 | A1 | GV1 |
-> | HV02 | A2 | GV2 |
->
-> **Tách sai** thành `R1(MAHV, MAGV)` và `R2(MALOP, MAGV)`:
->
-> `R1`
->
-> | MAHV | MAGV |
-> |---|---|
-> | HV01 | GV1 |
-> | HV02 | GV2 |
->
-> `R2`
->
-> | MALOP | MAGV |
-> |---|---|
-> | A1 | GV1 |
-> | A2 | GV2 |
->
-> Giờ ghép lại bằng phép kết tự nhiên trên `MAGV`, ta được **đúng hai dòng ban đầu**. Phép tách này **có vẻ** không sao.
->
-> Nhưng thêm một dòng dữ liệu nữa — học viên HV01 học thêm lớp A2 do chính GV1 dạy:
->
-> | MAHV | MALOP | MAGV |
-> |---|---|---|
-> | HV01 | A1 | GV1 |
-> | HV01 | A2 | GV1 |
-> | HV02 | A2 | GV2 |
->
-> Khi ấy `R1 = {(HV01,GV1), (HV02,GV2)}` và `R2 = {(A1,GV1), (A2,GV1), (A2,GV2)}`. Ghép lại:
->
-> | MAHV | MALOP | MAGV | |
-> |---|---|---|---|
-> | HV01 | A1 | GV1 | đúng |
-> | HV01 | A2 | GV1 | đúng |
-> | HV02 | A2 | GV2 | đúng |
->
-> Lần này vẫn đúng. Nhưng nếu GV2 cũng dạy lớp A1 thì `R2` có thêm `(A1, GV2)`, và phép ghép sẽ sinh ra dòng `(HV02, A1, GV2)` — **một dòng chưa từng tồn tại trong dữ liệu gốc**.
+> **Ví dụ 5.6.** Cho quan hệ `R(MAHV, MALOP, MAGV)` — *học viên nào học lớp nào, lớp ấy do ai dạy*. Cô Lê Hoa *(GV1)* dạy hai lớp A1 và A3; cô Trần Mai *(GV2)* dạy A2. Thử tách `R` thành `R1(MAHV, MAGV)` và `R2(MALOP, MAGV)` — tức tách theo cột `MAGV`.
+
+**Bảng 5.14. Tách sai `R` theo `MAGV` — không mất dòng nào, ghép lại sinh hai bộ giả**
+
+| `R` *(gốc)* | MAHV | MALOP | MAGV |
+|---|---|---|---|
+| | HV01 | A1 | GV1 |
+| | HV02 | A3 | GV1 |
+| | HV02 | A2 | GV2 |
+
+| `R1(MAHV, MAGV)` | MAHV | MAGV | | `R2(MALOP, MAGV)` | MALOP | MAGV |
+|---|---|---|---|---|---|---|
+| | HV01 | GV1 | | | A1 | GV1 |
+| | HV02 | GV1 | | | A3 | GV1 |
+| | HV02 | GV2 | | | A2 | GV2 |
+
+| `R1 ⋈ R2` *(ghép theo MAGV)* | MAHV | MALOP | MAGV | Có trong `R`? |
+|---|---|---|---|---|
+| | HV01 | A1 | GV1 | có |
+| | **HV01** | **A3** | **GV1** | **không — bộ giả** |
+| | **HV02** | **A1** | **GV1** | **không — bộ giả** |
+| | HV02 | A3 | GV1 | có |
+| | HV02 | A2 | GV2 | có |
+
+Hai bảng con giữ đủ mọi dòng, trông không mất gì. Nhưng khi ghép lại theo `MAGV`, giá trị `GV1` khớp **hai** học viên với **hai** lớp, phép kết ghép đủ mọi cặp: `2 × 2 = 4` dòng, trong đó `(HV01, A3)` và `(HV02, A1)` **chưa từng có thật** — HV01 chưa bao giờ học A3, HV02 chưa bao giờ học A1. Kết quả có **năm** dòng thay vì ba.
 
 > **Định nghĩa 5.14.** **Bộ giả** *(spurious tuple)* là bộ **xuất hiện trong kết quả ghép các bảng con nhưng không có trong quan hệ gốc**.
 
-**Hình 5.8. Nghịch lý bộ giả — không mất dòng nào mà vẫn mất sự thật**
+**Hình 5.9. Nghịch lý bộ giả — không mất dòng nào mà vẫn mất sự thật**
 
 ```mermaid
 flowchart LR
@@ -665,7 +830,23 @@ flowchart LR
 
 Áp vào Ví dụ 5.6: thuộc tính chung là `{MAGV}`, mà `MAGV` **không phải khóa** của `R1` *(một giáo viên dạy nhiều học viên)* cũng **không phải khóa** của `R2` *(một giáo viên dạy nhiều lớp)*. Điều kiện không thỏa mãn — đó chính là lý do sinh ra bộ giả.
 
-> **Ví dụ 5.7.** Tách đúng: `R1(MAHV, MALOP)` và `R2(MALOP, MAGV)`. Thuộc tính chung là `{MALOP}`, mà `MALOP` **là khóa của `R2`** *(mỗi lớp có đúng một giáo viên)*. Điều kiện thỏa mãn ⟹ **bảo toàn thông tin**, không bao giờ sinh bộ giả.
+> **Ví dụ 5.7.** Tách đúng: `R1(MAHV, MALOP)` và `R2(MALOP, MAGV)`. Thuộc tính chung là `{MALOP}`, mà `MALOP` **là khóa của `R2`** *(mỗi lớp có đúng một giáo viên)*. Điều kiện thỏa mãn ⟹ **bảo toàn thông tin**, không bao giờ sinh bộ giả. Kiểm chứng trên đúng ba dòng của Ví dụ 5.6:
+
+**Bảng 5.15. Tách đúng `R` theo `MALOP` — ghép lại được đúng ba dòng gốc**
+
+| `R1(MAHV, MALOP)` | MAHV | MALOP | | `R2(MALOP, MAGV)` | MALOP | MAGV |
+|---|---|---|---|---|---|---|
+| | HV01 | A1 | | | A1 | GV1 |
+| | HV02 | A3 | | | A3 | GV1 |
+| | HV02 | A2 | | | A2 | GV2 |
+
+| `R1 ⋈ R2` *(ghép theo MALOP)* | MAHV | MALOP | MAGV | Có trong `R`? |
+|---|---|---|---|---|
+| | HV01 | A1 | GV1 | có |
+| | HV02 | A3 | GV1 | có |
+| | HV02 | A2 | GV2 | có |
+
+Vì `MALOP` là khóa của `R2`, mỗi dòng của `R1` chỉ khớp **đúng một** dòng của `R2` — không có chỗ nào để phép kết "nhân" ra dòng thừa. So với Bảng 5.14: cùng ba dòng gốc, chỉ khác cột dùng để tách, một bên sinh bộ giả, một bên không.
 
 Quy tắc thực hành rút ra rất gọn: **luôn tách theo phụ thuộc hàm**. Nếu tách `R` thành `R1(X ∪ Y)` và `R2(R − Y)` dựa trên một phụ thuộc `X → Y` có sẵn trong `F`, thì thuộc tính chung là `X`, và `X` là khóa của `R1` — điều kiện tự động thỏa mãn.
 
@@ -675,9 +856,26 @@ Bảo toàn thông tin mới là một nửa. Còn nửa kia.
 
 > **Định nghĩa 5.16.** Phép tách là **bảo toàn phụ thuộc hàm** *(dependency preserving)* nếu mọi phụ thuộc hàm trong `F` đều **kiểm tra được trên một bảng con duy nhất**, không cần ghép bảng.
 
-Vì sao điều này quan trọng? Vì nó liên quan trực tiếp tới **ràng buộc toàn vẹn** của Chương 4. Nếu một phụ thuộc hàm bị "xé" ra hai bảng, thì để kiểm tra nó, hệ quản trị phải **ghép hai bảng lại mỗi lần có thao tác** — tức là ràng buộc ấy trở thành **loại liên bộ liên quan hệ**, loại khó nhất trong Bảng 4.3, phải dùng trigger.
+Vì sao điều này quan trọng? Vì nó liên quan trực tiếp tới **ràng buộc toàn vẹn** của Chương 4. Nếu một phụ thuộc hàm bị "xé" ra hai bảng, thì để kiểm tra nó, hệ quản trị phải **ghép hai bảng lại mỗi lần có thao tác** — tức là ràng buộc ấy trở thành **loại liên bộ liên quan hệ**, loại khó nhất trong Bảng 4.6, phải dùng trigger.
 
 Nói cách khác: **mất bảo toàn phụ thuộc hàm nghĩa là biến một ràng buộc dễ thành một ràng buộc khó.**
+
+> **Ví dụ 5.8.** Bảng `LOP(MALOP, MAGV, HOTEN_GV)` có `F = {MALOP → MAGV, MAGV → HOTEN_GV}`. Tách thành `LOP_GV(MALOP, MAGV)` và `LOP_TEN(MALOP, HOTEN_GV)`. Thuộc tính chung `MALOP` là khóa của cả hai bảng con, nên phép tách **bảo toàn thông tin**. Nhưng hãy xem phụ thuộc `MAGV → HOTEN_GV` đi đâu.
+
+**Bảng 5.16. Phép tách bảo toàn thông tin nhưng "xé" mất `MAGV → HOTEN_GV`**
+
+| `LOP_GV` | MALOP | MAGV | | `LOP_TEN` | MALOP | HOTEN_GV |
+|---|---|---|---|---|---|---|
+| | A1 | GV1 | | | A1 | Lê Hoa |
+| | A3 | GV1 | | | A3 | **Lê Thị Hoa** |
+| | A2 | GV2 | | | A2 | Trần Mai |
+
+| Phụ thuộc | Nằm trọn trong bảng nào? | Kiểm tra được không? |
+|---|---|---|
+| `MALOP → MAGV` | `LOP_GV` — là khóa chính | Có, miễn phí |
+| `MAGV → HOTEN_GV` | **không bảng nào** — `MAGV` ở một bảng, `HOTEN_GV` ở bảng kia | **Chỉ khi ghép hai bảng** |
+
+Dòng A3 ghi "Lê Thị Hoa" trong khi A1 ghi "Lê Hoa" — cùng GV1 mà hai tên. Nhìn riêng `LOP_GV` không thấy gì sai; nhìn riêng `LOP_TEN` cũng không, vì bảng ấy không biết A1 và A3 cùng một giáo viên. Muốn bắt lỗi phải ghép hai bảng theo `MALOP` rồi so — đúng loại ràng buộc **liên bộ liên quan hệ** của Chương 4. Tách đúng phải là `LOP(MALOP, MAGV)` và `GIAOVIEN(MAGV, HOTEN_GV)`: khi ấy `MAGV → HOTEN_GV` nằm trọn trong `GIAOVIEN`, là khóa chính của nó, và được kiểm tra miễn phí.
 
 ### 5.8.4. Định lý — không phải lúc nào cũng đạt được cả hai
 
@@ -688,7 +886,36 @@ Nói cách khác: **mất bảo toàn phụ thuộc hàm nghĩa là biến một
 > - Luôn tồn tại phép tách về **3NF** vừa **bảo toàn thông tin** vừa **bảo toàn phụ thuộc hàm**.
 > - Luôn tồn tại phép tách về **BCNF** **bảo toàn thông tin**, nhưng **không phải lúc nào cũng bảo toàn được phụ thuộc hàm**.
 
-**Hình 5.9. Leo cao hơn chưa chắc tốt hơn**
+Vế thứ hai của định lý không phải chuyện hiếm; nó xảy ra ngay tại Trung tâm ABC khi lược đồ có **hai khóa chồng lấn nhau**.
+
+> **Ví dụ 5.9.** Trung tâm quy định: *mỗi giáo viên chỉ dạy đúng một khóa học*; *mỗi học viên, trong một khóa học, chỉ học với một giáo viên* *(nhưng có thể học nhiều khóa)*. Bảng `HV_KH_GV(MAHV, MAKH, MAGV)` có `F = {MAGV → MAKH, (MAHV, MAKH) → MAGV}`.
+
+**Bảng 5.17. `HV_KH_GV` đạt 3NF nhưng không đạt BCNF — và cái giá khi tách lên BCNF**
+
+| MAHV | MAKH | MAGV |
+|---|---|---|
+| HV01 | **KH01** | **GV1** |
+| HV02 | **KH01** | **GV1** |
+| HV03 | KH01 | GV3 |
+| HV01 | KH02 | GV2 |
+
+| Bước phân tích | Kết quả |
+|---|---|
+| Tìm khóa | `TN = {MAHV}`, `TG = {MAKH, MAGV}` → hai khóa **`(MAHV, MAKH)`** và **`(MAHV, MAGV)`**, chồng lấn ở `MAHV`; cả ba thuộc tính đều là thuộc tính khóa |
+| Xét `MAGV → MAKH` | `MAGV` **không** là siêu khóa; nhưng `MAKH` **là** thuộc tính khóa → **3NF thỏa**, **BCNF vi phạm** |
+| Dư thừa còn sót | Sự thật "GV1 dạy KH01" chép **hai lần** *(hai dòng in đậm)* — đúng thứ 3NF chưa diệt hết |
+| Tách lên BCNF theo `MAGV → MAKH` | `GV_KH(MAGV, MAKH)` và `HV_GV(MAHV, MAGV)` — bảo toàn thông tin vì `MAGV` là khóa của `GV_KH` |
+
+| `GV_KH` | MAGV | MAKH | | `HV_GV` | MAHV | MAGV |
+|---|---|---|---|---|---|---|
+| | GV1 | KH01 | | | HV01 | GV1 |
+| | GV3 | KH01 | | | HV02 | GV1 |
+| | GV2 | KH02 | | | HV03 | GV3 |
+| | | | | | **HV01** | **GV3** |
+
+Dư thừa đã hết. Nhưng phụ thuộc `(MAHV, MAKH) → MAGV` — *một học viên trong một khóa chỉ học với một giáo viên* — **không còn nằm trọn trong bảng nào**. Thêm dòng in đậm `(HV01, GV3)` vào `HV_GV`: từng bảng vẫn hợp lệ, mà ghép lại thì HV01 đang học KH01 với **cả GV1 lẫn GV3**. Quy tắc nghiệp vụ bị vi phạm và không bảng con nào bắt được; muốn giữ nó phải viết trigger ghép hai bảng. Đó là cái giá của BCNF trong trường hợp này — và là lý do nên **dừng ở 3NF** với lược đồ như vậy.
+
+**Hình 5.10. Leo cao hơn chưa chắc tốt hơn**
 
 ```mermaid
 flowchart LR
@@ -703,6 +930,12 @@ flowchart LR
 
 > **Chú ý — kết luận thực hành.** Trong đa số dự án, **3NF là đích đến hợp lý**. Leo lên BCNF chỉ nên làm khi phần dư thừa còn sót ở 3NF thật sự gây phiền, **và** khi phép tách BCNF tình cờ vẫn bảo toàn được phụ thuộc hàm. Đây là một ví dụ điển hình cho nguyên tắc: **"chuẩn hơn" không đồng nghĩa với "tốt hơn"** — mọi lựa chọn thiết kế đều là một sự đánh đổi.
 
+> **Tự kiểm tra 5.8.** *(đáp án ở cuối chương)*
+>
+> 1. Tách `GHIDANH(MAHV, MALOP, HOCPHI)` thành `(MAHV, HOCPHI)` và `(MALOP, HOCPHI)`. Có bảo toàn thông tin không? Vì sao?
+> 2. Tách `LOP(MALOP, TENLOP, MAGV, HOTEN_GV)` thành `(MALOP, TENLOP, MAGV)` và `(MAGV, HOTEN_GV)`. Kiểm tra cả hai điều kiện bảo toàn.
+> 3. Vì sao "tách theo một phụ thuộc hàm có trong `F`" thì điều kiện bảo toàn thông tin tự động thỏa mãn?
+
 ---
 
 ## 5.9. Quy trình chuẩn hóa hoàn chỉnh
@@ -712,6 +945,10 @@ flowchart LR
 Mục này là khoảnh khắc mà cả học phần hướng tới: **chuẩn hóa lại chính bảng phẳng của Chương 1, bằng toán học.**
 
 ### 5.9.1. Bài toán xuất phát
+
+![](hinh-ve/slide/internet/thoi_khoa_bieu.jpg){width=65%}
+
+*Ảnh minh họa: một thời khóa biểu treo tường. Đây là bảng phẳng điển hình: tên môn, tên lớp chép lặp ở nhiều ô, và mọi thông tin dồn vào một bảng — đúng dạng xuất phát mà quy trình chuẩn hóa dưới đây xử lý — Nguồn: Wikimedia Commons · Lop5a3maidinh52 · CC BY-SA 4.0.*
 
 `GHIDANH_PHANG(MAHV, HOTEN, MALOP, TENLOP, MAGV, HOTEN_GV, HOCPHI)`
 
@@ -723,7 +960,7 @@ Mục này là khoảnh khắc mà cả học phần hướng tới: **chuẩn h
 
 ### 5.9.2. Bước 1 — xác định tập phụ thuộc hàm
 
-**Bảng 5.7. Tập phụ thuộc hàm `F` — rút từ quy tắc nghiệp vụ**
+**Bảng 5.18. Tập phụ thuộc hàm `F` — rút từ quy tắc nghiệp vụ**
 
 | Phụ thuộc hàm | Quy tắc nghiệp vụ tương ứng |
 |---|---|
@@ -734,7 +971,7 @@ Mục này là khoảnh khắc mà cả học phần hướng tới: **chuẩn h
 
 ### 5.9.3. Bước 2 — tìm khóa
 
-Vế phải xuất hiện: `HOTEN`, `TENLOP`, `MAGV`, `HOTEN_GV`, `HOCPHI`. Vậy:
+Vế phải xuất hiện: `HOTEN`, `TENLOP`, `MAGV`, `HOTEN_GV`, `HOCPHI`. Vậy *(đúng như đã phân nhóm ở Bảng 5.11)*:
 
 - `TN = {MAHV, MALOP}` — chỉ ở vế trái
 - `TG = {MAGV}` — ở cả hai vế
@@ -756,7 +993,7 @@ Vế phải xuất hiện: `HOTEN`, `TENLOP`, `MAGV`, `HOTEN_GV`, `HOCPHI`. Vậ
 
 ### 5.9.4. Bước 3 — chẩn đoán dạng chuẩn
 
-**Bảng 5.8. Chẩn đoán với khóa `K = (MAHV, MALOP)`**
+**Bảng 5.19. Chẩn đoán với khóa `K = (MAHV, MALOP)`**
 
 | Dạng chuẩn | Kết luận | Bằng chứng |
 |---|:--:|---|
@@ -768,7 +1005,7 @@ Hai thủ phạm đã bị chỉ đích danh.
 
 ### 5.9.5. Bước 4 và 5 — tách về 2NF rồi 3NF
 
-**Hình 5.10. Quy trình chuẩn hóa từng bước**
+**Hình 5.11. Quy trình chuẩn hóa từng bước**
 
 ```mermaid
 flowchart LR
@@ -789,11 +1026,28 @@ LOP      (MALOP, TENLOP, MAGV↗GIAOVIEN)
 GHIDANH  (MAHV↗HOCVIEN, MALOP↗LOP, HOCPHI)
 ```
 
+Đổ ba dòng của bảng phẳng ở mục 5.9.1 vào bốn bảng ấy, ta nhìn thấy điều mà lý thuyết vừa chứng minh: **mỗi sự thật chỉ còn ở một chỗ**.
+
+**Bảng 5.20. Ba dòng của `GHIDANH_PHANG` sau khi tách — bốn bảng, không còn giá trị nào chép lặp**
+
+| `HOCVIEN` | MAHV | HOTEN | | `GIAOVIEN` | MAGV | HOTEN_GV |
+|---|---|---|---|---|---|---|
+| | HV01 | Trần An | | | GV1 | Lê Hoa |
+| | HV02 | Lê Bình | | | GV2 | Trần Mai |
+
+| `LOP` | MALOP | TENLOP | MAGV↗ | | `GHIDANH` | MAHV↗ | MALOP↗ | HOCPHI |
+|---|---|---|---|---|---|---|---|---|
+| | A1 | Anh cơ bản 1 | GV1 | | | HV01 | A1 | 2.000.000 |
+| | A2 | Anh giao tiếp | GV2 | | | HV01 | A2 | 2.500.000 |
+| | | | | | | HV02 | A1 | 2.000.000 |
+
+"Trần An", "Lê Hoa", "Anh cơ bản 1" — mỗi giá trị từng chép hai lần trong bảng phẳng nay xuất hiện **đúng một lần**. Và bốn bảng này chính là ba bảng mà Chương 1 đã tách bằng trực giác, cộng thêm `GHIDANH` mà Chương 2 tìm ra bằng phép thử tờ phiếu.
+
 ### 5.9.6. Kiểm chứng bảo toàn thông tin
 
 Áp Định lý 5.1 cho từng phép tách:
 
-**Bảng 5.9. Kiểm chứng từng phép tách**
+**Bảng 5.21. Kiểm chứng từng phép tách**
 
 | Phép tách | Thuộc tính chung | Có là khóa của bảng con nào? | Kết luận |
 |---|---|---|:--:|
@@ -815,7 +1069,7 @@ Cả ba phép tách đều bảo toàn thông tin ⟹ **không sinh bộ giả**
 
 So sánh với định nghĩa 3NF ở mục 5.7.4, khác biệt nằm ở chỗ BCNF **bỏ đi vế "hoặc `A` là thuộc tính khóa"**. Đó là điều kiện chặt hơn.
 
-**Bảng 5.10. 3NF và BCNF khác nhau ở đâu**
+**Bảng 5.22. 3NF và BCNF khác nhau ở đâu**
 
 | | 3NF | BCNF |
 |---|---|---|
@@ -829,7 +1083,7 @@ So sánh với định nghĩa 3NF ở mục 5.7.4, khác biệt nằm ở chỗ 
 
 Có một loại dư thừa mà **BCNF không diệt được**. Xét tình huống sau tại Trung tâm ABC.
 
-> **Ví dụ 5.8.** Trung tâm muốn lưu: mỗi giáo viên dạy những lớp nào, và có những chứng chỉ gì. Hai thông tin này **hoàn toàn độc lập với nhau** — chứng chỉ của giáo viên không liên quan gì tới lớp cụ thể mà người ấy dạy.
+> **Ví dụ 5.10.** Trung tâm muốn lưu: mỗi giáo viên dạy những lớp nào, và có những chứng chỉ gì. Hai thông tin này **hoàn toàn độc lập với nhau** — chứng chỉ của giáo viên không liên quan gì tới lớp cụ thể mà người ấy dạy.
 >
 > `GV_LOP_CC(MAGV, MALOP, CHUNGCHI)`
 >
@@ -848,7 +1102,7 @@ Có một loại dư thừa mà **BCNF không diệt được**. Xét tình hu�
 
 Cách hiểu thực dụng, bỏ qua ký hiệu: **`X ↠ Y` nghĩa là với mỗi giá trị của `X`, tập giá trị `Y` là cố định và hoàn toàn độc lập với tập giá trị `Z`.**
 
-**Hình 5.11. Phụ thuộc đa trị — hai nhánh độc lập gây bùng nổ tích**
+**Hình 5.12. Phụ thuộc đa trị — hai nhánh độc lập gây bùng nổ tích**
 
 ```mermaid
 flowchart LR
@@ -886,7 +1140,7 @@ LẶP cho tới khi không còn vi phạm:
 
 Đây là một kết quả rất tiện: khác với BCNF, ta không phải lo kiểm tra điều kiện lossless — tách theo phụ thuộc đa trị thì tự động bảo toàn.
 
-> **Ví dụ 5.9 — áp dụng cho Ví dụ 5.8.**
+> **Ví dụ 5.11 — áp dụng cho Ví dụ 5.10.**
 >
 > Trong `GV_LOP_CC(MAGV, MALOP, CHUNGCHI)` ta có `MAGV ↠ MALOP` *(và do đó `MAGV ↠ CHUNGCHI`)*, mà `MAGV` **không phải siêu khóa** — khóa là cả ba thuộc tính. Vậy lược đồ **vi phạm 4NF**.
 >
@@ -925,9 +1179,13 @@ Toàn bộ chương này hướng tới việc chuẩn hóa. Mục cuối cùng 
 
 > **Định nghĩa 5.20.** **Phi chuẩn hóa** *(denormalization)* là việc **cố ý đưa dư thừa trở lại** lược đồ đã chuẩn hóa, nhằm đánh đổi lấy **tốc độ truy vấn**.
 
+![](hinh-ve/slide/internet/kho_hang.jpg){width=60%}
+
+*Ảnh minh họa: kho hàng xếp pa-lét. Kho là nơi "đọc nhiều, sửa ít": hàng được nạp vào theo đợt rồi chủ yếu chỉ xuất ra. Kho dữ liệu báo cáo cũng vậy, và đó là nơi phi chuẩn hóa thường được chấp nhận — Nguồn: Wikimedia Commons · Shixart1985 · CC BY 2.0.*
+
 Lý do rất thực tế. Chuẩn hóa tách bảng ra nhiều, mà càng nhiều bảng thì truy vấn càng phải **ghép nhiều lần**. Với hệ thống báo cáo chạy trên hàng chục triệu dòng, chi phí ghép bảng có thể lớn tới mức không chấp nhận được.
 
-**Bảng 5.11. Khi nào phi chuẩn hóa là hợp lý**
+**Bảng 5.23. Khi nào phi chuẩn hóa là hợp lý**
 
 | Điều kiện | Vì sao |
 |---|---|
@@ -954,7 +1212,7 @@ Ba câu trả lời không mâu thuẫn: chúng cho thấy **cùng một quyết
 
 ### 5.11.1. Ba con đường, một đích đến
 
-**Hình 5.12. Trực giác, bản vẽ, toán học — cùng ra một kết quả**
+**Hình 5.13. Trực giác, bản vẽ, toán học — cùng ra một kết quả**
 
 ```mermaid
 flowchart LR
@@ -983,7 +1241,7 @@ Ba con đường cho **cùng một kết quả** — nhưng khác biệt là r�
 
 ### 5.11.2. Ba dị thường của Chương 1 — kiểm chứng lần cuối
 
-**Bảng 5.12. Ba dị thường trên lược đồ 3NF**
+**Bảng 5.24. Ba dị thường trên lược đồ 3NF**
 
 | Dị thường *(Chương 1)* | Trên lược đồ 3NF | Kết quả |
 |---|---|:--:|
@@ -997,7 +1255,7 @@ Cả ba đã bị loại bỏ — và lần này ta biết **chính xác vì sao
 
 Học phần đã treo lại nhiều lời hẹn. Đây là chỗ trả hết.
 
-**Bảng 5.13. Mọi lời hẹn và nơi trả**
+**Bảng 5.25. Mọi lời hẹn và nơi trả**
 
 | Lời hẹn | Treo ở | Trả tại |
 |---|---|---|
@@ -1006,11 +1264,11 @@ Học phần đã treo lại nhiều lời hẹn. Đây là chỗ trả hết.
 | *"Thuộc tính dẫn xuất `SISO` sẽ được bàn lại dưới tên phi chuẩn hóa"* | mục 2.2.5 · 4.7.5 | **5.10.4** |
 | *"Phụ thuộc hàm là quy tắc nghiệp vụ, Chương 5 sẽ dùng nó làm công cụ chuẩn hóa"* | mục 3.2.2 | **5.2** |
 | *"Ràng buộc quá khó thường tố cáo thiết kế — ý này dẫn vào Chương 5"* | mục 4.7.5 | **5.8.4** |
-| *"Bốn chương đều dựa vào cảm tính; Chương 5 cho công cụ chứng minh"* | Bảng 4.13 | **5.1 · 5.11** |
+| *"Bốn chương đều dựa vào cảm tính; Chương 5 cho công cụ chứng minh"* | Bảng 4.26 | **5.1 · 5.11** |
 
 ### 5.11.4. Hành trình năm chương
 
-**Hình 5.13. Hành trình năm chương**
+**Hình 5.14. Hành trình năm chương**
 
 ```mermaid
 flowchart LR
@@ -1026,6 +1284,10 @@ flowchart LR
     style C5 fill:#1F4E79,color:#fff,stroke:#1F4E79,stroke-width:2px
     style K fill:#E2F0D9,stroke:#548235,stroke-width:2px
 ```
+
+![](hinh-ve/slide/internet/le_tot_nghiep.jpg){width=70%}
+
+*Ảnh minh họa: lễ trao bằng tốt nghiệp tại một trường đại học ở Việt Nam. Năm chương của học phần là hành trình từ nhìn thấy vấn đề tới chứng minh được lời giải — phần còn lại là của người học — Nguồn: Wikimedia Commons · Quan629 · CC BY-SA 3.0.*
 
 Học phần khép lại ở đây, nhưng công việc thì không. Điều học phần này trao cho người học không phải là một bộ quy tắc để học thuộc, mà là **một cách suy nghĩ**: trước khi lưu bất kỳ dữ liệu nào, hãy hỏi *"sự thật này thuộc về đâu, và nó có đang bị lưu ở hai chỗ không?"*
 
@@ -1061,6 +1323,20 @@ Bước tiếp theo là học phần **Hệ quản trị cơ sở dữ liệu**,
 
 ---
 
+## ĐÁP ÁN TỰ KIỂM TRA
+
+**Tự kiểm tra 5.2.** *(1)* `TENLOP` phụ thuộc vào `MALOP` — nửa khóa còn lại — nên cũng là **bộ phận**; "Anh cơ bản 1" chép lặp ở mọi dòng có `MALOP = A1` *(HV01 và HV02)*. *(2)* **Không có hại**: `CCCD` là khóa dự tuyển của `HOCVIEN` *(mỗi công dân một số)*, nên vi phạm điều kiện "`Z` không phải khóa"; không cần tách. *(3)* **Không**. `F` phải rút từ nghiệp vụ: hai lượt ghi danh hoàn toàn có thể cùng mức học phí, chỉ tình cờ dữ liệu hiện tại chưa có.
+
+**Tự kiểm tra 5.4.** *(1)* `(CD)⁺`: khởi tạo `{C, D}` → `CD → A` thêm `A` → `A → B` thêm `B` → `B → C` không đổi → vòng 2 không đổi → `{A, B, C, D}`. `C⁺`: `A → B` không áp *(A ∉)*, `B → C` không áp, `CD → A` không áp *(thiếu D)* → `{C}`. *(2)* `C → B` suy ra được khi và chỉ khi `B ∈ C⁺ = {C}` → **không**. *(3)* Không sai về lý thuyết nhưng **không khả thi**: `F⁺` cỡ hàm mũ; câu hỏi chỉ cần một bao đóng `C⁺` gồm một thuộc tính.
+
+**Tự kiểm tra 5.5.** *(1)* Vế trái: `A, B, C, D`; vế phải: `B, D, E` → `TN = {A, C}`, `TG = {B, D}`, `TĐ = {E}`. *(2)* `(AC)⁺`: `A → B` → `{A, C, B}`; `BC → D` → `{A, B, C, D}`; `D → E` → toàn bộ. `(TN)⁺` phủ hết ⟹ **`AC` là khóa duy nhất**, không cần thử tập con nào của `TG`. *(3)* `E` thuộc `TĐ` — chỉ ở vế phải — luôn suy ra được từ `D`; đưa `E` vào chỉ làm khóa thừa, vi phạm tính tối thiểu.
+
+**Tự kiểm tra 5.6–5.7.** *(1)* `A → C` thừa: tạm bỏ nó, `A⁺ = {A, B, C}` *(nhờ `A → B` rồi `B → C`)* vẫn chứa `C`. *(2)* Đạt **2NF** *(khóa đơn nên không có bộ phận)* nhưng **vi phạm 3NF**: thủ phạm `MALOP → MAGV → HOTEN_GV`, `MAGV` không phải khóa. Dạng chuẩn cao nhất: 2NF. *(3)* Chỉ đạt **1NF**: `MAHV → HOTEN` là phụ thuộc **bộ phận**. Sửa: tách `HOCVIEN(MAHV, HOTEN)` ra, còn lại `GHIDANH(MAHV, MALOP, HOCPHI)` đạt 3NF.
+
+**Tự kiểm tra 5.8.** *(1)* **Không**. Thuộc tính chung `HOCPHI` không phải khóa của bảng con nào *(nhiều học viên cùng mức phí, nhiều lớp cùng mức phí)*; hai học viên cùng đóng 2.000.000 cho hai lớp khác nhau sẽ ghép ra bộ giả. *(2)* Thuộc tính chung `MAGV` là khóa của `(MAGV, HOTEN_GV)` → **bảo toàn thông tin**; `MALOP → TENLOP, MAGV` nằm trọn trong bảng một, `MAGV → HOTEN_GV` nằm trọn trong bảng hai → **bảo toàn phụ thuộc hàm**. Đây chính là phép tách ở mục 5.9.5. *(3)* Tách `R` theo `X → Y` thành `R1(X ∪ Y)` và `R2(R − Y)` thì thuộc tính chung là `X`, mà `X → Y` nghĩa là `X` xác định mọi thuộc tính của `R1` → `X` là siêu khóa của `R1` → Định lý 5.1 thỏa.
+
+---
+
 ## CÂU HỎI ÔN TẬP
 
 1. Nêu **bốn tiêu chí** của một cơ sở dữ liệu "tốt". Hai tiêu chí nào đôi khi **không thể đạt cùng lúc**?
@@ -1090,7 +1366,7 @@ Bước tiếp theo là học phần **Hệ quản trị cơ sở dữ liệu**,
 
 *Câu 13.* **Bộ giả** là bộ xuất hiện khi ghép các bảng con nhưng **không có trong quan hệ gốc**. Nguy hiểm hơn mất dữ liệu vì: mất dữ liệu thì người dùng **biết mình thiếu** và đi tìm; còn bộ giả khiến hệ thống trả về **nhiều hơn sự thật**, mọi dòng đều trông hợp lệ, và **không ai biết dòng nào bịa**.
 
-*Câu 15.* Nếu một phụ thuộc hàm bị xé ra hai bảng, thì để kiểm tra nó hệ quản trị phải **ghép hai bảng mỗi lần có thao tác** — tức ràng buộc ấy trở thành loại **liên bộ liên quan hệ**, loại khó nhất trong Bảng 4.3 của Chương 4, phải viết trigger. Nói gọn: **mất bảo toàn phụ thuộc hàm nghĩa là biến một ràng buộc dễ thành một ràng buộc khó.**
+*Câu 15.* Nếu một phụ thuộc hàm bị xé ra hai bảng, thì để kiểm tra nó hệ quản trị phải **ghép hai bảng mỗi lần có thao tác** — tức ràng buộc ấy trở thành loại **liên bộ liên quan hệ**, loại khó nhất trong Bảng 4.6 của Chương 4, phải viết trigger. Nói gọn: **mất bảo toàn phụ thuộc hàm nghĩa là biến một ràng buộc dễ thành một ràng buộc khó.**
 
 *Câu 17.* Nguyên nhân là **phụ thuộc đa trị**: bảng chứa **hai danh sách độc lập** gắn với cùng một chủ thể, gây **bùng nổ tích**. BCNF không phát hiện được vì bảng có thể không có phụ thuộc hàm không tầm thường nào. Khắc phục: tách về **4NF** — tách `R` thành `X ∪ Y` và `X ∪ Z`; theo định lý Fagin phép tách này luôn bảo toàn thông tin.
 
@@ -1151,7 +1427,7 @@ d) Sau khi tách, cần bao nhiêu dòng? Tính tỷ lệ tiết kiệm.
 a) Đề xuất một phương án **phi chuẩn hóa** cụ thể.
 b) Chỉ ra **dư thừa** mà phương án ấy tạo ra và **dị thường** có thể phát sinh.
 c) Đề xuất **cơ chế bảo đảm** dữ liệu dư thừa luôn khớp.
-d) Nêu **điều kiện** để phương án này chấp nhận được, đối chiếu Bảng 5.11.
+d) Nêu **điều kiện** để phương án này chấp nhận được, đối chiếu Bảng 5.23.
 
 **Bài C4** *(tự chọn).* Tìm hiểu về **dạng chuẩn 5 (5NF)** hay *dạng chuẩn nối*. Cho một ví dụ về quan hệ phải tách thành **ba bảng** mới bảo toàn thông tin, và giải thích vì sao tách thành hai bảng là không đủ.
 
@@ -1216,7 +1492,7 @@ Cặp **ngân hàng lõi** và **kho dữ liệu báo cáo** đáng dùng nhất
 1. Trong buổi học hôm nay, khái niệm nào bạn thấy **khó hiểu nhất**?
 2. Nêu **một câu** tóm tắt điều bạn nhớ nhất.
 
-Kinh nghiệm cho thấy ba chỗ hay được nêu nhất là **phân biệt `F⁺` với `X⁺`**, **bước lọc tính tối thiểu khi tìm tất cả khóa**, và **phụ thuộc đa trị**. Với chỗ thứ nhất, câu *"`F⁺` là tập các mũi tên, `X⁺` là tập các chữ cái"* thường đủ để gỡ. Với chỗ thứ ba, nên bỏ hẳn định nghĩa hình thức và đi thẳng vào **bảng dữ liệu bùng nổ tích** ở Ví dụ 5.8 — nhìn thấy 15 dòng cho 8 sự kiện là hiểu ngay.
+Kinh nghiệm cho thấy ba chỗ hay được nêu nhất là **phân biệt `F⁺` với `X⁺`**, **bước lọc tính tối thiểu khi tìm tất cả khóa**, và **phụ thuộc đa trị**. Với chỗ thứ nhất, câu *"`F⁺` là tập các mũi tên, `X⁺` là tập các chữ cái"* thường đủ để gỡ. Với chỗ thứ ba, nên bỏ hẳn định nghĩa hình thức và đi thẳng vào **bảng dữ liệu bùng nổ tích** ở Ví dụ 5.10 — nhìn thấy 15 dòng cho 8 sự kiện là hiểu ngay.
 
 ---
 
@@ -1229,14 +1505,15 @@ Kinh nghiệm cho thấy ba chỗ hay được nêu nhất là **phân biệt `F
 | Hình 5.3 | Phụ thuộc bắc cầu — phải đi hai chặng | 5.2.4 |
 | Hình 5.4 | Bao đóng — phép loại suy quả cầu tuyết | 5.4.1 |
 | Hình 5.5 | Ba nhóm thuộc tính — và vì sao phân nhóm | 5.5.1 |
-| Hình 5.6 | Thuật toán tìm phủ tối thiểu — phải làm đúng thứ tự | 5.6.3 |
-| Hình 5.7 | Cây quyết định — xác định dạng chuẩn cao nhất | 5.7.5 |
-| Hình 5.8 | Nghịch lý bộ giả — không mất dòng nào mà vẫn mất sự thật | 5.8.1 |
-| Hình 5.9 | Leo cao hơn chưa chắc tốt hơn | 5.8.4 |
-| Hình 5.10 | Quy trình chuẩn hóa từng bước | 5.9.5 |
-| Hình 5.11 | Phụ thuộc đa trị — hai nhánh độc lập gây bùng nổ tích | 5.10.2 |
-| Hình 5.12 | Trực giác, bản vẽ, toán học — cùng ra một kết quả | 5.11.1 |
-| Hình 5.13 | Hành trình năm chương | 5.11.4 |
+| Hình 5.6 | Lưới tám tập con của `TG = {A, B, C}` — ba siêu khóa ở tầng 1 chặn toàn bộ các tầng trên | 5.5.5 |
+| Hình 5.7 | Thuật toán tìm phủ tối thiểu — phải làm đúng thứ tự | 5.6.3 |
+| Hình 5.8 | Cây quyết định — xác định dạng chuẩn cao nhất | 5.7.5 |
+| Hình 5.9 | Nghịch lý bộ giả — không mất dòng nào mà vẫn mất sự thật | 5.8.1 |
+| Hình 5.10 | Leo cao hơn chưa chắc tốt hơn | 5.8.4 |
+| Hình 5.11 | Quy trình chuẩn hóa từng bước | 5.9.5 |
+| Hình 5.12 | Phụ thuộc đa trị — hai nhánh độc lập gây bùng nổ tích | 5.10.2 |
+| Hình 5.13 | Trực giác, bản vẽ, toán học — cùng ra một kết quả | 5.11.1 |
+| Hình 5.14 | Hành trình năm chương | 5.11.4 |
 
 ## DANH MỤC BẢNG (Chương 5)
 
@@ -1245,16 +1522,28 @@ Kinh nghiệm cho thấy ba chỗ hay được nêu nhất là **phân biệt `F
 | Bảng 5.1 | Bốn chương — căn cứ ra quyết định | 5.1.1 |
 | Bảng 5.2 | Bốn tiêu chí — công cụ kiểm tra tương ứng | 5.1.2 |
 | Bảng 5.3 | Ba loại phụ thuộc hàm | 5.2.1 |
-| Bảng 5.4 | Ba luật gốc và ba luật dẫn xuất | 5.3.2 |
-| Bảng 5.5 | `F⁺` và `X⁺` — hai thứ khác nhau | 5.4.4 |
-| Bảng 5.6 | Dạng chuẩn diệt dị thường nào | 5.7.6 |
-| Bảng 5.7 | Tập phụ thuộc hàm `F` — rút từ quy tắc nghiệp vụ | 5.9.2 |
-| Bảng 5.8 | Chẩn đoán với khóa `K = (MAHV, MALOP)` | 5.9.4 |
-| Bảng 5.9 | Kiểm chứng từng phép tách | 5.9.6 |
-| Bảng 5.10 | 3NF và BCNF khác nhau ở đâu | 5.10.1 |
-| Bảng 5.11 | Khi nào phi chuẩn hóa là hợp lý | 5.10.4 |
-| Bảng 5.12 | Ba dị thường trên lược đồ 3NF | 5.11.2 |
-| Bảng 5.13 | Mọi lời hẹn và nơi trả | 5.11.3 |
+| Bảng 5.4 | Phụ thuộc bộ phận nhìn trên dữ liệu — `GHIDANH_MORONG` với khóa `(MAHV, MALOP)` | 5.2.3 |
+| Bảng 5.5 | Phụ thuộc bắc cầu nhìn trên dữ liệu — `LOP` với khóa `MALOP` | 5.2.4 |
+| Bảng 5.6 | Ba luật gốc và ba luật dẫn xuất | 5.3.2 |
+| Bảng 5.7 | Sáu luật, mỗi luật một ví dụ tại ABC | 5.3.2 |
+| Bảng 5.8 | Tính `A⁺` với `F = {B → C, A → B}` — quét một lượt thì sót, hai vòng mới đủ | 5.4.1 |
+| Bảng 5.9 | Ba câu hỏi, ba bao đóng — `R(A, B, C, D)`, `F = {A → B, B → C, CD → A}` | 5.4.3 |
+| Bảng 5.10 | `F⁺` và `X⁺` — hai thứ khác nhau | 5.4.4 |
+| Bảng 5.11 | Phân nhóm bảy thuộc tính của `GHIDANH_PHANG` — gạch vế trái, gạch vế phải | 5.5.1 |
+| Bảng 5.12 | Chẩn đoán từng phụ thuộc hàm của `GHIDANH_PHANG` bằng hai câu hỏi | 5.7.4 |
+| Bảng 5.13 | Dạng chuẩn diệt dị thường nào | 5.7.6 |
+| Bảng 5.14 | Tách sai `R` theo `MAGV` — không mất dòng nào, ghép lại sinh hai bộ giả | 5.8.1 |
+| Bảng 5.15 | Tách đúng `R` theo `MALOP` — ghép lại được đúng ba dòng gốc | 5.8.2 |
+| Bảng 5.16 | Phép tách bảo toàn thông tin nhưng "xé" mất `MAGV → HOTEN_GV` | 5.8.3 |
+| Bảng 5.17 | `HV_KH_GV` đạt 3NF nhưng không đạt BCNF — và cái giá khi tách lên BCNF | 5.8.4 |
+| Bảng 5.18 | Tập phụ thuộc hàm `F` — rút từ quy tắc nghiệp vụ | 5.9.2 |
+| Bảng 5.19 | Chẩn đoán với khóa `K = (MAHV, MALOP)` | 5.9.4 |
+| Bảng 5.20 | Ba dòng của `GHIDANH_PHANG` sau khi tách — bốn bảng, không còn giá trị nào chép lặp | 5.9.5 |
+| Bảng 5.21 | Kiểm chứng từng phép tách | 5.9.6 |
+| Bảng 5.22 | 3NF và BCNF khác nhau ở đâu | 5.10.1 |
+| Bảng 5.23 | Khi nào phi chuẩn hóa là hợp lý | 5.10.4 |
+| Bảng 5.24 | Ba dị thường trên lược đồ 3NF | 5.11.2 |
+| Bảng 5.25 | Mọi lời hẹn và nơi trả | 5.11.3 |
 
 ## DANH MỤC TỪ VIẾT TẮT
 

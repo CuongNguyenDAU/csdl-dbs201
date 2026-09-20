@@ -1,6 +1,6 @@
 # CHƯƠNG 4. RÀNG BUỘC TOÀN VẸN
 
-> **Ghi chú biên soạn (v4 — bản giáo trình).** Bản này viết lại Chương 4 theo **văn phong giáo trình**, thống nhất với các chương trước. Hệ thống mục **4.1–4.7 khớp tuyệt đối với Mục 8 của đề cương chi tiết** *(8 tiết · CLO2, CLO3)*. So với bản trước, chương này **bổ sung bốn nội dung**: ① **cú pháp khai báo ràng buộc** — `CHECK`, `NOT NULL`, `UNIQUE`, `FOREIGN KEY … ON DELETE` — trình bày ở **mức đọc hiểu**, giảng viên minh họa, không yêu cầu người học viết SQL *(đề cương mục 4.4)*; ② **giới thiệu trigger** bằng mã giả *(đề cương mục 4.6)*; ③ **lập bảng tầm ảnh hưởng** nâng từ tiểu mục lên **mục riêng 1,5 tiết** vì đây là kỹ năng bị Rubric 3 chấm trực tiếp; ④ **ba tầng đặt ràng buộc** để làm rõ lập luận *"vì sao chọn tầng cơ sở dữ liệu"*. Số hình: **10**. Hoạt động tổ chức lớp học ở **Phụ lục 4A**. Khung ràng buộc *(điều kiện – bối cảnh – bảng tầm ảnh hưởng)* theo [1] Tô Văn Nam (2005) và [2] Vũ Đức Thi (1997); đối chiếu [3] Coronel & Morris, Ch.3.
+> **Ghi chú biên soạn (v5 — bản giáo trình, tăng cường dữ liệu minh họa cho người tự học).** Bản này giữ nguyên hệ thống mục **4.1–4.8 khớp với Mục 8 của đề cương chi tiết** *(8 tiết · CLO2, CLO3)*, văn phong giáo trình và bốn nội dung bổ sung của bản v4 *(cú pháp khai báo ở mức đọc hiểu, trigger bằng mã giả, bảng tầm ảnh hưởng thành mục riêng, ba tầng đặt ràng buộc)*. So với v4, có ba nhóm thay đổi: ① **mọi ràng buộc trước đây chỉ nêu bằng lời hoặc bằng công thức nay đều có bảng dữ liệu để nhìn thấy dòng vi phạm** — ba dòng lọt lưới *(Bảng 4.1)*, dữ liệu để thử sáu thao tác của ràng buộc khóa ngoại *(Bảng 4.8)*, ba kết quả sau lệnh xóa giáo viên *(Bảng 4.12)*, một bảng `LOP` có ba dòng sai ba loại *(Bảng 4.15)*, kiểm tra R5 và R6 trên hai bảng đặt cạnh nhau *(Bảng 4.16, 4.18)*, chạy tay trigger *(Bảng 4.19)*; ② **công thức có bảng đọc từng mảnh** *(Bảng 4.4)*, hai ràng buộc mô tả đủ ba yếu tố đặt cạnh nhau *(Bảng 4.5)*, ma trận 2 × 3 giải thích vì sao có đúng sáu loại *(Bảng 4.7)*, bảng sai – đúng cho ba lỗi lập bảng tầm ảnh hưởng *(Bảng 4.10)*, bảng tầm ảnh hưởng của R5 và của ràng buộc sức chứa viết đúng chuẩn thay cho văn xuôi *(Bảng 4.17, 4.20)*; ③ thêm bốn hộp **Tự kiểm tra** cuối các mục 4.2, 4.3, 4.4, 4.6 với đáp án trước phần Câu hỏi ôn tập. Số hình: **10**; số bảng: **26**; ngoài ra có **7 ảnh minh họa thực tế** không đánh số (Wikimedia Commons, giấy phép CC/PD, ghi nguồn dưới ảnh). Hoạt động tổ chức lớp học ở **Phụ lục 4A**. Khung ràng buộc *(điều kiện – bối cảnh – bảng tầm ảnh hưởng)* theo [1] Tô Văn Nam (2005) và [2] Vũ Đức Thi (1997); đối chiếu [3] Coronel & Morris, Ch.3.
 
 ---
 
@@ -47,9 +47,31 @@ Chương cũng chứa một ý tưởng bất ngờ, xuất hiện ở mục 4.7
 
 ### 4.1.1. Ba lỗ hổng còn lại từ Chương 3
 
-Mục 3.3.4 đã liệt kê ba loại lỗi mà hai ràng buộc toàn vẹn thực thể và tham chiếu không phát hiện được. Chương này nhận lại đúng ba món nợ ấy.
+Mục 3.3.4 đã liệt kê ba loại lỗi mà hai ràng buộc toàn vẹn thực thể và tham chiếu không phát hiện được. Chương này nhận lại đúng ba món nợ ấy. Trước khi gọi tên chúng, hãy nhìn ba món nợ ấy **bằng dữ liệu thật** — ba ô in đậm dưới đây đều đã lọt vào cơ sở dữ liệu mà không có một lời cảnh báo.
 
-**Bảng 4.1. Ba lỗ hổng của một cơ sở dữ liệu "hoàn hảo"**
+**Bảng 4.1. Ba dòng dữ liệu vô lý lọt qua hai ràng buộc của Chương 3**
+
+| `KHOAHOC` | MAKH | TENKH | NGAYTL |
+|---|---|---|---|
+| | KH01 | Anh cơ bản | 2020-01-15 |
+| | KH02 | Anh giao tiếp | 2021-03-15 |
+
+| `LOP` | MALOP | TENLOP | MAKH↗ | NGAYKG | SUCCHUA | *số dòng `GHIDANH`* |
+|---|---|---|---|---|---|---|
+| | A1 | Anh cơ bản 1 | KH01 | 2026-09-01 | 25 | 22 |
+| | A2 | Anh cơ bản 2 | KH01 | 2026-09-08 | **25** | **40** |
+| | A3 | Anh giao tiếp 1 | KH02 | **1990-09-01** | 20 | 15 |
+
+| `GHIDANH` | MAHV↗ | MALOP↗ | HOCPHI |
+|---|---|---|---|
+| | HV01 | A1 | 1 500 000 |
+| | HV02 | A1 | **−500 000** |
+| | HV03 | A2 | 1 500 000 |
+| | … | … | *(còn 74 dòng nữa)* |
+
+Hãy kiểm tra thử bằng hai ràng buộc đã học: mọi khóa chính đều không rỗng, không trùng; mọi khóa ngoại `MAKH`, `MAHV`, `MALOP` đều trỏ tới dòng có thật. **Không có gì để bắt lỗi.** Thế nhưng học phí âm, lớp khai giảng trước khi khóa học ra đời ba mươi năm, và lớp 25 chỗ nhận 40 người — ba điều vô lý ấy vẫn nằm yên trong bảng. Bảng 4.2 gọi tên từng lỗ hổng và cho biết cần loại ràng buộc nào để bịt.
+
+**Bảng 4.2. Ba lỗ hổng của một cơ sở dữ liệu "hoàn hảo"**
 
 | Dữ liệu vô lý | Vì sao lọt qua | Cần loại ràng buộc nào |
 |---|---|---|
@@ -62,6 +84,10 @@ Ba dòng trên cũng chính là ba mức độ khó tăng dần mà chương s�
 ### 4.1.2. Ràng buộc toàn vẹn là gì
 
 > **Định nghĩa 4.1.** **Ràng buộc toàn vẹn** *(integrity constraint)* là một **điều kiện mà dữ liệu trong cơ sở dữ liệu phải luôn luôn thỏa mãn**, ở mọi thời điểm, nhằm phản ánh đúng các quy tắc nghiệp vụ của tổ chức.
+
+![](hinh-ve/slide/internet/bien_suc_chua.jpg){width=50%}
+
+*Ảnh minh họa: biển "sức chứa tối đa" gắn ở cửa một hội trường. Con số ấy phải đúng ở mọi thời điểm chứ không chỉ lúc mở cửa — đúng tinh thần "luôn luôn" của ràng buộc toàn vẹn, và cũng là ràng buộc "lớp không vượt sức chứa" của Trung tâm ABC — Nguồn: Wikimedia Commons · Dan Keck · CC0.*
 
 Ba chữ đáng chú ý trong định nghĩa là **"luôn luôn"**. Một ràng buộc không phải là điều kiện chỉ đúng lúc nhập liệu rồi thôi; nó phải đúng **trước và sau mọi thao tác**, trong suốt vòng đời hệ thống.
 
@@ -98,7 +124,7 @@ Cách nhìn này có giá trị thực tiễn: người học không phải nh�
 
 Một quy tắc nghiệp vụ có thể được kiểm tra ở ba nơi khác nhau.
 
-**Bảng 4.2. Ba tầng có thể đặt ràng buộc**
+**Bảng 4.3. Ba tầng có thể đặt ràng buộc**
 
 | Tầng | Cách làm | Ưu điểm | Nhược điểm |
 |---|---|---|---|
@@ -129,6 +155,10 @@ flowchart LR
     style C5 fill:#FFD9D9,stroke:#C00000
     style DB fill:#1F4E79,color:#fff,stroke:#1F4E79,stroke-width:2px
 ```
+
+![](hinh-ve/slide/internet/cua_soat_ve.jpg){width=60%}
+
+*Ảnh minh họa: dãy cửa soát vé ở một ga tàu điện. Ga có nhiều lối vào; chỉ đặt máy soát ở một cửa thì hành khách không vé vẫn vào được bằng những cửa còn lại — kiểm tra ở tầng ứng dụng cũng chỉ khóa được một cửa như vậy — Nguồn: Wikimedia Commons · GK tramrunner RU · CC BY-SA 4.0.*
 
 Trong hình, chỉ **cửa 1** có kiểm tra vì đó là ứng dụng đã cài logic. Bốn cửa còn lại **hoàn toàn mở**. Và bốn cửa ấy đều là những đường vào rất thật trong thực tế: ứng dụng di động do nhóm khác viết và có thể quên một điều kiện, quản trị viên sửa dữ liệu trực tiếp lúc cần gấp, kịch bản nạp dữ liệu hàng loạt bỏ qua mọi tầng ứng dụng, và hệ thống của đối tác gọi thẳng vào.
 
@@ -173,7 +203,19 @@ Yếu tố thứ ba được tô đậm vì nó là **kỹ năng chữ ký của
 >
 > **(c)** `∀t ∈ GHIDANH : t.HOCPHI > 0` — **Chính xác**. Đọc là *"với mọi bộ `t` thuộc quan hệ `GHIDANH`, giá trị `HOCPHI` của `t` phải lớn hơn 0"*.
 
-Ba ký hiệu cần nắm: **`∀`** đọc là *"với mọi"*, **`∃`** đọc là *"tồn tại"*, và **`⇒`** đọc là *"thì"* hoặc *"kéo theo"*.
+Ba ký hiệu cần nắm: **`∀`** đọc là *"với mọi"*, **`∃`** đọc là *"tồn tại"*, và **`⇒`** đọc là *"thì"* hoặc *"kéo theo"*. Người mới đọc công thức thường bị "dội" ngay ở ký hiệu đầu tiên. Cách khắc phục là **cắt công thức thành từng mảnh** và đọc mảnh nào ra mảnh nấy — Bảng 4.4 làm mẫu với phát biểu (c).
+
+**Bảng 4.4. Đọc công thức `∀t ∈ GHIDANH : t.HOCPHI > 0` từng mảnh một**
+
+| Mảnh | Đọc thành lời | Nghĩa là gì |
+|---|---|---|
+| `∀t` | *với mọi bộ t* | xét **từng dòng một**, không bỏ dòng nào |
+| `∈ GHIDANH` | *thuộc quan hệ GHIDANH* | dòng ấy lấy ở **bảng nào** — đây chính là *bối cảnh* |
+| `:` | *sao cho* / *thì phải* | phần sau dấu hai chấm là điều kiện phải thỏa |
+| `t.HOCPHI` | *giá trị cột HOCPHI của dòng t* | chỉ đích danh **ô** đang xét |
+| `> 0` | *lớn hơn không* | điều kiện cụ thể, máy kiểm tra được |
+
+Ghép lại: *"xét từng dòng của bảng `GHIDANH`, ô `HOCPHI` của dòng ấy phải lớn hơn 0."* Mọi công thức trong chương đều đọc được theo cách này; công thức dài chỉ là nhiều mảnh hơn.
 
 > **Ví dụ 4.2.** Ràng buộc *"lớp không được khai giảng trước ngày khóa học được thành lập"* viết hình thức là:
 >
@@ -191,11 +233,26 @@ Bối cảnh là yếu tố quyết định nhất, vì xác định xong bối 
 
 Cách xác định rất máy móc: đọc biểu thức điều kiện và **liệt kê mọi tên quan hệ xuất hiện trong đó**. Ở Ví dụ 4.1 chỉ có `GHIDANH` nên bối cảnh gồm một quan hệ. Ở Ví dụ 4.2 có cả `LOP` lẫn `KHOAHOC` nên bối cảnh gồm hai quan hệ.
 
+Đặt hai ví dụ cạnh nhau và điền đủ ba yếu tố của Hình 4.3, ta thấy ngay một ràng buộc "mô tả đầy đủ" trông như thế nào — và thấy hai ràng buộc khác nhau ở đâu.
+
+**Bảng 4.5. Hai ràng buộc mô tả đầy đủ theo ba yếu tố**
+
+| Yếu tố | Ví dụ 4.1 — học phí dương | Ví dụ 4.2 — lớp không khai giảng trước khóa học |
+|---|---|---|
+| **① Điều kiện** | `∀t ∈ GHIDANH : t.HOCPHI > 0` | `∀l ∈ LOP, ∀k ∈ KHOAHOC : (l.MAKH = k.MAKH) ⇒ (l.NGAYKG ≥ k.NGAYTL)` |
+| **② Bối cảnh** | `{GHIDANH}` — **một** quan hệ | `{LOP, KHOAHOC}` — **hai** quan hệ |
+| Loại *(tra Bảng 4.6)* | Miền giá trị | Liên thuộc tính liên quan hệ |
+| **③ Bảng tầm ảnh hưởng** *(cách lập ở mục 4.3)* | `GHIDANH`: thêm **+** · xóa − · sửa **+** *(HOCPHI)* | `LOP`: thêm **+** · xóa − · sửa **+** *(NGAYKG, MAKH)*  ;  `KHOAHOC`: thêm − · xóa − · sửa **+** *(NGAYTL)* |
+| **(+) Hành động** | Từ chối, báo *"học phí phải dương"* | Từ chối, báo *"ngày khai giảng sớm hơn ngày thành lập khóa"* |
+| Công cụ khai báo *(mục 4.4)* | `CHECK (HOCPHI > 0)` | Trigger — `CHECK` không nhìn được sang bảng khác |
+
+Bối cảnh một quan hệ thì bảng tầm ảnh hưởng có **một dòng**; bối cảnh hai quan hệ thì có **hai dòng**. Quy tắc "bao nhiêu quan hệ, bấy nhiêu dòng" sẽ được nhắc lại ở mục 4.3.5 vì đây là chỗ hay bị bỏ sót.
+
 ### 4.2.4. Sáu loại ràng buộc toàn vẹn
 
 Kết hợp **bối cảnh** *(một hay nhiều quan hệ)* với **phạm vi tác động** *(trong một ô, giữa các ô cùng dòng, hay giữa nhiều dòng)*, ta được bộ sáu loại đầy đủ.
 
-**Bảng 4.3. Sáu loại ràng buộc toàn vẹn**
+**Bảng 4.6. Sáu loại ràng buộc toàn vẹn**
 
 | Bối cảnh | Phạm vi | Tên loại | Ví dụ tại ABC |
 |---|---|---|---|
@@ -207,6 +264,24 @@ Kết hợp **bối cảnh** *(một hay nhiều quan hệ)* với **phạm vi t
 | **Nhiều** quan hệ | Nhiều **dòng** ở các bảng khác nhau | **Liên bộ liên quan hệ** | `LOP.SISO` bằng số dòng `GHIDANH` tương ứng |
 
 Bảng này là **công cụ làm bài quan trọng nhất của chương**. Khi phải phát hiện ràng buộc cho một bài toán mới, người học đi lần lượt qua sáu dòng và tự hỏi *"bài này có ràng buộc loại đó không"* — cách làm ấy bảo đảm không bỏ sót loại nào. Mục 4.7.2 sẽ chuyển sáu dòng này thành sáu câu hỏi cụ thể.
+
+Vì sao là **sáu** mà không phải năm hay bảy? Vì sáu loại chính là **hai lựa chọn bối cảnh nhân với ba mức phạm vi** — xếp thành ma trận 2 × 3 thì nhìn thấy ngay, và cũng dễ nhớ hơn một danh sách sáu dòng.
+
+**Bảng 4.7. Sáu loại ràng buộc là ma trận 2 × 3 — bối cảnh nhân phạm vi**
+
+| Bối cảnh ╲ Phạm vi | Một **giá trị** | Nhiều ô **cùng dòng** | Nhiều **dòng** |
+|---|---|---|---|
+| **Một** quan hệ | **Miền giá trị** — R1: `HOCPHI > 0` | **Liên thuộc tính** — R2: `NGAYKT ≥ NGAYKG` | **Liên bộ** — R3: không trùng `MAHV` |
+| **Nhiều** quan hệ | **Khóa ngoại** — R4: `GHIDANH.MAHV` phải có trong `HOCVIEN` | **Liên thuộc tính liên QH** — R5: `LOP.NGAYKG ≥ KHOAHOC.NGAYTL` | **Liên bộ liên QH** — R6: `SISO` = số dòng `GHIDANH` |
+| *Công cụ khai báo* | `CHECK`, kiểu dữ liệu, `NOT NULL` · `FOREIGN KEY` | `CHECK` · trigger | `UNIQUE`/`PRIMARY KEY` · trigger |
+
+Đi từ trái sang phải trong mỗi hàng, ràng buộc phải "nhìn" ngày càng rộng — một ô, một dòng, rồi cả bảng — nên **càng sang phải càng khó cài đặt**; đi từ trên xuống dưới thì phải nhìn thêm bảng khác, nên hàng dưới khó hơn hàng trên. Ô dưới cùng bên phải vì thế là loại khó nhất. Sáu mã R1–R6 là bộ ràng buộc mẫu của Trung tâm ABC, sẽ được lập đầy đủ ở Bảng 4.22.
+
+> **Tự kiểm tra 4.2.** *(đáp án ở cuối chương)*
+>
+> 1. Xếp mỗi ràng buộc sau vào đúng một ô của Bảng 4.7: (a) *"số điện thoại của học viên không trùng nhau"*; (b) *"ngày ghi danh không sớm hơn ngày khai giảng của lớp"*; (c) *"bằng cấp giáo viên chỉ nhận một trong ba giá trị"*; (d) *"mỗi khóa học có không quá 10 lớp"*.
+> 2. Viết ràng buộc (b) bằng ký hiệu logic theo dạng `(điều kiện) ⇒ (kết luận)`, rồi đọc thành lời như Bảng 4.4.
+> 3. Bối cảnh của ràng buộc (d) gồm những quan hệ nào? Bảng tầm ảnh hưởng của nó sẽ có mấy dòng?
 
 ---
 
@@ -247,9 +322,25 @@ flowchart LR
 
 ### 4.3.3. Ví dụ mẫu — ràng buộc khóa ngoại
 
-Xét ràng buộc: *"mọi `MAHV` trong `GHIDANH` phải tồn tại trong `HOCVIEN`"*. Bối cảnh gồm hai quan hệ, nên bảng có **hai dòng và ba cột**, tức sáu ô cần xét.
+Xét ràng buộc: *"mọi `MAHV` trong `GHIDANH` phải tồn tại trong `HOCVIEN`"*. Bối cảnh gồm hai quan hệ, nên bảng có **hai dòng và ba cột**, tức sáu ô cần xét. Để suy luận không bị trừu tượng, hãy đặt hai bảng dữ liệu nhỏ trước mặt và **giả thiết chúng đang đúng**: cả ba mã học viên trong `GHIDANH` đều có trong `HOCVIEN`.
 
-**Bảng 4.4. Suy luận từng ô — ràng buộc khóa ngoại**
+**Bảng 4.8. Dữ liệu đang đúng — dùng để thử sáu thao tác**
+
+| `HOCVIEN` *(cha)* | MAHV | HOTEN |
+|---|---|---|
+| | HV01 | Trần An |
+| | HV02 | Lê Bình |
+| | HV03 | Phạm Cường |
+
+| `GHIDANH` *(con)* | MAHV↗ | MALOP↗ |
+|---|---|---|
+| | HV01 | A1 |
+| | HV01 | A2 |
+| | HV02 | A1 |
+
+Với mỗi ô, hãy thử **một thao tác cụ thể** trên hai bảng này rồi hỏi câu hỏi vàng.
+
+**Bảng 4.9. Suy luận từng ô — ràng buộc khóa ngoại**
 
 | Ô cần xét | Suy luận: *"có thể biến đúng thành sai không?"* | Kết quả |
 |---|---|:--:|
@@ -266,6 +357,8 @@ Xét ràng buộc: *"mọi `MAHV` trong `GHIDANH` phải tồn tại trong `HOCV
 |---|:--:|:--:|:--:|
 | `HOCVIEN` *(cha)* | − | **+** | **+** *(MAHV)* |
 | `GHIDANH` *(con)* | **+** | − | **+** *(MAHV)* |
+
+Đối chiếu lại với Bảng 4.8 để thấy ba ô `+` "đáng sợ" nhất: thêm dòng `(HV99, A1)` vào `GHIDANH` là tạo ra một mũi tên trỏ vào chỗ trống; xóa `HV01` khỏi `HOCVIEN` là để lại **hai** dòng con `(HV01, A1)` và `(HV01, A2)` không còn cha; đổi `HV02` thành `HV22` ở `HOCVIEN` là làm dòng `(HV02, A1)` lệch đích. Ba ô `−` thì ngược lại: xóa dòng `(HV02, A1)` hay thêm `HV04` vào `HOCVIEN` chỉ khiến dữ liệu **an toàn hơn**.
 
 ### 4.3.4. Câu thần chú "Thêm ở con, Xóa ở cha"
 
@@ -293,6 +386,22 @@ Lý do đằng sau câu thần chú rất trực quan. Thêm vào bảng con là
 
 **Lỗi thứ ba — quên rằng bối cảnh có bao nhiêu quan hệ thì bảng có bấy nhiêu dòng.** Ràng buộc bối cảnh hai quan hệ phải có **hai dòng**; chỉ lập một dòng là đã bỏ sót một nửa số ô cần xét.
 
+Ba lỗi ấy trông thế nào trên giấy? Bảng 4.10 đặt bài làm sai cạnh bài làm đúng cho cùng ràng buộc khóa ngoại `GHIDANH.MAHV → HOCVIEN`.
+
+**Bảng 4.10. Ba lỗi khi lập bảng tầm ảnh hưởng — cách sai và cách đúng**
+
+| Lỗi | Bài làm **sai** | Bài làm **đúng** | Người chấm nhận ra vì |
+|---|---|---|---|
+| ① Đánh `+` cho chắc | `HOCVIEN`: **+ + +**  ·  `GHIDANH`: **+ + +** | `HOCVIEN`: − **+** **+**(MAHV)  ·  `GHIDANH`: **+** − **+**(MAHV) | Xóa ở con và thêm ở cha **không thể** làm khóa ngoại treo — sáu dấu `+` chứng tỏ chưa hề suy luận |
+| ② `+` suông ở cột sửa | `HOCVIEN`: − + **+**  ·  `GHIDANH`: + − **+** | `HOCVIEN`: − + **+ (MAHV)**  ·  `GHIDANH`: + − **+ (MAHV)** | Sửa `HOTEN` vô hại, chỉ sửa `MAHV` mới nguy hiểm; không ghi thuộc tính thì chốt kiểm tra sẽ chạy cả khi đổi tên |
+| ③ Thiếu dòng | `GHIDANH`: + − +(MAHV) *(chỉ một dòng)* | `HOCVIEN`: − + +(MAHV)  ·  `GHIDANH`: + − +(MAHV) | Bối cảnh có **hai** quan hệ; bỏ dòng `HOCVIEN` là bỏ luôn ô nguy hiểm nhất — *xóa ở cha* |
+
+> **Tự kiểm tra 4.3.** *(đáp án ở cuối chương)*
+>
+> 1. Lập bảng tầm ảnh hưởng cho **R2**: `∀t ∈ LOP : t.NGAYKT ≥ t.NGAYKG`. Bảng có mấy dòng, mấy ô `+`?
+> 2. Với khóa ngoại `DIENTHOAI.MAHV → HOCVIEN`, không cần suy luận lại từng ô, hãy viết ngay bảng tầm ảnh hưởng bằng câu thần chú ở Hình 4.5.
+> 3. Một bạn lập bảng cho R2 và đánh `+` ở ô *xóa*. Dùng câu hỏi vàng để chỉ ra bạn ấy sai ở đâu.
+
 ---
 
 ## 4.4. Hành động khi vi phạm và cú pháp khai báo
@@ -303,7 +412,7 @@ Lý do đằng sau câu thần chú rất trực quan. Thêm vào bảng con là
 
 Phát hiện vi phạm rồi thì phải làm gì? Có ba lựa chọn.
 
-**Bảng 4.5. Ba hành động khi phát hiện vi phạm**
+**Bảng 4.11. Ba hành động khi phát hiện vi phạm**
 
 | Hành động | Ý nghĩa | Ví dụ tại ABC |
 |---|---|---|
@@ -328,6 +437,23 @@ flowchart TB
     style R3 fill:#FFD9D9,stroke:#C00000,stroke-width:2px
 ```
 
+![](hinh-ve/slide/internet/domino.jpg){width=55%}
+
+*Ảnh minh họa: dãy quân domino đang đổ dây chuyền. Hành động lan truyền (CASCADE) chính là thế: đẩy một quân — xóa một bản ghi cha — thì cả dãy đổ theo, trong im lặng, không ai kịp hỏi lại — Nguồn: Wikimedia Commons · Louise · CC BY 2.0.*
+
+Ba nhánh của hình trên trở nên rất cụ thể khi nhìn vào dữ liệu. Giả sử trước lệnh xóa, cô Lê Hoa *(GV1)* phụ trách bốn lớp và bốn lớp ấy có tổng cộng 96 lượt ghi danh.
+
+**Bảng 4.12. Cùng một lệnh "xóa GV1" — dữ liệu sau khi thực hiện theo ba hành động**
+
+| Bảng | **Trước** khi xóa | Sau khi **TỪ CHỐI** | Sau khi **GÁN RỖNG** | Sau khi **LAN TRUYỀN** |
+|---|---|---|---|---|
+| `GIAOVIEN` | GV1 Lê Hoa · GV2 Trần Mai · GV3 Phạm Nam | *y nguyên* — lệnh bị hủy | GV2 · GV3 | GV2 · GV3 |
+| `LOP` | A1 → GV1 · A3 → GV1 · A4 → GV1 · A5 → GV1 · A2 → GV2 | *y nguyên* | A1 → **rỗng** · A3 → **rỗng** · A4 → **rỗng** · A5 → **rỗng** · A2 → GV2 | **chỉ còn A2** — bốn lớp biến mất |
+| `GHIDANH` | 96 lượt ghi danh của A1, A3, A4, A5 + các lớp khác | *y nguyên* | *y nguyên* — 96 học viên vẫn có lớp | **mất 96 dòng** nếu `GHIDANH.MALOP` cũng lan truyền; nếu không, lệnh bị chặn ở tầng dưới |
+| Thông báo cho người dùng | — | *"Không thể xóa: giáo viên còn phụ trách 4 lớp"* | *(không có)* | *(không có — xóa trong im lặng)* |
+
+Đọc cột cuối cùng thật chậm: không một dòng báo lỗi nào, và 96 học viên đã đóng tiền không còn lớp. Đó là lý do lan truyền được gọi là "thảm họa" ở Hình 4.6.
+
 Nguyên tắc rút ra: **chỉ dùng lan truyền khi bản ghi con thật sự vô nghĩa nếu thiếu bản ghi cha.**
 
 | Trường hợp | Dùng lan truyền? | Lý do |
@@ -341,7 +467,7 @@ Nguyên tắc rút ra: **chỉ dùng lan truyền khi bản ghi con thật sự 
 
 Mục này cho thấy các ràng buộc vừa học **trông như thế nào** khi được khai báo với một hệ quản trị thật. Người học chỉ cần **đọc hiểu**; kỹ năng viết thuộc học phần *Hệ quản trị cơ sở dữ liệu*.
 
-**Bảng 4.6. Bốn cơ chế khai báo ràng buộc**
+**Bảng 4.13. Bốn cơ chế khai báo ràng buộc**
 
 | Từ khóa | Diễn đạt ràng buộc loại nào | Tương ứng mục |
 |---|---|---|
@@ -385,13 +511,13 @@ Mục này cho thấy các ràng buộc vừa học **trông như thế nào** k
 
 > **Chú ý — hai hành động khác nhau trong cùng một bảng.** Trong ví dụ trên, khóa ngoại trỏ về `HOCVIEN` dùng **từ chối**, còn khóa ngoại trỏ về `LOP` dùng **lan truyền**. Không hề mâu thuẫn: hồ sơ ghi danh của một học viên là dữ liệu cần bảo toàn kể cả khi học viên rời trung tâm, nhưng khi một lớp bị hủy thì các lượt ghi danh vào lớp đó không còn ý nghĩa. **Nghiệp vụ khác nhau nên hành động khác nhau** — đúng nguyên tắc ở mục 4.4.2.
 
-Một điều cần biết về **giới hạn của khai báo**: cơ chế `CHECK` chỉ kiểm tra được trong phạm vi **một dòng**. Nó không diễn đạt được ràng buộc phải **đếm trên nhiều dòng** hay phải **so sánh với bảng khác** — tức hai loại khó nhất trong Bảng 4.3. Đó chính là lý do tồn tại của trigger, trình bày ở mục 4.6.4.
+Một điều cần biết về **giới hạn của khai báo**: cơ chế `CHECK` chỉ kiểm tra được trong phạm vi **một dòng**. Nó không diễn đạt được ràng buộc phải **đếm trên nhiều dòng** hay phải **so sánh với bảng khác** — tức hai loại khó nhất trong Bảng 4.6. Đó chính là lý do tồn tại của trigger, trình bày ở mục 4.6.4.
 
 ### 4.4.4. Từ phát hiện sang ngăn chặn
 
 Mục 3.7.3 của Chương 3 đã dạy một kỹ thuật **phát hiện** khóa ngoại mồ côi bằng phép kết ngoài. Mục này bổ sung nửa còn lại: **ngăn chặn**.
 
-**Bảng 4.7. Hai cách đối phó với lỗi toàn vẹn tham chiếu**
+**Bảng 4.14. Hai cách đối phó với lỗi toàn vẹn tham chiếu**
 
 | | Phát hiện *(mục 3.7.3)* | Ngăn chặn *(mục 4.4.3)* |
 |---|---|---|
@@ -402,13 +528,19 @@ Mục 3.7.3 của Chương 3 đã dạy một kỹ thuật **phát hiện** khó
 
 Trong thực tế cả hai đều cần. Ngăn chặn là biện pháp chính. Nhưng khi tiếp quản một hệ thống cũ, việc đầu tiên phải làm là **dùng kỹ thuật phát hiện để dọn sạch dữ liệu bẩn đã có** — vì hệ quản trị sẽ **từ chối** khai báo khóa ngoại nếu dữ liệu hiện tại đang vi phạm.
 
+> **Tự kiểm tra 4.4.** *(đáp án ở cuối chương)*
+>
+> 1. Lược đồ thư viện có ba khóa ngoại: `PHIEUMUON.MADG → DOCGIA`, `CHITIETMUON.MAPHIEU → PHIEUMUON`, `SACH.MATL → THELOAI`. Chọn hành động khi xóa bản ghi cha cho từng khóa và nêu lý do nghiệp vụ.
+> 2. Dòng `CONSTRAINT ck_ngay CHECK (NGAYKT >= NGAYKG)` diễn đạt ràng buộc loại nào trong Bảng 4.6? Vì sao `CHECK` làm được việc này?
+> 3. Vì sao **không thể** viết `CHECK` cho ràng buộc *"sĩ số bằng số dòng ghi danh"*?
+
 ---
 
 ## 4.5. Ràng buộc toàn vẹn bối cảnh một quan hệ
 
 *(1,0 tiết)*
 
-Ba loại đầu tiên trong Bảng 4.3 có bối cảnh chỉ gồm **một quan hệ**.
+Ba loại đầu tiên trong Bảng 4.6 có bối cảnh chỉ gồm **một quan hệ**.
 
 ### 4.5.1. Ràng buộc miền giá trị
 
@@ -419,6 +551,10 @@ Ba loại đầu tiên trong Bảng 4.3 có bối cảnh chỉ gồm **một qua
 > - `∀t ∈ GHIDANH : t.HOCPHI > 0` — học phí phải dương.
 > - `∀t ∈ LOP : 5 ≤ t.SUCCHUA ≤ 40` — sức chứa nằm trong khoảng hợp lệ.
 > - `∀t ∈ GIAOVIEN : t.BANGCAP ∈ {Cử nhân, Thạc sĩ, Tiến sĩ}` — chỉ nhận ba giá trị.
+
+![](hinh-ve/slide/internet/bien_toc_do.jpg){width=55%}
+
+*Ảnh minh họa: biển giới hạn tốc độ trên cao tốc Biên Hòa – Vũng Tàu: tối đa 80, tối thiểu 60. Một ràng buộc miền giá trị đúng nghĩa — chỉ giới hạn một con số, không cần biết xe nào, ai lái — Nguồn: Wikimedia Commons · MinhVN1863 · CC BY-SA 4.0.*
 
 Đây là loại **dễ phát hiện và dễ cài đặt nhất** — khai báo bằng `CHECK` hoặc bằng chính kiểu dữ liệu. Bảng tầm ảnh hưởng của nó cũng đơn giản: chỉ **thêm** và **sửa** là nguy hiểm, còn **xóa** thì không bao giờ.
 
@@ -437,6 +573,25 @@ Vẫn khai báo được bằng `CHECK`, vì `CHECK` làm việc trong phạm vi
 > **Ví dụ 4.6.** `∀t₁, t₂ ∈ HOCVIEN, t₁ ≠ t₂ : t₁.MAHV ≠ t₂.MAHV` — không hai học viên nào trùng mã. Đây chính là **toàn vẹn thực thể** của Chương 3, nhìn dưới dạng tổng quát. Khai báo bằng `PRIMARY KEY` hoặc `UNIQUE`.
 
 Loại này khó hơn hai loại trên, vì để kiểm tra một dòng thì hệ thống phải **so nó với các dòng khác** — không thể chỉ nhìn một dòng mà kết luận.
+
+Ba loại vừa học đều "ở trong một bảng", nên có thể gom cả ba vào **một bảng dữ liệu** để tập nhận diện. Bảng `LOP` dưới đây có ba dòng sai, mỗi dòng sai theo một loại; hãy thử tự tìm trước khi đọc bảng giải thích.
+
+**Bảng 4.15. Một bảng `LOP`, ba dòng sai, ba loại ràng buộc khác nhau**
+
+| MALOP | TENLOP | NGAYKG | NGAYKT | SUCCHUA |
+|---|---|---|---|---|
+| A1 | Anh cơ bản 1 | 2026-09-01 | 2026-12-20 | 25 |
+| A2 | Anh cơ bản 2 | 2026-09-08 | 2026-12-27 | **60** |
+| A3 | Anh giao tiếp 1 | **2026-09-15** | **2026-08-30** | 20 |
+| **A1** | Luyện thi IELTS | 2026-10-01 | 2027-01-15 | 15 |
+
+| Dòng sai | Nhìn vào đâu thì thấy | Loại | Cần "che các dòng khác" không? | Công cụ khai báo |
+|---|---|---|---|---|
+| A2 | **một ô**: `SUCCHUA = 60` vượt khoảng 5–40 | Miền giá trị | Không — một ô là đủ | `CHECK (SUCCHUA BETWEEN 5 AND 40)` |
+| A3 | **hai ô cùng dòng**: `NGAYKT` 30/08 sớm hơn `NGAYKG` 15/09 | Liên thuộc tính | Không — một dòng là đủ | `CHECK (NGAYKT >= NGAYKG)` |
+| A1 *(dòng 4)* | **hai dòng**: `MALOP = A1` xuất hiện hai lần | Liên bộ | **Có** — phải so với dòng 1 | `PRIMARY KEY (MALOP)` |
+
+Cột thứ tư của bảng giải thích chính là phép thử sẽ trình bày ngay dưới đây.
 
 ### 4.5.4. Phân biệt liên thuộc tính và liên bộ
 
@@ -477,7 +632,26 @@ Phép thử này cũng giải thích luôn **vì sao độ khó cài đặt tăn
 
 Loại này **không khai báo được bằng `CHECK`**, vì `CHECK` chỉ nhìn trong phạm vi một dòng của một bảng. Muốn thực thi phải dùng trigger.
 
-Bảng tầm ảnh hưởng có hai dòng. Với `LOP`: thêm, và sửa `NGAYKG` hoặc `MAKH` đều nguy hiểm; xóa thì không. Với `KHOAHOC`: sửa `NGAYTL` nguy hiểm *(có thể đẩy ngày thành lập ra sau ngày khai giảng của lớp đã có)*; thêm và xóa thì không.
+Muốn thấy vì sao `CHECK` bất lực, hãy nhìn dữ liệu: ô sai nằm ở bảng `LOP`, nhưng **chuẩn để so** lại nằm ở bảng `KHOAHOC`.
+
+**Bảng 4.16. Kiểm tra R5 phải đặt hai bảng cạnh nhau**
+
+| `LOP` | MALOP | MAKH↗ | NGAYKG | | `KHOAHOC` | MAKH | NGAYTL | Kết luận |
+|---|---|---|---|---|---|---|---|---|
+| | A1 | KH01 | 2026-09-01 | ⟶ | | KH01 | 2020-01-15 | 2026 ≥ 2020 — **đúng** |
+| | A2 | KH01 | 2026-09-08 | ⟶ | | KH01 | 2020-01-15 | **đúng** |
+| | A3 | KH02 | **1990-09-01** | ⟶ | | KH02 | 2021-03-15 | 1990 < 2021 — **vi phạm** |
+
+Nhìn riêng dòng A3 của `LOP` không thấy gì bất thường — ngày 01/09/1990 là một ngày hợp lệ. Chỉ khi **dò theo mũi tên `MAKH`** sang `KHOAHOC` và lấy `NGAYTL` ra so mới lộ lỗi. `CHECK` không đi theo mũi tên được, nên phải dùng trigger.
+
+Bảng tầm ảnh hưởng có **hai dòng** vì bối cảnh có hai quan hệ, và mỗi ô đều suy ra được từ Bảng 4.16.
+
+**Bảng 4.17. Bảng tầm ảnh hưởng của R5**
+
+| Quan hệ | Thêm | Xóa | Sửa | Suy luận |
+|---|:--:|:--:|:--:|---|
+| `LOP` | **+** | − | **+** *(NGAYKG, MAKH)* | Thêm lớp với ngày khai giảng quá sớm → sai. Xóa lớp thì bớt một thứ phải so → an toàn. Sửa `NGAYKG` lùi về trước, hoặc đổi `MAKH` sang khóa thành lập muộn hơn → sai |
+| `KHOAHOC` | − | − | **+** *(NGAYTL)* | Thêm khóa mới chưa có lớp nào → không ảnh hưởng. Xóa khóa thì khóa ngoại R4 đã chặn hoặc lớp cũng mất → R5 không bị phá. Sửa `NGAYTL` của KH01 thành 2027 → lớp A1 đang đúng bỗng sai |
 
 ### 4.6.3. Ràng buộc liên bộ liên quan hệ — loại khó nhất
 
@@ -485,7 +659,21 @@ Bảng tầm ảnh hưởng có hai dòng. Với `LOP`: thêm, và sửa `NGAYKG
 
 > **Ví dụ 4.8.** `∀l ∈ LOP : l.SISO = |{g ∈ GHIDANH : g.MALOP = l.MALOP}|` — sĩ số ghi trong bảng `LOP` phải bằng số dòng ghi danh tương ứng trong `GHIDANH`.
 
-Đây là loại **khó nhất trong sáu loại**, vì ba lý do cộng lại: phải nhìn **nhiều bảng**, phải nhìn **nhiều dòng**, và phải **tính toán** chứ không chỉ so sánh. Hệ quản trị không có cơ chế khai báo nào cho nó.
+![](hinh-ve/slide/internet/bien_cam_vao.jpg){width=45%}
+
+*Ảnh minh họa: biển "cấm vào" kèm điều kiện ngoại lệ ghi bên dưới. Ràng buộc liên bộ liên quan hệ cũng vậy: muốn biết một dòng có được vào hay không, phải đọc thêm "điều kiện" nằm ở nơi khác — ở đây là phải đếm trên bảng khác — Nguồn: Wikimedia Commons · Albert Bridge · CC BY-SA 2.0.*
+
+Đây là loại **khó nhất trong sáu loại**, vì ba lý do cộng lại: phải nhìn **nhiều bảng**, phải nhìn **nhiều dòng**, và phải **tính toán** chứ không chỉ so sánh. Hệ quản trị không có cơ chế khai báo nào cho nó. Ba lý do ấy hiện rõ khi kiểm tra R6 bằng tay trên dữ liệu.
+
+**Bảng 4.18. Kiểm tra R6 — phải đếm trên bảng khác rồi mới so**
+
+| `LOP` | MALOP | SISO | | Đếm dòng `GHIDANH` có `MALOP` tương ứng | Kết luận |
+|---|---|:--:|---|---|---|
+| | A1 | 3 | ⟶ | (HV01, A1) · (HV02, A1) · (HV03, A1) → **3** | 3 = 3 — **đúng** |
+| | A2 | **2** | ⟶ | (HV01, A2) · (HV03, A2) · (HV04, A2) → **3** | 2 ≠ 3 — **vi phạm** |
+| | A3 | 1 | ⟶ | (HV03, A3) → **1** | **đúng** |
+
+Để kết luận về **một ô** `SISO` của lớp A2, phải sang bảng khác *(nhiều bảng)*, quét mọi dòng có `MALOP = A2` *(nhiều dòng)*, đếm rồi mới so *(tính toán)*. Không một mệnh đề `CHECK` hay `UNIQUE` nào làm được cả ba việc ấy.
 
 ### 4.6.4. Trigger — công cụ cho ràng buộc mà khai báo không đủ
 
@@ -520,9 +708,38 @@ flowchart LR
 >
 > Bảng tầm ảnh hưởng ở mục 4.3 cho biết **phải viết bao nhiêu trigger**. Ràng buộc này có các ô `+` ở *thêm `GHIDANH`*, *sửa `MALOP` của `GHIDANH`*, và *sửa `SUCCHUA` của `LOP`* — nghĩa là cần **ba** điểm kiểm tra chứ không phải một. Đây là công dụng thực tế rõ ràng nhất của bảng tầm ảnh hưởng.
 
+Mã giả đọc thì hiểu, nhưng để *tin* rằng nó chạy đúng, hãy chạy tay hai lần thêm trên cùng một bộ dữ liệu: lớp A6 chỉ có 3 chỗ và đã đủ 3 người; lớp A1 có 25 chỗ và mới 3 người.
+
+**Bảng 4.19. Chạy tay trigger `kiem_tra_suc_chua` cho hai lần thêm vào `GHIDANH`**
+
+| Bước của trigger | Thêm `(HV04, A6)` — A6 có `SUCCHUA = 3`, đã 3 dòng | Thêm `(HV04, A1)` — A1 có `SUCCHUA = 25`, đã 3 dòng |
+|---|---|---|
+| Sự kiện kích hoạt | *sau khi thêm* một dòng vào `GHIDANH` | *sau khi thêm* một dòng vào `GHIDANH` |
+| `n ←` đếm dòng `GHIDANH` có `MALOP` của dòng vừa thêm | 3 dòng cũ + 1 dòng mới = **4** | 3 + 1 = **4** |
+| `sc ←` `SUCCHUA` của lớp đó | **3** | **25** |
+| So sánh `n > sc` | 4 > 3 — **đúng** | 4 > 25 — sai |
+| Kết quả | **Hủy thao tác**, báo *"Lớp đã đầy"*; `GHIDANH` trở lại 3 dòng | Cho qua; `GHIDANH` có 4 dòng của A1 |
+
+Vì sao cần tới **ba** trigger chứ không phải một? Câu trả lời nằm ở bảng tầm ảnh hưởng của chính ràng buộc này — mỗi ô `+` là một cửa mà dữ liệu sai có thể đi vào, và trigger trên "thêm `GHIDANH`" mới chỉ canh được một cửa.
+
+**Bảng 4.20. Bảng tầm ảnh hưởng của ràng buộc "không vượt sức chứa" — ba ô `+`, ba trigger**
+
+| Quan hệ | Thêm | Xóa | Sửa | Suy luận |
+|---|:--:|:--:|:--:|---|
+| `LOP` | − | − | **+** *(SUCCHUA)* | Thêm lớp mới chưa ai ghi danh → đếm ra 0 ≤ sức chứa. Xóa lớp thì hết cả hai vế. **Sửa `SUCCHUA` từ 25 xuống 3** trong khi lớp đã 22 người → sai |
+| `GHIDANH` | **+** | − | **+** *(MALOP)* | **Thêm** một lượt ghi danh → số đếm tăng, có thể vượt *(trigger ở Ví dụ 4.9 canh cửa này)*. Xóa thì số đếm giảm → an toàn. **Đổi `MALOP`** sang lớp khác → lớp đích tăng thêm một, có thể vượt |
+
+Ba ô `+` → ba điểm kiểm tra: một trigger cho *thêm `GHIDANH`* *(đã viết)*, một cho *sửa `MALOP` của `GHIDANH`*, một cho *sửa `SUCCHUA` của `LOP`*. Bỏ sót một cửa là bỏ ngỏ ràng buộc ở đúng cửa đó.
+
 > **Chú ý — trigger là công cụ mạnh nhưng nguy hiểm.** Ba rủi ro cần biết. Thứ nhất, trigger **chạy ngầm**: người dùng thấy thao tác bị từ chối mà không biết vì sao, gây khó khi tìm lỗi. Thứ hai, trigger có thể **gọi dây chuyền** — trigger này kích hoạt trigger kia, rất khó lần theo. Thứ ba, trigger **làm chậm** mọi thao tác trên bảng mà nó canh giữ.
 >
 > Vì vậy nguyên tắc là: **ưu tiên khai báo, chỉ dùng trigger khi khai báo không diễn đạt được**. Và trước khi viết trigger, hãy tự hỏi câu ở mục 4.7.5 — *"có phải thiết kế của mình đang có vấn đề không?"*
+
+> **Tự kiểm tra 4.5–4.6.** *(đáp án ở cuối chương)*
+>
+> 1. Ràng buộc *"mỗi học viên ghi danh không quá 3 lớp cùng lúc"* thuộc loại nào? Bối cảnh gồm mấy quan hệ? Khai báo bằng `CHECK` được không?
+> 2. Lập bảng tầm ảnh hưởng cho ràng buộc ở câu 1 và cho biết cần mấy trigger.
+> 3. Trong Bảng 4.15, nếu đổi `SUCCHUA` của A2 thành 40 và đổi mã dòng 4 thành A4 thì bảng còn dòng nào sai? Ràng buộc nào phát hiện được lỗi còn lại?
 
 ---
 
@@ -547,9 +764,13 @@ TIENQUYET (MAKH_truoc↗KHOAHOC, MAKH_sau↗KHOAHOC)
 
 ### 4.7.2. Sáu câu hỏi để không bỏ sót
 
-Bảng 4.3 được chuyển thành một **quy trình sáu câu hỏi**. Đi lần lượt qua sáu câu này thì không bỏ sót loại nào.
+![](hinh-ve/slide/internet/checklist_phi_cong.jpg){width=55%}
 
-**Bảng 4.8. Sáu câu hỏi phát hiện ràng buộc**
+*Ảnh minh họa: phi hành gia đọc danh sách kiểm tra (checklist) trước khi thao tác. Nghề nào cũng cần một danh sách như vậy để không bỏ sót; sáu câu hỏi dưới đây là checklist của người thiết kế khi đi "săn" ràng buộc — Nguồn: Wikimedia Commons · NASA · Public domain.*
+
+Bảng 4.6 được chuyển thành một **quy trình sáu câu hỏi**. Đi lần lượt qua sáu câu này thì không bỏ sót loại nào.
+
+**Bảng 4.21. Sáu câu hỏi phát hiện ràng buộc**
 
 | # | Câu hỏi | Nếu có thì đó là |
 |:--:|---|---|
@@ -566,7 +787,7 @@ Kinh nghiệm cho thấy người học hay bỏ sót câu ⑤ và ⑥, vì hai 
 
 Áp sáu câu hỏi vào lược đồ ABC, ta thu được một bộ ràng buộc **phủ đủ cả sáu loại**.
 
-**Bảng 4.9. Sáu ràng buộc toàn vẹn của Trung tâm ABC**
+**Bảng 4.22. Sáu ràng buộc toàn vẹn của Trung tâm ABC**
 
 | Mã | Phát biểu | Biểu thức | Loại | Bối cảnh |
 |:--:|---|---|---|:--:|
@@ -600,16 +821,16 @@ flowchart LR
 
 ### 4.7.5. Cờ đỏ thiết kế — khi một ràng buộc quá khó
 
-Hãy lập bảng tầm ảnh hưởng cho **R6** và so với **R1**.
+Hãy lập bảng tầm ảnh hưởng cho **R6** và so với **R1**. Bảng 4.18 ở mục 4.6.3 đã cho thấy R6 bị vi phạm ra sao *(lớp A2 ghi `SISO = 2` trong khi đếm được 3)*; giờ hãy hỏi câu hỏi vàng cho từng ô để biết **thao tác nào** có thể tạo ra tình trạng lệch đó.
 
-**Bảng 4.10. Bảng tầm ảnh hưởng của R6**
+**Bảng 4.23. Bảng tầm ảnh hưởng của R6**
 
 | Quan hệ | Thêm | Xóa | Sửa | Suy luận |
 |---|:--:|:--:|:--:|---|
 | `LOP` | **+** | − | **+** *(SISO)* | Thêm lớp với `SISO = 30` mà chưa ai ghi danh → sai ngay. Xóa lớp thì mất cả hai vế nên vẫn nhất quán. Sửa `SISO` tùy tiện → sai |
 | `GHIDANH` | **+** | **+** | **+** *(MALOP)* | Thêm hoặc xóa một lượt ghi danh làm **số đếm đổi** nhưng `SISO` **không đổi** → lệch. Đổi `MALOP` làm **lệch cả hai lớp** |
 
-**Bảng 4.11. So sánh mức độ khó của hai ràng buộc**
+**Bảng 4.24. So sánh mức độ khó của hai ràng buộc**
 
 | Ràng buộc | Số ô `+` | Ý nghĩa |
 |---|:--:|---|
@@ -649,9 +870,13 @@ Chẩn đoán này chính là câu hỏi đã treo lại từ **mục 2.2.5** c�
 
 ### 4.8.1. Chọn hành động cho từng khóa ngoại
 
+![](hinh-ve/slide/internet/nhap_lieu.jpg){width=55%}
+
+*Ảnh minh họa: nhân viên nhập liệu tại bàn làm việc. Mỗi phím gõ vào là một lần thêm hoặc sửa dữ liệu — và là một lần ràng buộc phải đứng ra kiểm tra, dù người gõ có nhớ quy tắc hay không — Nguồn: Wikimedia Commons · Department of Labor · Public domain.*
+
 Lược đồ ABC có sáu khóa ngoại. Với mỗi khóa phải chọn hành động khi xóa bản ghi cha, và lựa chọn hoàn toàn dựa vào nghiệp vụ.
 
-**Bảng 4.12. Cùng thao tác "xóa", ba khóa ngoại, ba hành động khác nhau**
+**Bảng 4.25. Cùng thao tác "xóa", ba khóa ngoại, ba hành động khác nhau**
 
 | Khóa ngoại | Tình huống | Hành động | Lý do nghiệp vụ |
 |---|---|---|---|
@@ -673,7 +898,7 @@ Bộ ràng buộc rút từ sáu xuống **năm**, và ràng buộc khó nhất 
 
 ### 4.8.3. Nhìn lại bốn chương
 
-**Bảng 4.13. Bốn chương — và một điểm chung đáng lo**
+**Bảng 4.26. Bốn chương — và một điểm chung đáng lo**
 
 | | Chương 1 | Chương 2 | Chương 3 | Chương 4 |
 |---|---|---|---|---|
@@ -709,6 +934,18 @@ Ngay cả chẩn đoán vừa rồi về `SISO` cũng vậy: ta nhận ra vấn 
 **Cờ đỏ thiết kế:** một ràng buộc quá khó thực thi thường **tố cáo thiết kế** chứ không phải công cụ. Ràng buộc R6 với 5/6 ô `+` dẫn tới chẩn đoán `SISO` là **thuộc tính dẫn xuất tạo hai nguồn sự thật**; bỏ nó đi thì ràng buộc tự biến mất.
 
 **Nối sang Chương 5.** Sau bốn chương, thiết kế đã tốt lên nhiều nhưng **mọi quyết định vẫn dựa trên cảm tính**. Chương 5 cung cấp công cụ để **chứng minh**.
+
+---
+
+## ĐÁP ÁN TỰ KIỂM TRA
+
+**Tự kiểm tra 4.2.** *(1)* (a) một quan hệ `DIENTHOAI`, nhiều dòng → **liên bộ** *(khai báo bằng `UNIQUE`)*; (b) hai quan hệ `GHIDANH`, `LOP`, hai ô ở hai bảng → **liên thuộc tính liên quan hệ**; (c) một quan hệ `GIAOVIEN`, một ô → **miền giá trị**; (d) hai quan hệ `KHOAHOC`, `LOP`, phải **đếm** → **liên bộ liên quan hệ**. *(2)* `∀g ∈ GHIDANH, ∀l ∈ LOP : (g.MALOP = l.MALOP) ⇒ (g.NGAYGHIDANH ≥ l.NGAYKG)` — *"với mọi lượt ghi danh g và mọi lớp l, nếu g thuộc lớp l thì ngày ghi danh của g không sớm hơn ngày khai giảng của l"*. *(3)* Bối cảnh `{KHOAHOC, LOP}` — hai quan hệ, nên bảng tầm ảnh hưởng có **hai dòng** *(dù `KHOAHOC` có thể toàn dấu `−`, dòng ấy vẫn phải có mặt)*.
+
+**Tự kiểm tra 4.3.** *(1)* Một dòng `LOP`: thêm **+** · xóa − · sửa **+** *(NGAYKG, NGAYKT)* — hai ô `+`. *(2)* Thêm ở con, xóa ở cha, sửa khóa ở cả hai: `HOCVIEN`: − **+** **+** *(MAHV)*; `DIENTHOAI`: **+** − **+** *(MAHV)*. *(3)* Giả thiết mọi dòng đang đúng; xóa đi một dòng thì các dòng còn lại **vẫn đúng như cũ** — không có cách nào biến đúng thành sai, nên ô *xóa* phải là `−`.
+
+**Tự kiểm tra 4.4.** *(1)* `PHIEUMUON.MADG → DOCGIA`: **từ chối** — phải giữ lịch sử mượn, độc giả còn phiếu thì không xóa; `CHITIETMUON.MAPHIEU → PHIEUMUON`: **lan truyền** — chi tiết phiếu vô nghĩa khi không còn phiếu *(thực thể yếu)*; `SACH.MATL → THELOAI`: **gán rỗng** *(hoặc từ chối)* — sách vẫn tồn tại khi bỏ một thể loại, chỉ tạm chưa phân loại. *(2)* Hai ô **cùng dòng** của `LOP` → **liên thuộc tính**; `CHECK` làm được vì nó kiểm tra trong phạm vi một dòng. *(3)* Phải **đếm dòng ở bảng khác** — `CHECK` chỉ nhìn được một dòng của một bảng, không đi theo khóa ngoại và không đếm được.
+
+**Tự kiểm tra 4.5–4.6.** *(1)* Phải đếm số dòng `GHIDANH` của mỗi học viên → **liên bộ liên quan hệ**; bối cảnh `{HOCVIEN, GHIDANH}` — hai quan hệ *(hoặc chỉ `{GHIDANH}` nếu phát biểu là "không quá 3 dòng cùng `MAHV`", khi đó là **liên bộ**)*; không `CHECK` được vì phải đếm trên nhiều dòng. *(2)* `GHIDANH`: thêm **+** · xóa − · sửa **+** *(MAHV)*; `HOCVIEN`: − − − → **hai** ô `+`, cần **hai** trigger *(thêm và sửa `MAHV` ở `GHIDANH`)*. *(3)* Còn dòng **A3** sai *(ngày kết thúc trước ngày khai giảng)*; ràng buộc liên thuộc tính `CHECK (NGAYKT >= NGAYKG)` phát hiện được.
 
 ---
 
@@ -770,7 +1007,7 @@ CREATE TABLE LOP (
 
 **Bài B1.** Dùng lược đồ quan hệ **thư viện** đã ánh xạ ở Bài B1 Chương 3, hãy phát hiện **đầy đủ ít nhất 8 ràng buộc toàn vẹn**, phủ **đủ cả sáu loại**. Với mỗi ràng buộc, ghi: mã, phát biểu bằng lời, biểu thức hình thức, loại, bối cảnh.
 
-**Bài B2.** Chọn **ba ràng buộc** trong Bài B1 — một loại dễ, một loại trung bình, một loại khó — và lập **bảng tầm ảnh hưởng** đầy đủ cho từng ràng buộc, kèm **suy luận từng ô** theo mẫu Bảng 4.4.
+**Bài B2.** Chọn **ba ràng buộc** trong Bài B1 — một loại dễ, một loại trung bình, một loại khó — và lập **bảng tầm ảnh hưởng** đầy đủ cho từng ràng buộc, kèm **suy luận từng ô** theo mẫu Bảng 4.9.
 
 **Bài B3.** Với mọi khóa ngoại trong lược đồ thư viện, đề xuất **hành động khi xóa bản ghi cha**, kèm **lý do nghiệp vụ** cho từng lựa chọn. Chỉ ra ít nhất một trường hợp mà dùng lan truyền sẽ là **thảm họa**.
 
@@ -827,7 +1064,7 @@ Kết thúc, cho các nhóm đối chiếu chéo và đặc biệt yêu cầu ch
 
 *(15 phút)*
 
-Cho một ràng buộc khóa ngoại quen thuộc, yêu cầu mỗi người học tự lập bảng tầm ảnh hưởng **có ghi suy luận từng ô** theo mẫu Bảng 4.4 — không được ghi kết quả suông.
+Cho một ràng buộc khóa ngoại quen thuộc, yêu cầu mỗi người học tự lập bảng tầm ảnh hưởng **có ghi suy luận từng ô** theo mẫu Bảng 4.9 — không được ghi kết quả suông.
 
 Sau đó chiếu đáp án và yêu cầu tự chấm. Điểm cần dẫn dắt là những người đánh dấu `+` cho cả sáu ô: hỏi họ *"nếu mọi ô đều `+` thì lập bảng này để làm gì?"*
 
@@ -877,19 +1114,32 @@ Kinh nghiệm cho thấy hai chỗ hay được nêu nhất là **phân biệt l
 
 | Bảng | Tên bảng | Mục |
 |---|---|---|
-| Bảng 4.1 | Ba lỗ hổng của một cơ sở dữ liệu "hoàn hảo" | 4.1.1 |
-| Bảng 4.2 | Ba tầng có thể đặt ràng buộc | 4.1.4 |
-| Bảng 4.3 | Sáu loại ràng buộc toàn vẹn | 4.2.4 |
-| Bảng 4.4 | Suy luận từng ô — ràng buộc khóa ngoại | 4.3.3 |
-| Bảng 4.5 | Ba hành động khi phát hiện vi phạm | 4.4.1 |
-| Bảng 4.6 | Bốn cơ chế khai báo ràng buộc | 4.4.3 |
-| Bảng 4.7 | Hai cách đối phó với lỗi toàn vẹn tham chiếu | 4.4.4 |
-| Bảng 4.8 | Sáu câu hỏi phát hiện ràng buộc | 4.7.2 |
-| Bảng 4.9 | Sáu ràng buộc toàn vẹn của Trung tâm ABC | 4.7.3 |
-| Bảng 4.10 | Bảng tầm ảnh hưởng của R6 | 4.7.5 |
-| Bảng 4.11 | So sánh mức độ khó của hai ràng buộc | 4.7.5 |
-| Bảng 4.12 | Cùng thao tác "xóa", ba khóa ngoại, ba hành động khác nhau | 4.8.1 |
-| Bảng 4.13 | Bốn chương — và một điểm chung đáng lo | 4.8.3 |
+| Bảng 4.1 | Ba dòng dữ liệu vô lý lọt qua hai ràng buộc của Chương 3 | 4.1.1 |
+| Bảng 4.2 | Ba lỗ hổng của một cơ sở dữ liệu "hoàn hảo" | 4.1.1 |
+| Bảng 4.3 | Ba tầng có thể đặt ràng buộc | 4.1.4 |
+| Bảng 4.4 | Đọc công thức `∀t ∈ GHIDANH : t.HOCPHI > 0` từng mảnh một | 4.2.2 |
+| Bảng 4.5 | Hai ràng buộc mô tả đầy đủ theo ba yếu tố | 4.2.3 |
+| Bảng 4.6 | Sáu loại ràng buộc toàn vẹn | 4.2.4 |
+| Bảng 4.7 | Sáu loại ràng buộc là ma trận 2 × 3 — bối cảnh nhân phạm vi | 4.2.4 |
+| Bảng 4.8 | Dữ liệu đang đúng — dùng để thử sáu thao tác | 4.3.3 |
+| Bảng 4.9 | Suy luận từng ô — ràng buộc khóa ngoại | 4.3.3 |
+| Bảng 4.10 | Ba lỗi khi lập bảng tầm ảnh hưởng — cách sai và cách đúng | 4.3.5 |
+| Bảng 4.11 | Ba hành động khi phát hiện vi phạm | 4.4.1 |
+| Bảng 4.12 | Cùng một lệnh "xóa GV1" — dữ liệu sau khi thực hiện theo ba hành động | 4.4.2 |
+| Bảng 4.13 | Bốn cơ chế khai báo ràng buộc | 4.4.3 |
+| Bảng 4.14 | Hai cách đối phó với lỗi toàn vẹn tham chiếu | 4.4.4 |
+| Bảng 4.15 | Một bảng `LOP`, ba dòng sai, ba loại ràng buộc khác nhau | 4.5.3 |
+| Bảng 4.16 | Kiểm tra R5 phải đặt hai bảng cạnh nhau | 4.6.2 |
+| Bảng 4.17 | Bảng tầm ảnh hưởng của R5 | 4.6.2 |
+| Bảng 4.18 | Kiểm tra R6 — phải đếm trên bảng khác rồi mới so | 4.6.3 |
+| Bảng 4.19 | Chạy tay trigger `kiem_tra_suc_chua` cho hai lần thêm vào `GHIDANH` | 4.6.4 |
+| Bảng 4.20 | Bảng tầm ảnh hưởng của ràng buộc "không vượt sức chứa" — ba ô `+`, ba trigger | 4.6.4 |
+| Bảng 4.21 | Sáu câu hỏi phát hiện ràng buộc | 4.7.2 |
+| Bảng 4.22 | Sáu ràng buộc toàn vẹn của Trung tâm ABC | 4.7.3 |
+| Bảng 4.23 | Bảng tầm ảnh hưởng của R6 | 4.7.5 |
+| Bảng 4.24 | So sánh mức độ khó của hai ràng buộc | 4.7.5 |
+| Bảng 4.25 | Cùng thao tác "xóa", ba khóa ngoại, ba hành động khác nhau | 4.8.1 |
+| Bảng 4.26 | Bốn chương — và một điểm chung đáng lo | 4.8.3 |
 
 ## DANH MỤC TỪ VIẾT TẮT
 

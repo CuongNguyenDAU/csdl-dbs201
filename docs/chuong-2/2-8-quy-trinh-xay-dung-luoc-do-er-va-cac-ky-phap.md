@@ -4,7 +4,7 @@
 
 ## 2.8.1. Quy trình năm bước
 
-**Hình 2.12. Quy trình năm bước xây dựng lược đồ ER**
+**Hình 2.21. Quy trình năm bước xây dựng lược đồ ER**
 
 ```mermaid
 flowchart LR
@@ -53,29 +53,52 @@ Ký pháp **Crow's Foot** *(chân quạ)* là ký pháp được các công cụ
 
 **Cách vẽ thực thể.** Mỗi thực thể là một **hình chữ nhật chia hai ngăn**: ngăn trên ghi **tên thực thể**, ngăn dưới liệt kê **các thuộc tính**, mỗi thuộc tính một dòng. Thuộc tính khóa được **gạch chân** hoặc đánh dấu `PK`; thuộc tính tham chiếu tới thực thể khác đánh dấu `FK`. Toàn bộ thuộc tính nằm **bên trong** ô, không có oval nào cả — đây là khác biệt lớn nhất so với Chen.
 
-**Cách vẽ liên kết.** Liên kết **không có hình riêng**; nó chỉ là một **đường nối** giữa hai ô chữ nhật, với **ký hiệu đầu mút** ở mỗi đầu theo Bảng 2.8, và tên liên kết ghi trên đường nối.
+**Cách vẽ liên kết.** Liên kết **không có hình riêng**; nó chỉ là một **đường nối** giữa hai ô chữ nhật, với **ký hiệu đầu mút** ở mỗi đầu theo Bảng 2.12, và tên liên kết ghi trên đường nối.
 
-**Hình 2.13. Cùng một liên kết vẽ bằng hai ký pháp**
+**Hình 2.22. Cùng một liên kết vẽ bằng hai ký pháp — (a) ký pháp Chen**
 
 ```mermaid
-flowchart TB
-    subgraph C["KÝ PHÁP CHEN"]
-        GV["GIAOVIEN"] ---|"(0, N)"| RR{"phụ trách"}
-        RR ---|"(1, 1)"| LL["LOP"]
-    end
-    subgraph F["KÝ PHÁP CROW'S FOOT — cùng nội dung"]
-        G2["<b>GIAOVIEN</b><br/>─────────<br/>MAGV (PK)<br/>HOTEN_GV<br/>BANGCAP"]
-        L2["<b>LOP</b><br/>─────────<br/>MALOP (PK)<br/>TENLOP<br/>NGAYKG<br/>MAGV (FK)"]
-        G2 ---|"phụ trách<br/>○&lt;  ────  ‖"| L2
-    end
+flowchart LR
+    K1(["<u>MAGV</u>"]) --- GV["GIAOVIEN"]
+    A1(["HOTEN_GV"]) --- GV
+    A2(["BANGCAP"]) --- GV
+    GV ---|"(0, N)"| RR{"phụ trách"}
+    RR ---|"(1, 1)"| LL["LOP"]
+    LL --- K2(["<u>MALOP</u>"])
+    LL --- B1(["TENLOP"])
+    LL --- B2(["NGAYKG"])
     style GV fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
     style LL fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
     style RR fill:#E2F0D9,stroke:#548235
-    style G2 fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
-    style L2 fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
+    style K1 fill:#fff,stroke:#1F4E79
+    style K2 fill:#fff,stroke:#1F4E79
+    style A1 fill:#fff,stroke:#1F4E79
+    style A2 fill:#fff,stroke:#1F4E79
+    style B1 fill:#fff,stroke:#1F4E79
+    style B2 fill:#fff,stroke:#1F4E79
 ```
 
-**Cách đọc một đường liên kết — chỗ hay đọc ngược.** Quy tắc là: **ký hiệu ở đầu nào mô tả số lượng thực thể ở đầu đó**. Trong Hình 2.13, đầu phía `LOP` mang chân quạ, nghĩa là *"một giáo viên phụ trách nhiều lớp"*; đầu phía `GIAOVIEN` mang hai gạch, nghĩa là *"một lớp do đúng một giáo viên phụ trách"*. Vòng tròn ở phía `LOP` cho biết giáo viên **có thể chưa** phụ trách lớp nào.
+**Hình 2.23. Cùng một liên kết vẽ bằng hai ký pháp — (b) ký pháp Crow's Foot**
+
+```mermaid
+erDiagram
+    GIAOVIEN ||--o{ LOP : "phụ trách"
+    GIAOVIEN {
+        string MAGV PK
+        string HOTEN_GV
+        string BANGCAP
+    }
+    LOP {
+        string MALOP PK
+        string TENLOP
+        date NGAYKG
+        string MAGV FK
+    }
+```
+
+Hai hình chứa cùng một thiết kế. Điểm khác dễ thấy nhất: ở Crow's Foot, `MAGV` xuất hiện **thêm một lần trong `LOP`** với nhãn `FK` — ký pháp này đã "nhìn trước" cách cài đặt bằng khóa ngoại ở Chương 3, trong khi Chen chỉ mô tả nghiệp vụ.
+
+**Cách đọc một đường liên kết — chỗ hay đọc ngược.** Quy tắc là: **ký hiệu ở đầu nào mô tả số lượng thực thể ở đầu đó**. Trong Hình 2.23, đầu phía `LOP` mang chân quạ, nghĩa là *"một giáo viên phụ trách nhiều lớp"*; đầu phía `GIAOVIEN` mang hai gạch, nghĩa là *"một lớp do đúng một giáo viên phụ trách"*. Vòng tròn ở phía `LOP` cho biết giáo viên **có thể chưa** phụ trách lớp nào.
 
 Người mới học rất hay đọc ngược — nhìn chân quạ ở phía `LOP` rồi kết luận "một lớp có nhiều giáo viên". Mẹo tránh nhầm: **đặt ngón tay che một đầu, đọc đầu còn lại, rồi mới đổi bên.**
 
@@ -89,7 +112,7 @@ Người mới học rất hay đọc ngược — nhìn chân quạ ở phía `
 
 **UML** *(Unified Modeling Language)* là ngôn ngữ mô hình hóa dùng rộng rãi trong công nghệ phần mềm. Sơ đồ lớp *(class diagram)* của UML có nhiều điểm tương đồng với lược đồ ER, nên người học cần biết cách đối chiếu.
 
-**Bảng 2.11. Đối chiếu mô hình ER và sơ đồ lớp UML**
+**Bảng 2.18. Đối chiếu mô hình ER và sơ đồ lớp UML**
 
 | Mô hình ER | Sơ đồ lớp UML | Ghi chú |
 |---|---|---|
@@ -100,6 +123,27 @@ Người mới học rất hay đọc ngược — nhìn chân quạ ở phía `
 | Thực thể cha – con *(EER)* | Tổng quát hóa *(generalization)* | Tương đương |
 | Thực thể kết hợp | Lớp liên kết *(association class)* | Tương đương |
 | *(không có)* | **Phương thức** *(method)* | UML mô tả cả **hành vi**; ER chỉ mô tả **dữ liệu** |
+
+**Hình 2.24. Liên kết giáo viên – lớp vẽ bằng sơ đồ lớp UML**
+
+```mermaid
+classDiagram
+    class GIAOVIEN {
+        MAGV
+        HOTEN_GV
+        BANGCAP
+        phanCongLop()
+    }
+    class LOP {
+        MALOP
+        TENLOP
+        NGAYKG
+        khaiGiang()
+    }
+    GIAOVIEN "1" -- "0..*" LOP : phụ trách
+```
+
+Đối chiếu với Hình 2.22: hai lớp ứng với hai thực thể, đường nối ứng với liên kết, bội số `1` và `0..*` ứng với hai cặp `(1, 1)` và `(0, N)`. Chú ý UML **đặt bội số ở đầu đối diện** so với cặp `(min, max)` của Chen: `0..*` ghi ở phía `LOP` nghĩa là *một giáo viên có 0 tới nhiều lớp* — giống chỗ đặt chữ cái `M`/`N` hơn là chỗ đặt cặp số. Và ngăn dưới cùng của mỗi lớp — `phanCongLop()`, `khaiGiang()` — là thứ lược đồ ER hoàn toàn không có.
 
 Khác biệt căn bản nằm ở dòng cuối cùng. UML mô tả cả dữ liệu lẫn **hành vi** của đối tượng, vì nó phục vụ thiết kế phần mềm nói chung. Mô hình ER chỉ mô tả **dữ liệu**, vì nó phục vụ thiết kế cơ sở dữ liệu. Do đó một sơ đồ lớp UML có thể chuyển thành lược đồ ER bằng cách bỏ đi phần phương thức, nhưng chiều ngược lại thì thiếu thông tin.
 

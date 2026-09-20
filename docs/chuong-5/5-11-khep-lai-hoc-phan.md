@@ -2,7 +2,7 @@
 
 ## 5.11.1. Ba con đường, một đích đến
 
-**Hình 5.12. Trực giác, bản vẽ, toán học — cùng ra một kết quả**
+**Hình 5.13. Trực giác, bản vẽ, toán học — cùng ra một kết quả**
 
 ```mermaid
 flowchart LR
@@ -31,7 +31,7 @@ Ba con đường cho **cùng một kết quả** — nhưng khác biệt là r�
 
 ## 5.11.2. Ba dị thường của Chương 1 — kiểm chứng lần cuối
 
-**Bảng 5.12. Ba dị thường trên lược đồ 3NF**
+**Bảng 5.24. Ba dị thường trên lược đồ 3NF**
 
 | Dị thường *(Chương 1)* | Trên lược đồ 3NF | Kết quả |
 |---|---|:--:|
@@ -45,7 +45,7 @@ Cả ba đã bị loại bỏ — và lần này ta biết **chính xác vì sao
 
 Học phần đã treo lại nhiều lời hẹn. Đây là chỗ trả hết.
 
-**Bảng 5.13. Mọi lời hẹn và nơi trả**
+**Bảng 5.25. Mọi lời hẹn và nơi trả**
 
 | Lời hẹn | Treo ở | Trả tại |
 |---|---|---|
@@ -54,11 +54,11 @@ Học phần đã treo lại nhiều lời hẹn. Đây là chỗ trả hết.
 | *"Thuộc tính dẫn xuất `SISO` sẽ được bàn lại dưới tên phi chuẩn hóa"* | mục 2.2.5 · 4.7.5 | **5.10.4** |
 | *"Phụ thuộc hàm là quy tắc nghiệp vụ, Chương 5 sẽ dùng nó làm công cụ chuẩn hóa"* | mục 3.2.2 | **5.2** |
 | *"Ràng buộc quá khó thường tố cáo thiết kế — ý này dẫn vào Chương 5"* | mục 4.7.5 | **5.8.4** |
-| *"Bốn chương đều dựa vào cảm tính; Chương 5 cho công cụ chứng minh"* | Bảng 4.13 | **5.1 · 5.11** |
+| *"Bốn chương đều dựa vào cảm tính; Chương 5 cho công cụ chứng minh"* | Bảng 4.26 | **5.1 · 5.11** |
 
 ## 5.11.4. Hành trình năm chương
 
-**Hình 5.13. Hành trình năm chương**
+**Hình 5.14. Hành trình năm chương**
 
 ```mermaid
 flowchart LR
@@ -74,6 +74,10 @@ flowchart LR
     style C5 fill:#1F4E79,color:#fff,stroke:#1F4E79,stroke-width:2px
     style K fill:#E2F0D9,stroke:#548235,stroke-width:2px
 ```
+
+![](../hinh-ve/slide/internet/le_tot_nghiep.jpg){width=70%}
+
+*Ảnh minh họa: lễ trao bằng tốt nghiệp tại một trường đại học ở Việt Nam. Năm chương của học phần là hành trình từ nhìn thấy vấn đề tới chứng minh được lời giải — phần còn lại là của người học — Nguồn: Wikimedia Commons · Quan629 · CC BY-SA 3.0.*
 
 Học phần khép lại ở đây, nhưng công việc thì không. Điều học phần này trao cho người học không phải là một bộ quy tắc để học thuộc, mà là **một cách suy nghĩ**: trước khi lưu bất kỳ dữ liệu nào, hãy hỏi *"sự thật này thuộc về đâu, và nó có đang bị lưu ở hai chỗ không?"*
 

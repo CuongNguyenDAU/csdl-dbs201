@@ -22,11 +22,11 @@ Cuối Chương 2, người học đã có trong tay một lược đồ ER hoà
 
 Chương 3 làm công việc bắc cầu: chuyển bản vẽ ấy thành một cấu trúc **chặt chẽ về mặt toán học** mà máy tính xử lý được. Cấu trúc đó là **mô hình quan hệ**, do E. F. Codd công bố năm 1970 và đã được giới thiệu sơ lược ở mục 1.4.2 của Chương 1.
 
-Chương này có hai nửa rõ rệt, và người học nên ý thức được điều đó ngay từ đầu.
+Chương này có hai phần rõ rệt, và người học nên ý thức được điều đó ngay từ đầu.
 
-**Nửa thứ nhất — cấu trúc.** Các mục 3.1 đến 3.4 trả lời câu hỏi *"dữ liệu được tổ chức thế nào?"*. Ở đây ta học khái niệm quan hệ, hệ thống các loại khóa, hai ràng buộc toàn vẹn nền tảng, và cuối cùng là **bốn quy tắc ánh xạ** biến lược đồ ER thành tập bảng. Phần này chủ yếu là kỹ năng thao tác: một khi đã nắm quy tắc, việc ánh xạ gần như máy móc.
+**Phần thứ nhất — cấu trúc.** Các mục 3.1 đến 3.4 trả lời câu hỏi *"dữ liệu được tổ chức thế nào?"*. Ở đây ta học khái niệm quan hệ, hệ thống các loại khóa, hai ràng buộc toàn vẹn nền tảng, và cuối cùng là **bốn quy tắc ánh xạ** biến lược đồ ER thành tập bảng. Phần này chủ yếu là kỹ năng thao tác: một khi đã nắm quy tắc, việc ánh xạ gần như máy móc.
 
-**Nửa thứ hai — phép toán.** Các mục 3.5 đến 3.7 trả lời câu hỏi *"lấy dữ liệu ra bằng cách nào?"*. Đây là **đại số quan hệ** — tám phép toán cho phép ta lấy ra bất kỳ thông tin nào từ các bảng đã có. Phần này trừu tượng hơn nhưng cũng chính là chỗ sức mạnh của mô hình quan hệ bộc lộ.
+**Phần thứ hai — phép toán.** Các mục 3.5 đến 3.7 trả lời câu hỏi *"lấy dữ liệu ra bằng cách nào?"*. Đây là **đại số quan hệ** — tám phép toán cho phép ta lấy ra bất kỳ thông tin nào từ các bảng đã có. Phần này trừu tượng hơn nhưng cũng chính là chỗ sức mạnh của mô hình quan hệ bộc lộ.
 
 Có một điểm cần nói ngay để tránh hiểu nhầm về phạm vi. Học phần này **không dạy viết câu lệnh SQL**; đó là nội dung của học phần *Hệ quản trị cơ sở dữ liệu*. Nhưng đại số quan hệ chính là **nền tảng lý thuyết của SQL** — mỗi phép toán ở đây tương ứng với một thành phần của câu lệnh truy vấn. Người học nắm chắc đại số quan hệ sẽ học SQL nhanh hơn nhiều, vì lúc đó chỉ còn phải học cú pháp chứ không phải học lại tư duy.
 

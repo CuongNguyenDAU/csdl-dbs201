@@ -10,7 +10,7 @@ Vấn đề đặt ra như sau. Cùng một cơ sở dữ liệu của trường
 
 Ủy ban ANSI/SPARC vào những năm 1970 đưa ra lời giải: **tách sự mô tả dữ liệu thành ba mức trừu tượng** [3, tr. 46–49].
 
-**Hình 1.6. Kiến trúc ba mức ANSI/SPARC và hai loại độc lập dữ liệu**
+**Hình 1.9. Kiến trúc ba mức ANSI/SPARC và hai loại độc lập dữ liệu**
 
 ```mermaid
 flowchart LR
@@ -33,13 +33,25 @@ flowchart LR
 
 **Mức trong** *(internal level)* là góc nhìn của hệ quản trị cơ sở dữ liệu: dữ liệu được lưu vào tệp nào, tổ chức theo cấu trúc gì, có chỉ mục nào để tìm nhanh. Mức này cũng chỉ có một.
 
+![](../hinh-ve/slide/internet/thuc_don_combo.jpg){width=60%}
+
+*Ảnh minh họa: bảng thực đơn của một quán ăn nhanh. Khách chỉ thấy tên món và giá — đó là mức ngoài; sổ công thức của bếp là mức quan niệm; kho và tủ đông là mức trong — Nguồn: Wikimedia Commons · Dave O · CC BY-SA 2.0.*
+
 Một phép loại suy giúp ghi nhớ ba mức trên là **nhà hàng**. Mức ngoài là **thực đơn** mà khách cầm trên tay — chỉ ghi tên món và giá, và nhà hàng có thể có nhiều thực đơn khác nhau cho khách chay, cho trẻ em, cho tiệc cưới. Mức quan niệm là **sổ công thức tổng thể** mà bếp trưởng nắm giữ — đầy đủ mọi món, định lượng từng nguyên liệu. Mức trong là **kho và tủ đông** — nguyên liệu cất ở ngăn nào, sắp xếp ra sao. Điểm mấu chốt: **khách không cần biết kho lạnh nằm ở đâu, và bếp trưởng không cần biết khách đang đọc trang nào của thực đơn.** Mỗi mức làm việc của mình.
+
+**Bảng 1.15. Ba mức kiến trúc qua phép loại suy nhà hàng**
+
+| Mức | Trong nhà hàng | Trong cơ sở dữ liệu | Có mấy cái? | Ai quan tâm |
+|---|---|---|:--:|---|
+| **Ngoài** | Thực đơn khách cầm: chỉ tên món và giá; có thực đơn chay, trẻ em, tiệc | Khung nhìn: phòng Kế toán chỉ thấy `MASV, HOTEN, HOCPHI` | nhiều | từng nhóm người dùng |
+| **Quan niệm** | Sổ công thức tổng thể của bếp trưởng: đủ mọi món, định lượng | Toàn bộ bảng, cột, liên kết, ràng buộc — sản phẩm của thiết kế | một | người thiết kế |
+| **Trong** | Kho và tủ đông: nguyên liệu cất ngăn nào | Tệp, chỉ mục, phân vùng trên đĩa | một | hệ quản trị, quản trị viên |
 
 ## 1.5.2. Phân biệt kiến trúc ba mức với ba mức của mô hình dữ liệu
 
 Đến đây người học đã gặp **hai bộ ba mức** khác nhau: ba mức mô hình dữ liệu ở mục 1.4.3 và ba mức kiến trúc ở mục 1.5.1. Vì tên gọi có phần trùng nhau — cả hai đều có từ "quan niệm" và "vật lý" — nên đây là chỗ nhầm lẫn kinh điển. Cần phân biệt dứt khoát.
 
-**Bảng 1.8. Hai bộ "ba mức" — không được lẫn lộn**
+**Bảng 1.16. Hai bộ "ba mức" — không được lẫn lộn**
 
 | | **Ba mức của MÔ HÌNH dữ liệu** *(mục 1.4.3)* | **Ba mức của KIẾN TRÚC** *(mục 1.5.1)* |
 |---|---|---|
@@ -64,9 +76,34 @@ Lợi ích lớn nhất mà kiến trúc ba mức mang lại có tên riêng.
     - **Độc lập dữ liệu vật lý** *(physical data independence)*: thay đổi cách lưu trữ ở mức trong mà **không phải sửa lược đồ quan niệm**.
     - **Độc lập dữ liệu logic** *(logical data independence)*: thay đổi lược đồ quan niệm mà **không phải sửa các khung nhìn** ở mức ngoài.
 
-    **Ví dụ 1.3 (độc lập vật lý).** Quản trị viên nhận thấy việc tìm sinh viên theo họ tên chạy chậm, nên tạo thêm một chỉ mục trên cột `HOTEN`. Đây là thay đổi thuần túy ở mức trong. Lược đồ quan niệm `SINHVIEN(MASV, HOTEN, ...)` không đổi một chữ, và **không một ứng dụng nào phải sửa hay biên dịch lại**. Tương tự khi chuyển toàn bộ dữ liệu sang một ổ đĩa mới nhanh hơn.
+!!! example "Ví dụ 1.3 (độc lập vật lý)"
 
-    **Ví dụ 1.4 (độc lập logic).** Nhà trường quyết định bổ sung cột `EMAIL` vào bảng `SINHVIEN`. Đây là thay đổi ở mức quan niệm. Khung nhìn của phòng Kế toán vốn chỉ gồm `MASV, HOTEN, HOCPHI` nên **hoàn toàn không bị ảnh hưởng**, và phần mềm kế toán chạy bình thường như chưa có gì xảy ra.
+    Quản trị viên nhận thấy việc tìm sinh viên theo họ tên chạy chậm, nên tạo thêm một chỉ mục trên cột `HOTEN`. Đây là thay đổi thuần túy ở mức trong. Lược đồ quan niệm `SINHVIEN(MASV, HOTEN, ...)` không đổi một chữ, và **không một ứng dụng nào phải sửa hay biên dịch lại**. Tương tự khi chuyển toàn bộ dữ liệu sang một ổ đĩa mới nhanh hơn.
+
+!!! example "Ví dụ 1.4 (độc lập logic)"
+
+    Nhà trường quyết định bổ sung cột `EMAIL` vào bảng `SINHVIEN`. Đây là thay đổi ở mức quan niệm. Khung nhìn của phòng Kế toán vốn chỉ gồm `MASV, HOTEN, HOCPHI` nên **hoàn toàn không bị ảnh hưởng**, và phần mềm kế toán chạy bình thường như chưa có gì xảy ra.
+
+Ví dụ 1.4 nhìn trên dữ liệu: lược đồ quan niệm đổi, khung nhìn của phòng Kế toán **không đổi một cột**.
+
+**Bảng 1.17. Khung nhìn của phòng Kế toán trước và sau khi thêm cột `EMAIL` vào mức quan niệm**
+
+*Mức quan niệm — trước:* `SINHVIEN(MASV, HOTEN, NGAYSINH, DIEM, HOCPHI, MALOP)` · *sau:* `SINHVIEN(MASV, HOTEN, NGAYSINH, DIEM, HOCPHI, MALOP, EMAIL)`
+
+| Khung nhìn Kế toán — trước | | | | Khung nhìn Kế toán — sau | | |
+|---|---|---|---|---|---|---|
+| **MASV** | **HOTEN** | **HOCPHI** | | **MASV** | **HOTEN** | **HOCPHI** |
+| SV01 | Trần An | 3.000.000 | | SV01 | Trần An | 3.000.000 |
+| SV02 | Lê Bình | 2.500.000 | | SV02 | Lê Bình | 2.500.000 |
+
+**Bảng 1.18. Bốn thay đổi thường gặp và loại độc lập dữ liệu tương ứng**
+
+| Thay đổi | Xảy ra ở mức | Mức phía trên có phải sửa? | Loại độc lập |
+|---|---|---|---|
+| Thêm chỉ mục trên `HOTEN` (Ví dụ 1.3) | trong | không — lược đồ quan niệm nguyên vẹn | **vật lý** |
+| Chuyển dữ liệu sang ổ đĩa nhanh hơn | trong | không | **vật lý** |
+| Thêm cột `EMAIL` (Ví dụ 1.4) | quan niệm | không — khung nhìn Kế toán không dùng cột ấy | **logic** |
+| Xóa cột `HOCPHI` mà Kế toán đang dùng | quan niệm | **có** — không che giấu được với mức ngoài | logic *không đạt được* |
 
 Trong thực tế, **độc lập vật lý dễ đạt được hơn độc lập logic**. Các hệ quản trị hiện đại bảo đảm độc lập vật lý gần như trọn vẹn. Độc lập logic khó hơn vì có những thay đổi ở mức quan niệm — chẳng hạn xóa hẳn một cột mà khung nhìn đang dùng — thì không cách nào che giấu được với mức ngoài.
 
@@ -76,9 +113,31 @@ Giá trị của tính độc lập dữ liệu chỉ thật sự hiện ra khi 
 
 Nay trung tâm cần lưu thêm địa chỉ thư điện tử. Vì không có tầng trung gian nào che chắn, hậu quả dây chuyền như sau. Cấu trúc dòng dữ liệu thay đổi, nên **cả năm chương trình** đều phải được mở ra, sửa lại phần đọc tệp, biên dịch lại và triển khai lại. Trong thời gian chuyển đổi, tệp cũ và tệp mới có cấu trúc khác nhau, nên phải viết thêm một chương trình chuyển đổi dữ liệu. Nếu một trong năm chương trình bị bỏ sót — điều rất dễ xảy ra khi hệ thống đã chạy nhiều năm và người viết ban đầu đã nghỉ việc — thì chương trình đó sẽ đọc sai toàn bộ dữ liệu từ vị trí ký tự thứ 71 trở đi, mà **không báo lỗi gì cả**, chỉ đơn giản là hiển thị những chuỗi ký tự vô nghĩa.
 
+**Bảng 1.19. Dòng dữ liệu cố định độ rộng trong `HOCVIEN.dat` — trước và sau khi chèn 30 ký tự email**
+
+| | Ký tự 1–10 | Ký tự 11–60 | Ký tự 61–70 | Ký tự 71–100 |
+|---|---|---|---|---|
+| **Quy ước cũ** | `HV01      ` | `Trần An` *(đệm tới 50)* | `0905111222` | *(không có)* |
+| **Quy ước mới** | `HV01      ` | `Trần An` *(đệm tới 50)* | `0905111222` | `an.tran@abc.edu.vn` *(đệm tới 30)* |
+| **Quy ước mới, nếu email chèn TRƯỚC số điện thoại** | `HV01      ` | `Trần An` | `an.tran@ab` | `c.edu.vn  0905111222` |
+
+Dòng cuối cho thấy điều nguy hiểm: chương trình cũ bị bỏ sót vẫn đọc ký tự 61–70 làm số điện thoại và nhận về `an.tran@ab` — một chuỗi vô nghĩa — mà **không có dòng báo lỗi nào**.
+
 Với kiến trúc ba mức, cũng yêu cầu ấy được xử lý bằng một thao tác duy nhất là thêm một cột vào lược đồ quan niệm. Các ứng dụng cũ vốn không hỏi tới cột mới nên tiếp tục chạy nguyên vẹn.
 
 **Đây chính là câu trả lời cho câu hỏi "học kiến trúc ba mức để làm gì".** Nó không phải là lý thuyết suông; nó là cơ chế quyết định chi phí bảo trì của hệ thống trong suốt vòng đời — thường kéo dài mười đến hai mươi năm.
+
+!!! question "Tự kiểm tra 1.5"
+
+    *(tự trả lời trước, rồi mở đáp án bên dưới)*
+
+    1. "Cơ sở dữ liệu của tôi thay đổi liên tục" — câu này nói về lược đồ hay thể hiện?
+    2. Quản trị viên chuyển toàn bộ dữ liệu sang máy chủ mới, ứng dụng không phải sửa. Đây là loại độc lập nào?
+    3. Ba mức mô hình dữ liệu và ba mức kiến trúc ANSI/SPARC khác nhau ở điểm căn bản nào?
+
+??? success "Đáp án tự kiểm tra 1.5"
+
+    *(1)* Thể hiện; lược đồ gần như đứng yên. *(2)* Độc lập dữ liệu vật lý: thay đổi ở mức trong, lược đồ quan niệm không đổi. *(3)* Ba mức mô hình là ba chặng nối tiếp của quy trình thiết kế; ba mức kiến trúc là ba tầng mô tả cùng tồn tại suốt vòng đời hệ thống.
 
 ---
 

@@ -1,6 +1,6 @@
 # CHƯƠNG 2. MÔ HÌNH THỰC THỂ – LIÊN KẾT (ER) VÀ ER MỞ RỘNG
 
-> **Ghi chú biên soạn (v6 — bản giáo trình, ký pháp Chen).** Bản này viết Chương 2 theo **văn phong giáo trình**, thống nhất với Chương 1. Hệ thống mục **2.1–2.8 khớp tuyệt đối với Mục 8 của đề cương chi tiết** *(8 tiết · CLO2, CLO3)*. So với bản v4, có năm thay đổi: ① **ký pháp Chen được chọn làm ký pháp chính** và được dạy ngay tại mục 2.2.2, trước khi trình bày các khái niệm, thay vì chỉ nhắc ở cuối chương; ② **ký pháp Crow’s Foot được trình bày kỹ** thành một mục riêng (2.8.3) kèm cách đọc và ba hạn chế; ③ **ví dụ tổng hợp dùng Chen qua từng bước** (Hình 2.14 → 2.15 → 2.16) rồi đối chiếu với Crow’s Foot (Hình 2.17); ④ thống nhất thuật ngữ **“thuộc tính khóa”** cho Chương 2, để dành từ **“khóa”** cho bộ khái niệm của mô hình quan hệ ở Chương 3; ⑤ **bổ sung mục 2.1.4 giới thiệu tổng quan lược đồ ER** *(khái niệm ERD, ba thành phần cơ bản, Hình 2.1)* — đặt trước bảng phiên dịch quy tắc nghiệp vụ *(nay là mục 2.1.5)*, để người học không gặp các thuật ngữ thực thể, thuộc tính, liên kết trước khi được giới thiệu; các hình từ 2.1 trở đi và các định nghĩa từ 2.2 trở đi được dồn số tương ứng. Số hình: **17**. Các hoạt động tổ chức lớp học ở **Phụ lục 2A**. Tài liệu tham khảo: [1] Tô Văn Nam (2005); [3] Coronel & Morris, *Database Systems*, Ch.4 và Ch.5.
+> **Ghi chú biên soạn (v7 — bản giáo trình, ký pháp Chen, tăng cường hình minh họa).** Bản này viết Chương 2 theo **văn phong giáo trình**, thống nhất với Chương 1. Hệ thống mục **2.1–2.8 khớp tuyệt đối với Mục 8 của đề cương chi tiết** *(8 tiết · CLO2, CLO3)*. So với bản v6, có bốn nhóm thay đổi: ① **mọi ví dụ trước đây chỉ diễn giải bằng lời nay đều có hình hoặc bảng dữ liệu đi kèm** — phiên dịch quy tắc nghiệp vụ *(Hình 2.2)*, bốn cặp phân loại thuộc tính kể cả thuộc tính phức hợp *(Hình 2.4)*, ba cách lưu thuộc tính đa trị nhìn ở mức dữ liệu *(Bảng 2.4)*, tính tối thiểu và khóa phức hợp *(Bảng 2.7, 2.9)*, ba loại kết nối nhìn ở mức thể hiện *(Bảng 2.10)*, cách ghi cặp `(min, max)` và tính tham gia *(Hình 2.8, 2.9)*, ba bậc liên kết *(Hình 2.11)*, đệ quy M:N sau khi tách *(Hình 2.13)*, thực thể yếu và tách liên kết M:N ở mức dữ liệu lẫn lược đồ *(Bảng 2.13, 2.15; Hình 2.15)*; ② **mục 2.7 giải Ví dụ 2.7 qua năm bước, mỗi bước một hình Chen** *(Hình 2.16–2.20)*, thay cho sơ đồ kiểu hộp trước đây; Bảng 2.2 bổ sung ký hiệu thuộc tính của liên kết và phân cấp cha–con; ③ **sửa lỗi lược đồ**: `TIENQUYET` nay nối về `KHOAHOC` hai lần với hai vai trò ở cả Hình 2.27 và 2.28; Hình 2.26 hiện hai thuộc tính đang treo trên hình thoi M:N; Hình 2.22–2.23 tách Crow's Foot ra khối `erDiagram` để vẽ được chân quạ thật; thêm sơ đồ lớp UML *(Hình 2.24)* và bảng đối chiếu ngược bảy quy tắc *(Bảng 2.21)*; ④ nêu rõ hai quy ước đặt số — chữ cái `1/M/N` và cặp `(min, max)` — nằm ở hai đầu ngược nhau của cùng một liên kết *(mục 2.5.1)*. Số hình: **28**; số bảng: **22**; ngoài ra có **9 ảnh minh họa thực tế** không đánh số (Wikimedia Commons, giấy phép CC/PD, ghi nguồn dưới ảnh). Các hoạt động tổ chức lớp học ở **Phụ lục 2A**. Tài liệu tham khảo: [1] Tô Văn Nam (2005); [3] Coronel & Morris, *Database Systems*, Ch.4 và Ch.5.
 
 ---
 
@@ -59,6 +59,10 @@ Chương 1 đã giới thiệu ba mức của mô hình dữ liệu ở mục 1.
 Thiết kế quan niệm cần nguyên liệu, và nguyên liệu ấy là quy tắc nghiệp vụ.
 
 > **Định nghĩa 2.1.** **Quy tắc nghiệp vụ** *(business rule)* là một **phát biểu ngắn gọn, rõ ràng, bằng ngôn ngữ tự nhiên**, mô tả một chính sách, một quy trình hoặc một ràng buộc trong hoạt động của tổ chức.
+
+![](hinh-ve/slide/internet/bang_noi_quy.jpg){width=55%}
+
+*Ảnh minh họa: bảng nội quy học sinh treo ở một trường học. Mỗi dòng là một phát biểu ngắn, rõ, về việc được làm và không được làm — đúng nghĩa một tập quy tắc nghiệp vụ — Nguồn: Wikimedia Commons · Danhviet1493 · CC BY-SA 4.0.*
 
 Quy tắc nghiệp vụ không do người thiết kế nghĩ ra. Chúng được **thu thập** từ ba nguồn: phỏng vấn người sử dụng hệ thống, đọc tài liệu và biểu mẫu hiện hành, và quan sát quy trình làm việc thực tế. Đây là công việc của con người với con người, không phải công việc kỹ thuật — nhưng chất lượng của toàn bộ thiết kế phụ thuộc vào nó.
 
@@ -127,6 +131,10 @@ Ba thành phần trên mới là bộ khung. Trên bộ khung ấy, mô hình ER
 
 Đã có nguyên liệu *(quy tắc nghiệp vụ, mục 2.1.2)* và đã biết sản phẩm cần làm ra trông như thế nào *(lược đồ ER, mục 2.1.4)*, còn lại là câu hỏi nối hai đầu ấy: **đọc một câu quy tắc nghiệp vụ thì rút ra được thành phần nào của lược đồ?**
 
+![](hinh-ve/slide/internet/ban_ve_kien_truc.jpg){width=70%}
+
+*Ảnh minh họa: mô hình mặt bằng một căn hộ. Người thiết kế cơ sở dữ liệu cũng làm việc như kiến trúc sư: thống nhất ý tưởng với chủ nhà (quy tắc nghiệp vụ) trước, rồi mới vẽ bản vẽ (lược đồ ER), sau cùng mới thi công (tạo bảng) — Nguồn: Wikimedia Commons · Tallbox · CC BY-SA 4.0.*
+
 Có một quy luật rất tiện dụng: **loại từ trong câu quy tắc nghiệp vụ gợi ý loại thành phần trong lược đồ ER**. Quy luật này không phải là công thức máy móc, nhưng nó cho người thiết kế một điểm khởi đầu vững chắc.
 
 **Bảng 2.1. Phiên dịch quy tắc nghiệp vụ sang thành phần ER**
@@ -140,6 +148,39 @@ Có một quy luật rất tiện dụng: **loại từ trong câu quy tắc ngh
 | Cụm **"có thể"**, **"chưa có"** | **Tham gia tùy chọn** *(mục 2.5)* | *"giáo viên **có thể chưa** phụ trách lớp nào"* |
 | Cụm **"bắt buộc"**, **"phải"** | **Tham gia bắt buộc** *(mục 2.5)* | *"mỗi lớp **phải** thuộc một khóa học"* |
 | **Nhiều giá trị** cho cùng một đặc điểm | **Thuộc tính đa trị** → phải tách *(mục 2.2.4)* | *"học viên có **nhiều số điện thoại**"* |
+
+Để thấy bảng trên vận hành ra sao, hãy áp nó vào quy tắc **(c)** của Ví dụ 2.1 — quy tắc "tốt" duy nhất trong ba phát biểu. Mỗi cụm từ trong câu rơi đúng vào một dòng của bảng, và mỗi dòng cho ra một mảnh lược đồ.
+
+**Hình 2.2. Áp Bảng 2.1 vào quy tắc (c) của Ví dụ 2.1 — từ câu chữ tới mảnh lược đồ**
+
+```mermaid
+flowchart LR
+    T1["<b>danh từ</b><br/>học viên, lớp"]
+    T2["<b>động từ</b><br/>ghi danh"]
+    T3["<b>số lượng</b><br/>nhiều lớp · nhiều học viên"]
+    T4["<b>đặc điểm của lượt ghi danh</b><br/>ngày ghi danh, học phí"]
+    HV["HOCVIEN"] ---|"M"| R{"ghi danh"}
+    R ---|"N"| LOP["LOP"]
+    R --- A1(["NGAYGHIDANH"])
+    R --- A2(["HOCPHI"])
+    T1 -.-> HV
+    T1 -.-> LOP
+    T2 -.-> R
+    T3 -.-> R
+    T4 -.-> A1
+    T4 -.-> A2
+    style HV fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
+    style LOP fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
+    style R fill:#FFD9D9,stroke:#C00000,stroke-width:2px
+    style A1 fill:#fff,stroke:#1F4E79
+    style A2 fill:#fff,stroke:#1F4E79
+    style T1 fill:#FFF2CC,stroke:#BF9000
+    style T2 fill:#FFF2CC,stroke:#BF9000
+    style T3 fill:#FFF2CC,stroke:#BF9000
+    style T4 fill:#FFF2CC,stroke:#BF9000
+```
+
+Đọc hình từ trái sang phải. Hai danh từ *học viên*, *lớp* thành hai **hình chữ nhật**; động từ *ghi danh* thành **hình thoi** nối chúng; hai chữ *nhiều* thành hai chữ cái `M`, `N` ở hai đầu — tức liên kết nhiều–nhiều; và hai đặc điểm *ngày ghi danh*, *học phí* thành hai **oval treo trên hình thoi**, vì chúng không thuộc riêng học viên hay lớp mà thuộc về *lượt ghi danh*. Hình thoi được tô đỏ để đánh dấu một việc còn phải làm: liên kết nhiều–nhiều có thuộc tính riêng sẽ được xử lý ở mục 2.6.4. Ở đây người học chưa cần hiểu vì sao — chỉ cần thấy rằng **một câu quy tắc tốt tự nó đã vẽ ra được lược đồ**.
 
 Cột giữa có ghi kèm số mục, vì ở đây người học mới chỉ cần **nhận ra tên gọi** của từng thành phần chứ chưa cần nắm hết sắc thái của nó; mỗi thành phần sẽ được học kỹ ở mục tương ứng. Bảng này vì vậy nên được xem như một **bảng tra dùng lại nhiều lần**: mục 2.9 sẽ quay lại dùng đúng nó để giải trọn vẹn bài toán Trung tâm ABC.
 
@@ -160,6 +201,10 @@ Mục 2.1.4 đã giới thiệu ba thành phần của lược đồ ER ở mứ
 Cặp khái niệm này song song hoàn toàn với cặp *lược đồ – thể hiện* ở mục 1.4.4 của Chương 1. `HOCVIEN` là một thực thể — nó là cái khuôn, mô tả rằng mọi học viên đều có mã, họ tên, ngày sinh. Còn "HV01, Trần An, sinh 12/04/2005" là một **thể hiện** — một cá thể cụ thể đúc ra từ khuôn ấy. Trong lược đồ ER ta chỉ vẽ **thực thể**; các thể hiện chỉ xuất hiện khi hệ thống đã vận hành và có dữ liệu thật.
 
 Câu hỏi khó hơn là: **khi nào một danh từ xứng đáng trở thành thực thể?** Có ba tiêu chí thực dụng.
+
+![](hinh-ve/slide/internet/cccd.jpg){width=70%}
+
+*Ảnh minh họa: mẫu Căn cước công dân. Nhìn tấm thẻ như một thực thể `CONGDAN`: mỗi ô trên thẻ là một thuộc tính; số định danh là thuộc tính khóa; nơi thường trú gồm nhiều phần là thuộc tính phức hợp — Nguồn: Wikimedia Commons · Chính phủ Việt Nam · Public domain.*
 
 Thứ nhất, nó phải có **nhiều hơn một đặc điểm** cần lưu. Nếu về "màu sắc" ta chỉ cần lưu duy nhất tên màu, thì màu sắc nên là một thuộc tính chứ không phải một thực thể. Nhưng nếu ta còn cần lưu mã màu, nhà cung cấp sơn và ngày cập nhật bảng màu, thì nó đã đủ tư cách làm thực thể.
 
@@ -186,10 +231,14 @@ Thứ nhất, đây là **ký pháp gốc**, do chính Peter Chen đề xuất n
 | **Thuộc tính phức hợp** | Oval mẹ, các oval con nối vào | |
 | **Liên kết** | Hình **thoi** đặt giữa hai thực thể | Ghi động từ |
 | **Liên kết định danh** | Hình thoi **hai đường viền** | Nối tới thực thể yếu |
-| **Lực lượng** | Ghi `1`, `M`, `N` **trên cạnh nối** | Xem mục 2.5 |
-| **Tham gia bắt buộc** | Cạnh nối vẽ **hai vạch** | |
+| **Kết nối** | Ghi `1`, `M`, `N` **trên cạnh nối**, ở đầu nào mô tả số lượng thực thể ở đầu đó | Xem mục 2.5.1 |
+| **Lực lượng và tham gia** | Cặp `(min, max)` ghi **cạnh thực thể**, cho biết một thể hiện của thực thể ấy tham gia liên kết ít nhất/nhiều nhất bao nhiêu lần; `min = 0` là tùy chọn, `min ≥ 1` là bắt buộc | Xem mục 2.5.1 và 2.5.3 |
+| **Tham gia bắt buộc** *(cách vẽ gốc)* | Cạnh nối vẽ **hai vạch** | Giáo trình dùng cặp `(min, max)` thay cho cách này |
+| **Thuộc tính của liên kết** | Oval nối vào **hình thoi** thay vì vào chữ nhật | Xem mục 2.6.4 |
+| **Thực thể cha – con** | **Vòng tròn** đặt giữa cha và các con, trong ghi `d` *(rời nhau)* hoặc `o` *(chồng lấn)* | Xem mục 2.7 |
+| **Phân cấp đầy đủ** | Cạnh nối cha với vòng tròn ghi **"đầy đủ"** *(cách vẽ gốc: hai vạch)*; **"không đầy đủ"** là một vạch | Xem mục 2.7.5 |
 
-**Hình 2.2. Bộ ký hiệu Chen — tổng quan**
+**Hình 2.3. Bộ ký hiệu Chen — tổng quan**
 
 ```mermaid
 flowchart TB
@@ -240,9 +289,9 @@ Thuộc tính được phân loại theo bốn cặp tiêu chí độc lập v�
 | **Theo nguồn gốc** | **Lưu trữ** *(stored)* — được nhập vào và cất giữ | **Dẫn xuất** *(derived)* — tính ra từ thuộc tính khác | `NGAYSINH` là lưu trữ; `TUOI` là **dẫn xuất** |
 | **Theo tính bắt buộc** | **Bắt buộc** *(required)* — không được để trống | **Tùy chọn** *(optional)* — được phép trống | `HOTEN` bắt buộc; `EMAIL` có thể tùy chọn |
 
-Để thấy rõ hai ký pháp khác nhau thế nào, hãy vẽ **cùng một thực thể** theo cả hai cách.
+Bốn cặp tiêu chí trên đều có chỗ trên lược đồ Chen. Hãy vẽ **một thực thể `HOCVIEN` mang đủ mọi loại thuộc tính** theo cả hai ký pháp để thấy điều đó.
 
-**Hình 2.3. Thuộc tính của thực thể `HOCVIEN` — ký pháp Chen và ký pháp Crow's Foot**
+**Hình 2.4. Thuộc tính của thực thể `HOCVIEN` — bốn cặp phân loại trong ký pháp Chen, đối chiếu Crow's Foot**
 
 ```mermaid
 flowchart LR
@@ -250,11 +299,17 @@ flowchart LR
         K(["<u>MAHV</u>"]) --- E["HOCVIEN"]
         A1(["HOTEN"]) --- E
         A2(["NGAYSINH"]) --- E
+        E --- A5(["TUOI"])
         E --- A3(["EMAIL"])
         E --- A4(["SDT"])
+        E --- A6(["DIACHI"])
+        A6 --- A61(["SONHA"])
+        A6 --- A62(["DUONG"])
+        A6 --- A63(["QUAN"])
+        A6 --- A64(["TINH"])
     end
     subgraph CF["KÝ PHÁP CROW'S FOOT"]
-        T["<b>HOCVIEN</b><br/>─────────<br/><u>MAHV</u><br/>HOTEN<br/>NGAYSINH<br/>EMAIL<br/>SDT"]
+        T["<b>HOCVIEN</b><br/>─────────<br/><u>MAHV</u><br/>HOTEN<br/>NGAYSINH<br/>EMAIL<br/>SDT<br/>DIACHI"]
     end
     E ~~~ T
     style E fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
@@ -264,11 +319,23 @@ flowchart LR
     style A2 fill:#fff,stroke:#1F4E79
     style A3 fill:#fff,stroke:#1F4E79
     style A4 fill:#fff,stroke:#1F4E79,stroke-width:4px
+    style A5 fill:#fff,stroke:#1F4E79,stroke-dasharray: 5 5
+    style A6 fill:#FFF2CC,stroke:#1F4E79
+    style A61 fill:#fff,stroke:#1F4E79
+    style A62 fill:#fff,stroke:#1F4E79
+    style A63 fill:#fff,stroke:#1F4E79
+    style A64 fill:#fff,stroke:#1F4E79
 ```
+
+Phía Chen đọc từ trên xuống: `MAHV` **gạch chân** là thuộc tính khóa; `HOTEN`, `NGAYSINH`, `EMAIL` là thuộc tính **đơn, đơn trị, lưu trữ**; `TUOI` vẽ **nét đứt** vì là thuộc tính **dẫn xuất**; `SDT` vẽ **viền kép** vì là thuộc tính **đa trị**; `DIACHI` là thuộc tính **phức hợp** — một oval mẹ với bốn oval con `SONHA`, `DUONG`, `QUAN`, `TINH` nối vào. Cặp tiêu chí thứ tư *(bắt buộc/tùy chọn)* là cặp duy nhất ký pháp Chen **không có ký hiệu riêng**; nó được ghi chú bằng lời và sẽ trở thành ràng buộc *không rỗng* ở Chương 3.
 
 Hai cách vẽ chứa **cùng một lượng thông tin**, nhưng phân bố khác hẳn. Ký pháp Chen **trải thuộc tính ra ngoài** thành các oval riêng biệt: nhờ vậy mỗi thuộc tính có chỗ để mang ký hiệu riêng của nó — gạch chân cho khóa, viền kép cho đa trị, nét đứt cho dẫn xuất. Ký pháp Crow's Foot **gom thuộc tính vào trong ô chữ nhật** thành một danh sách: gọn hơn rất nhiều, nhưng vì mỗi thuộc tính chỉ còn là một dòng chữ nên nó **mất chỗ để thể hiện các sắc thái ấy** — thường chỉ giữ lại được gạch chân cho khóa.
 
 Đó là lý do giáo trình chọn Chen cho phần học lý thuyết và phần giải bài, còn Crow's Foot dùng khi cần trình bày lược đồ lớn. Mục 2.8.3 sẽ trình bày kỹ ký pháp Crow's Foot.
+
+![](hinh-ve/slide/internet/phong_bi_thu.jpg){width=60%}
+
+*Ảnh minh họa: địa chỉ trên một phong bì thư gồm tên người nhận, đường, thành phố, bang. Giữ nguyên một khối để in, hay tách ra để thống kê theo thành phố — đó là quyết định về thuộc tính phức hợp — Nguồn: Wikimedia Commons · DPLA · CC BY 4.0.*
 
 Hai cặp đầu có hệ quả thiết kế trực tiếp. Với thuộc tính **phức hợp**, người thiết kế phải quyết định: tách thành các thuộc tính con hay giữ nguyên một khối? Nguyên tắc là **tách nếu về sau còn cần truy vấn theo từng phần**. Nếu trung tâm cần thống kê học viên theo quận, thì `DIACHI` phải tách. Nếu địa chỉ chỉ dùng để in lên giấy chứng nhận, giữ nguyên một khối là đủ.
 
@@ -280,22 +347,43 @@ Với thuộc tính **đa trị**, không có lựa chọn nào cả — nó **b
 
 > **Ví dụ 2.2.** Học viên Trần An có **ba số điện thoại**. Cần lưu trữ như thế nào?
 
-**Hình 2.4. Ba cách xử lý thuộc tính đa trị — chỉ một cách đúng**
+Trước khi bàn đúng sai, hãy nhìn thẳng vào **dữ liệu** mà mỗi cách sẽ tạo ra. Trần An có ba số; Lê Bình và Phạm Chi mỗi người một số.
 
-```mermaid
-flowchart TB
-    P["<b>Trần An có 3 số điện thoại</b><br/>Lưu thế nào?"]
-    P --> C1["<b>CÁCH 1 — nhồi vào một ô</b><br/>SDT = '0905111, 0906222, 0907333'"]
-    P --> C2["<b>CÁCH 2 — nhiều cột</b><br/>SDT1, SDT2, SDT3"]
-    P --> C3["<b>CÁCH 3 — tách thành thực thể</b><br/>DIENTHOAI(MAHV, SODT) — liên kết 1:M"]
-    C1 --> E1["Không tìm kiếm được<br/>Không ràng buộc được kiểu dữ liệu<br/><b>Vi phạm: mỗi ô một giá trị đơn</b>"]
-    C2 --> E2["Có người 4 số → <b>phải SỬA CẤU TRÚC BẢNG</b><br/>= tái phạm phụ thuộc dữ liệu<br/>90% chỉ có 1 số → <b>ô trống tràn lan</b>"]
-    C3 --> E3["Thêm số thứ tư, thứ mười?<br/>→ <b>chỉ thêm một dòng</b><br/>Không ô trống · Tìm kiếm dễ"]
-    style C1 fill:#FFD9D9,stroke:#C00000
-    style C2 fill:#FFD9D9,stroke:#C00000
-    style C3 fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
-    style E3 fill:#E2F0D9,stroke:#548235
-```
+**Bảng 2.4. Ba cách lưu số điện thoại của học viên — nhìn ở mức dữ liệu**
+
+*Cách 1 — nhồi mọi số vào một ô:*
+
+| MAHV | HOTEN | SDT |
+|---|---|---|
+| HV01 | Trần An | `0905111222, 0906333444, 0907555666` |
+| HV02 | Lê Bình | `0912000111` |
+| HV03 | Phạm Chi | `0933222333` |
+
+*Cách 2 — tạo sẵn ba cột:*
+
+| MAHV | HOTEN | SDT1 | SDT2 | SDT3 |
+|---|---|---|---|---|
+| HV01 | Trần An | `0905111222` | `0906333444` | `0907555666` |
+| HV02 | Lê Bình | `0912000111` | *(trống)* | *(trống)* |
+| HV03 | Phạm Chi | `0933222333` | *(trống)* | *(trống)* |
+
+*Cách 3 — tách thành thực thể riêng, mỗi số một dòng:*
+
+| MAHV | HOTEN |
+|---|---|
+| HV01 | Trần An |
+| HV02 | Lê Bình |
+| HV03 | Phạm Chi |
+
+| MAHV | SODT |
+|---|---|
+| HV01 | `0905111222` |
+| HV01 | `0906333444` |
+| HV01 | `0907555666` |
+| HV02 | `0912000111` |
+| HV03 | `0933222333` |
+
+Ba bảng trên tự chúng đã nói lên phần lớn câu chuyện. Ở cách 1, ô `SDT` của Trần An chứa một **chuỗi ba giá trị** — hệ quản trị chỉ thấy một dòng chữ. Ở cách 2, bốn trong sáu ô số điện thoại **để trống**, và bảng đã "đóng đinh" con số ba. Ở cách 3, bảng `HOCVIEN` sạch sẽ, còn bảng `DIENTHOAI` cứ mỗi số **một dòng** — Trần An chiếm ba dòng, hai người kia mỗi người một dòng, không ô nào trống.
 
 **Cách 1 — nhồi mọi số vào một ô**, ngăn cách bằng dấu phẩy. Cách này hỏng vì ba lý do. Không tìm kiếm được: câu hỏi *"số 0906222 là của ai?"* buộc hệ thống phải dò từng chuỗi ký tự. Không kiểm tra được: hệ quản trị chỉ thấy một chuỗi văn bản nên không thể bảo đảm mỗi phần tử đều là số điện thoại hợp lệ. Và quan trọng nhất, nó vi phạm nguyên tắc **mỗi ô chứa đúng một giá trị đơn** — nguyên tắc này sẽ được gọi tên chính thức ở Chương 5 là **dạng chuẩn 1**.
 
@@ -303,7 +391,36 @@ flowchart TB
 
 **Cách 3 — tách thành một thực thể riêng** `DIENTHOAI` với liên kết một–nhiều tới `HOCVIEN`. Đây là cách duy nhất đúng. Muốn thêm số thứ tư, thứ mười, chỉ cần **thêm một dòng**; không có ô trống nào; và tìm kiếm theo số điện thoại trở thành một truy vấn bình thường.
 
-**Bảng 2.4. Kiểm chứng cách 3 bằng bốn câu hỏi khó**
+Trên lược đồ Chen, cách 3 là một phép biến đổi rất dễ nhận ra: **oval viền kép biến mất, thay bằng một hình chữ nhật mới** nối về thực thể gốc qua một liên kết 1:M.
+
+**Hình 2.5. Thuộc tính đa trị `SDT` trước và sau khi tách — ký pháp Chen**
+
+```mermaid
+flowchart LR
+    subgraph TRUOC["TRƯỚC — thuộc tính đa trị"]
+        K1(["<u>MAHV</u>"]) --- HV1["HOCVIEN"]
+        HV1 --- S1(["SDT"])
+    end
+    subgraph SAU["SAU — tách thành thực thể riêng"]
+        K2(["<u>MAHV</u>"]) --- HV2["HOCVIEN"]
+        HV2 ---|"1"| R{"có"}
+        R ---|"M"| DT[["DIENTHOAI"]]
+        DT --- S2(["<u>SODT</u>"])
+    end
+    TRUOC ~~~ SAU
+    style HV1 fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
+    style HV2 fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
+    style DT fill:#FFF2CC,stroke:#C00000,stroke-width:3px
+    style R fill:#E2F0D9,stroke:#548235,stroke-width:3px
+    style K1 fill:#fff,stroke:#1F4E79
+    style K2 fill:#fff,stroke:#1F4E79
+    style S1 fill:#fff,stroke:#C00000,stroke-width:4px
+    style S2 fill:#fff,stroke:#1F4E79
+```
+
+Thực thể `DIENTHOAI` được vẽ **chữ nhật hai viền** và liên kết *"có"* vẽ **hình thoi hai viền**: đó là ký hiệu của *thực thể yếu* và *liên kết định danh*, sẽ được giải thích ở mục 2.6.3. Ở đây chỉ cần ghi nhớ hình dạng của phép biến đổi.
+
+**Bảng 2.5. Kiểm chứng cách 3 bằng bốn câu hỏi khó**
 
 | Câu hỏi | Cách 1 | Cách 2 | Cách 3 |
 |---|:--:|:--:|:--:|
@@ -340,14 +457,24 @@ Ngoại lệ chỉ xuất hiện khi phép tính quá tốn kém và được d�
 
 Một thuộc tính khóa hợp lệ phải thỏa mãn **đồng thời hai tiêu chí**, thiếu một trong hai đều không dùng được.
 
-**Bảng 2.5. Hai tiêu chí bắt buộc của một thuộc tính khóa**
+**Bảng 2.6. Hai tiêu chí bắt buộc của một thuộc tính khóa**
 
 | Tiêu chí | Nội dung | Hỏng ra sao nếu vi phạm |
 |---|---|---|
 | **Tính duy nhất** | Không có hai thể hiện nào mang cùng giá trị | Hai học viên cùng mã → không phân biệt được ai với ai |
 | **Tính tối thiểu** | Bỏ bớt bất kỳ thuộc tính nào trong nhóm thì mất tính duy nhất | Thừa thuộc tính → tốn chỗ, ràng buộc sai, tham chiếu phình to |
 
-Tính tối thiểu thường bị bỏ qua nhưng rất quan trọng. Giả sử ta chọn thuộc tính khóa của `HOCVIEN` là cặp `(MAHV, HOTEN)`. Cặp này đúng là duy nhất — nhưng **không tối thiểu**, vì chỉ riêng `MAHV` đã đủ duy nhất rồi. Hậu quả thực tế: mọi thực thể khác muốn tham chiếu tới học viên đều phải mang theo cả hai thuộc tính, và nếu học viên đổi tên thì phải sửa dây chuyền ở mọi nơi.
+Tính tối thiểu thường bị bỏ qua nhưng rất quan trọng. Giả sử ta chọn thuộc tính khóa của `HOCVIEN` là cặp `(MAHV, HOTEN)`. Hãy kiểm tra trên vài dòng dữ liệu.
+
+**Bảng 2.7. Kiểm tra hai tiêu chí trên dữ liệu `HOCVIEN`**
+
+| MAHV | HOTEN | NGAYSINH | Nhận xét |
+|---|---|---|---|
+| HV01 | Trần An | 12/04/2005 | |
+| HV02 | Lê Bình | 03/09/2004 | |
+| HV03 | Trần An | 25/11/2005 | trùng tên với HV01 |
+
+Che cột `HOTEN` đi: ba dòng vẫn phân biệt được nhờ `MAHV` — vậy `HOTEN` là **thừa**, cặp `(MAHV, HOTEN)` vi phạm tính tối thiểu. Che cột `MAHV` đi: hai dòng "Trần An" trùng nhau — vậy `HOTEN` một mình **không duy nhất**, không thể làm thuộc tính khóa. Kết luận: thuộc tính khóa đúng là `MAHV`, và chỉ `MAHV`. Cặp `(MAHV, HOTEN)` đúng là duy nhất — nhưng **không tối thiểu**, vì chỉ riêng `MAHV` đã đủ duy nhất rồi. Hậu quả thực tế: mọi thực thể khác muốn tham chiếu tới học viên đều phải mang theo cả hai thuộc tính, và nếu học viên đổi tên thì phải sửa dây chuyền ở mọi nơi.
 
 ### 2.3.2. Thuộc tính khóa tự nhiên và khóa thay thế
 
@@ -362,7 +489,7 @@ Khi chọn thuộc tính khóa, người thiết kế đứng trước hai lựa
 > - **Khóa tự nhiên:** số căn cước công dân của học viên.
 > - **Khóa thay thế:** một mã `MAHV` do hệ thống tự sinh — HV01, HV02, HV03…
 
-**Bảng 2.6. So sánh khóa tự nhiên và khóa thay thế**
+**Bảng 2.8. So sánh khóa tự nhiên và khóa thay thế**
 
 | Tiêu chí | Khóa tự nhiên | Khóa thay thế |
 |---|---|---|
@@ -372,6 +499,10 @@ Khi chọn thuộc tính khóa, người thiết kế đứng trước hai lựa
 | **Kích thước** | Thường dài, kiểu chuỗi | Ngắn, số nguyên — khóa ngoại nhẹ |
 | **Rủi ro riêng tư** | Số căn cước lan sang mọi bảng tham chiếu | Không lộ thông tin gì |
 | **Kiểm tra trùng lặp** | Tự nhiên phát hiện được người trùng | Có thể tạo **hai bản ghi cho cùng một người** mà không biết |
+
+![](hinh-ve/slide/internet/phieu_so_thu_tu.jpg){width=45%}
+
+*Ảnh minh họa: máy phát số thứ tự xếp hàng. Con số trên phiếu không nói gì về người cầm nó, nhưng suốt buổi không ai có số trùng — hình ảnh gần nhất của khóa thay thế — Nguồn: Wikimedia Commons · Hugh Llewelyn · CC BY-SA 2.0.*
 
 Kinh nghiệm thực tiễn dẫn tới một khuyến nghị khá thống nhất: **ưu tiên khóa thay thế cho khóa chính, đồng thời vẫn khai báo khóa tự nhiên như một ràng buộc duy nhất**. Cách làm này gộp được ưu điểm của cả hai — khóa chính ngắn gọn và bất biến để các bảng khác tham chiếu, còn tính duy nhất theo nghiệp vụ vẫn được hệ quản trị bảo vệ.
 
@@ -383,7 +514,34 @@ Lý do quyết định nằm ở cột **tính ổn định**. Khóa chính là 
 
 Đôi khi không thuộc tính đơn lẻ nào đủ phân biệt, và ta cần **thuộc tính khóa phức hợp** — nhóm gồm từ hai thuộc tính trở lên. Trong ký pháp Chen, cả hai oval đều được gạch chân.
 
-Trường hợp điển hình là thực thể `GHIDANH` của Trung tâm ABC. Một lượt ghi danh không có mã riêng; điều phân biệt lượt này với lượt kia là **cặp** *(học viên nào, lớp nào)*. Vì vậy thuộc tính khóa của nó là `(MAHV, MALOP)`.
+Trường hợp điển hình là thực thể `GHIDANH` của Trung tâm ABC. Một lượt ghi danh không có mã riêng; điều phân biệt lượt này với lượt kia là **cặp** *(học viên nào, lớp nào)*. Vì vậy thuộc tính khóa của nó là `(MAHV, MALOP)`. Dữ liệu cho thấy vì sao không thuộc tính nào đứng một mình được.
+
+**Bảng 2.9. Dữ liệu `GHIDANH` — không cột nào một mình đủ phân biệt**
+
+| MAHV | MALOP | NGAYGHIDANH | HOCPHI |
+|---|---|---|---|
+| HV01 | L01 | 05/01/2026 | 3.000.000 |
+| HV01 | L02 | 12/01/2026 | 2.500.000 |
+| HV02 | L01 | 06/01/2026 | 3.000.000 |
+
+`MAHV` một mình không đủ: `HV01` xuất hiện hai dòng. `MALOP` một mình cũng không đủ: `L01` xuất hiện hai dòng. Nhưng **cặp** `(MAHV, MALOP)` thì không dòng nào trùng — và bỏ bớt một trong hai là mất ngay tính duy nhất, nên cặp này **vừa duy nhất vừa tối thiểu**.
+
+**Hình 2.6. Thuộc tính khóa phức hợp của `GHIDANH` — hai oval cùng gạch chân**
+
+```mermaid
+flowchart LR
+    K1(["<u>MAHV</u>"]) --- GD["GHIDANH"]
+    K2(["<u>MALOP</u>"]) --- GD
+    GD --- A1(["NGAYGHIDANH"])
+    GD --- A2(["HOCPHI"])
+    style GD fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
+    style K1 fill:#fff,stroke:#1F4E79
+    style K2 fill:#fff,stroke:#1F4E79
+    style A1 fill:#fff,stroke:#1F4E79
+    style A2 fill:#fff,stroke:#1F4E79
+```
+
+Ở đây `GHIDANH` tạm vẽ như một thực thể bình thường; đến mục 2.6.4 ta sẽ thấy nó thật ra là **thực thể kết hợp** sinh ra từ một liên kết nhiều–nhiều, và khi ấy nó được vẽ chữ nhật hai viền.
 
 Thuộc tính khóa phức hợp xuất hiện tự nhiên ở hai chỗ mà chương này sẽ gặp lại: **thực thể yếu** *(mục 2.6.3)* và **thực thể kết hợp sinh ra từ liên kết nhiều–nhiều** *(mục 2.6.4)*.
 
@@ -409,7 +567,7 @@ Việc phát hiện ra có một liên kết thường không khó. Cái khó n�
 
 Có một kỹ thuật đơn giản loại bỏ gần như hoàn toàn khả năng nhầm lẫn: **luôn đặt hai câu hỏi, mỗi câu cho một chiều**, rồi ghép hai câu trả lời lại.
 
-**Hình 2.5. Kỹ thuật hỏi hai chiều — quy trình xác định loại liên kết**
+**Hình 2.7. Kỹ thuật hỏi hai chiều — quy trình xác định loại liên kết**
 
 ```mermaid
 flowchart TB
@@ -429,9 +587,40 @@ flowchart TB
 
 Sức mạnh của kỹ thuật này nằm ở chỗ nó **buộc người thiết kế phải hỏi cả chiều ngược lại** — mà chiều ngược lại chính là chiều người ta hay quên. Khi nghe *"một giáo viên phụ trách nhiều lớp"*, phản xạ tự nhiên là kết luận ngay 1:M. Nhưng nếu không hỏi tiếp *"một lớp do bao nhiêu giáo viên phụ trách?"*, ta có thể bỏ sót trường hợp trung tâm cho phép hai giáo viên đồng phụ trách một lớp — và khi ấy liên kết thật sự là M:N.
 
+Cách chắc chắn nhất để không nhầm là **nhìn xuống mức thể hiện** — liệt kê vài giáo viên, vài lớp cụ thể, và nối ai với lớp nào. Bảng dưới đây làm đúng việc ấy cho ba tình huống nghiệp vụ khác nhau của **cùng một cặp** `GIAOVIEN` – `LOP`. Mỗi dòng là một "sợi dây" nối một giáo viên với một lớp; hai câu hỏi của kỹ thuật hỏi hai chiều trở thành hai phép đếm: *đếm xem một mã giáo viên xuất hiện mấy dòng* và *đếm xem một mã lớp xuất hiện mấy dòng*.
+
+**Bảng 2.10. Cùng cặp `GIAOVIEN` – `LOP`, ba tình huống nghiệp vụ nhìn ở mức thể hiện**
+
+*Tình huống A — "mỗi giáo viên chỉ dạy một lớp, mỗi lớp chỉ một giáo viên":*
+
+| GIAOVIEN | | LOP |
+|:--:|:--:|:--:|
+| GV01 | ─── | L01 |
+| GV02 | ─── | L02 |
+| GV03 | ─── | L03 |
+
+*Tình huống B — "một giáo viên phụ trách nhiều lớp; mỗi lớp đúng một giáo viên; giáo viên mới có thể chưa có lớp":*
+
+| GIAOVIEN | | LOP |
+|:--:|:--:|:--:|
+| GV01 | ─── | L01 |
+| GV01 | ─── | L02 |
+| GV02 | ─── | L03 |
+| GV03 | | *(chưa có lớp)* |
+
+*Tình huống C — "một giáo viên phụ trách nhiều lớp; một lớp có thể do hai giáo viên đồng phụ trách":*
+
+| GIAOVIEN | | LOP |
+|:--:|:--:|:--:|
+| GV01 | ─── | L01 |
+| GV01 | ─── | L02 |
+| GV02 | ─── | L01 |
+
+Đếm trên từng bảng. Ở tình huống A, mỗi mã giáo viên và mỗi mã lớp đều xuất hiện **đúng một dòng** → **1:1**. Ở tình huống B, `GV01` xuất hiện **hai dòng** nhưng mỗi mã lớp chỉ **một dòng** → một giáo viên nhiều lớp, một lớp một giáo viên → **1:M**. Ở tình huống C, `GV01` xuất hiện hai dòng **và** `L01` cũng xuất hiện hai dòng → cả hai chiều đều "nhiều" → **M:N**. Điểm mấu chốt: chỉ nhìn cột `GIAOVIEN` thì tình huống B và C **giống hệt nhau** — phải nhìn sang cột `LOP` mới phân biệt được. Đó chính là lý do phải hỏi chiều thứ hai.
+
 ### 2.4.3. Áp dụng cho Trung tâm Anh ngữ ABC
 
-**Bảng 2.7. Bảng hỏi hai chiều cho Trung tâm ABC**
+**Bảng 2.11. Bảng hỏi hai chiều cho Trung tâm ABC**
 
 | Cặp thực thể | Câu hỏi chiều thứ nhất | Câu hỏi chiều thứ hai | Kết luận |
 |---|---|---|:--:|
@@ -457,11 +646,11 @@ Hai khái niệm này thường bị dùng lẫn, nhưng chúng mô tả hai m�
 >
 > **Lực lượng** *(cardinality)* mô tả **con số cụ thể**: số lượng tối thiểu và tối đa các thể hiện tham gia, viết dưới dạng cặp `(min, max)`.
 
-> **Ví dụ 2.4.** Quy tắc *"mỗi lớp có ít nhất 5 và nhiều nhất 25 học viên"* cho biết **kết nối** là nhiều–nhiều nếu xét cả hai chiều, còn **lực lượng** ở phía học viên là `(5, 25)`.
+> **Ví dụ 2.4.** Quy tắc *"mỗi lớp có ít nhất 5 và nhiều nhất 25 học viên"* cho biết **kết nối** là nhiều–nhiều nếu xét cả hai chiều *(một học viên cũng ghi danh nhiều lớp)*, còn **lực lượng** của lớp trong liên kết ghi danh là `(5, 25)`: mỗi lớp tham gia liên kết ít nhất 5 lần và nhiều nhất 25 lần.
 
-Trong ký pháp Chen, kết nối được ghi bằng các ký tự **`1`, `M`, `N` đặt ngay trên cạnh nối** giữa thực thể và hình thoi liên kết; còn lực lượng chi tiết thì viết dưới dạng cặp `(min, max)` đặt cạnh đó.
+Trong ký pháp Chen, kết nối được ghi bằng các ký tự **`1`, `M`, `N` đặt ngay trên cạnh nối** giữa thực thể và hình thoi liên kết. Lực lượng chi tiết thì viết dưới dạng cặp **`(min, max)` đặt cạnh thực thể**, và cặp số ấy trả lời câu hỏi: *một thể hiện của thực thể này tham gia vào liên kết ít nhất và nhiều nhất bao nhiêu lần?* Ba dòng đầu của hình dưới dùng chữ cái; dòng cuối vẽ lại liên kết ghi danh bằng cặp số để thấy hai cách ghi đặt cạnh nhau.
 
-**Hình 2.6. Ký pháp Chen — ba loại kết nối, minh họa tại Trung tâm ABC**
+**Hình 2.8. Ký pháp Chen — ba loại kết nối và cách ghi lực lượng `(min, max)`, minh họa tại Trung tâm ABC**
 
 ```mermaid
 flowchart LR
@@ -471,20 +660,27 @@ flowchart LR
     R2 ---|"N"| L2["LOP"]
     NV["NHANVIEN"] ---|"1"| R3{"được cấp"}
     R3 ---|"1"| TK["TAIKHOAN"]
+    HV4["HOCVIEN"] ---|"(0, N)"| R4{"ghi danh"}
+    R4 ---|"(5, 25)"| L4["LOP"]
     style GV1 fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
     style L1 fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
     style HV fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
     style L2 fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
     style NV fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
     style TK fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
+    style HV4 fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
+    style L4 fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
     style R1 fill:#E2F0D9,stroke:#548235
     style R2 fill:#FFD9D9,stroke:#C00000,stroke-width:2px
     style R3 fill:#E2F0D9,stroke:#548235
+    style R4 fill:#FFD9D9,stroke:#C00000,stroke-width:2px
 ```
 
-Cách đọc rất trực tiếp và đây là ưu điểm lớn của ký pháp Chen: **con số ghi ở đầu nào cho biết số lượng thực thể ở đầu đó**. Dòng thứ nhất đọc là *"một giáo viên phụ trách M lớp, một lớp do 1 giáo viên phụ trách"* — tức **1:M**. Dòng thứ hai có `M` và `N` ở hai đầu nên là **M:N**, và liên kết này được tô đỏ vì nó **bắt buộc phải tách** theo mục 2.6.4.
+Cách đọc rất trực tiếp và đây là ưu điểm lớn của ký pháp Chen: **chữ cái ghi ở đầu nào cho biết số lượng thực thể ở đầu đó**. Dòng thứ nhất đọc là *"một giáo viên phụ trách M lớp, một lớp do 1 giáo viên phụ trách"* — tức **1:M**. Dòng thứ hai có `M` và `N` ở hai đầu nên là **M:N**, và liên kết này được tô đỏ vì nó **bắt buộc phải tách** theo mục 2.6.4.
 
-> **Chú ý.** Một số tài liệu ghi con số theo quy ước ngược lại — đặt ở đầu **đối diện**. Khi đọc lược đồ của người khác, việc đầu tiên cần làm là **kiểm tra quy ước** bằng một liên kết mà bản thân mình chắc chắn biết loại, rồi mới đọc các liên kết còn lại. Giáo trình này nhất quán dùng quy ước *"con số ở đầu nào mô tả đầu đó"*.
+Dòng thứ tư là chính liên kết ghi danh ấy, nhưng ghi bằng **cặp `(min, max)`** theo quy tắc nghiệp vụ của Ví dụ 2.4. Cặp `(5, 25)` đặt **cạnh `LOP`** vì nó nói về lớp: *một lớp tham gia liên kết ghi danh từ 5 đến 25 lần* — tức có 5 đến 25 học viên. Cặp `(0, N)` đặt **cạnh `HOCVIEN`** vì nó nói về học viên: *một học viên ghi danh từ 0 đến N lớp*. Nhìn kỹ sẽ thấy hai cách ghi **đặt số ở hai đầu ngược nhau**: chữ `N` "số lớp của một học viên" nằm bên `LOP`, còn cặp `(0, N)` "số lần một học viên tham gia" nằm bên `HOCVIEN`. Cả hai cùng nói một sự thật; chỉ khác chỗ đứng. Giáo trình dùng chữ cái khi chỉ cần nêu loại kết nối, và dùng cặp số khi cần ghi đủ lực lượng và sự tham gia *(mục 2.5.3)*.
+
+> **Chú ý.** Một số tài liệu ghi chữ cái theo quy ước ngược lại — đặt ở đầu **đối diện**. Khi đọc lược đồ của người khác, việc đầu tiên cần làm là **kiểm tra quy ước** bằng một liên kết mà bản thân mình chắc chắn biết loại, rồi mới đọc các liên kết còn lại. Giáo trình này nhất quán dùng hai quy ước: *chữ cái ở đầu nào mô tả số lượng thực thể ở đầu đó*, và *cặp `(min, max)` ở đầu nào mô tả số lần tham gia của thực thể ở đầu đó*.
 
 Lực lượng chi tiết hơn kết nối, và nó ghi lại những quy định nghiệp vụ mà kết nối không diễn tả nổi. Tuy vậy phần lớn các con số lực lượng **không được hệ quản trị kiểm tra tự động** — chúng sẽ trở thành các ràng buộc toàn vẹn phải xử lý riêng ở Chương 4.
 
@@ -501,6 +697,8 @@ Lực lượng chi tiết hơn kết nối, và nó ghi lại những quy địn
 >
 > - Chiều từ `LOP`: **bắt buộc**. Không thể tồn tại một lớp không có giáo viên nào phụ trách — trung tâm không mở lớp như vậy.
 > - Chiều từ `GIAOVIEN`: **tùy chọn**. Một giáo viên mới tuyển, chưa được phân lớp nào, vẫn là giáo viên của trung tâm và vẫn phải có trong hệ thống.
+>
+> Tình huống B của Bảng 2.10 chính là trường hợp này: `GV03` **không có dòng nào** — giáo viên tồn tại mà không tham gia liên kết; trong khi mọi mã lớp đều xuất hiện **ít nhất một dòng** — không lớp nào đứng ngoài.
 
 Sự bất đối xứng này có hệ quả rất cụ thể ở Chương 3. Tham gia **bắt buộc** sẽ trở thành ràng buộc *không được rỗng* trên khóa ngoại; tham gia **tùy chọn** thì cho phép rỗng. Xác định sai một trong hai, hệ thống hoặc từ chối những dữ liệu hợp lệ, hoặc chấp nhận những dữ liệu vô nghĩa.
 
@@ -510,9 +708,26 @@ Sự bất đối xứng này có hệ quả rất cụ thể ở Chương 3. Th
 
 **Trong ký pháp Chen**, tính tham gia được thể hiện bằng **số nét của cạnh nối** giữa thực thể và hình thoi liên kết: cạnh **một nét** nghĩa là tham gia **tùy chọn**, cạnh **hai nét song song** nghĩa là tham gia **bắt buộc**. Cách khác, tường minh hơn và ngày càng phổ biến, là **ghi thẳng cặp `(min, max)`** lên cạnh nối — khi đó `(0, N)` là tùy chọn còn `(1, N)` là bắt buộc. Giáo trình này dùng cách ghi cặp số vì nó không gây nhầm và đọc được ngay.
 
+**Hình 2.9. Ví dụ 2.5 vẽ theo ký pháp Chen — hai chiều, hai tính tham gia khác nhau**
+
+```mermaid
+flowchart LR
+    GV["GIAOVIEN"] ---|"(0, N)"| R{"phụ trách"}
+    R ---|"(1, 1)"| LOP["LOP"]
+    N1["min = 0: giáo viên<br/><b>có thể chưa</b> phụ trách lớp nào<br/>→ tham gia TÙY CHỌN"] -.- GV
+    N2["min = 1: mỗi lớp<br/><b>phải</b> có đúng một giáo viên<br/>→ tham gia BẮT BUỘC"] -.- LOP
+    style GV fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
+    style LOP fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
+    style R fill:#E2F0D9,stroke:#548235
+    style N1 fill:#FFF2CC,stroke:#BF9000
+    style N2 fill:#FFF2CC,stroke:#BF9000
+```
+
+Đọc hình: cặp `(0, N)` cạnh `GIAOVIEN` cho biết **một giáo viên** tham gia liên kết từ 0 tới N lần; số `0` chính là chỗ ghi nhận *"giáo viên mới chưa có lớp"*. Cặp `(1, 1)` cạnh `LOP` cho biết **một lớp** tham gia đúng một lần — không hơn *(một giáo viên phụ trách)* và không kém *(phải có giáo viên)*. Chỉ hai con số `min` đã nói hết Ví dụ 2.5, và nói bằng thứ mà Chương 3 dùng được ngay.
+
 **Trong ký pháp Crow's Foot**, tính tham gia và kết nối được gộp vào **một ký hiệu duy nhất đặt ở đầu mút** của đường liên kết. Đây là điểm mạnh nhất của ký pháp này.
 
-**Bảng 2.8. Ký hiệu đầu mút Crow's Foot — gộp kết nối và tham gia**
+**Bảng 2.12. Ký hiệu đầu mút Crow's Foot — gộp kết nối và tham gia**
 
 | Ký hiệu đầu mút | Đọc là | Nghĩa `(min, max)` |
 |---|---|:--:|
@@ -521,11 +736,15 @@ Sự bất đối xứng này có hệ quả rất cụ thể ở Chương 3. Th
 | Một gạch kèm chân quạ | Một hoặc nhiều, bắt buộc | `(1, N)` |
 | Vòng tròn kèm chân quạ | Không hoặc nhiều, tùy chọn | `(0, N)` |
 
-**Hình 2.7. Bốn ký hiệu đầu mút của ký pháp Crow's Foot**
+**Hình 2.10. Bốn ký hiệu đầu mút của ký pháp Crow's Foot**
 
 ![](hinh-ve/Chuong-2_Mo-hinh-ER_crowsfoot.png)
 
 Trên hình, **thực thể nằm bên phải** và đường liên kết đi tới từ bên trái. Thứ tự đặt ký hiệu tuân theo đúng quy tắc *đọc từ ngoài vào trong*: ký hiệu **xa thực thể** cho biết `min`, ký hiệu **sát thực thể** cho biết `max`.
+
+![](hinh-ve/slide/internet/dau_chan_qua.jpg){width=40%}
+
+*Ảnh minh họa: dấu chân chim trên cát, ba ngón tỏa ra — hình ảnh gốc của ký hiệu "nhiều" trong ký pháp Crow's Foot (chân quạ) — Nguồn: Wikimedia Commons · Ryan Hodnett · CC BY-SA 4.0.*
 
 Có một mẹo đọc rất dễ nhớ: **vòng tròn đọc là "không", gạch đọc là "một", chân quạ đọc là "nhiều"**. Ký hiệu ở đầu mút gồm hai phần — phần ngoài cùng cho biết `min`, phần trong cho biết `max`. Vậy "vòng tròn kèm chân quạ" đọc là *"không hoặc nhiều"*.
 
@@ -543,22 +762,57 @@ Mục 2.8.3 sẽ trình bày kỹ hơn cách đọc một lược đồ Crow's F
 
 Liên kết **bậc hai** *(binary)* nối hai thực thể khác nhau và chiếm áp đảo trong thực tế. Liên kết **bậc một** *(unary)* nối một thực thể với chính nó — gọi là liên kết đệ quy, trình bày ở mục sau. Liên kết **bậc ba** *(ternary)* nối ba thực thể cùng lúc; loại này hiếm và thường nên tách thành các liên kết bậc hai để dễ xử lý.
 
+**Hình 2.11. Ba bậc của liên kết trong ký pháp Chen — bậc một, bậc hai, bậc ba**
+
+```mermaid
+flowchart LR
+    subgraph B1["BẬC MỘT — đệ quy"]
+        NV["NHANVIEN"] ---|"(0, N)"| R1{"quản lý"}
+        R1 -----|"(0, 1)"| NV
+    end
+    subgraph B2["BẬC HAI"]
+        GV["GIAOVIEN"] ---|"(0, N)"| R2{"phụ trách"}
+        R2 ---|"(1, 1)"| LOP["LOP"]
+    end
+    subgraph B3["BẬC BA"]
+        GV3["GIAOVIEN"] --- R3{"dạy tại"}
+        LOP3["LOP"] --- R3
+        R3 --- PH["PHONGHOC"]
+    end
+    B1 ~~~ B2 ~~~ B3
+    style NV fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
+    style GV fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
+    style LOP fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
+    style GV3 fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
+    style LOP3 fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
+    style PH fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
+    style R1 fill:#E2F0D9,stroke:#548235
+    style R2 fill:#E2F0D9,stroke:#548235
+    style R3 fill:#FCE4D6,stroke:#C00000,stroke-width:2px
+```
+
+Hình thoi bậc ba có **ba cạnh** tỏa ra ba thực thể. Ví dụ *"giáo viên dạy lớp tại phòng học"* là bậc ba thật sự khi ba sự vật chỉ có nghĩa **cùng nhau**: biết giáo viên và lớp chưa đủ suy ra phòng, biết lớp và phòng chưa đủ suy ra giáo viên. Nếu có thể tách thành hai liên kết bậc hai mà không mất thông tin *(chẳng hạn mỗi lớp luôn học ở một phòng cố định)* thì nên tách. Hình thoi bậc ba được tô đỏ vì, giống liên kết M:N, nó **phải xử lý** trước khi chuyển sang mô hình quan hệ.
+
 ### 2.6.2. Liên kết đệ quy
 
 > **Định nghĩa 2.11.** **Liên kết đệ quy** *(recursive relationship)* là liên kết mà **một thực thể liên hệ với chính nó**.
 
+![](hinh-ve/slide/internet/so_do_to_chuc.jpg){width=70%}
+
+*Ảnh minh họa: sơ đồ tổ chức của một tập đoàn. Mọi ô đều cùng một loại sự vật (đơn vị thành viên) và liên kết "sở hữu" nối đơn vị với đơn vị — một thực thể liên hệ với chính nó — Nguồn: Wikimedia Commons · AMTD Digital · CC0.*
+
 Loại liên kết này thường gây bối rối lúc đầu, nhưng nó xuất hiện rất nhiều trong đời sống.
 
-**Hình 2.8. Ba ví dụ liên kết đệ quy, vẽ theo ký pháp Chen**
+**Hình 2.12. Ba ví dụ liên kết đệ quy, vẽ theo ký pháp Chen**
 
 ```mermaid
 flowchart LR
-    NV["NHANVIEN"] ---|"1"| R1{"quản lý"}
-    R1 ---|"M"| NV
-    KH["KHOAHOC"] ---|"M"| R2{"là tiên quyết của"}
-    R2 ---|"N"| KH
-    SP["SANPHAM"] ---|"M"| R3{"gồm linh kiện"}
-    R3 ---|"N"| SP
+    NV["NHANVIEN"] ---|"(0, N) người quản lý"| R1{"quản lý"}
+    R1 -----|"(0, 1) người bị quản lý"| NV
+    KH["KHOAHOC"] ---|"(0, N) khóa trước"| R2{"là tiên quyết của"}
+    R2 -----|"(0, N) khóa sau"| KH
+    SP["SANPHAM"] ---|"(0, N) sản phẩm lắp"| R3{"gồm linh kiện"}
+    R3 -----|"(0, N) linh kiện"| SP
     R1 ~~~ KH
     R2 ~~~ SP
     style NV fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
@@ -569,7 +823,7 @@ flowchart LR
     style R3 fill:#FFD9D9,stroke:#C00000,stroke-width:2px
 ```
 
-Điểm đáng chú ý về mặt ký pháp: liên kết đệ quy vẽ theo Chen **không có gì đặc biệt** — vẫn là một hình thoi, chỉ khác ở chỗ **cả hai cạnh của nó cùng nối về một hình chữ nhật**. Đây lại là một ưu điểm nữa của Chen: người học không phải nhớ thêm ký hiệu mới nào cho trường hợp này.
+Điểm đáng chú ý về mặt ký pháp: liên kết đệ quy vẽ theo Chen **không có gì đặc biệt** — vẫn là một hình thoi, chỉ khác ở chỗ **cả hai cạnh của nó cùng nối về một hình chữ nhật**. Đây lại là một ưu điểm nữa của Chen: người học không phải nhớ thêm ký hiệu mới nào cho trường hợp này. Chỉ có một việc bắt buộc phải làm thêm: **ghi vai trò** lên mỗi cạnh — *người quản lý* / *người bị quản lý*, *khóa trước* / *khóa sau* — vì hai cạnh cùng chạm vào một thực thể, không ghi vai trò thì không biết cạnh nào là chiều nào.
 
 Ví dụ thứ nhất là **quan hệ quản lý**: một nhân viên quản lý nhiều nhân viên khác, và mỗi nhân viên có một người quản lý. Đây là đệ quy 1:M.
 
@@ -578,6 +832,26 @@ Ví dụ thứ hai là **khóa học tiên quyết** — chính là quy tắc th
 Ví dụ thứ ba là **cấu thành sản phẩm**: một sản phẩm gồm nhiều linh kiện, mà mỗi linh kiện cũng có thể là một sản phẩm được lắp từ các linh kiện nhỏ hơn.
 
 > **Chú ý.** Liên kết đệ quy **M:N phải tách** giống hệt liên kết M:N thông thường. Điểm khác biệt duy nhất là bảng sinh ra sẽ có **hai cột cùng tham chiếu về một bảng**, nên phải đặt tên hai cột khác nhau để phân biệt vai trò — chẳng hạn `TIENQUYET(MAKH_truoc, MAKH_sau)`. Quên đặt tên phân biệt là lỗi rất hay gặp.
+
+Việc tách ấy trông như thế nào trên lược đồ? Thực thể mới `TIENQUYET` phải nối về `KHOAHOC` **hai lần**, mỗi lần một vai trò — đó là điều mà người mới học hay vẽ thiếu.
+
+**Hình 2.13. Liên kết đệ quy M:N sau khi tách — `KHOAHOC` nối hai lần vào `TIENQUYET`**
+
+```mermaid
+flowchart LR
+    KH["KHOAHOC"] ---|"(0, N) khóa trước"| R1{"đi trước"}
+    R1 ---|"(1, 1)"| TQ[["TIENQUYET"]]
+    KH ---|"(0, N) khóa sau"| R2{"đi sau"}
+    R2 ---|"(1, 1)"| TQ
+    K(["<u>MAKH</u>"]) --- KH
+    style KH fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
+    style TQ fill:#FFF2CC,stroke:#C00000,stroke-width:3px
+    style R1 fill:#E2F0D9,stroke:#548235,stroke-width:3px
+    style R2 fill:#E2F0D9,stroke:#548235,stroke-width:3px
+    style K fill:#fff,stroke:#1F4E79
+```
+
+Mỗi thể hiện của `TIENQUYET` là một cặp *(khóa trước, khóa sau)*, nên nó tham gia **đúng một lần** vào mỗi liên kết — `(1, 1)` ở cả hai cạnh. Còn một khóa học có thể đứng trước nhiều khóa và đứng sau nhiều khóa — `(0, N)` ở cả hai vai trò. Hai hình thoi vẽ viền kép vì `TIENQUYET` mượn thuộc tính khóa của `KHOAHOC` qua cả hai; hai cột `MAKH_truoc`, `MAKH_sau` của Chú ý ở trên chính là dấu vết của hai cạnh này khi sang Chương 3.
 
 ### 2.6.3. Thực thể mạnh và thực thể yếu
 
@@ -594,9 +868,21 @@ Phải nhấn mạnh chữ **đồng thời**. Rất nhiều thực thể phụ 
 >
 > Ngược lại, thực thể `LOP` **không phải** là thực thể yếu, dù mỗi lớp đều phải thuộc một khóa học. Lý do: `MALOP` tự nó đã đủ phân biệt mọi lớp, không cần mượn `MAKH`. Đây chỉ là phụ thuộc tồn tại chứ không phải thực thể yếu.
 
+Điều kiện thứ hai dễ thấy nhất khi nhìn vào dữ liệu.
+
+**Bảng 2.13. Dữ liệu `DIENTHOAI` khi hai học viên khai chung số máy bàn**
+
+| MAHV | SODT | LOAI |
+|---|---|---|
+| HV01 | `0905111222` | di động |
+| HV01 | `02363811111` | máy bàn |
+| HV02 | `02363811111` | máy bàn |
+
+Dòng 2 và dòng 3 có **cùng `SODT`** — hai anh em trong một nhà khai chung số máy bàn. Vậy `SODT` một mình không phân biệt được hai dòng; phải ghép thêm `MAHV` mượn từ `HOCVIEN` mới đủ. Đó là nghĩa cụ thể của "thuộc tính khóa không đầy đủ".
+
 Trong ký pháp Chen, thực thể yếu và liên kết dẫn tới nó đều được vẽ bằng **hai đường viền** — một quy ước rất hợp lý, vì hai đặc điểm ấy luôn đi cùng nhau.
 
-**Hình 2.9. Thực thể yếu trong ký pháp Chen — trường hợp `DIENTHOAI`**
+**Hình 2.14. Thực thể yếu trong ký pháp Chen — trường hợp `DIENTHOAI`**
 
 ```mermaid
 flowchart LR
@@ -615,7 +901,7 @@ flowchart LR
 
 Hình trên đọc như sau. `DIENTHOAI` vẽ **chữ nhật hai viền** vì nó là thực thể yếu. Liên kết *"có"* vẽ **hình thoi hai viền** vì đây là **liên kết định danh** *(identifying relationship)* — chính nó cung cấp phần khóa còn thiếu. Bên trong `DIENTHOAI`, thuộc tính `SODT` được gạch chân, nhưng **nó chỉ là một nửa của thuộc tính khóa**; nửa còn lại là `MAHV` mượn từ `HOCVIEN` qua liên kết định danh. Ghép lại mới đủ phân biệt.
 
-**Bảng 2.9. Cùng một sự vật, hai cách đặt thuộc tính khóa cho hai kết luận khác nhau**
+**Bảng 2.14. Cùng một sự vật, hai cách đặt thuộc tính khóa cho hai kết luận khác nhau**
 
 | Tình huống | Thuộc tính khóa | Có phải thực thể yếu? |
 |---|---|---|
@@ -632,28 +918,62 @@ Xét quy tắc thứ năm của Trung tâm ABC: *"Một học viên ghi danh nhi
 
 Câu hỏi đặt ra rất cụ thể: **thuộc tính `HOCPHI` thuộc về thực thể nào?**
 
-**Hình 2.10. Liên kết M:N ẩn chứa một thực thể**
+Hãy nhìn vài dòng dữ liệu về học phí.
 
-```mermaid
-flowchart LR
-    Q["<b>HOCPHI<br/>thuộc về đâu?</b>"]
-    Q --> A1["Không thuộc <b>HỌC VIÊN</b><br/><i>mỗi học viên đóng nhiều mức<br/>khác nhau cho các lớp khác nhau</i>"]
-    Q --> A2["Không thuộc <b>LỚP</b><br/><i>mỗi lớp thu nhiều mức khác nhau<br/>tùy học viên có ưu đãi hay không</i>"]
-    A1 --> R["Nó thuộc về<br/><b>LƯỢT GHI DANH</b><br/>─────────<br/>GHIDANH(<u>MAHV</u>, <u>MALOP</u>,<br/>NGAYGHIDANH, HOCPHI)"]
-    A2 --> R
-    R --> T["<b>Phép thử 'tờ phiếu'</b><br/>Mỗi lần ghi danh, trung tâm<br/>in ra một tờ phiếu.<br/>Tờ phiếu ấy có thật<br/>→ nó là một thực thể"]
-    style Q fill:#FFF2CC,stroke:#C00000
-    style R fill:#1F4E79,color:#fff,stroke:#1F4E79,stroke-width:2px
-    style T fill:#E2F0D9,stroke:#548235
-```
+**Bảng 2.15. Học phí thay đổi theo cặp *(học viên, lớp)*, không theo riêng bên nào**
+
+| Học viên | Lớp | Học phí |
+|---|---|---|
+| HV01 Trần An | L01 | 3.000.000 |
+| HV01 Trần An | L02 | 2.500.000 |
+| HV02 Lê Bình | L01 | 2.400.000 *(ưu đãi)* |
 
 Thuộc tính `HOCPHI` **không thuộc về học viên**, vì cùng một học viên có thể đóng các mức khác nhau cho các lớp khác nhau. Nó cũng **không thuộc về lớp**, vì cùng một lớp có thể thu các mức khác nhau tùy học viên có được ưu đãi hay không. Nó chỉ có nghĩa khi gắn với **một cặp cụ thể** *(học viên này, lớp này)*.
 
 Điều đó cho thấy giữa hai thực thể đang tồn tại một **sự vật thứ ba mà ta chưa đặt tên**: bản thân *lượt ghi danh*. Khi được đặt tên và cấp thuộc tính khóa, nó trở thành một thực thể đầy đủ.
 
+Trên lược đồ Chen, việc ấy là một phép biến đổi có hình dạng rõ ràng: ở tầng trên, hai thuộc tính đang **treo trên hình thoi** M:N; ở tầng dưới, hình thoi đỏ biến mất, thay bằng một **thực thể kết hợp** mang hai thuộc tính ấy, nối về hai thực thể gốc bằng hai liên kết định danh.
+
+**Hình 2.15. Tách liên kết M:N có thuộc tính thành thực thể kết hợp — trước và sau**
+
+```mermaid
+flowchart LR
+    subgraph TRUOC["TRƯỚC — liên kết M:N mang thuộc tính riêng"]
+        HV1["HOCVIEN"] ---|"M"| R0{"ghi danh"}
+        R0 ---|"N"| LOP1["LOP"]
+        R0 --- A1(["NGAYGHIDANH"])
+        R0 --- A2(["HOCPHI"])
+    end
+    subgraph SAU["SAU — thực thể kết hợp GHIDANH và hai liên kết 1:M"]
+        HV2["HOCVIEN"] ---|"(0, N)"| R1{"ghi danh"}
+        R1 ---|"(1, 1)"| GD[["GHIDANH"]]
+        LOP2["LOP"] ---|"(0, N)"| R2{"nhận"}
+        R2 ---|"(1, 1)"| GD
+        GD --- B1(["NGAYGHIDANH"])
+        GD --- B2(["HOCPHI"])
+    end
+    TRUOC ~~~ SAU
+    style HV1 fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
+    style LOP1 fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
+    style HV2 fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
+    style LOP2 fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
+    style GD fill:#FFF2CC,stroke:#C00000,stroke-width:3px
+    style R0 fill:#FFD9D9,stroke:#C00000,stroke-width:2px
+    style R1 fill:#E2F0D9,stroke:#548235,stroke-width:3px
+    style R2 fill:#E2F0D9,stroke:#548235,stroke-width:3px
+    style A1 fill:#fff,stroke:#1F4E79
+    style A2 fill:#fff,stroke:#1F4E79
+    style B1 fill:#fff,stroke:#1F4E79
+    style B2 fill:#fff,stroke:#1F4E79
+```
+
 > **Định nghĩa 2.13.** **Thực thể kết hợp** *(associative entity / bridge entity)* là thực thể sinh ra từ việc **tách một liên kết nhiều–nhiều**. Thuộc tính khóa của nó là **khóa phức hợp** ghép từ thuộc tính khóa của hai thực thể gốc, và nó có thể mang **thuộc tính riêng**.
 
-Sau khi tách, liên kết M:N ban đầu được thay bằng **hai liên kết 1:M**: `HOCVIEN` một–nhiều `GHIDANH`, và `LOP` một–nhiều `GHIDANH`.
+Sau khi tách, liên kết M:N ban đầu được thay bằng **hai liên kết 1:M**: `HOCVIEN` một–nhiều `GHIDANH`, và `LOP` một–nhiều `GHIDANH` — đúng như tầng dưới của Hình 2.15. Cặp `(1, 1)` ở phía `GHIDANH` trên cả hai cạnh nói rằng mỗi lượt ghi danh thuộc về **đúng một** học viên và **đúng một** lớp; thuộc tính khóa `(MAHV, MALOP)` của nó *(Hình 2.6)* chính là hai thuộc tính khóa mượn qua hai liên kết định danh này.
+
+![](hinh-ve/slide/internet/ve_xem_phim.jpg){width=60%}
+
+*Ảnh minh họa: quầy bán vé xem phim. Mỗi lần một người vào một suất chiếu, rạp in ra một tờ vé có ghế, giá, giờ chiếu; tờ vé ấy có thật, nên nó là một thực thể — Nguồn: Wikimedia Commons · DPLA · Public domain.*
 
 Một mẹo nhận biết rất hiệu quả là **phép thử tờ phiếu**: hãy tự hỏi *"mỗi lần sự việc này xảy ra, tổ chức có in ra hay ghi lại một tờ giấy nào không?"* Nếu có — phiếu ghi danh, hóa đơn, phiếu mượn sách, vé xe — thì tờ giấy ấy chính là một thực thể có thật, và các thông tin ghi trên đó chính là thuộc tính của nó.
 
@@ -671,13 +991,99 @@ Mô hình ER cơ bản trình bày ở các mục trên đã đủ dùng cho ph�
 
 > **Ví dụ 2.7.** Trung tâm ABC muốn quản lý toàn bộ **nhân sự** — bao gồm giáo viên và nhân viên hành chính. Cả hai nhóm đều có mã nhân sự, họ tên, ngày sinh, số điện thoại, ngày vào làm. Nhưng riêng giáo viên còn có bằng cấp và chứng chỉ tiếng Anh; riêng nhân viên hành chính có bộ phận công tác và ca làm việc.
 
-Với mô hình ER cơ bản, người thiết kế chỉ có hai lựa chọn, và **cả hai đều tồi**.
+![](hinh-ve/slide/internet/bai_xe.jpg){width=60%}
 
-Lựa chọn thứ nhất là **tạo hai thực thể riêng biệt** `GIAOVIEN` và `NHANVIEN_HANHCHINH`. Khi ấy năm thuộc tính chung phải khai báo **hai lần**. Đó chính là dư thừa — lần này không phải dư thừa dữ liệu mà là **dư thừa ở mức cấu trúc**. Hậu quả rất thực tế: khi trung tâm muốn bổ sung trường "email công vụ" cho mọi nhân sự, phải sửa ở hai chỗ; quên một chỗ là hai nhóm nhân sự có cấu trúc lệch nhau.
+*Ảnh minh họa: bãi giữ xe của một siêu thị ở Đông Hà. Xe máy và ô tô đều có biển số, chủ xe, giờ vào bãi; nhưng xe máy có dung tích xi lanh, ô tô có số chỗ ngồi — vừa giống vừa khác nhau, và "xe máy *là một* xe" — Nguồn: Wikimedia Commons · Phương Huy · CC BY-SA 4.0.*
 
-Lựa chọn thứ hai là **gộp tất cả vào một thực thể** `NHANSU` với đầy đủ mọi thuộc tính. Khi ấy mọi giáo viên đều có ô "bộ phận công tác" bỏ trống, và mọi nhân viên hành chính đều có ô "bằng cấp" bỏ trống. Bảng dữ liệu đầy ô rỗng, và tệ hơn, hệ thống **không thể ngăn** việc điền nhầm bộ phận công tác cho một giáo viên.
+Mục này giải Ví dụ 2.7 **qua năm bước**, mỗi bước một hình vẽ theo ký pháp Chen, để người học thấy mô hình mở rộng được sinh ra từ đâu chứ không phải được áp đặt từ trên xuống.
 
-**Mô hình ER mở rộng** *(Extended Entity–Relationship — EER)* bổ sung đúng những khái niệm cần thiết để thoát khỏi thế lưỡng nan này.
+**Bước 1 — đọc quy tắc, tách thuộc tính chung và thuộc tính riêng.** Việc đầu tiên là lập một bảng đối chiếu: thuộc tính nào cả hai nhóm đều có, thuộc tính nào chỉ một nhóm có.
+
+**Bảng 2.16. Thuộc tính của hai nhóm nhân sự trong Ví dụ 2.7**
+
+| Thuộc tính | Giáo viên | Nhân viên hành chính | Kết luận |
+|---|:--:|:--:|---|
+| `MANS` | ✓ | ✓ | **chung** — và là thuộc tính khóa |
+| `HOTEN` | ✓ | ✓ | **chung** |
+| `NGAYSINH` | ✓ | ✓ | **chung** |
+| `SDT` | ✓ | ✓ | **chung** |
+| `NGAYVAOLAM` | ✓ | ✓ | **chung** |
+| `BANGCAP` | ✓ | — | **riêng** giáo viên |
+| `CHUNGCHI_TIENGANH` | ✓ | — | **riêng** giáo viên |
+| `BOPHAN` | — | ✓ | **riêng** nhân viên hành chính |
+| `CA_LAMVIEC` | — | ✓ | **riêng** nhân viên hành chính |
+
+Kết quả rất rõ: **năm thuộc tính chung** và **hai cặp thuộc tính riêng**. Chính cấu trúc "năm chung, hai–hai riêng" này là thứ mô hình ER cơ bản không diễn tả nổi.
+
+**Bước 2 — thử vẽ bằng mô hình ER cơ bản.** Với bộ ký hiệu đã có, người thiết kế chỉ có hai lựa chọn, và **cả hai đều tồi**. Hãy vẽ cả hai ra để thấy vì sao.
+
+**Hình 2.16. Hai phương án vẽ Ví dụ 2.7 bằng ER cơ bản — cả hai đều tồi**
+
+```mermaid
+flowchart TB
+    subgraph PA["PHƯƠNG ÁN (a) — hai thực thể riêng: năm oval chung phải vẽ HAI LẦN"]
+        direction LR
+        a1(["<u>MANS</u>"]) --- GV["GIAOVIEN"]
+        a2(["HOTEN"]) --- GV
+        a3(["NGAYSINH"]) --- GV
+        GV --- a4(["SDT"])
+        GV --- a5(["NGAYVAOLAM"])
+        GV --- a6(["BANGCAP"])
+        GV --- a7(["CHUNGCHI_TIENGANH"])
+        b1(["<u>MANS</u>"]) --- HC["NHANVIEN_HANHCHINH"]
+        b2(["HOTEN"]) --- HC
+        b3(["NGAYSINH"]) --- HC
+        HC --- b4(["SDT"])
+        HC --- b5(["NGAYVAOLAM"])
+        HC --- b6(["BOPHAN"])
+        HC --- b7(["CA_LAMVIEC"])
+    end
+    subgraph PB["PHƯƠNG ÁN (b) — gộp một thực thể: bốn oval đỏ luôn RỖNG ở một nửa số dòng"]
+        direction LR
+        c1(["<u>MANS</u>"]) --- NS["NHANSU"]
+        c2(["HOTEN"]) --- NS
+        c3(["NGAYSINH"]) --- NS
+        c4(["SDT"]) --- NS
+        c5(["NGAYVAOLAM"]) --- NS
+        NS --- c6(["BANGCAP"])
+        NS --- c7(["CHUNGCHI_TIENGANH"])
+        NS --- c8(["BOPHAN"])
+        NS --- c9(["CA_LAMVIEC"])
+    end
+    PA ~~~ PB
+    style GV fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
+    style HC fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
+    style NS fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
+    style a1 fill:#FFF2CC,stroke:#BF9000
+    style a2 fill:#FFF2CC,stroke:#BF9000
+    style a3 fill:#FFF2CC,stroke:#BF9000
+    style a4 fill:#FFF2CC,stroke:#BF9000
+    style a5 fill:#FFF2CC,stroke:#BF9000
+    style b1 fill:#FFF2CC,stroke:#BF9000
+    style b2 fill:#FFF2CC,stroke:#BF9000
+    style b3 fill:#FFF2CC,stroke:#BF9000
+    style b4 fill:#FFF2CC,stroke:#BF9000
+    style b5 fill:#FFF2CC,stroke:#BF9000
+    style a6 fill:#fff,stroke:#1F4E79
+    style a7 fill:#fff,stroke:#1F4E79
+    style b6 fill:#fff,stroke:#1F4E79
+    style b7 fill:#fff,stroke:#1F4E79
+    style c1 fill:#fff,stroke:#1F4E79
+    style c2 fill:#fff,stroke:#1F4E79
+    style c3 fill:#fff,stroke:#1F4E79
+    style c4 fill:#fff,stroke:#1F4E79
+    style c5 fill:#fff,stroke:#1F4E79
+    style c6 fill:#fff,stroke:#C00000,stroke-width:2px,stroke-dasharray: 3 3
+    style c7 fill:#fff,stroke:#C00000,stroke-width:2px,stroke-dasharray: 3 3
+    style c8 fill:#fff,stroke:#C00000,stroke-width:2px,stroke-dasharray: 3 3
+    style c9 fill:#fff,stroke:#C00000,stroke-width:2px,stroke-dasharray: 3 3
+```
+
+**Phương án (a) — tạo hai thực thể riêng biệt** `GIAOVIEN` và `NHANVIEN_HANHCHINH`. Nhìn vào hình: mười oval tô vàng là **năm thuộc tính chung vẽ hai lần**. Đó chính là dư thừa — lần này không phải dư thừa dữ liệu mà là **dư thừa ở mức cấu trúc**. Hậu quả rất thực tế: khi trung tâm muốn bổ sung trường "email công vụ" cho mọi nhân sự, phải sửa ở hai chỗ; quên một chỗ là hai nhóm nhân sự có cấu trúc lệch nhau.
+
+**Phương án (b) — gộp tất cả vào một thực thể** `NHANSU` với đầy đủ chín thuộc tính. Bốn oval viền đỏ nét đứt là bốn thuộc tính riêng: với mỗi giáo viên, ô "bộ phận công tác" và "ca làm việc" **bỏ trống**; với mỗi nhân viên hành chính, ô "bằng cấp" và "chứng chỉ" **bỏ trống**. Bảng dữ liệu đầy ô rỗng, và tệ hơn, hệ thống **không thể ngăn** việc điền nhầm bộ phận công tác cho một giáo viên — vì trên lược đồ, giáo viên và nhân viên hành chính đã **không còn phân biệt được**.
+
+**Mô hình ER mở rộng** *(Extended Entity–Relationship — EER)* bổ sung đúng những khái niệm cần thiết để thoát khỏi thế lưỡng nan này. Ba bước còn lại sẽ dùng chúng.
 
 ### 2.7.2. Thực thể cha và thực thể con
 
@@ -685,35 +1091,102 @@ Lựa chọn thứ hai là **gộp tất cả vào một thực thể** `NHANSU`
 >
 > Quan hệ giữa chúng gọi là **quan hệ cha–con** hay **quan hệ IS-A** — đọc là *"một thực thể con LÀ MỘT thực thể cha"*.
 
-**Hình 2.11. Phân cấp chuyên biệt hóa tại Trung tâm ABC**
+**Bước 3 — vẽ thực thể cha.** Lấy đúng năm thuộc tính chung ở Bảng 2.16 và đặt vào một thực thể duy nhất `NHANSU`. Đây là một thực thể Chen hoàn toàn bình thường: chữ nhật, năm oval, `MANS` gạch chân.
+
+**Hình 2.17. Bước 3 — thực thể cha `NHANSU` chỉ mang năm thuộc tính chung**
 
 ```mermaid
 flowchart TB
-    NS["<b>NHANSU</b> — THỰC THỂ CHA<br/>─────────<br/>MANS <i>(khóa)</i><br/>HOTEN · NGAYSINH<br/>SDT · NGAYVAOLAM<br/><i>thuộc tính DÙNG CHUNG</i>"]
-    NS --> D{"chuyên biệt hóa theo<br/><b>VAI TRÒ CÔNG VIỆC</b>"}
-    D --> GV["<b>GIAOVIEN</b> — thực thể con<br/>─────────<br/>MANS <i>(khóa, dùng chung với cha)</i><br/>BANGCAP<br/>CHUNGCHI_TIENGANH"]
-    D --> HC["<b>NHANVIEN_HANHCHINH</b> — thực thể con<br/>─────────<br/>MANS <i>(khóa, dùng chung với cha)</i><br/>BOPHAN<br/>CA_LAMVIEC"]
-    style NS fill:#1F4E79,color:#fff,stroke:#1F4E79,stroke-width:2px
-    style D fill:#FFF2CC,stroke:#C00000
-    style GV fill:#D9E2F3,stroke:#1F4E79
-    style HC fill:#D9E2F3,stroke:#1F4E79
+    K(["<u>MANS</u>"]) --- NS["NHANSU"]
+    A1(["HOTEN"]) --- NS
+    A2(["NGAYSINH"]) --- NS
+    NS --- A3(["SDT"])
+    NS --- A4(["NGAYVAOLAM"])
+    style NS fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
+    style K fill:#fff,stroke:#1F4E79
+    style A1 fill:#fff,stroke:#1F4E79
+    style A2 fill:#fff,stroke:#1F4E79
+    style A3 fill:#fff,stroke:#1F4E79
+    style A4 fill:#fff,stroke:#1F4E79
 ```
+
+**Bước 4 — vẽ hai thực thể con và nối chúng với cha.** Mỗi thực thể con chỉ mang **thuộc tính riêng** của nó — hai oval, không hơn. Chúng nối với cha qua một **vòng tròn** đặt giữa: đó là ký hiệu duy nhất mà EER thêm vào bộ ký hiệu Chen. Thực thể con **không vẽ lại** `MANS` hay bất kỳ thuộc tính chung nào; chúng sẽ có được các thuộc tính ấy nhờ cơ chế kế thừa ở mục 2.7.3.
+
+**Hình 2.18. Bước 4 — phân cấp cha–con của Ví dụ 2.7, ký pháp Chen mở rộng**
+
+```mermaid
+flowchart TB
+    K(["<u>MANS</u>"]) --- NS["NHANSU"]
+    A1(["HOTEN"]) --- NS
+    A2(["NGAYSINH"]) --- NS
+    NS --- A3(["SDT"])
+    NS --- A4(["NGAYVAOLAM"])
+    NS --- ISA(("IS-A"))
+    ISA --- GV["GIAOVIEN"]
+    ISA --- HC["NHANVIEN_HANHCHINH"]
+    GV --- G1(["BANGCAP"])
+    GV --- G2(["CHUNGCHI_TIENGANH"])
+    HC --- H1(["BOPHAN"])
+    HC --- H2(["CA_LAMVIEC"])
+    style NS fill:#1F4E79,color:#fff,stroke:#1F4E79,stroke-width:2px
+    style GV fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
+    style HC fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
+    style ISA fill:#FFF2CC,stroke:#C00000,stroke-width:2px
+    style K fill:#fff,stroke:#1F4E79
+    style A1 fill:#fff,stroke:#1F4E79
+    style A2 fill:#fff,stroke:#1F4E79
+    style A3 fill:#fff,stroke:#1F4E79
+    style A4 fill:#fff,stroke:#1F4E79
+    style G1 fill:#fff,stroke:#1F4E79
+    style G2 fill:#fff,stroke:#1F4E79
+    style H1 fill:#fff,stroke:#1F4E79
+    style H2 fill:#fff,stroke:#1F4E79
+```
+
+So với Hình 2.16, lược đồ này có **đúng chín oval** — mỗi thuộc tính vẽ **một lần**, ở đúng tầng của nó. Không còn oval vàng lặp lại như phương án (a), cũng không còn oval đỏ rỗng như phương án (b).
 
 Cách đọc sơ đồ trên: *"Một giáo viên **là một** nhân sự"* và *"một nhân viên hành chính **là một** nhân sự"*. Phép thử để kiểm tra xem có đúng là quan hệ cha–con hay không chính là câu **"LÀ MỘT"**: nếu đặt vào câu ấy mà nghe xuôi thì đúng, còn nếu phải nói *"có một"* thì đó là liên kết thông thường chứ không phải cha–con.
 
 > **Chú ý.** Đây là chỗ nhầm lẫn phổ biến nhất khi học EER. *"Lớp **có** nhiều học viên"* — dùng động từ **có**, nên đó là **liên kết** bình thường. *"Giáo viên **là một** nhân sự"* — dùng **là một**, nên đó là **quan hệ cha–con**. Người học nên đọc thành tiếng câu tiếng Việt trước khi vẽ.
 
-Trong ký pháp chuẩn, quan hệ cha–con được vẽ bằng một hình tròn hoặc hình tam giác đặt giữa cha và các con, bên trong ghi ký hiệu ràng buộc sẽ trình bày ở mục 2.7.5.
+Vòng tròn giữa cha và các con ở Hình 2.18 hiện mới ghi chữ *IS-A*. Trong ký pháp chuẩn, bên trong vòng tròn phải ghi một ký hiệu ràng buộc, và cạnh nối từ cha xuống vòng tròn phải là một hay hai vạch — đó là **Bước 5**, trình bày ở mục 2.7.5, sau khi đã hiểu tính kế thừa.
 
 ### 2.7.3. Tính kế thừa
 
 > **Định nghĩa 2.15.** **Kế thừa** *(inheritance)* là nguyên tắc theo đó **thực thể con tự động có mọi thuộc tính và mọi liên kết của thực thể cha**, mà không cần khai báo lại.
 
-Đây chính là cơ chế loại bỏ dư thừa cấu trúc. Trong Hình 2.11, thực thể `GIAOVIEN` chỉ khai báo hai thuộc tính riêng, nhưng trên thực tế nó **có đầy đủ bảy thuộc tính** — năm thuộc tính kế thừa từ `NHANSU` cộng hai thuộc tính riêng.
+Đây chính là cơ chế loại bỏ dư thừa cấu trúc. Trong Hình 2.18, thực thể `GIAOVIEN` chỉ khai báo hai thuộc tính riêng, nhưng trên thực tế nó **có đầy đủ bảy thuộc tính** — năm thuộc tính kế thừa từ `NHANSU` cộng hai thuộc tính riêng.
 
-Kế thừa áp dụng cho **cả liên kết**, và điều này rất đáng chú ý. Nếu ta khai báo liên kết *"nhân sự thuộc về một phòng ban"* ở mức thực thể cha, thì cả giáo viên lẫn nhân viên hành chính đều tự động có liên kết ấy.
+Kế thừa áp dụng cho **cả liên kết**, và điều này rất đáng chú ý. Nếu ta khai báo liên kết *"mỗi nhân sự được cấp một tài khoản đăng nhập"* ở mức thực thể cha, thì cả giáo viên lẫn nhân viên hành chính đều tự động có liên kết ấy.
 
 Ngược lại, **liên kết riêng của thực thể con thì không lan lên cha**. Liên kết *"giáo viên phụ trách lớp"* chỉ gắn với `GIAOVIEN`; nhân viên hành chính không phụ trách lớp nào. Đây chính là ưu điểm lớn nhất của EER so với phương án gộp chung ở mục 2.7.1: nó **diễn tả được rằng chỉ một nhóm con mới có liên kết ấy**.
+
+**Hình 2.19. Liên kết gắn ở tầng nào thì ai có — kế thừa liên kết trong phân cấp**
+
+```mermaid
+flowchart TB
+    TK["TAIKHOAN"] ---|"(1, 1)"| R0{"được cấp"}
+    R0 ---|"(1, 1)"| NS["NHANSU"]
+    NS --- ISA(("IS-A"))
+    ISA --- GV["GIAOVIEN"]
+    ISA --- HC["NHANVIEN_HANHCHINH"]
+    GV ---|"(0, N)"| R1{"phụ trách"}
+    R1 ---|"(1, 1)"| LOP["LOP"]
+    N1["gắn ở CHA →<br/>cả hai con đều có"] -.- R0
+    N2["gắn ở CON →<br/>chỉ GIAOVIEN có,<br/>NHANVIEN_HANHCHINH không"] -.- R1
+    style NS fill:#1F4E79,color:#fff,stroke:#1F4E79,stroke-width:2px
+    style GV fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
+    style HC fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
+    style TK fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
+    style LOP fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
+    style ISA fill:#FFF2CC,stroke:#C00000,stroke-width:2px
+    style R0 fill:#E2F0D9,stroke:#548235
+    style R1 fill:#E2F0D9,stroke:#548235
+    style N1 fill:#FFF2CC,stroke:#BF9000
+    style N2 fill:#FFF2CC,stroke:#BF9000
+```
+
+Hình trên bỏ bớt các oval thuộc tính để tập trung vào liên kết. Đọc từ trên xuống: liên kết *"được cấp"* chạm vào `NHANSU`, nên **chảy xuống** cả hai con; liên kết *"phụ trách"* chạm vào `GIAOVIEN`, nên **dừng ở đó** — trên lược đồ không có đường nào từ `LOP` tới `NHANVIEN_HANHCHINH`, và đó chính là cách EER nói rằng nhân viên hành chính không phụ trách lớp.
 
 Thuộc tính khóa của thực thể con luôn là **thuộc tính khóa của thực thể cha**. Trong ví dụ trên, thuộc tính khóa của `GIAOVIEN` vẫn là `MANS`, không phải một mã mới. Lý do rất tự nhiên: một giáo viên **là một** nhân sự, nên hai bên nói về cùng một cá thể và phải dùng chung định danh.
 
@@ -733,7 +1206,7 @@ Hai quá trình cho ra **cùng một kết quả**; chúng chỉ khác nhau ở 
 
 ### 2.7.5. Hai ràng buộc của phân cấp cha–con
 
-Vẽ được phân cấp mới chỉ là một nửa công việc. Phần còn lại là trả lời **hai câu hỏi ràng buộc**, và câu trả lời quyết định trực tiếp cách cài đặt ở Chương 3.
+Vẽ được phân cấp mới chỉ là một nửa công việc. Phần còn lại — **Bước 5** của Ví dụ 2.7 — là trả lời **hai câu hỏi ràng buộc**, rồi ghi câu trả lời vào vòng tròn và cạnh nối của Hình 2.18. Câu trả lời quyết định trực tiếp cách cài đặt ở Chương 3.
 
 **Câu hỏi thứ nhất — một cá thể có thể thuộc mấy nhóm con cùng lúc?**
 
@@ -749,7 +1222,7 @@ Vẽ được phân cấp mới chỉ là một nửa công việc. Phần còn 
 
 Hai câu hỏi độc lập với nhau, nên có bốn tổ hợp.
 
-**Bảng 2.10. Bốn tổ hợp ràng buộc và ví dụ tại Trung tâm ABC**
+**Bảng 2.17. Bốn tổ hợp ràng buộc và ví dụ tại Trung tâm ABC**
 
 | Tổ hợp | Nghĩa | Tình huống minh họa |
 |---|---|---|
@@ -758,7 +1231,55 @@ Hai câu hỏi độc lập với nhau, nên có bốn tổ hợp.
 | **Chồng lấn + Đầy đủ** | Có thể thuộc **nhiều nhóm**, nhưng **không ai** đứng ngoài | Một giáo viên kiêm quản lý học vụ — thuộc cả hai nhóm; mọi nhân sự đều thuộc ít nhất một nhóm |
 | **Chồng lấn + Không đầy đủ** | Có thể thuộc **nhiều nhóm**, và **có người** đứng ngoài | Trường hợp tổng quát nhất, ít ràng buộc nhất |
 
-> **Ví dụ 2.8.** Với Trung tâm ABC, câu trả lời **phụ thuộc hoàn toàn vào quy tắc nghiệp vụ**, không phải vào sở thích của người thiết kế. Nếu chủ trung tâm nói *"cô Lê Hoa vừa dạy lớp A1 vừa phụ trách học vụ buổi sáng"*, thì ràng buộc là **chồng lấn**. Nếu chủ trung tâm nói *"chúng tôi còn có một bác bảo vệ và một cô tạp vụ"*, thì ràng buộc là **không đầy đủ**. Đây chính là lý do mục 2.1 nhấn mạnh việc thu thập quy tắc nghiệp vụ cho rõ — nếu không hỏi, người thiết kế sẽ mặc định sai.
+Bốn tổ hợp ấy vẽ ra thành bốn lược đồ chỉ khác nhau ở **chữ trong vòng tròn** và **số vạch của cạnh nối từ cha**. Để hình gọn, các oval thuộc tính được lược bỏ.
+
+**Hình 2.20. Bốn tổ hợp ràng buộc của phân cấp cha–con — ký hiệu trên lược đồ**
+
+```mermaid
+flowchart TB
+    subgraph Q1["RỜI NHAU + ĐẦY ĐỦ"]
+        NS1["NHANSU"] ===|"đầy đủ"| I1(("d"))
+        I1 --- G1["GIAOVIEN"]
+        I1 --- H1["NV_HANHCHINH"]
+    end
+    subgraph Q2["RỜI NHAU + KHÔNG ĐẦY ĐỦ"]
+        NS2["NHANSU"] ---|"không đầy đủ"| I2(("d"))
+        I2 --- G2["GIAOVIEN"]
+        I2 --- H2["NV_HANHCHINH"]
+    end
+    subgraph Q3["CHỒNG LẤN + ĐẦY ĐỦ"]
+        NS3["NHANSU"] ===|"đầy đủ"| I3(("o"))
+        I3 --- G3["GIAOVIEN"]
+        I3 --- H3["NV_HANHCHINH"]
+    end
+    subgraph Q4["CHỒNG LẤN + KHÔNG ĐẦY ĐỦ"]
+        NS4["NHANSU"] ---|"không đầy đủ"| I4(("o"))
+        I4 --- G4["GIAOVIEN"]
+        I4 --- H4["NV_HANHCHINH"]
+    end
+    Q1 ~~~ Q3
+    Q2 ~~~ Q4
+    style NS1 fill:#1F4E79,color:#fff,stroke:#1F4E79,stroke-width:2px
+    style NS2 fill:#1F4E79,color:#fff,stroke:#1F4E79,stroke-width:2px
+    style NS3 fill:#1F4E79,color:#fff,stroke:#1F4E79,stroke-width:2px
+    style NS4 fill:#1F4E79,color:#fff,stroke:#1F4E79,stroke-width:2px
+    style G1 fill:#D9E2F3,stroke:#1F4E79
+    style G2 fill:#D9E2F3,stroke:#1F4E79
+    style G3 fill:#D9E2F3,stroke:#1F4E79
+    style G4 fill:#D9E2F3,stroke:#1F4E79
+    style H1 fill:#D9E2F3,stroke:#1F4E79
+    style H2 fill:#D9E2F3,stroke:#1F4E79
+    style H3 fill:#D9E2F3,stroke:#1F4E79
+    style H4 fill:#D9E2F3,stroke:#1F4E79
+    style I1 fill:#FFF2CC,stroke:#C00000,stroke-width:2px
+    style I2 fill:#FFF2CC,stroke:#C00000,stroke-width:2px
+    style I3 fill:#FFF2CC,stroke:#C00000,stroke-width:2px
+    style I4 fill:#FFF2CC,stroke:#C00000,stroke-width:2px
+```
+
+Quy ước đọc: chữ **`d`** *(disjoint)* hay **`o`** *(overlapping)* trong vòng tròn trả lời câu hỏi thứ nhất; cạnh **nét đậm ghi "đầy đủ"** *(ký pháp gốc vẽ hai vạch)* hay **nét thường ghi "không đầy đủ"** *(một vạch)* trả lời câu hỏi thứ hai. Khi vẽ tay, hãy vẽ đúng hai vạch song song cho trường hợp đầy đủ.
+
+> **Ví dụ 2.8 — Bước 5 của Ví dụ 2.7.** Với Trung tâm ABC, câu trả lời **phụ thuộc hoàn toàn vào quy tắc nghiệp vụ**, không phải vào sở thích của người thiết kế. Nếu chủ trung tâm nói *"cô Lê Hoa vừa dạy lớp A1 vừa phụ trách học vụ buổi sáng"*, thì ràng buộc là **chồng lấn** — ghi `o` vào vòng tròn. Nếu chủ trung tâm nói *"chúng tôi còn có một bác bảo vệ và một cô tạp vụ"*, thì ràng buộc là **không đầy đủ** — cạnh từ `NHANSU` xuống vòng tròn chỉ một vạch. Lược đồ hoàn chỉnh của Ví dụ 2.7 khi ấy là ô **CHỒNG LẤN + KHÔNG ĐẦY ĐỦ** của Hình 2.20, cộng với các oval thuộc tính của Hình 2.18. Nếu chủ trung tâm nói ngược lại — *"không ai kiêm nhiệm, và ngoài hai nhóm này không còn ai"* — thì lược đồ là ô **RỜI NHAU + ĐẦY ĐỦ**. Đây chính là lý do mục 2.1 nhấn mạnh việc thu thập quy tắc nghiệp vụ cho rõ — nếu không hỏi, người thiết kế sẽ mặc định sai.
 
 ### 2.7.6. Khi nào nên và không nên dùng EER
 
@@ -778,7 +1299,7 @@ EER là công cụ mạnh, và giống mọi công cụ mạnh, nó bị lạm d
 
 ### 2.8.1. Quy trình năm bước
 
-**Hình 2.12. Quy trình năm bước xây dựng lược đồ ER**
+**Hình 2.21. Quy trình năm bước xây dựng lược đồ ER**
 
 ```mermaid
 flowchart LR
@@ -825,29 +1346,52 @@ Ký pháp **Crow's Foot** *(chân quạ)* là ký pháp được các công cụ
 
 **Cách vẽ thực thể.** Mỗi thực thể là một **hình chữ nhật chia hai ngăn**: ngăn trên ghi **tên thực thể**, ngăn dưới liệt kê **các thuộc tính**, mỗi thuộc tính một dòng. Thuộc tính khóa được **gạch chân** hoặc đánh dấu `PK`; thuộc tính tham chiếu tới thực thể khác đánh dấu `FK`. Toàn bộ thuộc tính nằm **bên trong** ô, không có oval nào cả — đây là khác biệt lớn nhất so với Chen.
 
-**Cách vẽ liên kết.** Liên kết **không có hình riêng**; nó chỉ là một **đường nối** giữa hai ô chữ nhật, với **ký hiệu đầu mút** ở mỗi đầu theo Bảng 2.8, và tên liên kết ghi trên đường nối.
+**Cách vẽ liên kết.** Liên kết **không có hình riêng**; nó chỉ là một **đường nối** giữa hai ô chữ nhật, với **ký hiệu đầu mút** ở mỗi đầu theo Bảng 2.12, và tên liên kết ghi trên đường nối.
 
-**Hình 2.13. Cùng một liên kết vẽ bằng hai ký pháp**
+**Hình 2.22. Cùng một liên kết vẽ bằng hai ký pháp — (a) ký pháp Chen**
 
 ```mermaid
-flowchart TB
-    subgraph C["KÝ PHÁP CHEN"]
-        GV["GIAOVIEN"] ---|"(0, N)"| RR{"phụ trách"}
-        RR ---|"(1, 1)"| LL["LOP"]
-    end
-    subgraph F["KÝ PHÁP CROW'S FOOT — cùng nội dung"]
-        G2["<b>GIAOVIEN</b><br/>─────────<br/>MAGV (PK)<br/>HOTEN_GV<br/>BANGCAP"]
-        L2["<b>LOP</b><br/>─────────<br/>MALOP (PK)<br/>TENLOP<br/>NGAYKG<br/>MAGV (FK)"]
-        G2 ---|"phụ trách<br/>○&lt;  ────  ‖"| L2
-    end
+flowchart LR
+    K1(["<u>MAGV</u>"]) --- GV["GIAOVIEN"]
+    A1(["HOTEN_GV"]) --- GV
+    A2(["BANGCAP"]) --- GV
+    GV ---|"(0, N)"| RR{"phụ trách"}
+    RR ---|"(1, 1)"| LL["LOP"]
+    LL --- K2(["<u>MALOP</u>"])
+    LL --- B1(["TENLOP"])
+    LL --- B2(["NGAYKG"])
     style GV fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
     style LL fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
     style RR fill:#E2F0D9,stroke:#548235
-    style G2 fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
-    style L2 fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
+    style K1 fill:#fff,stroke:#1F4E79
+    style K2 fill:#fff,stroke:#1F4E79
+    style A1 fill:#fff,stroke:#1F4E79
+    style A2 fill:#fff,stroke:#1F4E79
+    style B1 fill:#fff,stroke:#1F4E79
+    style B2 fill:#fff,stroke:#1F4E79
 ```
 
-**Cách đọc một đường liên kết — chỗ hay đọc ngược.** Quy tắc là: **ký hiệu ở đầu nào mô tả số lượng thực thể ở đầu đó**. Trong Hình 2.13, đầu phía `LOP` mang chân quạ, nghĩa là *"một giáo viên phụ trách nhiều lớp"*; đầu phía `GIAOVIEN` mang hai gạch, nghĩa là *"một lớp do đúng một giáo viên phụ trách"*. Vòng tròn ở phía `LOP` cho biết giáo viên **có thể chưa** phụ trách lớp nào.
+**Hình 2.23. Cùng một liên kết vẽ bằng hai ký pháp — (b) ký pháp Crow's Foot**
+
+```mermaid
+erDiagram
+    GIAOVIEN ||--o{ LOP : "phụ trách"
+    GIAOVIEN {
+        string MAGV PK
+        string HOTEN_GV
+        string BANGCAP
+    }
+    LOP {
+        string MALOP PK
+        string TENLOP
+        date NGAYKG
+        string MAGV FK
+    }
+```
+
+Hai hình chứa cùng một thiết kế. Điểm khác dễ thấy nhất: ở Crow's Foot, `MAGV` xuất hiện **thêm một lần trong `LOP`** với nhãn `FK` — ký pháp này đã "nhìn trước" cách cài đặt bằng khóa ngoại ở Chương 3, trong khi Chen chỉ mô tả nghiệp vụ.
+
+**Cách đọc một đường liên kết — chỗ hay đọc ngược.** Quy tắc là: **ký hiệu ở đầu nào mô tả số lượng thực thể ở đầu đó**. Trong Hình 2.23, đầu phía `LOP` mang chân quạ, nghĩa là *"một giáo viên phụ trách nhiều lớp"*; đầu phía `GIAOVIEN` mang hai gạch, nghĩa là *"một lớp do đúng một giáo viên phụ trách"*. Vòng tròn ở phía `LOP` cho biết giáo viên **có thể chưa** phụ trách lớp nào.
 
 Người mới học rất hay đọc ngược — nhìn chân quạ ở phía `LOP` rồi kết luận "một lớp có nhiều giáo viên". Mẹo tránh nhầm: **đặt ngón tay che một đầu, đọc đầu còn lại, rồi mới đổi bên.**
 
@@ -859,7 +1403,7 @@ Người mới học rất hay đọc ngược — nhìn chân quạ ở phía `
 
 **UML** *(Unified Modeling Language)* là ngôn ngữ mô hình hóa dùng rộng rãi trong công nghệ phần mềm. Sơ đồ lớp *(class diagram)* của UML có nhiều điểm tương đồng với lược đồ ER, nên người học cần biết cách đối chiếu.
 
-**Bảng 2.11. Đối chiếu mô hình ER và sơ đồ lớp UML**
+**Bảng 2.18. Đối chiếu mô hình ER và sơ đồ lớp UML**
 
 | Mô hình ER | Sơ đồ lớp UML | Ghi chú |
 |---|---|---|
@@ -870,6 +1414,27 @@ Người mới học rất hay đọc ngược — nhìn chân quạ ở phía `
 | Thực thể cha – con *(EER)* | Tổng quát hóa *(generalization)* | Tương đương |
 | Thực thể kết hợp | Lớp liên kết *(association class)* | Tương đương |
 | *(không có)* | **Phương thức** *(method)* | UML mô tả cả **hành vi**; ER chỉ mô tả **dữ liệu** |
+
+**Hình 2.24. Liên kết giáo viên – lớp vẽ bằng sơ đồ lớp UML**
+
+```mermaid
+classDiagram
+    class GIAOVIEN {
+        MAGV
+        HOTEN_GV
+        BANGCAP
+        phanCongLop()
+    }
+    class LOP {
+        MALOP
+        TENLOP
+        NGAYKG
+        khaiGiang()
+    }
+    GIAOVIEN "1" -- "0..*" LOP : phụ trách
+```
+
+Đối chiếu với Hình 2.22: hai lớp ứng với hai thực thể, đường nối ứng với liên kết, bội số `1` và `0..*` ứng với hai cặp `(1, 1)` và `(0, N)`. Chú ý UML **đặt bội số ở đầu đối diện** so với cặp `(min, max)` của Chen: `0..*` ghi ở phía `LOP` nghĩa là *một giáo viên có 0 tới nhiều lớp* — giống chỗ đặt chữ cái `M`/`N` hơn là chỗ đặt cặp số. Và ngăn dưới cùng của mỗi lớp — `phanCongLop()`, `khaiGiang()` — là thứ lược đồ ER hoàn toàn không có.
 
 Khác biệt căn bản nằm ở dòng cuối cùng. UML mô tả cả dữ liệu lẫn **hành vi** của đối tượng, vì nó phục vụ thiết kế phần mềm nói chung. Mô hình ER chỉ mô tả **dữ liệu**, vì nó phục vụ thiết kế cơ sở dữ liệu. Do đó một sơ đồ lớp UML có thể chuyển thành lược đồ ER bằng cách bỏ đi phần phương thức, nhưng chiều ngược lại thì thiếu thông tin.
 
@@ -891,7 +1456,7 @@ Mục này vận dụng trọn vẹn quy trình năm bước cho bài toán đã
 
 Trước khi bắt tay vào Bước 1, nên đọc lướt toàn đề để **đánh dấu các bẫy thiết kế**, dựa vào bảng phiên dịch ở mục 2.1.5 *(Bảng 2.1)*.
 
-**Bảng 2.12. Nhận diện bẫy thiết kế ngay khi đọc đề**
+**Bảng 2.19. Nhận diện bẫy thiết kế ngay khi đọc đề**
 
 | Quy tắc | Từ khóa đáng chú ý | Dấu hiệu | Xử lý ở bước |
 |:--:|---|---|:--:|
@@ -911,7 +1476,7 @@ Gạch chân các danh từ chỉ sự vật cần lưu thông tin, thu được
 
 Vẽ theo ký pháp Chen, bốn thực thể này cùng thuộc tính của chúng có dạng như sau. Ở bước này **chưa có liên kết nào** — các thực thể còn đứng rời nhau.
 
-**Hình 2.14. Bước 1–2 — bốn thực thể với thuộc tính, ký pháp Chen**
+**Hình 2.25. Bước 1–2 — bốn thực thể với thuộc tính, ký pháp Chen**
 
 ```mermaid
 flowchart TB
@@ -945,20 +1510,20 @@ flowchart TB
     style D2 fill:#fff,stroke:#1F4E79
 ```
 
-> **Chú ý.** Thuộc tính `SDT` của học viên là **đa trị**, nên trong Hình 2.14 nó được vẽ bằng **oval viền kép** và tô đỏ để đánh dấu. Nó **chưa** được xử lý ở bước này; việc tách sẽ làm ở Bước 4. Đây là minh họa cho lời khuyên ở mục 2.8.1: làm đúng thứ tự, đừng nhảy cóc. Ghi nhận vấn đề ngay khi phát hiện, nhưng xử lý đúng lượt của nó.
+> **Chú ý.** Thuộc tính `SDT` của học viên là **đa trị**, nên trong Hình 2.25 nó được vẽ bằng **oval viền kép** và tô đỏ để đánh dấu. Nó **chưa** được xử lý ở bước này; việc tách sẽ làm ở Bước 4. Đây là minh họa cho lời khuyên ở mục 2.8.1: làm đúng thứ tự, đừng nhảy cóc. Ghi nhận vấn đề ngay khi phát hiện, nhưng xử lý đúng lượt của nó.
 
 ### 2.9.3. Bước 3 — xác định liên kết
 
-Áp dụng kỹ thuật hỏi hai chiều cho từng cặp thực thể; kết quả đã được lập thành **Bảng 2.7** ở mục 2.4.3. Bổ sung thêm tính tham gia:
+Áp dụng kỹ thuật hỏi hai chiều cho từng cặp thực thể; kết quả đã được lập thành **Bảng 2.11** ở mục 2.4.3. Bổ sung thêm tính tham gia:
 
 - `GIAOVIEN` – `LOP`: **1:M**. Phía lớp **bắt buộc** *(mọi lớp đều phải có giáo viên)*; phía giáo viên **tùy chọn** *(giáo viên mới chưa có lớp)*.
 - `KHOAHOC` – `LOP`: **1:M**. Phía lớp **bắt buộc**; phía khóa học **tùy chọn** *(khóa học có thể chưa mở lớp nào)*.
 - `HOCVIEN` – `LOP`: **M:N**, có thuộc tính riêng.
 - `KHOAHOC` – `KHOAHOC`: **M:N đệ quy**.
 
-Nối các hình thoi liên kết vào lược đồ Chen, ta được bức tranh sau. Để hình dễ đọc, từ đây trở đi chỉ hiện **thuộc tính khóa**; danh sách thuộc tính đầy đủ đã có ở Hình 2.14.
+Nối các hình thoi liên kết vào lược đồ Chen, ta được bức tranh sau. Để hình dễ đọc, từ đây trở đi chỉ hiện **thuộc tính khóa**; danh sách thuộc tính đầy đủ đã có ở Hình 2.25.
 
-**Hình 2.15. Bước 3 — thêm liên kết và lực lượng, ký pháp Chen**
+**Hình 2.26. Bước 3 — thêm liên kết và lực lượng, ký pháp Chen**
 
 ```mermaid
 flowchart LR
@@ -968,12 +1533,16 @@ flowchart LR
     R2 ---|"(1, 1)"| LOP
     HV["HOCVIEN"] ---|"M"| R3{"ghi danh"}
     R3 ---|"N"| LOP
-    KH ---|"M"| R4{"là tiên quyết của"}
-    R4 ---|"N"| KH
+    R3 --- X1(["NGAYGHIDANH"])
+    R3 --- X2(["HOCPHI"])
+    KH ---|"M khóa trước"| R4{"là tiên quyết của"}
+    R4 -----|"N khóa sau"| KH
     K1(["<u>MAKH</u>"]) --- KH
     K2(["<u>MALOP</u>"]) --- LOP
     K3(["<u>MAGV</u>"]) --- GV
     K4(["<u>MAHV</u>"]) --- HV
+    style X1 fill:#fff,stroke:#C00000
+    style X2 fill:#fff,stroke:#C00000
     style KH fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
     style LOP fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
     style GV fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
@@ -988,15 +1557,15 @@ flowchart LR
     style K4 fill:#fff,stroke:#1F4E79
 ```
 
-Hai hình thoi tô đỏ là hai liên kết **M:N** — chúng chính là danh sách việc phải làm ở Bước 4. Lược đồ hiện tại **chưa dùng được**: mô hình quan hệ ở Chương 3 không biểu diễn được liên kết M:N, và thuộc tính `HOCPHI` của quy tắc 5 vẫn chưa có chỗ đặt.
+Hai hình thoi tô đỏ là hai liên kết **M:N** — chúng chính là danh sách việc phải làm ở Bước 4. Hai thuộc tính `NGAYGHIDANH`, `HOCPHI` của quy tắc 5 đang **treo trên hình thoi** *"ghi danh"* *(viền đỏ)*: ký pháp Chen cho phép vẽ như vậy, nhưng mô hình quan hệ ở Chương 3 **không có bảng nào để chứa chúng** chừng nào liên kết M:N chưa được tách. Lược đồ hiện tại vì thế **chưa dùng được**.
 
 ### 2.9.4. Bước 4 — xử lý ba ca đặc biệt
 
-**Ca thứ nhất — thuộc tính đa trị `SDT`.** Theo mục 2.2.4, tách thành thực thể yếu `DIENTHOAI(`**`MAHV`**`,` **`SODT`**`)`, liên kết 1:M với `HOCVIEN`. Thuộc tính khóa là cặp phức hợp vì hai học viên trong cùng gia đình có thể khai chung một số máy bàn.
+**Ca thứ nhất — thuộc tính đa trị `SDT`.** Theo mục 2.2.4, tách thành thực thể yếu `DIENTHOAI(`**`MAHV`**`,` **`SODT`**`)`, liên kết 1:M với `HOCVIEN` — phép biến đổi đã vẽ ở Hình 2.5 và Hình 2.14. Thuộc tính khóa là cặp phức hợp vì hai học viên trong cùng gia đình có thể khai chung một số máy bàn *(Bảng 2.13)*.
 
-**Ca thứ hai — liên kết M:N giữa `HOCVIEN` và `LOP`.** Theo mục 2.6.4, tách thành thực thể kết hợp `GHIDANH(`**`MAHV`**`,` **`MALOP`**`, NGAYGHIDANH, HOCPHI)`. Liên kết M:N ban đầu được thay bằng hai liên kết 1:M.
+**Ca thứ hai — liên kết M:N giữa `HOCVIEN` và `LOP`.** Theo mục 2.6.4, tách thành thực thể kết hợp `GHIDANH(`**`MAHV`**`,` **`MALOP`**`, NGAYGHIDANH, HOCPHI)`. Liên kết M:N ban đầu được thay bằng hai liên kết 1:M — đúng tầng dưới của Hình 2.15; hai oval đang treo trên hình thoi ở Hình 2.26 chuyển sang gắn vào `GHIDANH`.
 
-**Ca thứ ba — liên kết đệ quy M:N của `KHOAHOC`.** Theo mục 2.6.2, tách thành `TIENQUYET(`**`MAKH_truoc`**`,` **`MAKH_sau`**`)`. Chú ý hai cột đều tham chiếu về `KHOAHOC` nhưng phải mang **tên khác nhau** để phân biệt vai trò.
+**Ca thứ ba — liên kết đệ quy M:N của `KHOAHOC`.** Theo mục 2.6.2, tách thành `TIENQUYET(`**`MAKH_truoc`**`,` **`MAKH_sau`**`)`, nối về `KHOAHOC` **hai lần** với hai vai trò như Hình 2.13. Chú ý hai cột đều tham chiếu về `KHOAHOC` nhưng phải mang **tên khác nhau** để phân biệt vai trò.
 
 Sau Bước 4, số thực thể tăng từ bốn lên **bảy**.
 
@@ -1004,9 +1573,9 @@ Sau Bước 4, số thực thể tăng từ bốn lên **bảy**.
 
 Lược đồ cuối cùng được trình bày bằng **cả hai ký pháp**, vì mỗi ký pháp cho thấy một mặt khác nhau của cùng một thiết kế.
 
-**Hình 2.16. Lược đồ ER hoàn chỉnh của Trung tâm Anh ngữ ABC — ký pháp Chen**
+**Hình 2.27. Lược đồ ER hoàn chỉnh của Trung tâm Anh ngữ ABC — ký pháp Chen**
 
-*(chỉ hiện thuộc tính khóa; danh sách thuộc tính đầy đủ xem Hình 2.17)*
+*(chỉ hiện thuộc tính khóa; danh sách thuộc tính đầy đủ xem Hình 2.28)*
 
 ```mermaid
 flowchart LR
@@ -1020,8 +1589,10 @@ flowchart LR
     R4 ---|"(1, 1)"| GD
     HV ---|"(0, N)"| R5{"có"}
     R5 ---|"(1, 1)"| DT[["DIENTHOAI"]]
-    KH ---|"(0, N)"| R6{"tiên quyết"}
+    KH ---|"(0, N) khóa trước"| R6{"đi trước"}
     R6 ---|"(1, 1)"| TQ[["TIENQUYET"]]
+    KH ---|"(0, N) khóa sau"| R7{"đi sau"}
+    R7 ---|"(1, 1)"| TQ
     K1(["<u>MAKH</u>"]) --- KH
     K2(["<u>MALOP</u>"]) --- LOP
     K3(["<u>MAGV</u>"]) --- GV
@@ -1039,17 +1610,18 @@ flowchart LR
     style R4 fill:#E2F0D9,stroke:#548235,stroke-width:3px
     style R5 fill:#E2F0D9,stroke:#548235,stroke-width:3px
     style R6 fill:#E2F0D9,stroke:#548235,stroke-width:3px
+    style R7 fill:#E2F0D9,stroke:#548235,stroke-width:3px
     style K1 fill:#fff,stroke:#1F4E79
     style K2 fill:#fff,stroke:#1F4E79
     style K3 fill:#fff,stroke:#1F4E79
     style K4 fill:#fff,stroke:#1F4E79
 ```
 
-So sánh Hình 2.16 với Hình 2.15 cho thấy rõ tác dụng của Bước 4. **Hai hình thoi đỏ M:N đã biến mất**, thay vào đó là ba **thực thể yếu hoặc kết hợp** *(vẽ chữ nhật hai viền)* nối qua các **liên kết định danh** *(hình thoi hai viền)*. Mọi liên kết còn lại đều là **1:M** — dạng duy nhất mà mô hình quan hệ ở Chương 3 biểu diễn được trực tiếp.
+So sánh Hình 2.27 với Hình 2.26 cho thấy rõ tác dụng của Bước 4. **Hai hình thoi đỏ M:N đã biến mất**, thay vào đó là ba **thực thể yếu hoặc kết hợp** *(vẽ chữ nhật hai viền)* nối qua các **liên kết định danh** *(hình thoi hai viền)*. Riêng `TIENQUYET` nối về `KHOAHOC` bằng **hai** liên kết định danh mang hai vai trò — dấu vết của liên kết đệ quy. Mọi liên kết còn lại đều là **1:M** — dạng duy nhất mà mô hình quan hệ ở Chương 3 biểu diễn được trực tiếp.
 
 Cùng lược đồ ấy trình bày theo Crow's Foot thì gọn hơn nhiều và **hiện được đầy đủ thuộc tính**:
 
-**Hình 2.17. Lược đồ ER của Trung tâm Anh ngữ ABC — ký pháp Crow's Foot**
+**Hình 2.28. Lược đồ ER của Trung tâm Anh ngữ ABC — ký pháp Crow's Foot**
 
 ```mermaid
 erDiagram
@@ -1058,7 +1630,8 @@ erDiagram
     HOCVIEN ||--o{ DIENTHOAI : "có"
     HOCVIEN ||--o{ GHIDANH : "ghi danh"
     LOP ||--o{ GHIDANH : "nhận"
-    KHOAHOC ||--o{ TIENQUYET : "là tiên quyết"
+    KHOAHOC ||--o{ TIENQUYET : "là khóa trước"
+    KHOAHOC ||--o{ TIENQUYET : "là khóa sau"
     GIAOVIEN {
         string MAGV PK
         string HOTEN_GV
@@ -1096,7 +1669,7 @@ erDiagram
     }
 ```
 
-**Bảng 2.13. Bảy thực thể của lược đồ cuối cùng**
+**Bảng 2.20. Bảy thực thể của lược đồ cuối cùng**
 
 | # | Thực thể | Loại | Nguồn gốc |
 |:--:|---|---|---|
@@ -1108,7 +1681,21 @@ erDiagram
 | 6 | `GHIDANH` | **Kết hợp** | Tách liên kết M:N *(quy tắc 5)* |
 | 7 | `TIENQUYET` | **Kết hợp** | Tách liên kết M:N đệ quy *(quy tắc 7)* |
 
-Bước kiểm tra cuối cùng là **đối chiếu ngược từng quy tắc nghiệp vụ với lược đồ**. Cả bảy quy tắc đều tìm được chỗ của mình: quy tắc 1, 2, 4, 6 thành thực thể và thuộc tính; quy tắc 3 và 6 thành liên kết 1:M; quy tắc 5 thành `GHIDANH`; quy tắc 7 thành `TIENQUYET`. Lược đồ đầy đủ.
+Bước kiểm tra cuối cùng là **đối chiếu ngược từng quy tắc nghiệp vụ với lược đồ**: đi qua từng quy tắc, chỉ tay vào chỗ của nó trên hình, và ghi lại. Đây là thao tác người học hay bỏ qua nhất, nên bảng dưới đây làm mẫu đầy đủ.
+
+**Bảng 2.21. Đối chiếu ngược bảy quy tắc nghiệp vụ với lược đồ hoàn chỉnh**
+
+| Quy tắc | Nội dung cốt lõi | Chỗ của nó trên lược đồ | Kiểm tra |
+|:--:|---|---|:--:|
+| 1 | giáo viên: mã, họ tên, bằng cấp | thực thể `GIAOVIEN` với ba oval *(Hình 2.25)* | ✓ |
+| 2 | lớp: mã, tên, ngày khai giảng | thực thể `LOP` với ba oval *(Hình 2.25)* | ✓ |
+| 3 | lớp có đúng một giáo viên; giáo viên có thể chưa có lớp | hình thoi *"phụ trách"*, `(1, 1)` phía `LOP`, `(0, N)` phía `GIAOVIEN` | ✓ |
+| 4 | học viên: mã, họ tên, ngày sinh, **nhiều** số điện thoại | thực thể `HOCVIEN` + thực thể yếu `DIENTHOAI` qua liên kết định danh *"có"* | ✓ |
+| 5 | học viên ghi danh nhiều lớp, lớp có nhiều học viên; ngày ghi danh, học phí | thực thể kết hợp `GHIDANH` với hai liên kết định danh *"ghi danh"*, *"nhận"*; hai thuộc tính nằm trong `GHIDANH` | ✓ |
+| 6 | lớp thuộc một khóa học; khóa học mở nhiều lớp | thực thể `KHOAHOC`; hình thoi *"mở"*, `(1, 1)` phía `LOP`, `(0, N)` phía `KHOAHOC` | ✓ |
+| 7 | khóa học là tiên quyết của nhiều khóa khác | thực thể kết hợp `TIENQUYET` với hai liên kết định danh *"đi trước"*, *"đi sau"* về `KHOAHOC` | ✓ |
+
+Cả bảy quy tắc đều tìm được chỗ của mình, và ngược lại, không có thành phần nào trên lược đồ mà không truy được về một quy tắc. Lược đồ đầy đủ.
 
 ### 2.9.6. Nhìn lại Chương 1 — bốn thực thể mà trực giác không thấy
 
@@ -1120,7 +1707,7 @@ Chương 1 giải cùng bài toán này bằng trực giác và thu được **b
 
 Đây chính là bài học lớn nhất của Chương 2: **thiết kế cơ sở dữ liệu không phải là công việc dọn dẹp dữ liệu có sẵn, mà là công việc mô hình hóa nghiệp vụ.** Dữ liệu hiện có chỉ phản ánh những gì hệ thống cũ *tình cờ* ghi lại được — thường là một phần rất nhỏ của nghiệp vụ thật.
 
-**Bảng 2.14. Cùng một cặp thực thể, hai quy tắc nghiệp vụ khác nhau cho hai lược đồ khác nhau**
+**Bảng 2.22. Cùng một cặp thực thể, hai quy tắc nghiệp vụ khác nhau cho hai lược đồ khác nhau**
 
 | Quy tắc nghiệp vụ | Kết luận về liên kết | Lược đồ |
 |---|---|---|
@@ -1149,7 +1736,7 @@ Bảng trên khép lại chương bằng một kết luận về nghề nghiệp
 
 **Ví dụ Trung tâm ABC** cho ra **bảy thực thể**, so với ba bảng mà trực giác ở Chương 1 tìm được. Bốn thực thể chênh lệch cho thấy thiết kế cơ sở dữ liệu là **mô hình hóa nghiệp vụ**, không phải dọn dẹp dữ liệu có sẵn.
 
-**Nối sang Chương 3.** Lược đồ ER vừa xây dựng là một sơ đồ dành cho **con người đọc** — nó chưa phải là thứ máy tính hiểu được. Chương 3 giới thiệu **mô hình quan hệ**, cho ta cấu trúc toán học chặt chẽ để biểu diễn dữ liệu, cùng **quy tắc ánh xạ** từ lược đồ ER sang tập các quan hệ. Khi ấy bảy thực thể trong Hình 2.17 sẽ trở thành bảy bảng cụ thể, có khóa chính và khóa ngoại rõ ràng.
+**Nối sang Chương 3.** Lược đồ ER vừa xây dựng là một sơ đồ dành cho **con người đọc** — nó chưa phải là thứ máy tính hiểu được. Chương 3 giới thiệu **mô hình quan hệ**, cho ta cấu trúc toán học chặt chẽ để biểu diễn dữ liệu, cùng **quy tắc ánh xạ** từ lược đồ ER sang tập các quan hệ. Khi ấy bảy thực thể trong Hình 2.28 sẽ trở thành bảy bảng cụ thể, có khóa chính và khóa ngoại rõ ràng.
 
 ---
 
@@ -1191,7 +1778,7 @@ Bảng trên khép lại chương bằng một kết luận về nghề nghiệp
 
 **Bài A2.** Phân loại các thuộc tính sau theo **cả bốn cặp tiêu chí** ở Bảng 2.3: `HOTEN`, `DIACHI`, `NGAYSINH`, `TUOI`, `SODIENTHOAI` *(một người có nhiều số)*, `EMAIL` *(có thể không có)*.
 
-**Bài A3.** Vẽ lại Hình 2.12 *(quy trình năm bước)* từ trí nhớ, và với mỗi bước nêu **một sai lầm thường gặp**.
+**Bài A3.** Vẽ lại Hình 2.21 *(quy trình năm bước)* từ trí nhớ, và với mỗi bước nêu **một sai lầm thường gặp**.
 
 ### Mức B — Vận dụng
 
@@ -1293,22 +1880,33 @@ Kinh nghiệm cho thấy hai khái niệm hay được nêu nhất ở chương 
 | Hình | Tên hình | Mục |
 |---|---|---|
 | Hình 2.1 | Một lược đồ ER nhỏ — ba thành phần cơ bản | 2.1.4 |
-| Hình 2.2 | Bộ ký hiệu Chen — tổng quan | 2.2.2 |
-| Hình 2.3 | Thuộc tính của thực thể `HOCVIEN` — ký pháp Chen và ký pháp Crow's Foot | 2.2.3 |
-| Hình 2.4 | Ba cách xử lý thuộc tính đa trị — chỉ một cách đúng | 2.2.4 |
-| Hình 2.5 | Kỹ thuật hỏi hai chiều — quy trình xác định loại liên kết | 2.4.2 |
-| Hình 2.6 | Ký pháp Chen — ba loại kết nối, minh họa tại Trung tâm ABC | 2.5.1 |
-| Hình 2.7 | Bốn ký hiệu đầu mút của ký pháp Crow's Foot | 2.5.3 |
-| Hình 2.8 | Ba ví dụ liên kết đệ quy, vẽ theo ký pháp Chen | 2.6.2 |
-| Hình 2.9 | Thực thể yếu trong ký pháp Chen — trường hợp `DIENTHOAI` | 2.6.3 |
-| Hình 2.10 | Liên kết M:N ẩn chứa một thực thể | 2.6.4 |
-| Hình 2.11 | Phân cấp chuyên biệt hóa tại Trung tâm ABC | 2.7.2 |
-| Hình 2.12 | Quy trình năm bước xây dựng lược đồ ER | 2.8.1 |
-| Hình 2.13 | Cùng một liên kết vẽ bằng hai ký pháp | 2.8.3 |
-| Hình 2.14 | Bước 1–2 — bốn thực thể với thuộc tính, ký pháp Chen | 2.9.2 |
-| Hình 2.15 | Bước 3 — thêm liên kết và lực lượng, ký pháp Chen | 2.9.3 |
-| Hình 2.16 | Lược đồ ER hoàn chỉnh của Trung tâm Anh ngữ ABC — ký pháp Chen | 2.9.5 |
-| Hình 2.17 | Lược đồ ER của Trung tâm Anh ngữ ABC — ký pháp Crow's Foot | 2.9.5 |
+| Hình 2.2 | Áp Bảng 2.1 vào quy tắc (c) của Ví dụ 2.1 — từ câu chữ tới mảnh lược đồ | 2.1.5 |
+| Hình 2.3 | Bộ ký hiệu Chen — tổng quan | 2.2.2 |
+| Hình 2.4 | Thuộc tính của thực thể `HOCVIEN` — bốn cặp phân loại trong ký pháp Chen, đối chiếu Crow's Foot | 2.2.3 |
+| Hình 2.5 | Thuộc tính đa trị `SDT` trước và sau khi tách — ký pháp Chen | 2.2.4 |
+| Hình 2.6 | Thuộc tính khóa phức hợp của `GHIDANH` — hai oval cùng gạch chân | 2.3.3 |
+| Hình 2.7 | Kỹ thuật hỏi hai chiều — quy trình xác định loại liên kết | 2.4.2 |
+| Hình 2.8 | Ký pháp Chen — ba loại kết nối và cách ghi lực lượng `(min, max)`, minh họa tại Trung tâm ABC | 2.5.1 |
+| Hình 2.9 | Ví dụ 2.5 vẽ theo ký pháp Chen — hai chiều, hai tính tham gia khác nhau | 2.5.3 |
+| Hình 2.10 | Bốn ký hiệu đầu mút của ký pháp Crow's Foot | 2.5.3 |
+| Hình 2.11 | Ba bậc của liên kết trong ký pháp Chen — bậc một, bậc hai, bậc ba | 2.6.1 |
+| Hình 2.12 | Ba ví dụ liên kết đệ quy, vẽ theo ký pháp Chen | 2.6.2 |
+| Hình 2.13 | Liên kết đệ quy M:N sau khi tách — `KHOAHOC` nối hai lần vào `TIENQUYET` | 2.6.2 |
+| Hình 2.14 | Thực thể yếu trong ký pháp Chen — trường hợp `DIENTHOAI` | 2.6.3 |
+| Hình 2.15 | Tách liên kết M:N có thuộc tính thành thực thể kết hợp — trước và sau | 2.6.4 |
+| Hình 2.16 | Hai phương án vẽ Ví dụ 2.7 bằng ER cơ bản — cả hai đều tồi | 2.7.1 |
+| Hình 2.17 | Bước 3 — thực thể cha `NHANSU` chỉ mang năm thuộc tính chung | 2.7.2 |
+| Hình 2.18 | Bước 4 — phân cấp cha–con của Ví dụ 2.7, ký pháp Chen mở rộng | 2.7.2 |
+| Hình 2.19 | Liên kết gắn ở tầng nào thì ai có — kế thừa liên kết trong phân cấp | 2.7.3 |
+| Hình 2.20 | Bốn tổ hợp ràng buộc của phân cấp cha–con — ký hiệu trên lược đồ | 2.7.5 |
+| Hình 2.21 | Quy trình năm bước xây dựng lược đồ ER | 2.8.1 |
+| Hình 2.22 | Cùng một liên kết vẽ bằng hai ký pháp — (a) ký pháp Chen | 2.8.3 |
+| Hình 2.23 | Cùng một liên kết vẽ bằng hai ký pháp — (b) ký pháp Crow's Foot | 2.8.3 |
+| Hình 2.24 | Liên kết giáo viên – lớp vẽ bằng sơ đồ lớp UML | 2.8.4 |
+| Hình 2.25 | Bước 1–2 — bốn thực thể với thuộc tính, ký pháp Chen | 2.9.2 |
+| Hình 2.26 | Bước 3 — thêm liên kết và lực lượng, ký pháp Chen | 2.9.3 |
+| Hình 2.27 | Lược đồ ER hoàn chỉnh của Trung tâm Anh ngữ ABC — ký pháp Chen | 2.9.5 |
+| Hình 2.28 | Lược đồ ER của Trung tâm Anh ngữ ABC — ký pháp Crow's Foot | 2.9.5 |
 
 ## DANH MỤC BẢNG (Chương 2)
 
@@ -1317,17 +1915,25 @@ Kinh nghiệm cho thấy hai khái niệm hay được nêu nhất ở chương 
 | Bảng 2.1 | Phiên dịch quy tắc nghiệp vụ sang thành phần ER | 2.1.5 |
 | Bảng 2.2 | Bộ ký hiệu của ký pháp Chen | 2.2.2 |
 | Bảng 2.3 | Bốn cặp phân loại thuộc tính | 2.2.3 |
-| Bảng 2.4 | Kiểm chứng cách 3 bằng bốn câu hỏi khó | 2.2.4 |
-| Bảng 2.5 | Hai tiêu chí bắt buộc của một thuộc tính khóa | 2.3.1 |
-| Bảng 2.6 | So sánh khóa tự nhiên và khóa thay thế | 2.3.2 |
-| Bảng 2.7 | Bảng hỏi hai chiều cho Trung tâm ABC | 2.4.3 |
-| Bảng 2.8 | Ký hiệu đầu mút Crow's Foot — gộp kết nối và tham gia | 2.5.3 |
-| Bảng 2.9 | Cùng một sự vật, hai cách đặt thuộc tính khóa cho hai kết luận khác nhau | 2.6.3 |
-| Bảng 2.10 | Bốn tổ hợp ràng buộc và ví dụ tại Trung tâm ABC | 2.7.5 |
-| Bảng 2.11 | Đối chiếu mô hình ER và sơ đồ lớp UML | 2.8.4 |
-| Bảng 2.12 | Nhận diện bẫy thiết kế ngay khi đọc đề | 2.9.1 |
-| Bảng 2.13 | Bảy thực thể của lược đồ cuối cùng | 2.9.5 |
-| Bảng 2.14 | Cùng một cặp thực thể, hai quy tắc nghiệp vụ khác nhau cho hai lược đồ khác nhau | 2.9.6 |
+| Bảng 2.4 | Ba cách lưu số điện thoại của học viên — nhìn ở mức dữ liệu | 2.2.4 |
+| Bảng 2.5 | Kiểm chứng cách 3 bằng bốn câu hỏi khó | 2.2.4 |
+| Bảng 2.6 | Hai tiêu chí bắt buộc của một thuộc tính khóa | 2.3.1 |
+| Bảng 2.7 | Kiểm tra hai tiêu chí trên dữ liệu `HOCVIEN` | 2.3.1 |
+| Bảng 2.8 | So sánh khóa tự nhiên và khóa thay thế | 2.3.2 |
+| Bảng 2.9 | Dữ liệu `GHIDANH` — không cột nào một mình đủ phân biệt | 2.3.3 |
+| Bảng 2.10 | Cùng cặp `GIAOVIEN` – `LOP`, ba tình huống nghiệp vụ nhìn ở mức thể hiện | 2.4.2 |
+| Bảng 2.11 | Bảng hỏi hai chiều cho Trung tâm ABC | 2.4.3 |
+| Bảng 2.12 | Ký hiệu đầu mút Crow's Foot — gộp kết nối và tham gia | 2.5.3 |
+| Bảng 2.13 | Dữ liệu `DIENTHOAI` khi hai học viên khai chung số máy bàn | 2.6.3 |
+| Bảng 2.14 | Cùng một sự vật, hai cách đặt thuộc tính khóa cho hai kết luận khác nhau | 2.6.3 |
+| Bảng 2.15 | Học phí thay đổi theo cặp *(học viên, lớp)*, không theo riêng bên nào | 2.6.4 |
+| Bảng 2.16 | Thuộc tính của hai nhóm nhân sự trong Ví dụ 2.7 | 2.7.1 |
+| Bảng 2.17 | Bốn tổ hợp ràng buộc và ví dụ tại Trung tâm ABC | 2.7.5 |
+| Bảng 2.18 | Đối chiếu mô hình ER và sơ đồ lớp UML | 2.8.4 |
+| Bảng 2.19 | Nhận diện bẫy thiết kế ngay khi đọc đề | 2.9.1 |
+| Bảng 2.20 | Bảy thực thể của lược đồ cuối cùng | 2.9.5 |
+| Bảng 2.21 | Đối chiếu ngược bảy quy tắc nghiệp vụ với lược đồ hoàn chỉnh | 2.9.5 |
+| Bảng 2.22 | Cùng một cặp thực thể, hai quy tắc nghiệp vụ khác nhau cho hai lược đồ khác nhau | 2.9.6 |
 
 ## DANH MỤC TỪ VIẾT TẮT
 

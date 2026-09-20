@@ -19,9 +19,13 @@ TIENQUYET (MAKH_truoc↗KHOAHOC, MAKH_sau↗KHOAHOC)
 
 ## 4.7.2. Sáu câu hỏi để không bỏ sót
 
-Bảng 4.3 được chuyển thành một **quy trình sáu câu hỏi**. Đi lần lượt qua sáu câu này thì không bỏ sót loại nào.
+![](../hinh-ve/slide/internet/checklist_phi_cong.jpg){width=55%}
 
-**Bảng 4.8. Sáu câu hỏi phát hiện ràng buộc**
+*Ảnh minh họa: phi hành gia đọc danh sách kiểm tra (checklist) trước khi thao tác. Nghề nào cũng cần một danh sách như vậy để không bỏ sót; sáu câu hỏi dưới đây là checklist của người thiết kế khi đi "săn" ràng buộc — Nguồn: Wikimedia Commons · NASA · Public domain.*
+
+Bảng 4.6 được chuyển thành một **quy trình sáu câu hỏi**. Đi lần lượt qua sáu câu này thì không bỏ sót loại nào.
+
+**Bảng 4.21. Sáu câu hỏi phát hiện ràng buộc**
 
 | # | Câu hỏi | Nếu có thì đó là |
 |:--:|---|---|
@@ -38,7 +42,7 @@ Kinh nghiệm cho thấy người học hay bỏ sót câu ⑤ và ⑥, vì hai 
 
 Áp sáu câu hỏi vào lược đồ ABC, ta thu được một bộ ràng buộc **phủ đủ cả sáu loại**.
 
-**Bảng 4.9. Sáu ràng buộc toàn vẹn của Trung tâm ABC**
+**Bảng 4.22. Sáu ràng buộc toàn vẹn của Trung tâm ABC**
 
 | Mã | Phát biểu | Biểu thức | Loại | Bối cảnh |
 |:--:|---|---|---|:--:|
@@ -72,16 +76,16 @@ flowchart LR
 
 ## 4.7.5. Cờ đỏ thiết kế — khi một ràng buộc quá khó
 
-Hãy lập bảng tầm ảnh hưởng cho **R6** và so với **R1**.
+Hãy lập bảng tầm ảnh hưởng cho **R6** và so với **R1**. Bảng 4.18 ở mục 4.6.3 đã cho thấy R6 bị vi phạm ra sao *(lớp A2 ghi `SISO = 2` trong khi đếm được 3)*; giờ hãy hỏi câu hỏi vàng cho từng ô để biết **thao tác nào** có thể tạo ra tình trạng lệch đó.
 
-**Bảng 4.10. Bảng tầm ảnh hưởng của R6**
+**Bảng 4.23. Bảng tầm ảnh hưởng của R6**
 
 | Quan hệ | Thêm | Xóa | Sửa | Suy luận |
 |---|:--:|:--:|:--:|---|
 | `LOP` | **+** | − | **+** *(SISO)* | Thêm lớp với `SISO = 30` mà chưa ai ghi danh → sai ngay. Xóa lớp thì mất cả hai vế nên vẫn nhất quán. Sửa `SISO` tùy tiện → sai |
 | `GHIDANH` | **+** | **+** | **+** *(MALOP)* | Thêm hoặc xóa một lượt ghi danh làm **số đếm đổi** nhưng `SISO` **không đổi** → lệch. Đổi `MALOP` làm **lệch cả hai lớp** |
 
-**Bảng 4.11. So sánh mức độ khó của hai ràng buộc**
+**Bảng 4.24. So sánh mức độ khó của hai ràng buộc**
 
 | Ràng buộc | Số ô `+` | Ý nghĩa |
 |---|:--:|---|

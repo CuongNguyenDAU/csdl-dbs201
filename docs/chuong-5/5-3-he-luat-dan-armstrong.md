@@ -22,7 +22,7 @@ Trong ba luật, **luật phản xạ** thoạt nhìn có vẻ vô nghĩa: *bi�
 
 Từ ba luật gốc suy ra được ba luật tiện dụng hơn khi làm bài.
 
-**Bảng 5.4. Ba luật gốc và ba luật dẫn xuất**
+**Bảng 5.6. Ba luật gốc và ba luật dẫn xuất**
 
 | Luật | Phát biểu | Loại |
 |---|---|---|
@@ -34,6 +34,21 @@ Từ ba luật gốc suy ra được ba luật tiện dụng hơn khi làm bài.
 | **Bắc cầu giả** *(pseudotransitivity)* | `X → Y`, `WY → Z` ⟹ `WX → Z` | Dẫn xuất |
 
 Hai luật **hợp** và **tách** dùng nhiều nhất trong thực hành, vì chúng cho phép **gộp** hoặc **tách** vế phải tùy tiện. Nhờ đó ta luôn có thể viết `F` ở dạng **mỗi phụ thuộc chỉ có một thuộc tính ở vế phải** — điều kiện đầu tiên của phủ tối thiểu ở mục 5.6.
+
+Sáu luật viết bằng `X`, `Y`, `Z` trông khô, nhưng thay bằng thuộc tính của Trung tâm ABC thì luật nào cũng chỉ là một câu nói hiển nhiên.
+
+**Bảng 5.7. Sáu luật, mỗi luật một ví dụ tại ABC**
+
+| Luật | Ví dụ | Đọc thành lời |
+|---|---|---|
+| Phản xạ | `(MAHV, MALOP) → MAHV` | biết cả cặp thì đương nhiên biết mã học viên |
+| Tăng trưởng | `MAGV → HOTEN_GV` ⟹ `(MAGV, MALOP) → (HOTEN_GV, MALOP)` | thêm cùng một thứ vào hai vế, phụ thuộc vẫn đúng |
+| Bắc cầu | `MALOP → MAGV`, `MAGV → HOTEN_GV` ⟹ `MALOP → HOTEN_GV` | biết lớp thì biết giáo viên, biết giáo viên thì biết tên — vậy biết lớp là biết tên |
+| Hợp | `MALOP → TENLOP`, `MALOP → MAGV` ⟹ `MALOP → (TENLOP, MAGV)` | hai điều cùng suy từ lớp thì gộp lại vẫn suy từ lớp |
+| Tách | `MALOP → (TENLOP, MAGV)` ⟹ `MALOP → TENLOP` và `MALOP → MAGV` | suy được cả cụm thì suy được từng phần |
+| Bắc cầu giả | `MALOP → MAGV`, `(NGAY, MAGV) → PHONG` ⟹ `(NGAY, MALOP) → PHONG` | nếu mỗi giáo viên mỗi ngày dạy ở một phòng, thì biết lớp và ngày là biết phòng |
+
+Dòng **bắc cầu** đáng chú ý nhất: hai phụ thuộc đầu vào đều "vô hại", nhưng kết quả `MALOP → HOTEN_GV` chính là phụ thuộc bắc cầu ở Bảng 5.5 — luật Armstrong làm lộ ra thủ phạm mà mắt thường dễ bỏ qua.
 
 !!! example "Ví dụ 5.2"
 

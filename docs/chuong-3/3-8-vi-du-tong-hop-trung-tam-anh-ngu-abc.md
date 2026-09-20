@@ -2,9 +2,9 @@
 
 ## 3.8.1. Ánh xạ từ lược đồ Chen của Chương 2
 
-Đầu vào là lược đồ ER hoàn chỉnh ở **Hình 2.14** của Chương 2, gồm bảy thực thể. Áp lần lượt các quy tắc ánh xạ.
+Đầu vào là lược đồ ER hoàn chỉnh ở **Hình 2.27** của Chương 2, gồm bảy thực thể. Áp lần lượt các quy tắc ánh xạ.
 
-**Hình 3.10. Ánh xạ lược đồ Chen sang tập quan hệ**
+**Hình 3.13. Ánh xạ lược đồ Chen sang tập quan hệ**
 
 ```mermaid
 flowchart LR
@@ -22,7 +22,7 @@ flowchart LR
     style R4 fill:#E2F0D9,stroke:#548235
 ```
 
-**Bảng 3.10. Ánh xạ từng thành phần**
+**Bảng 3.27. Ánh xạ từng thành phần**
 
 | Thành phần ER | Quy tắc | Kết quả |
 |---|:--:|---|
@@ -38,7 +38,7 @@ flowchart LR
 
 ## 3.8.2. Lược đồ quan hệ hoàn chỉnh
 
-**Hình 3.11. Lược đồ quan hệ của Trung tâm Anh ngữ ABC — bảy bảng**
+**Hình 3.14. Lược đồ quan hệ của Trung tâm Anh ngữ ABC — bảy bảng**
 
 ```mermaid
 erDiagram
@@ -47,7 +47,8 @@ erDiagram
     HOCVIEN ||--o{ DIENTHOAI : "MAHV"
     HOCVIEN ||--o{ GHIDANH : "MAHV"
     LOP ||--o{ GHIDANH : "MALOP"
-    KHOAHOC ||--o{ TIENQUYET : "MAKH"
+    KHOAHOC ||--o{ TIENQUYET : "MAKH_truoc"
+    KHOAHOC ||--o{ TIENQUYET : "MAKH_sau"
     GIAOVIEN {
         string MAGV PK
         string HOTEN_GV
@@ -89,7 +90,7 @@ erDiagram
 
 Sau khi ánh xạ, phải kiểm tra hai ràng buộc ở mục 3.3 cho từng bảng.
 
-**Bảng 3.11. Đối chiếu toàn vẹn cho bảy bảng**
+**Bảng 3.28. Đối chiếu toàn vẹn cho bảy bảng**
 
 | Bảng | Khóa chính | Khóa ngoại | Khóa ngoại được rỗng? |
 |---|---|---|---|
@@ -105,7 +106,7 @@ Có một quy luật đáng rút ra từ bảng trên: **khóa ngoại đồng t
 
 ## 3.8.4. Sáu truy vấn mẫu bằng đại số quan hệ
 
-**Bảng 3.12. Sáu truy vấn trên lược đồ ABC**
+**Bảng 3.29. Sáu truy vấn trên lược đồ ABC**
 
 | # | Yêu cầu nghiệp vụ | Biểu thức đại số quan hệ |
 |:--:|---|---|
@@ -118,11 +119,61 @@ Có một quy luật đáng rút ra từ bảng trên: **khóa ngoại đồng t
 
 Ba truy vấn cuối minh họa đúng ba kỹ thuật vừa học. Truy vấn 4 dùng **phép hiệu** để diễn đạt ý *"chưa từng"*. Truy vấn 5 dùng **kết ngoài** để không bỏ sót. Truy vấn 6 dùng **phép chia** cho từ khóa *"tất cả"*.
 
+Người tự học nên **tính tay** sáu truy vấn trên một bộ dữ liệu nhỏ rồi đối chiếu. Bộ dữ liệu dưới đây chỉ hiện các cột cần dùng.
+
+**Bảng 3.30. Bộ dữ liệu mẫu để tính tay sáu truy vấn**
+
+| `GIAOVIEN` | MAGV | HOTEN_GV |
+|---|---|---|
+| | GV1 | Lê Hoa |
+| | GV2 | Trần Mai |
+| | GV3 | Phạm Nam |
+
+| `KHOAHOC` | MAKH | TENKH |
+|---|---|---|
+| | KH01 | Anh cơ bản |
+| | KH02 | Anh giao tiếp |
+
+| `LOP` | MALOP | TENLOP | MAKH↗ | MAGV↗ |
+|---|---|---|---|---|
+| | A1 | Anh cơ bản 1 | KH01 | GV1 |
+| | A2 | Anh cơ bản 2 | KH01 | GV2 |
+| | A3 | Anh giao tiếp 1 | KH02 | GV1 |
+| | A6 | Anh thiếu nhi | KH02 | *(rỗng)* |
+
+| `HOCVIEN` | MAHV | HOTEN | NGAYSINH |
+|---|---|---|---|
+| | HV01 | Trần An | 2005-04-12 |
+| | HV02 | Lê Bình | 2004-09-30 |
+| | HV03 | Phạm Cường | 2006-01-15 |
+
+| `GHIDANH` | MAHV↗ | MALOP↗ |
+|---|---|---|
+| | HV01 | A1 |
+| | HV01 | A2 |
+| | HV02 | A1 |
+| | HV03 | A1 |
+| | HV03 | A2 |
+| | HV03 | A3 |
+
+**Bảng 3.31. Kết quả sáu truy vấn trên bộ dữ liệu mẫu**
+
+| # | Kết quả | Cách tính tay |
+|:--:|---|---|
+| 1 | `HOTEN` = { Phạm Cường } | chỉ HV03 sinh sau 31/12/2005 |
+| 2 | { (A1, Anh cơ bản 1), (A3, Anh giao tiếp 1) } | kết `LOP ⋈ GIAOVIEN` được 3 dòng *(A6 rớt vì `MAGV` rỗng)*, chọn `HOTEN_GV = 'Lê Hoa'` còn 2, chiếu lấy hai cột |
+| 3 | 6 cặp: (Trần An, Anh cơ bản 1), (Trần An, Anh cơ bản 2), (Lê Bình, Anh cơ bản 1), (Phạm Cường, Anh cơ bản 1), (Phạm Cường, Anh cơ bản 2), (Phạm Cường, Anh giao tiếp 1) | kết ba bảng qua `MAHV` rồi `MALOP`, mỗi dòng `GHIDANH` cho một cặp |
+| 4 | `MALOP` = { A6 } | `π_MALOP(LOP)` = {A1, A2, A3, A6}; `π_MALOP(GHIDANH)` = {A1, A2, A3}; hiệu còn A6 |
+| 5 | 4 dòng: A1–Lê Hoa, A2–Trần Mai, A3–Lê Hoa, **A6–(rỗng)** | kết ngoài trái giữ A6; kết trong sẽ chỉ có 3 dòng |
+| 6 | `MAHV` = { HV01, HV03 } | lớp của KH01 là {A1, A2}; ma trận ✓: HV01 đủ, HV02 thiếu A2, HV03 đủ |
+
+Kết quả truy vấn 5 và 2 đặt cạnh nhau cho thấy đúng bài học của mục 3.7.2: lớp `A6` **có mặt** ở truy vấn 5 và **vắng mặt** ở truy vấn 2 — không phải vì cô Lê Hoa không dạy nó, mà vì kết trong đã âm thầm bỏ nó đi trước khi phép chọn kịp nhìn thấy.
+
 ## 3.8.5. Nhìn lại hành trình ba chương
 
 Đến đây ba chương đầu khép lại thành một mạch hoàn chỉnh trên cùng một bài toán.
 
-**Bảng 3.13. Ba chương, ba mức độ trưởng thành của cùng một thiết kế**
+**Bảng 3.32. Ba chương, ba mức độ trưởng thành của cùng một thiết kế**
 
 | | Chương 1 | Chương 2 | Chương 3 |
 |---|---|---|---|

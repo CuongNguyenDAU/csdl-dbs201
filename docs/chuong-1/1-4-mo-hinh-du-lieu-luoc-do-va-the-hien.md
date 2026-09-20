@@ -10,13 +10,17 @@
 
 Mô hình dữ liệu đóng vai trò như một **bộ từ vựng chung**. Khi ta nói "hãy dùng mô hình quan hệ", điều đó có nghĩa là mọi người tham gia dự án cùng thống nhất rằng dữ liệu sẽ được tổ chức thành các *bảng* gồm *dòng* và *cột*, rằng các bảng liên hệ với nhau qua *khóa*, và rằng có một tập phép toán xác định để lấy dữ liệu ra. Không có bộ từ vựng chung ấy, mỗi người thiết kế theo một kiểu và không ai đọc được thiết kế của ai.
 
+![](../hinh-ve/slide/internet/ban_ve_kien_truc.jpg){width=60%}
+
+*Ảnh minh họa: mô hình mặt bằng một căn hộ. Bản vẽ không phải ngôi nhà, nhưng nhờ quy ước chung về nét vẽ mà người ở nơi khác đọc vẫn hiểu — mô hình dữ liệu là bộ quy ước chung như thế cho dữ liệu — Nguồn: Wikimedia Commons · Tallbox · CC BY-SA 4.0.*
+
 Có thể so sánh mô hình dữ liệu với **bản vẽ kiến trúc** trong xây dựng. Bản vẽ không phải ngôi nhà, nhưng nó quy ước rằng đường nét đậm là tường chịu lực, ô vuông có hai đường chéo là cửa sổ. Nhờ quy ước ấy mà kiến trúc sư ở Đà Nẵng vẽ xong, thợ xây ở Hà Nội đọc vẫn hiểu.
 
 ## 1.4.2. Các thế hệ mô hình dữ liệu
 
 Mô hình quan hệ mà học phần này tập trung vào không phải là mô hình duy nhất, cũng không phải mô hình đầu tiên. Hiểu quá trình phát triển giúp người học nhận ra **vì sao** mô hình quan hệ chiếm ưu thế, thay vì chỉ chấp nhận nó như một sự đã rồi.
 
-**Bảng 1.7. Các thế hệ mô hình dữ liệu**
+**Bảng 1.13. Các thế hệ mô hình dữ liệu**
 
 | Thời kỳ | Mô hình | Cách tổ chức | Hạn chế chính |
 |---|---|---|---|
@@ -38,7 +42,7 @@ Bảng liệt kê ở trên mới chỉ cho biết các mô hình *tên gì*. Đ
 
 Mô hình phân cấp tổ chức dữ liệu thành cây, trong đó **mỗi nút con chỉ được có đúng một nút cha**. Với Trung tâm ABC, cách tổ chức tự nhiên là: giáo viên ở gốc, lớp là con của giáo viên, học viên là con của lớp.
 
-**Hình 1.3. Trung tâm ABC trong mô hình phân cấp — Trần An buộc phải lưu hai lần**
+**Hình 1.5. Trung tâm ABC trong mô hình phân cấp — Trần An buộc phải lưu hai lần**
 
 ```mermaid
 flowchart TB
@@ -66,7 +70,7 @@ Hậu quả thì người học đã quá quen từ mục 1.3: dữ liệu của
 
 Mô hình mạng ra đời để gỡ đúng nút thắt đó: nó cho phép **một nút có nhiều nút cha**.
 
-**Hình 1.4. Trung tâm ABC trong mô hình mạng — Trần An chỉ còn một bản**
+**Hình 1.6. Trung tâm ABC trong mô hình mạng — Trần An chỉ còn một bản**
 
 ```mermaid
 flowchart TB
@@ -86,7 +90,7 @@ flowchart TB
 
 Bài toán dư thừa được giải quyết: Trần An chỉ tồn tại **một bản duy nhất**, có hai mũi tên trỏ tới từ hai lớp. Nhưng mô hình mạng lại sinh ra một khó khăn mới, lần này nằm ở phía người lập trình.
 
-Các mũi tên trong Hình 1.4 không phải là dữ liệu — chúng là **con trỏ vật lý** tới địa chỉ lưu trữ. Muốn biết lớp A2 có những học viên nào, chương trình phải *tự lần theo* chuỗi con trỏ, từng bước một, theo đúng đường đi mà người thiết kế đã dựng sẵn. Người lập trình vì thế buộc phải thuộc lòng cấu trúc liên kết bên trong. Tệ hơn, nếu sau này muốn truy vấn theo một hướng chưa được dựng sẵn — chẳng hạn *"cô Lê Hoa đang dạy bao nhiêu học viên"* — thì phải **sửa lại cấu trúc dữ liệu**, không chỉ sửa chương trình.
+Các mũi tên trong Hình 1.6 không phải là dữ liệu — chúng là **con trỏ vật lý** tới địa chỉ lưu trữ. Muốn biết lớp A2 có những học viên nào, chương trình phải *tự lần theo* chuỗi con trỏ, từng bước một, theo đúng đường đi mà người thiết kế đã dựng sẵn. Người lập trình vì thế buộc phải thuộc lòng cấu trúc liên kết bên trong. Tệ hơn, nếu sau này muốn truy vấn theo một hướng chưa được dựng sẵn — chẳng hạn *"cô Lê Hoa đang dạy bao nhiêu học viên"* — thì phải **sửa lại cấu trúc dữ liệu**, không chỉ sửa chương trình.
 
 **c) Mô hình quan hệ — thay con trỏ bằng giá trị**
 
@@ -162,6 +166,15 @@ Nhưng hãy nhìn kỹ cấu trúc: đó chính là **một cái cây** — lớ
 
     Điều này cho thấy sự đánh đổi trong thiết kế cơ sở dữ liệu là **có tính chu kỳ chứ không phải một chiều tiến hóa**. Mô hình văn kiện đổi *tính nhất quán do hệ thống bảo đảm* lấy *tốc độ đọc*. Sự đánh đổi ấy hợp lý với một trang thương mại điện tử hiển thị mô tả sản phẩm, nhưng không chấp nhận được với hệ thống quản lý điểm hay tài khoản ngân hàng.
 
+**Bảng 1.14. Bốn mô hình, một sự thật — khác nhau ở cách biểu diễn liên kết**
+
+| Mô hình | Liên kết biểu diễn bằng | Trần An học thêm lớp A2 | Hệ quả |
+|---|---|---|---|
+| Phân cấp | **vị trí** trong cây, mỗi con một cha | tạo **bản sao thứ hai** của Trần An dưới A2 | dư thừa quay lại, do mô hình ép buộc |
+| Mạng | **con trỏ vật lý** tới địa chỉ lưu trữ | thêm một con trỏ từ A2 tới Trần An | một bản, nhưng lập trình phải lần theo đường đi dựng sẵn |
+| Quan hệ | **giá trị** khớp nhau giữa các bảng | **thêm một dòng** `(HV01, A2)` vào `GHIDANH` | không bản sao, không con trỏ, hỏi được theo mọi hướng |
+| Văn kiện (NoSQL) | **vị trí** lồng nhau trong văn kiện | văn kiện A2 chứa **một bản sao nữa** của Trần An | đọc nhanh, nhưng người lập trình tự lo nhất quán |
+
 **Tổng kết ví dụ.** Bốn mô hình vừa xét đều lưu đúng một sự thật như nhau, nhưng khác nhau ở chỗ **liên kết được biểu diễn bằng cái gì**: mô hình phân cấp và mô hình văn kiện dùng *vị trí lồng nhau*, mô hình mạng dùng *con trỏ*, còn mô hình quan hệ dùng *giá trị*. Chính lựa chọn cuối cùng — dùng giá trị — mới cho phép mô hình quan hệ vừa loại bỏ được dư thừa, vừa giữ được sự đơn giản cho người lập trình.
 
 Bước ngoặt lớn nhất trong bảng trên xảy ra năm **1970**, khi E. F. Codd công bố mô hình quan hệ. Đóng góp mang tính cách mạng của Codd không phải là ý tưởng "lưu dữ liệu thành bảng" — bảng biểu đã có từ lâu — mà là hai điều sau.
@@ -182,6 +195,16 @@ Trong quá trình thiết kế, mô hình dữ liệu được xây dựng qua b
 - **Mô hình logic** *(logical model)*: chuyển mô hình quan niệm sang một mô hình dữ liệu cụ thể, thường là mô hình quan hệ, nhưng vẫn chưa gắn với một hệ quản trị nào. Ở mức này ta viết `HOCVIEN(MAHV, HOTEN, MALOP)` cùng các khóa. Đây là nội dung Chương 3.
 - **Mô hình vật lý** *(physical model)*: mô tả cách dữ liệu thực sự được lưu trữ trên thiết bị — kiểu dữ liệu cụ thể của hệ quản trị, chỉ mục, phân vùng. Mức này thuộc phạm vi học phần *Hệ quản trị cơ sở dữ liệu*.
 
+**Hình 1.7. Ba mức của mô hình dữ liệu — ba chặng của một hành trình thiết kế**
+
+```mermaid
+flowchart LR
+    Q["<b>MÔ HÌNH QUAN NIỆM</b><br/>Nghiệp vụ có những gì?<br/>─────────<br/>lược đồ ER<br/><i>Chương 2</i>"] --> L["<b>MÔ HÌNH LOGIC</b><br/>Tổ chức thành bảng ra sao?<br/>─────────<br/>HOCVIEN(<u>MAHV</u>, HOTEN, MALOP)<br/><i>Chương 3</i>"] --> V["<b>MÔ HÌNH VẬT LÝ</b><br/>Lưu lên đĩa thế nào?<br/>─────────<br/>kiểu dữ liệu, chỉ mục, phân vùng<br/><i>học phần Hệ quản trị</i>"]
+    style Q fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
+    style L fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
+    style V fill:#EDEDED,stroke:#7F7F7F
+```
+
 Ba mức này tương ứng với ba câu hỏi kế tiếp nhau: **"Nghiệp vụ có những gì?"** rồi **"Tổ chức thành bảng ra sao?"** rồi **"Lưu lên đĩa thế nào?"**. Người thiết kế đi tuần tự từ trên xuống; đi tắt là nguyên nhân phổ biến nhất của những thiết kế hỏng.
 
 ## 1.4.4. Lược đồ và thể hiện
@@ -194,9 +217,13 @@ Ba mức này tương ứng với ba câu hỏi kế tiếp nhau: **"Nghiệp v�
 
     **Thể hiện** *(instance)* là **tập dữ liệu thực tế** đang có trong cơ sở dữ liệu **tại một thời điểm cụ thể**. Thể hiện **thay đổi liên tục** theo từng thao tác thêm, sửa, xóa.
 
+![](../hinh-ve/slide/internet/khuon_banh.jpg){width=55%}
+
+*Ảnh minh họa: một khuôn nướng nhiều ngăn. Khuôn dùng được hàng nghìn lần, mỗi lần cho ra mẻ bánh khác nhau về nhân và màu nhưng cùng hình dạng — lược đồ là cái khuôn, mỗi thể hiện là một mẻ bánh — Nguồn: Wikimedia Commons · Melissa · CC BY 2.0.*
+
 Cách phân biệt dễ nhớ nhất: **lược đồ là cái khuôn, thể hiện là cái bánh đúc ra từ khuôn đó**. Một cái khuôn dùng được hàng nghìn lần, mỗi lần cho ra một chiếc bánh khác nhau về nhân, về màu, nhưng tất cả đều cùng hình dạng.
 
-**Hình 1.5. Một lược đồ — nhiều thể hiện theo thời gian**
+**Hình 1.8. Một lược đồ — nhiều thể hiện theo thời gian**
 
 ```mermaid
 flowchart LR

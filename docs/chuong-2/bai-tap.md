@@ -40,7 +40,7 @@
 
     `HOTEN` có thể xếp vào *đơn* hay *phức hợp* tùy nghiệp vụ: nếu cần sắp xếp danh sách theo tên riêng thì phải tách, nếu chỉ in ra thì để nguyên. Bài làm nêu được lý do là đạt.
 
-**Bài A3.** Vẽ lại Hình 2.12 *(quy trình năm bước)* từ trí nhớ, và với mỗi bước nêu **một sai lầm thường gặp**.
+**Bài A3.** Vẽ lại Hình 2.21 *(quy trình năm bước)* từ trí nhớ, và với mỗi bước nêu **một sai lầm thường gặp**.
 
 
 ??? success "Lời giải bài A3"
