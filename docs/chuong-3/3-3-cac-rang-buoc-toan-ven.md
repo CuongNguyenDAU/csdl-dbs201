@@ -10,10 +10,6 @@ Mô hình quan hệ đặt ra **hai ràng buộc bắt buộc** mà mọi cơ s�
 
     **Toàn vẹn thực thể** *(entity integrity)*: khóa chính của mọi quan hệ phải **duy nhất** và **không được nhận giá trị rỗng** *(null)* ở bất kỳ thành phần nào.
 
-![](../hinh-ve/slide/internet/ve_so.jpg){width=55%}
-
-*Ảnh minh họa: người chơi điền vé số. Tờ vé không có dãy số thì không dò được, không trả thưởng được; hai vé cùng số thì không biết trả cho ai — đó là ý nghĩa của toàn vẹn thực thể — Nguồn: Wikimedia Commons · Santeri Viinamäki · CC BY-SA 4.0.*
-
 Lý do rất trực tiếp. Khóa chính tồn tại để **định danh** một dòng. Nếu nó rỗng thì dòng đó không có danh tính — ta không có cách nào chỉ đích danh nó để đọc, sửa hay xóa. Nếu nó trùng thì hai dòng có cùng danh tính, và hệ thống không phân biệt được chúng.
 
 Với khóa chính phức hợp, ràng buộc áp cho **từng thành phần**: trong bảng `GHIDANH(MAHV, MALOP, ...)`, cả `MAHV` lẫn `MALOP` đều không được rỗng.

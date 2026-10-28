@@ -53,9 +53,9 @@ Bảng tầm ảnh hưởng có **hai dòng** vì bối cảnh có hai quan hệ
 
     `∀l ∈ LOP : l.SISO = |{g ∈ GHIDANH : g.MALOP = l.MALOP}|` — sĩ số ghi trong bảng `LOP` phải bằng số dòng ghi danh tương ứng trong `GHIDANH`.
 
-![](../hinh-ve/slide/internet/bien_cam_vao.jpg){width=45%}
+![](../hinh-ve/minh-hoa/C4_mh02_rang_buoc_siso_lien_bang.png){width=85%}
 
-*Ảnh minh họa: biển "cấm vào" kèm điều kiện ngoại lệ ghi bên dưới. Ràng buộc liên bộ liên quan hệ cũng vậy: muốn biết một dòng có được vào hay không, phải đọc thêm "điều kiện" nằm ở nơi khác — ở đây là phải đếm trên bảng khác — Nguồn: Wikimedia Commons · Albert Bridge · CC BY-SA 2.0.*
+*Ảnh minh họa: Cơ chế kiểm tra chéo giữa hai bảng của ràng buộc liên bộ – liên quan hệ R6 — đối chiếu giá trị cột LOP.SISO với số dòng đếm thực tế trong bảng GHIDANH — Nguồn: Tác giả tự vẽ.*
 
 Đây là loại **khó nhất trong sáu loại**, vì ba lý do cộng lại: phải nhìn **nhiều bảng**, phải nhìn **nhiều dòng**, và phải **tính toán** chứ không chỉ so sánh. Hệ quản trị không có cơ chế khai báo nào cho nó. Ba lý do ấy hiện rõ khi kiểm tra R6 bằng tay trên dữ liệu.
 
@@ -82,9 +82,10 @@ flowchart LR
     U["Người dùng yêu cầu<br/><b>THÊM một dòng</b><br/>vào GHIDANH"] --> T["<b>TRIGGER</b><br/>tự động kích hoạt<br/>─────────<br/>đếm số ghi danh<br/>của lớp đó,<br/>so với sức chứa"]
     T -->|"còn chỗ"| OK["<b>Cho phép</b><br/>dòng được ghi vào"]
     T -->|"đã đầy"| NO["<b>Từ chối</b><br/>báo lỗi, hủy thao tác"]
-    style T fill:#1F4E79,color:#fff,stroke:#1F4E79,stroke-width:2px
-    style OK fill:#E2F0D9,stroke:#548235
-    style NO fill:#FFD9D9,stroke:#C00000
+    style U fill:#D9E2F3,stroke:#1F4E79,color:#111111
+    style T fill:#1F4E79,color:#ffffff,stroke:#1F4E79,stroke-width:2px
+    style OK fill:#E2F0D9,stroke:#548235,color:#111111
+    style NO fill:#FFD9D9,stroke:#C00000,color:#111111
 ```
 
 Ý tưởng cốt lõi của trigger là: **nó nằm trong cơ sở dữ liệu, nên nó bảo vệ được cả năm cửa ở Hình 4.2**. Đây chính là điểm khác biệt so với việc viết cùng logic ấy trong mã nguồn ứng dụng.

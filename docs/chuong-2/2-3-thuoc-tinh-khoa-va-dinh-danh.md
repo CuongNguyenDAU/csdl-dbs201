@@ -63,10 +63,6 @@ Khi chọn thuộc tính khóa, người thiết kế đứng trước hai lựa
 | **Rủi ro riêng tư** | Số căn cước lan sang mọi bảng tham chiếu | Không lộ thông tin gì |
 | **Kiểm tra trùng lặp** | Tự nhiên phát hiện được người trùng | Có thể tạo **hai bản ghi cho cùng một người** mà không biết |
 
-![](../hinh-ve/slide/internet/phieu_so_thu_tu.jpg){width=45%}
-
-*Ảnh minh họa: máy phát số thứ tự xếp hàng. Con số trên phiếu không nói gì về người cầm nó, nhưng suốt buổi không ai có số trùng — hình ảnh gần nhất của khóa thay thế — Nguồn: Wikimedia Commons · Hugh Llewelyn · CC BY-SA 2.0.*
-
 Kinh nghiệm thực tiễn dẫn tới một khuyến nghị khá thống nhất: **ưu tiên khóa thay thế cho khóa chính, đồng thời vẫn khai báo khóa tự nhiên như một ràng buộc duy nhất**. Cách làm này gộp được ưu điểm của cả hai — khóa chính ngắn gọn và bất biến để các bảng khác tham chiếu, còn tính duy nhất theo nghiệp vụ vẫn được hệ quản trị bảo vệ.
 
 Lý do quyết định nằm ở cột **tính ổn định**. Khóa chính là thứ mà mọi bảng khác tham chiếu tới; nếu nó thay đổi, toàn bộ tham chiếu phải sửa theo. Mà thuộc tính nghiệp vụ thì **luôn có khả năng thay đổi** — điều mà người thiết kế ở thời điểm đầu dự án thường tin chắc là không bao giờ xảy ra.
@@ -93,18 +89,7 @@ Trường hợp điển hình là thực thể `GHIDANH` của Trung tâm ABC. M
 
 **Hình 2.6. Thuộc tính khóa phức hợp của `GHIDANH` — hai oval cùng gạch chân**
 
-```mermaid
-flowchart LR
-    K1(["<u>MAHV</u>"]) --- GD["GHIDANH"]
-    K2(["<u>MALOP</u>"]) --- GD
-    GD --- A1(["NGAYGHIDANH"])
-    GD --- A2(["HOCPHI"])
-    style GD fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
-    style K1 fill:#fff,stroke:#1F4E79
-    style K2 fill:#fff,stroke:#1F4E79
-    style A1 fill:#fff,stroke:#1F4E79
-    style A2 fill:#fff,stroke:#1F4E79
-```
+![](../hinh-ve/chen/C2_hinh06_khoa_phuc_hop.png)
 
 Ở đây `GHIDANH` tạm vẽ như một thực thể bình thường; đến mục 2.6.4 ta sẽ thấy nó thật ra là **thực thể kết hợp** sinh ra từ một liên kết nhiều–nhiều, và khi ấy nó được vẽ chữ nhật hai viền.
 

@@ -26,9 +26,10 @@ flowchart LR
     C --> Q{"<b>Thao tác này có thể biến điều kiện<br/>từ ĐÚNG thành SAI không?</b>"}
     Q -->|"CÓ"| P["<b>dấu +</b><br/><i>phải đặt chốt kiểm tra</i>"]
     Q -->|"KHÔNG"| M["<b>dấu −</b><br/><i>bỏ qua được</i>"]
-    style Q fill:#1F4E79,color:#fff,stroke:#1F4E79,stroke-width:2px
-    style P fill:#FFD9D9,stroke:#C00000
-    style M fill:#E2F0D9,stroke:#548235
+    style C fill:#D9E2F3,stroke:#1F4E79,color:#111111
+    style Q fill:#1F4E79,color:#ffffff,stroke:#1F4E79,stroke-width:2px
+    style P fill:#FFD9D9,stroke:#C00000,color:#111111
+    style M fill:#E2F0D9,stroke:#548235,color:#111111
 ```
 
 Điểm cần nhấn mạnh: **giả thiết ngầm là điều kiện đang đúng trước thao tác**. Câu hỏi không phải *"thao tác này có làm dữ liệu sai không"* mà là *"nếu dữ liệu đang đúng, thao tác này có thể phá vỡ nó không"*.
@@ -88,9 +89,9 @@ flowchart LR
     CON["<b>BẢNG CON</b><br/>chứa <b>khóa ngoại</b><br/>(GHIDANH)<br/>─────────<br/>nguy hiểm khi <b>THÊM</b>"] -->|"khóa ngoại trỏ tới"| CHA["<b>BẢNG CHA</b><br/>chứa <b>khóa chính</b><br/>được trỏ tới<br/>(HOCVIEN)<br/>─────────<br/>nguy hiểm khi <b>XÓA</b>"]
     T["<b>THÊM ở CON — XÓA ở CHA</b><br/><i>cộng thêm: sửa khóa ở cả hai bên</i>"]
     CHA ~~~ T
-    style T fill:#1F4E79,color:#fff,stroke:#1F4E79,stroke-width:2px
-    style CHA fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
-    style CON fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
+    style T fill:#1F4E79,color:#ffffff,stroke:#1F4E79,stroke-width:2px
+    style CHA fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px,color:#111111
+    style CON fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px,color:#111111
 ```
 
 Lý do đằng sau câu thần chú rất trực quan. Thêm vào bảng con là **tạo ra một mũi tên mới** — mũi tên ấy có thể trỏ vào chỗ trống. Xóa ở bảng cha là **rút đi cái đích** — các mũi tên đang trỏ tới bỗng treo lơ lửng. Hai thao tác còn lại thì ngược lại: thêm vào cha là *tạo thêm đích*, xóa ở con là *bớt mũi tên* — cả hai đều chỉ làm tình hình an toàn hơn.

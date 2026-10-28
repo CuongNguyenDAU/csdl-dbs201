@@ -12,14 +12,14 @@ flowchart LR
     E2["<b>2 liên kết 1:M</b><br/>KHOAHOC–LOP<br/>GIAOVIEN–LOP"] -->|"QT3"| R2["<b>2 cột khóa ngoại</b><br/>đặt trong bảng LOP<br/>MAKH · MAGV"]
     E3["<b>1 thực thể yếu</b><br/>DIENTHOAI"] -->|"mục 3.4.3"| R3["<b>1 bảng</b><br/>khóa phức hợp<br/>(MAHV, SODT)"]
     E4["<b>2 thực thể kết hợp</b><br/>GHIDANH · TIENQUYET"] -->|"QT4"| R4["<b>2 bảng</b><br/>khóa phức hợp<br/>2 khóa ngoại mỗi bảng"]
-    style E1 fill:#D9E2F3,stroke:#1F4E79
-    style E2 fill:#D9E2F3,stroke:#1F4E79
-    style E3 fill:#FFF2CC,stroke:#C00000
-    style E4 fill:#FFF2CC,stroke:#C00000
-    style R1 fill:#E2F0D9,stroke:#548235
-    style R2 fill:#E2F0D9,stroke:#548235
-    style R3 fill:#E2F0D9,stroke:#548235
-    style R4 fill:#E2F0D9,stroke:#548235
+    style E1 fill:#D9E2F3,stroke:#1F4E79,color:#111111
+    style E2 fill:#D9E2F3,stroke:#1F4E79,color:#111111
+    style E3 fill:#FFF2CC,stroke:#C00000,color:#111111
+    style E4 fill:#FFF2CC,stroke:#C00000,color:#111111
+    style R1 fill:#E2F0D9,stroke:#548235,color:#111111
+    style R2 fill:#E2F0D9,stroke:#548235,color:#111111
+    style R3 fill:#E2F0D9,stroke:#548235,color:#111111
+    style R4 fill:#E2F0D9,stroke:#548235,color:#111111
 ```
 
 **Bảng 3.27. Ánh xạ từng thành phần**
@@ -40,51 +40,7 @@ flowchart LR
 
 **Hình 3.14. Lược đồ quan hệ của Trung tâm Anh ngữ ABC — bảy bảng**
 
-```mermaid
-erDiagram
-    KHOAHOC ||--o{ LOP : "MAKH"
-    GIAOVIEN ||--o{ LOP : "MAGV"
-    HOCVIEN ||--o{ DIENTHOAI : "MAHV"
-    HOCVIEN ||--o{ GHIDANH : "MAHV"
-    LOP ||--o{ GHIDANH : "MALOP"
-    KHOAHOC ||--o{ TIENQUYET : "MAKH_truoc"
-    KHOAHOC ||--o{ TIENQUYET : "MAKH_sau"
-    GIAOVIEN {
-        string MAGV PK
-        string HOTEN_GV
-        string BANGCAP
-    }
-    KHOAHOC {
-        string MAKH PK
-        string TENKH
-    }
-    LOP {
-        string MALOP PK
-        string TENLOP
-        date NGAYKG
-        string MAGV FK
-        string MAKH FK
-    }
-    HOCVIEN {
-        string MAHV PK
-        string HOTEN
-        date NGAYSINH
-    }
-    DIENTHOAI {
-        string MAHV PK
-        string SODT PK
-    }
-    GHIDANH {
-        string MAHV PK
-        string MALOP PK
-        date NGAYGHIDANH
-        int HOCPHI
-    }
-    TIENQUYET {
-        string MAKH_truoc PK
-        string MAKH_sau PK
-    }
-```
+![](../hinh-ve/chen/C3_hinh14_luoc_do_quan_he_abc.png)
 
 ## 3.8.3. Kiểm tra toàn vẹn trên lược đồ
 

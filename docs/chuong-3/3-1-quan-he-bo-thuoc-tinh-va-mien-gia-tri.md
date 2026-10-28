@@ -105,10 +105,6 @@ Hai đặc trưng được đánh dấu sao đáng dừng lại phân tích, vì
 
 **Đặc trưng 4 — mỗi ô một giá trị đơn.** Người học đã gặp nguyên tắc này ở Chương 2 mà chưa biết tên nó. Chính vì nguyên tắc này mà cách nhồi ba số điện thoại vào một ô bị bác bỏ ở mục 2.2.4. Hôm nay ta gọi đúng tên, và ở mục 3.4.2 sẽ dùng nó thêm một lần nữa để **chứng minh** vì sao khóa ngoại bắt buộc phải đặt ở phía "nhiều". Ở Chương 5, nguyên tắc này sẽ được nâng lên thành **dạng chuẩn 1**.
 
-![](../hinh-ve/slide/internet/bo_bai_xao.jpg){width=50%}
-
-*Ảnh minh họa: máy xáo bài. Sau khi xáo, không có khái niệm "lá thứ năm"; muốn lấy một lá phải gọi tên nó. Bảng quan hệ là một tập hợp, cũng không có thứ tự — muốn lấy một dòng phải gọi bằng giá trị khóa — Nguồn: Wikimedia Commons · thekirbster · CC BY 2.0.*
-
 **Đặc trưng 7 — thứ tự không quan trọng.** Đây là đặc trưng nghe lạ nhất với người quen dùng bảng tính, nên cần một bảng đối chiếu.
 
 **Bảng 3.6. Bảng tính và bảng quan hệ — hai cách nghĩ về "vị trí"**
@@ -141,18 +137,18 @@ flowchart LR
     R3 ~~~ E5
     R2 ~~~ E4
     R4 ~~~ E6
-    style E1 fill:#D9E2F3,stroke:#1F4E79
-    style E2 fill:#D9E2F3,stroke:#1F4E79
-    style E3 fill:#D9E2F3,stroke:#1F4E79
-    style E4 fill:#D9E2F3,stroke:#1F4E79
-    style E5 fill:#D9E2F3,stroke:#1F4E79
-    style E6 fill:#D9E2F3,stroke:#1F4E79
-    style R1 fill:#E2F0D9,stroke:#548235
-    style R2 fill:#E2F0D9,stroke:#548235
-    style R3 fill:#E2F0D9,stroke:#548235
-    style R4 fill:#E2F0D9,stroke:#548235
-    style R5 fill:#FFF2CC,stroke:#C00000,stroke-width:2px
-    style R6 fill:#FFF2CC,stroke:#C00000,stroke-width:2px
+    style E1 fill:#D9E2F3,stroke:#1F4E79,color:#111111
+    style E2 fill:#D9E2F3,stroke:#1F4E79,color:#111111
+    style E3 fill:#D9E2F3,stroke:#1F4E79,color:#111111
+    style E4 fill:#D9E2F3,stroke:#1F4E79,color:#111111
+    style E5 fill:#D9E2F3,stroke:#1F4E79,color:#111111
+    style E6 fill:#D9E2F3,stroke:#1F4E79,color:#111111
+    style R1 fill:#E2F0D9,stroke:#548235,color:#111111
+    style R2 fill:#E2F0D9,stroke:#548235,color:#111111
+    style R3 fill:#E2F0D9,stroke:#548235,color:#111111
+    style R4 fill:#E2F0D9,stroke:#548235,color:#111111
+    style R5 fill:#FFF2CC,stroke:#C00000,stroke-width:2px,color:#111111
+    style R6 fill:#FFF2CC,stroke:#C00000,stroke-width:2px,color:#111111
 ```
 
 Bốn dòng đầu là phép dịch **một–một**, gần như đổi tên. Hai dòng cuối, được tô đậm, là chỗ **phép dịch không còn máy móc**: một liên kết ở Chương 2 không biến thành một bảng, mà biến thành **một cột khóa ngoại** hoặc **một bảng hoàn toàn mới**. Đó là nội dung chính của mục 3.4.

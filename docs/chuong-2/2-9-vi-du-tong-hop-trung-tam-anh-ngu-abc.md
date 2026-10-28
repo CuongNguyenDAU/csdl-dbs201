@@ -36,37 +36,7 @@ Vẽ theo ký pháp Chen, bốn thực thể này cùng thuộc tính của chú
 
 **Hình 2.25. Bước 1–2 — bốn thực thể với thuộc tính, ký pháp Chen**
 
-```mermaid
-flowchart TB
-    A1(["<u>MAGV</u>"]) --- GV["GIAOVIEN"]
-    A2(["HOTEN_GV"]) --- GV
-    GV --- A3(["BANGCAP"])
-    B1(["<u>MALOP</u>"]) --- LOP["LOP"]
-    B2(["TENLOP"]) --- LOP
-    LOP --- B3(["NGAYKG"])
-    C1(["<u>MAHV</u>"]) --- HV["HOCVIEN"]
-    C2(["HOTEN"]) --- HV
-    HV --- C3(["NGAYSINH"])
-    HV --- C4(["SDT"])
-    D1(["<u>MAKH</u>"]) --- KH["KHOAHOC"]
-    KH --- D2(["TENKH"])
-    style GV fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
-    style LOP fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
-    style HV fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
-    style KH fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
-    style A1 fill:#fff,stroke:#1F4E79
-    style A2 fill:#fff,stroke:#1F4E79
-    style A3 fill:#fff,stroke:#1F4E79
-    style B1 fill:#fff,stroke:#1F4E79
-    style B2 fill:#fff,stroke:#1F4E79
-    style B3 fill:#fff,stroke:#1F4E79
-    style C1 fill:#fff,stroke:#1F4E79
-    style C2 fill:#fff,stroke:#1F4E79
-    style C3 fill:#fff,stroke:#1F4E79
-    style C4 fill:#fff,stroke:#C00000,stroke-width:4px
-    style D1 fill:#fff,stroke:#1F4E79
-    style D2 fill:#fff,stroke:#1F4E79
-```
+![](../hinh-ve/chen/C2_hinh25_abc_buoc1_2.png)
 
 !!! warning "Chú ý"
 
@@ -85,37 +55,7 @@ Nối các hình thoi liên kết vào lược đồ Chen, ta được bức tra
 
 **Hình 2.26. Bước 3 — thêm liên kết và lực lượng, ký pháp Chen**
 
-```mermaid
-flowchart LR
-    KH["KHOAHOC"] ---|"(0, N)"| R1{"mở"}
-    R1 ---|"(1, 1)"| LOP["LOP"]
-    GV["GIAOVIEN"] ---|"(0, N)"| R2{"phụ trách"}
-    R2 ---|"(1, 1)"| LOP
-    HV["HOCVIEN"] ---|"M"| R3{"ghi danh"}
-    R3 ---|"N"| LOP
-    R3 --- X1(["NGAYGHIDANH"])
-    R3 --- X2(["HOCPHI"])
-    KH ---|"M khóa trước"| R4{"là tiên quyết của"}
-    R4 -----|"N khóa sau"| KH
-    K1(["<u>MAKH</u>"]) --- KH
-    K2(["<u>MALOP</u>"]) --- LOP
-    K3(["<u>MAGV</u>"]) --- GV
-    K4(["<u>MAHV</u>"]) --- HV
-    style X1 fill:#fff,stroke:#C00000
-    style X2 fill:#fff,stroke:#C00000
-    style KH fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
-    style LOP fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
-    style GV fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
-    style HV fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
-    style R1 fill:#E2F0D9,stroke:#548235
-    style R2 fill:#E2F0D9,stroke:#548235
-    style R3 fill:#FFD9D9,stroke:#C00000,stroke-width:2px
-    style R4 fill:#FFD9D9,stroke:#C00000,stroke-width:2px
-    style K1 fill:#fff,stroke:#1F4E79
-    style K2 fill:#fff,stroke:#1F4E79
-    style K3 fill:#fff,stroke:#1F4E79
-    style K4 fill:#fff,stroke:#1F4E79
-```
+![](../hinh-ve/chen/C2_hinh26_abc_buoc3.png)
 
 Hai hình thoi tô đỏ là hai liên kết **M:N** — chúng chính là danh sách việc phải làm ở Bước 4. Hai thuộc tính `NGAYGHIDANH`, `HOCPHI` của quy tắc 5 đang **treo trên hình thoi** *"ghi danh"* *(viền đỏ)*: ký pháp Chen cho phép vẽ như vậy, nhưng mô hình quan hệ ở Chương 3 **không có bảng nào để chứa chúng** chừng nào liên kết M:N chưa được tách. Lược đồ hiện tại vì thế **chưa dùng được**.
 
@@ -137,45 +77,7 @@ Lược đồ cuối cùng được trình bày bằng **cả hai ký pháp**, v
 
 *(chỉ hiện thuộc tính khóa; danh sách thuộc tính đầy đủ xem Hình 2.28)*
 
-```mermaid
-flowchart LR
-    KH["KHOAHOC"] ---|"(0, N)"| R1{"mở"}
-    R1 ---|"(1, 1)"| LOP["LOP"]
-    GV["GIAOVIEN"] ---|"(0, N)"| R2{"phụ trách"}
-    R2 ---|"(1, 1)"| LOP
-    HV["HOCVIEN"] ---|"(0, N)"| R3{"ghi danh"}
-    R3 ---|"(1, 1)"| GD[["GHIDANH"]]
-    LOP ---|"(0, N)"| R4{"nhận"}
-    R4 ---|"(1, 1)"| GD
-    HV ---|"(0, N)"| R5{"có"}
-    R5 ---|"(1, 1)"| DT[["DIENTHOAI"]]
-    KH ---|"(0, N) khóa trước"| R6{"đi trước"}
-    R6 ---|"(1, 1)"| TQ[["TIENQUYET"]]
-    KH ---|"(0, N) khóa sau"| R7{"đi sau"}
-    R7 ---|"(1, 1)"| TQ
-    K1(["<u>MAKH</u>"]) --- KH
-    K2(["<u>MALOP</u>"]) --- LOP
-    K3(["<u>MAGV</u>"]) --- GV
-    K4(["<u>MAHV</u>"]) --- HV
-    style KH fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
-    style LOP fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
-    style GV fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
-    style HV fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
-    style GD fill:#FFF2CC,stroke:#C00000,stroke-width:3px
-    style DT fill:#FFF2CC,stroke:#C00000,stroke-width:3px
-    style TQ fill:#FFF2CC,stroke:#C00000,stroke-width:3px
-    style R1 fill:#E2F0D9,stroke:#548235
-    style R2 fill:#E2F0D9,stroke:#548235
-    style R3 fill:#E2F0D9,stroke:#548235,stroke-width:3px
-    style R4 fill:#E2F0D9,stroke:#548235,stroke-width:3px
-    style R5 fill:#E2F0D9,stroke:#548235,stroke-width:3px
-    style R6 fill:#E2F0D9,stroke:#548235,stroke-width:3px
-    style R7 fill:#E2F0D9,stroke:#548235,stroke-width:3px
-    style K1 fill:#fff,stroke:#1F4E79
-    style K2 fill:#fff,stroke:#1F4E79
-    style K3 fill:#fff,stroke:#1F4E79
-    style K4 fill:#fff,stroke:#1F4E79
-```
+![](../hinh-ve/chen/C2_hinh27_abc_chen_hoan_chinh.png)
 
 So sánh Hình 2.27 với Hình 2.26 cho thấy rõ tác dụng của Bước 4. **Hai hình thoi đỏ M:N đã biến mất**, thay vào đó là ba **thực thể yếu hoặc kết hợp** *(vẽ chữ nhật hai viền)* nối qua các **liên kết định danh** *(hình thoi hai viền)*. Riêng `TIENQUYET` nối về `KHOAHOC` bằng **hai** liên kết định danh mang hai vai trò — dấu vết của liên kết đệ quy. Mọi liên kết còn lại đều là **1:M** — dạng duy nhất mà mô hình quan hệ ở Chương 3 biểu diễn được trực tiếp.
 
@@ -183,51 +85,7 @@ Cùng lược đồ ấy trình bày theo Crow's Foot thì gọn hơn nhiều v�
 
 **Hình 2.28. Lược đồ ER của Trung tâm Anh ngữ ABC — ký pháp Crow's Foot**
 
-```mermaid
-erDiagram
-    KHOAHOC ||--o{ LOP : "mở"
-    GIAOVIEN ||--o{ LOP : "phụ trách"
-    HOCVIEN ||--o{ DIENTHOAI : "có"
-    HOCVIEN ||--o{ GHIDANH : "ghi danh"
-    LOP ||--o{ GHIDANH : "nhận"
-    KHOAHOC ||--o{ TIENQUYET : "là khóa trước"
-    KHOAHOC ||--o{ TIENQUYET : "là khóa sau"
-    GIAOVIEN {
-        string MAGV PK
-        string HOTEN_GV
-        string BANGCAP
-    }
-    KHOAHOC {
-        string MAKH PK
-        string TENKH
-    }
-    LOP {
-        string MALOP PK
-        string TENLOP
-        date NGAYKG
-        string MAGV FK
-        string MAKH FK
-    }
-    HOCVIEN {
-        string MAHV PK
-        string HOTEN
-        date NGAYSINH
-    }
-    DIENTHOAI {
-        string MAHV PK
-        string SODT PK
-    }
-    GHIDANH {
-        string MAHV PK
-        string MALOP PK
-        date NGAYGHIDANH
-        int HOCPHI
-    }
-    TIENQUYET {
-        string MAKH_truoc PK
-        string MAKH_sau PK
-    }
-```
+![](../hinh-ve/chen/C2_hinh28_abc_crowsfoot_hoan_chinh.png)
 
 **Bảng 2.20. Bảy thực thể của lược đồ cuối cùng**
 

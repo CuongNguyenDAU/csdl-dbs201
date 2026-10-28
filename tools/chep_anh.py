@@ -70,7 +70,9 @@ def main():
         print("Không thấy thư mục nguồn: %s" % src_dir)
         return 1
     thieu, tong = [], 0
-    for r in anh_tham_chieu():
+    refs = anh_tham_chieu()
+    giu_norm = {os.path.normpath(os.path.join(DICH, r)) for r in refs}
+    for r in refs:
         src, dst = os.path.join(src_dir, r), os.path.join(DICH, r)
         if not os.path.exists(src):
             thieu.append(r)
@@ -79,6 +81,12 @@ def main():
         kb = os.path.getsize(dst) / 1024.0
         tong += kb
         print("  %-4s %-48s %6.0f KB" % (kq, r, kb))
+    for thu_muc, _, files in os.walk(DICH):
+        for f in files:
+            p = os.path.normpath(os.path.join(thu_muc, f))
+            if p not in giu_norm:
+                os.remove(p)
+                print("  xóa  %s" % os.path.relpath(p, DICH).replace("\\", "/"))
     print("Tổng %.1f MB trong docs/hinh-ve" % (tong / 1024.0))
     if thieu:
         print("THIẾU %d ảnh trong nguồn:" % len(thieu))

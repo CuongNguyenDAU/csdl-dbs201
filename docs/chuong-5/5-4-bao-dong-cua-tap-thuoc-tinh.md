@@ -2,129 +2,265 @@
 
 *(1,5 tiết)*
 
-Đây là **công cụ trung tâm** của cả chương. Hầu hết mọi thứ sau đó — tìm khóa, xét dạng chuẩn, kiểm tra bảo toàn thông tin — đều quy về việc tính bao đóng.
+Ở mục 5.3.6, ta đã thấy hạn chế của việc suy diễn bằng tay theo hệ luật Armstrong: muốn chứng minh `X → Y` **đúng** thì chỉ cần nối được một chuỗi từ `X` sang `Y`, nhưng muốn khẳng định `X → Y` **không suy ra được** thì không thể nói *"vì tôi tìm mãi chưa ra cách nối"*. Ta cần một thủ tục máy móc, hữu hạn bước, gom **tất cả** những thuộc tính có thể suy ra từ `X` vào một chiếc túi duy nhất. Chiếc túi ấy được gọi là **bao đóng của tập thuộc tính `X`**, và đây là **công cụ trung tâm** của cả chương: tìm khóa *(mục 5.5)*, rút gọn phủ tối thiểu *(mục 5.6)*, xét dạng chuẩn *(mục 5.7)* và kiểm tra phép tách *(mục 5.8)* đều quy về phép tính này.
 
-## 5.4.1. Định nghĩa và thuật toán
+## 5.4.1. Ý tưởng trực giác và định nghĩa
 
-!!! note "Định nghĩa 5.6"
+Hãy hình dung mỗi thuộc tính là một căn phòng, và mỗi phụ thuộc hàm `A → B` là một cánh cửa một chiều: hễ đã có chìa khóa vào đủ các phòng trong `A`, ta mở được cửa để lấy thêm chìa khóa của các phòng trong `B`. Xuất phát từ chùm chìa khóa ban đầu `X`, ta mở hết mọi cánh cửa có thể mở, lấy chìa mới rồi lại đi mở tiếp các cửa khác cho tới khi không mở thêm được cánh cửa nào nữa. Tập hợp tất cả các phòng mở được khi dừng lại chính là `X⁺`.
 
-    **Bao đóng** của tập thuộc tính `X` đối với tập phụ thuộc hàm `F`, ký hiệu **`X⁺`**, là **tập tất cả các thuộc tính suy ra được từ `X`** nhờ `F`.
+!!! note "Định nghĩa 5.6 (Bao đóng của tập thuộc tính)"
 
-**Thuật toán tính `X⁺`:**
+    Cho lược đồ quan hệ `R` và tập phụ thuộc hàm `F`. **Bao đóng** của tập thuộc tính `X` đối với `F`, ký hiệu **`X⁺`** *(hoặc `X⁺_F` khi cần chỉ rõ tập phụ thuộc đang dùng)*, là **tập hợp tất cả các thuộc tính `A` của `R` sao cho phụ thuộc hàm `X → A` suy ra được từ `F` bằng hệ luật dẫn Armstrong**:
+
+    `X⁺ = { A ∈ R  |  F ⊢ X → A }`
+
+Từ định nghĩa và hệ luật Armstrong, ta rút ra ngay ba tính chất nền tảng của `X⁺`:
+
+- **Tính phản xạ (luôn chứa điểm xuất phát):** `X ⊆ X⁺` *(do luật phản xạ `X → X`, mọi thuộc tính trong `X` đều có mặt trong `X⁺` ngay từ đầu)*.
+- **Tính đơn điệu (thêm đầu vào thì kết quả không bao giờ nhỏ đi):** nếu `X ⊆ Y` thì `X⁺ ⊆ Y⁺`.
+- **Tính đóng (lấy bao đóng hai lần không thêm được gì mới):** `(X⁺)⁺ = X⁺`.
+
+## 5.4.2. Thuật toán tính bao đóng `X⁺` ("lăn quả cầu tuyết")
+
+Để tính `X⁺` trên giấy cũng như trên máy tính, ta xuất phát từ tập kết quả ban đầu bằng chính `X`, rồi quét qua tập phụ thuộc hàm `F` nhiều vòng để nạp dần các thuộc tính mới.
 
 ```
-BƯỚC 1.  Khởi tạo:  X⁺ ← X
-BƯỚC 2.  Lặp lại cho tới khi X⁺ không đổi:
-             với mỗi phụ thuộc  A → B  trong F
-                 NẾU  A ⊆ X⁺  THÌ  X⁺ ← X⁺ ∪ B
-BƯỚC 3.  Trả về X⁺
+THUẬT TOÁN TÍNH BAO ĐÓNG X⁺ (với tập phụ thuộc hàm F):
+────────────────────────────────────────────────────────────────────
+Đầu vào : Tập thuộc tính X và tập phụ thuộc hàm F trên lược đồ R.
+Đầu ra  : Bao đóng X⁺.
+
+BƯỚC 1 (Khởi tạo):
+    Đặt  X⁽⁰⁾ ← X      (mọi thuộc tính trong X đều hiển nhiên biết trước)
+
+BƯỚC 2 (Lặp mở rộng — "lăn quả cầu tuyết"):
+    Lặp lại với k = 1, 2, ... cho tới khi không thêm được thuộc tính mới:
+        Xét lần lượt từng phụ thuộc hàm  U → V  trong F:
+            NẾU  U ⊆ X⁺ hiện tại   (vế trái đã nằm trọn trong túi)
+            THÌ  X⁺ ← X⁺ ∪ V       (bỏ toàn bộ vế phải V vào túi)
+
+BƯỚC 3 (Dừng và kết luận):
+    Khi quét trọn một vòng qua toàn bộ F mà X⁺ không đổi (hoặc khi X⁺ = R),
+    dừng thuật toán và trả về X⁺.
 ```
 
-**Hình 5.4. Bao đóng — phép loại suy quả cầu tuyết**
+> **Vì sao thuật toán luôn dừng sau hữu hạn bước?** Mỗi lần cập nhật thật sự ở Bước 2 phải nạp thêm ít nhất một thuộc tính mới lấy từ tập thuộc tính hữu hạn của `R`. Nếu lược đồ `R` có `n` thuộc tính và `|X| = m`, quả cầu tuyết chỉ có thể nở thêm tối đa `n − m` lần trước khi chạm trần `R` hoặc không còn phụ thuộc nào kích hoạt được nữa.
+
+**Hình 5.4. Thuật toán tính bao đóng `X⁺` — phép loại suy lăn quả cầu tuyết trên lược đồ Trung tâm ABC**
 
 ```mermaid
 flowchart LR
-    S["<b>Khởi đầu</b><br/>X = {MAHV, MALOP}<br/><i>quả cầu tuyết nhỏ</i>"] --> A["+ HOTEN<br/><i>nhờ MAHV → HOTEN</i>"]
-    A --> B["+ TENLOP, MAGV<br/><i>nhờ MALOP → TENLOP, MAGV</i>"]
-    B --> C["+ HOTEN_GV<br/><i>nhờ MAGV → HOTEN_GV</i><br/><b>dây chuyền</b>"]
-    C --> D["<b>+ HOCPHI</b><br/>= TOÀN BỘ thuộc tính<br/><i>quả cầu không lăn thêm được</i>"]
-    style S fill:#D9E2F3,stroke:#1F4E79
-    style C fill:#FFF2CC,stroke:#C00000
-    style D fill:#E2F0D9,stroke:#548235,stroke-width:2px
+    S["<b>Bước 0 · Khởi tạo</b><br/>X⁽⁰⁾ = {MAHV, MALOP}<br/><i>quả cầu tuyết ban đầu</i>"] --> A["<b>Bước 1 · Áp MAHV → HOTEN</b><br/>Vì {MAHV} ⊆ X⁽⁰⁾<br/>→ nạp thêm <b>HOTEN</b>"]
+    A --> B["<b>Bước 2 · Áp MALOP → TENLOP, MAGV</b><br/>Vì {MALOP} ⊆ X⁽¹⁾<br/>→ nạp thêm <b>TENLOP, MAGV</b>"]
+    B --> C["<b>Bước 3 · Áp MAGV → HOTEN_GV</b><br/>Nhờ vừa có MAGV ở Bước 2<br/>→ nạp dây chuyền <b>HOTEN_GV</b>"]
+    C --> D["<b>Bước 4 · Áp (MAHV,MALOP) → HOCPHI</b><br/>Nạp thêm <b>HOCPHI</b><br/>→ X⁺ = <b>TOÀN BỘ 7 thuộc tính</b>"]
+    style S fill:#D9E2F3,color:#111111,stroke:#1F4E79,stroke-width:2px
+    style A fill:#E2F0D9,color:#111111,stroke:#548235,stroke-width:1.5px
+    style B fill:#E2F0D9,color:#111111,stroke:#548235,stroke-width:1.5px
+    style C fill:#FFF2CC,color:#111111,stroke:#C00000,stroke-width:2px
+    style D fill:#1F4E79,color:#ffffff,stroke:#1F4E79,stroke-width:2px
 ```
 
-![](../hinh-ve/slide/internet/qua_cau_tuyet.jpg){width=40%}
+![](../hinh-ve/minh-hoa/C5_mh01_day_chuyen_bao_dong.png){width=85%}
 
-*Ảnh minh họa: cậu bé lăn tuyết đắp người tuyết. Quả cầu bắt đầu từ một nắm nhỏ, lăn tới đâu dính thêm tuyết tới đó, cho tới khi không dính thêm được nữa — thuật toán bao đóng lăn qua từng phụ thuộc hàm đúng như thế — Nguồn: Wikimedia Commons · DPLA · Public domain.*
+*Ảnh minh họa: Cơ chế mở rộng dây chuyền khi tính bao đóng {MALOP}⁺ trên bảng phẳng Trung tâm Anh ngữ ABC — xuất phát từ hạt nhân ban đầu và nạp thêm thuộc tính qua từng vòng quét tập phụ thuộc hàm F — Nguồn: Tác giả tự vẽ.*
 
-Phép loại suy **quả cầu tuyết** nắm đúng bản chất: bắt đầu từ một nhúm nhỏ, lăn qua từng phụ thuộc và **dính thêm** thuộc tính mới, cho tới khi không dính thêm được gì nữa thì dừng.
+Để thấy rõ từng bước trong Hình 5.4 diễn ra như thế nào, bảng dưới đây ghi lại toàn bộ vết chạy thuật toán khi tính `(MAHV, MALOP)⁺` trên bảng phẳng `GHIDANH_PHANG(MAHV, HOTEN, MALOP, TENLOP, MAGV, HOTEN_GV, HOCPHI)` với tập phụ thuộc hàm nghiệp vụ `F = {f₁: MAHV → HOTEN; f₂: MALOP → TENLOP, MAGV; f₃: MAGV → HOTEN_GV; f₄: (MAHV, MALOP) → HOCPHI}`.
 
-!!! warning "Chú ý — điểm dễ sai nhất"
+**Bảng 5.11. Bảng vết từng bước tính `(MAHV, MALOP)⁺` khớp với Hình 5.4**
 
-    Phải **lặp lại nhiều vòng**, không chỉ quét `F` một lượt. Ở Hình 5.4, `HOTEN_GV` chỉ dính vào **sau khi** `MAGV` đã dính — nếu chỉ quét một lượt theo thứ tự viết trong `F`, rất dễ bỏ sót. Cách an toàn là **quét lại từ đầu mỗi khi `X⁺` thay đổi**.
+| Bước | Phụ thuộc đang xét | Kiểm tra điều kiện `Vế trái ⊆ X⁺ hiện tại`? | Thuộc tính mới dính thêm | Tập `X⁺` sau bước này |
+|:--:|---|---|---|---|
+| **0** | *(Khởi tạo)* | — | — | `{MAHV, MALOP}` |
+| **1** | `f₁: MAHV → HOTEN` | `{MAHV} ⊆ {MAHV, MALOP}` (**Đúng**) | `+ HOTEN` | `{MAHV, MALOP, HOTEN}` |
+| **2** | `f₂: MALOP → TENLOP, MAGV` | `{MALOP} ⊆ X⁺` (**Đúng**) | `+ TENLOP, MAGV` | `{MAHV, MALOP, HOTEN, TENLOP, MAGV}` |
+| **3** | `f₃: MAGV → HOTEN_GV` | `{MAGV} ⊆ X⁺` (**Đúng** — nhờ `MAGV` vừa nạp ở bước 2) | `+ HOTEN_GV` | `{MAHV, MALOP, HOTEN, TENLOP, MAGV, HOTEN_GV}` |
+| **4** | `f₄: (MAHV, MALOP) → HOCPHI` | `{MAHV, MALOP} ⊆ X⁺` (**Đúng**) | `+ HOCPHI` | `{MAHV, MALOP, HOTEN, TENLOP, MAGV, HOTEN_GV, HOCPHI}` = **toàn bộ `R` → DỪNG** |
 
-Bảng dưới đây dựng cố tình một `F` viết "ngược thứ tự" để thấy lỗi ấy xảy ra thế nào.
+!!! warning "Chú ý — lỗi sai phổ biến nhất khi tính bao đóng bằng tay"
 
-**Bảng 5.8. Tính `A⁺` với `F = {B → C, A → B}` — quét một lượt thì sót, hai vòng mới đủ**
+    Người mới học rất hay chỉ đọc lướt tập `F` **một lượt duy nhất từ trái sang phải** rồi kết luận. Cách làm ấy sẽ **sai ngay** khi một phụ thuộc hàm đứng đầu danh sách cần đến thuộc tính do phụ thuộc đứng cuối danh sách sinh ra! Ở Bảng 5.11, sở dĩ một vòng đã đủ là vì `f₂` *(sinh ra `MAGV`)* tình cờ được viết trước `f₃` *(dùng `MAGV` để sinh `HOTEN_GV`)*. Nếu đề bài viết `f₃` lên đầu danh sách, ở lượt quét thứ nhất ta chưa có `MAGV` nên phải tạm bỏ qua `f₃`, đợi lấy được `MAGV` rồi **quay lại quét vòng thứ hai** thì `f₃` mới kích hoạt.
 
-| Vòng | Xét phụ thuộc | Vế trái `⊆ X⁺`? | `X⁺` sau bước |
-|:--:|---|:--:|---|
-| — | *khởi tạo* | — | `{A}` |
-| 1 | `B → C` | `B ∉ {A}` → **bỏ qua** | `{A}` |
-| 1 | `A → B` | Có | `{A, B}` |
-| 2 | `B → C` | **Có** *(giờ đã có B)* | `{A, B, C}` |
-| 2 | `A → B` | Có, không thêm gì | `{A, B, C}` |
-| 3 | *quét lại* | — | không đổi → **dừng** |
+Bảng dưới đây minh họa trực diện hiện tượng "phải quét vòng thứ hai" trên một tập `F` chỉ gồm hai phụ thuộc hàm viết ngược thứ tự.
 
-Nếu dừng ngay sau vòng 1, ta kết luận sai `A⁺ = {A, B}` và tưởng `A` không phải siêu khóa của `R(A, B, C)` — trong khi thật ra `A⁺` là toàn bộ lược đồ. Chỉ một dòng bỏ sót ở đây kéo theo sai khóa, sai dạng chuẩn ở các mục sau.
+**Bảng 5.12. Tính `A⁺` với `F = {B → C, A → B}` trên `R(A, B, C)` — quét một lượt thì sót, hai vòng mới đủ**
 
-## 5.4.2. Ví dụ tính từng bước
+| Vòng quét | Phụ thuộc đang xét | Kiểm tra `Vế trái ⊆ X⁺`? | Hành động | `X⁺` sau bước |
+|:--:|---|:--:|---|---|
+| **Khởi tạo** | — | — | Đặt `X⁽⁰⁾ = {A}` | `{A}` |
+| **Vòng 1** | `B → C` | `B ∉ {A}` (**Sai**) | Tạm bỏ qua vì chưa có `B` | `{A}` |
+| **Vòng 1** | `A → B` | `A ∈ {A}` (**Đúng**) | Nạp thêm `B` *(túi `X⁺` vừa thay đổi!)* | `{A, B}` |
+| **Vòng 2** | `B → C` | `B ∈ {A, B}` (**Đúng**) | Nhờ vòng 1 đã nạp `B`, nay mở được cửa sang `C` | `{A, B, C}` |
+| **Vòng 2** | `A → B` | `A ∈ {A, B, C}` (**Đúng**) | `B` đã có sẵn trong túi → không thêm gì | `{A, B, C}` |
+| **Vòng 3** | *(Quét kiểm tra)* | — | Không thuộc tính nào mới *(hoặc đã bằng `R`)* → **DỪNG** | **`{A, B, C}`** |
 
-!!! example "Ví dụ 5.3"
+Nếu vội vàng dừng ngay cuối Vòng 1, ta sẽ kết luận sai `A⁺ = {A, B}`, từ đó trả lời sai rằng `A → C` không suy ra được và `A` không phải siêu khóa của `R(A, B, C)`. Quy tắc an toàn tuyệt đối là: **hễ trong vòng vừa qua có nạp thêm dù chỉ một thuộc tính mới (và `X⁺` chưa phủ hết `R`), bắt buộc phải quét lại từ đầu**.
 
-    Cho `R(A, B, C, D)` và `F = {A → B, B → C, CD → A}`. Tính `(AD)⁺`.
+## 5.4.3. Hai cách trình bày bài giải và các ví dụ tính từng bước
 
-    | Vòng | Xét phụ thuộc | `A ⊆ X⁺`? | `X⁺` sau bước |
-    |:--:|---|:--:|---|
-    | — | *khởi tạo* | — | `{A, D}` |
-    | 1 | `A → B` | Có | `{A, B, D}` |
-    | 1 | `B → C` | Có | `{A, B, C, D}` |
-    | 1 | `CD → A` | Có | `{A, B, C, D}` *(không đổi)* |
-    | 2 | *quét lại toàn bộ* | — | `{A, B, C, D}` *(không đổi → dừng)* |
+Trong bài kiểm tra và thi tự luận, tùy yêu cầu của câu hỏi mà người học có thể trình bày phép tính bao đóng theo **hai cách** đều được chấp nhận:
 
-    Vậy `(AD)⁺ = {A, B, C, D}` = toàn bộ thuộc tính, nên `AD` là **siêu khóa**.
+1. **Cách 1 — Trình bày dạng bảng theo vòng lặp** *(như Bảng 5.12)*: dùng khi đề bài yêu cầu *"Tính bao đóng `X⁺`, ghi rõ từng vòng lặp"*.
+2. **Cách 2 — Trình bày dạng chuỗi mở rộng từng bước**: viết gọn trên vài dòng theo mẫu `X⁽⁰⁾ ⊂ X⁽¹⁾ ⊂ X⁽²⁾ …`, dưới mỗi mũi tên ghi rõ phụ thuộc hàm đã áp dụng. Cách này rất nhanh và tiện khi phải tính hàng loạt bao đóng trong bài toán tìm khóa *(mục 5.5)* hoặc tìm phủ tối thiểu *(mục 5.6)*.
 
-## 5.4.3. Hai công dụng của bao đóng
+Hai ví dụ và một bài tập mẫu dưới đây minh họa trọn vẹn cả hai cách trình bày cũng như ba kịch bản kết quả thường gặp: **nở ra toàn bộ lược đồ**, **nở một phần rồi dừng**, và **đứng yên ngay từ bước khởi tạo**.
 
-**Công dụng thứ nhất — kiểm tra một phụ thuộc hàm có suy ra được không.**
+!!! example "Ví dụ 5.6 — Bốn bao đóng trên cùng một lược đồ: nở hết, nở một phần và đứng yên"
 
-> `X → Y` suy ra được từ `F` **khi và chỉ khi** `Y ⊆ X⁺`.
+    Cho lược đồ `R(A, B, C, D)` và tập phụ thuộc hàm `F = {f₁: A → B, f₂: B → C, f₃: CD → A}`. Hãy tính:
 
-Đây là cách kiểm tra **nhanh và chắc chắn**, thay cho việc mò mẫm áp luật Armstrong.
+    a) `(AD)⁺` bằng bảng từng vòng lặp;
+    b) `(BD)⁺`, `B⁺` và `C⁺` bằng cách viết chuỗi mở rộng từng bước.
 
-**Công dụng thứ hai — kiểm tra một tập thuộc tính có phải siêu khóa không.**
+    *Lời giải câu a — Tính `(AD)⁺` bằng bảng vòng lặp:*
 
-> `X` là **siêu khóa** của `R` **khi và chỉ khi** `X⁺` = **toàn bộ** tập thuộc tính của `R`.
+    | Vòng | Phụ thuộc xét | Kiểm tra `Vế trái ⊆ X⁺`? | Thuộc tính mới | Tập `X⁺` sau bước |
+    |:--:|---|:--:|:--:|---|
+    | **0** | *(Khởi tạo)* | — | — | `{A, D}` |
+    | **1** | `f₁: A → B` | `{A} ⊆ {A, D}` (**Có**) | `+ B` | `{A, B, D}` |
+    | **1** | `f₂: B → C` | `{B} ⊆ {A, B, D}` (**Có**) | `+ C` | `{A, B, C, D}` |
+    | **1** | `f₃: CD → A` | `{C, D} ⊆ {A, B, C, D}` (**Có**) | không thêm | `{A, B, C, D}` |
+    | **2** | *(Quét kiểm tra)* | Đã bằng toàn bộ `R(A, B, C, D)` | — | **Dừng:** `(AD)⁺ = {A, B, C, D}` |
 
-Công dụng này là nền tảng của thuật toán tìm khóa ở mục 5.5.
+    *Lời giải câu b — Tính `(BD)⁺`, `B⁺` và `C⁺` bằng chuỗi mở rộng:*
 
-Cả hai công dụng đều quy về **một phép tính bao đóng rồi một phép so sánh**, như ba câu hỏi dưới đây trên lược đồ của Ví dụ 5.3.
+    - **Tính `(BD)⁺` *(trường hợp phải qua 2 vòng vì `f₃` cần `C`, sau đó quay lại `f₁`)*:**
+      - Khởi tạo: `X⁽⁰⁾ = {B, D}`
+      - Áp `f₂ (B → C)` vì `{B} ⊆ {B, D}`: `X⁽¹⁾ = {B, C, D}`
+      - Áp `f₃ (CD → A)` vì `{C, D} ⊆ {B, C, D}`: `X⁽²⁾ = {A, B, C, D} = R` *(dừng)*
+      - Kết luận: **`(BD)⁺ = {A, B, C, D}`** *(nở ra toàn bộ lược đồ)*.
 
-**Bảng 5.9. Ba câu hỏi, ba bao đóng — `R(A, B, C, D)`, `F = {A → B, B → C, CD → A}`**
+    - **Tính `B⁺` *(trường hợp nở một phần rồi dừng vì thiếu thuộc tính phối hợp)*:**
+      - Khởi tạo: `X⁽⁰⁾ = {B}`
+      - Áp `f₂ (B → C)` vì `{B} ⊆ {B}`: `X⁽¹⁾ = {B, C}`
+      - Xét `f₁ (A → B)`: thiếu `A`; xét `f₃ (CD → A)`: có `C` nhưng **thiếu `D`** nên không kích hoạt được `f₃`!
+      - Kết luận: **`B⁺ = {B, C}`** *(chỉ mở rộng được một phần)*.
 
-| Câu hỏi | Quy về | Tính | So sánh | Kết luận |
+    - **Tính `C⁺` *(trường hợp đứng yên ngay từ đầu)*:**
+      - Khởi tạo: `X⁽⁰⁾ = {C}`
+      - Xét cả ba phụ thuộc: `f₁` cần `A` *(không có)*, `f₂` cần `B` *(không có)*, `f₃` cần cả cặp `CD` *(thiếu `D`)* → không áp dụng được bất kỳ phụ thuộc nào ngay từ vòng 1.
+      - Kết luận: **`C⁺ = {C}`** *(bằng đúng tập khởi tạo)*.
+
+---
+
+### Bài tập mẫu 5.6 — Tính bao đóng trên lược đồ 6 thuộc tính, 8 phụ thuộc hàm (chuẩn bị cho bài thực hành)
+
+**Đề bài.** Cho lược đồ quan hệ `R(A, B, C, D, E, G)` và tập gồm 8 phụ thuộc hàm:
+
+`F = { f₁: AB → C,  f₂: C → A,  f₃: BC → D,  f₄: ACD → B,  f₅: D → EG,  f₆: BE → C,  f₇: CG → BD,  f₈: CE → AG }`
+
+a) Tính bao đóng `(BD)⁺` và cho biết `BD` có phải siêu khóa của `R` không.
+b) Tính bao đóng `(CG)⁺` và `(CE)⁺`.
+c) Từ kết quả câu (a) và (b), không cần áp luật Armstrong, hãy trả lời ngay: `BD → A`, `CG → E` và `CE → D` có suy ra được từ `F` không?
+
+**Lời giải chi tiết.**
+
+*Câu a) Tính `(BD)⁺`:*
+
+| Vòng | Bước | Phụ thuộc áp dụng | Giải thích điều kiện kích hoạt | Tập kết quả `X⁺` |
+|:--:|:--:|---|---|---|
+| **0** | Khởi tạo | — | — | `{B, D}` |
+| **1** | 1 | `f₅: D → EG` | Vì `{D} ⊆ {B, D}`, nạp thêm `E, G` | `{B, D, E, G}` |
+| **1** | 2 | `f₆: BE → C` | Vì `{B, E} ⊆ {B, D, E, G}`, nạp thêm `C` | `{B, C, D, E, G}` |
+| **1** | 3 | `f₈: CE → AG` *(hoặc `f₂: C → A`)* | Vì `{C, E} ⊆ {B, C, D, E, G}`, nạp thêm `A` | `{A, B, C, D, E, G}` |
+| **Dừng** | — | — | Đã thu được đủ cả 6 thuộc tính của `R` | **`(BD)⁺ = {A, B, C, D, E, G} = R`** |
+
+Vì `(BD)⁺ = R`, tập **`BD` là một siêu khóa** của lược đồ `R`.
+
+*Câu b) Tính `(CG)⁺` và `(CE)⁺` theo dạng chuỗi mở rộng:*
+
+- **Tính `(CG)⁺`:**
+  - Khởi tạo: `X⁽⁰⁾ = {C, G}`
+  - Áp `f₂ (C → A)` vì `{C} ⊆ X⁽⁰⁾` ⟹ `X⁽¹⁾ = {A, C, G}`
+  - Áp `f₇ (CG → BD)` vì `{C, G} ⊆ X⁽¹⁾` ⟹ `X⁽²⁾ = {A, B, C, D, G}`
+  - Áp `f₅ (D → EG)` vì `{D} ⊆ X⁽²⁾` ⟹ `X⁽³⁾ = {A, B, C, D, E, G} = R` *(dừng)*.
+  - Vậy **`(CG)⁺ = {A, B, C, D, E, G} = R`** *(suy ra `CG` cũng là một siêu khóa)*.
+
+- **Tính `(CE)⁺`:**
+  - Khởi tạo: `X⁽⁰⁾ = {C, E}`
+  - Áp `f₈ (CE → AG)` vì `{C, E} ⊆ X⁽⁰⁾` ⟹ `X⁽¹⁾ = {A, C, E, G}`
+  - Áp `f₇ (CG → BD)` vì `{C, G} ⊆ X⁽¹⁾` ⟹ `X⁽²⁾ = {A, B, C, D, E, G} = R` *(dừng)*.
+  - Vậy **`(CE)⁺ = {A, B, C, D, E, G} = R`** *(suy ra `CE` cũng là một siêu khóa)*.
+
+*Câu c) Kết luận nhanh về ba phụ thuộc hàm:*
+
+- `BD → A`: vì `A ∈ (BD)⁺` nên **suy ra được**.
+- `CG → E`: vì `E ∈ (CG)⁺` nên **suy ra được**.
+- `CE → D`: vì `D ∈ (CE)⁺` nên **suy ra được**.
+
+---
+
+## 5.4.4. Ba công dụng thực hành của bao đóng `X⁺`
+
+Tại sao bao đóng `X⁺` lại được gọi là "chiếc chìa khóa vạn năng" của Chương 5? Vì ba bài toán cốt lõi nhất của lý thuyết chuẩn hóa đều quy về việc tính bao đóng rồi thực hiện một phép so sánh tập hợp đơn giản.
+
+**Công dụng 1 — Kiểm tra một phụ thuộc hàm `X → Y` có suy ra được từ `F` không:**
+
+> Phụ thuộc hàm `X → Y` suy ra được từ `F` *(tức `X → Y ∈ F⁺`)* **khi và chỉ khi** **`Y ⊆ X⁺`**.
+
+Thay vì phải mò mẫm ghép các luật Armstrong như ở mục 5.3, ta chỉ cần tính `X⁺` một lần: nếu toàn bộ `Y` nằm trong `X⁺` thì trả lời **Có**; nếu thiếu dù chỉ một thuộc tính của `Y` thì trả lời dứt khoát **Không** *(và tập các thuộc tính nằm trong `X⁺` đối lập với phần còn lại của `R` cũng chỉ ngay cách dựng bảng phản ví dụ 2 dòng như ở Bài tập mẫu 5.4: cho hai dòng giống hệt nhau trên `X⁺` và khác nhau trên các thuộc tính ngoài `X⁺`)*.
+
+**Công dụng 2 — Kiểm tra một tập thuộc tính `X` có phải là siêu khóa / khóa dự tuyển không:**
+
+> - `X` là **siêu khóa** *(superkey)* của `R` **khi và chỉ khi** **`X⁺ = R`** *(bao đóng phủ kín toàn bộ thuộc tính của lược đồ)*.
+> - `X` là **khóa dự tuyển** *(candidate key)* của `R` khi và chỉ khi **`X⁺ = R`** và với mọi thuộc tính `A ∈ X`, **`(X − {A})⁺ ≠ R`** *(bỏ bất kỳ thuộc tính nào ra khỏi `X` thì bao đóng không còn phủ hết `R`)*.
+
+Công dụng này là nền tảng trực tiếp của thuật toán tìm khóa ở mục 5.5 ngay sau đây.
+
+**Công dụng 3 — Kiểm tra hai tập phụ thuộc hàm `F` và `G` có tương đương không (`F ≡ G`):**
+
+> Tập `F` **phủ** tập `G` *(mọi phụ thuộc trong `G` đều suy ra được từ `F`)* khi và chỉ khi với mỗi phụ thuộc `X → Y` trong `G`, ta tính **`X⁺_F`** *(bao đóng của `X` tính trên `F`)* đều thấy **`Y ⊆ X⁺_F`**. Hai tập `F` và `G` **tương đương** (`F ≡ G`) khi `F` phủ `G` và `G` phủ `F`.
+
+Công dụng thứ ba này chính là cơ sở để kiểm tra xem sau khi rút gọn tập phụ thuộc hàm ở mục 5.6 *(Phủ tối thiểu)*, tập mới có còn giữ nguyên toàn bộ sức mạnh suy diễn của tập ban đầu hay không.
+
+**Bảng 5.13. Tóm tắt ba câu hỏi lớn quy về phép tính bao đóng — minh họa trên `R(A, B, C, D)`, `F = {A → B, B → C, CD → A}`**
+
+| Bài toán cần trả lời | Quy về điều kiện bao đóng | Phép tính bao đóng thực hiện | Đối chiếu kết quả | Kết luận dứt khoát |
 |---|---|---|---|---|
-| `B → A` có suy ra được từ `F`? | `A ∈ B⁺`? | `B⁺ = {B, C}` | không chứa `A` | **Không** suy ra được |
-| `AC → D` có suy ra được? | `D ∈ (AC)⁺`? | `(AC)⁺ = {A, C, B}` | không chứa `D` | **Không** |
-| `BD` có phải siêu khóa? | `(BD)⁺ = R`? | `(BD)⁺ = {B, D, C, A}` | bằng toàn bộ `R` | **Có** — `BD` là siêu khóa |
+| **1. Kiểm tra suy diễn:**<br/>`B → A` có suy ra được từ `F`? | Kiểm tra `A ∈ B⁺`? | `B⁺ = {B, C}` | `A ∉ {B, C}` | **Không** suy ra được |
+| **1b. Kiểm tra suy diễn:**<br/>`AC → D` có suy ra được từ `F`? | Kiểm tra `D ∈ (AC)⁺`? | `(AC)⁺ = {A, B, C}` | `D ∉ {A, B, C}` | **Không** suy ra được |
+| **2. Kiểm tra siêu khóa & khóa:**<br/>`BD` có phải là khóa của `R`? | Kiểm tra `(BD)⁺ = R` và `B⁺ ≠ R, D⁺ ≠ R`? | `(BD)⁺ = {A, B, C, D} = R`;<br/>`B⁺ = {B, C} ≠ R`; `D⁺ = {D} ≠ R` | Phủ hết `R` và không bỏ bớt được `B` hay `D` | **Có** — `BD` là khóa dự tuyển |
+| **3. Kiểm tra tương đương:**<br/>Thêm `AD → C` vào `F` có tạo ra tập mới khác `F` không? | Kiểm tra `C ∈ (AD)⁺_F`? | `(AD)⁺_F = {A, B, C, D}` | `C ∈ (AD)⁺_F` *(phụ thuộc mới đã nằm sẵn trong `F⁺`)* | Hai tập **tương đương** (`AD → C` là phụ thuộc thừa) |
 
-Không cần áp luật Armstrong bằng tay lần nào; mọi câu hỏi "suy ra được không" đều trả lời bằng cách tính một bao đóng.
+## 5.4.5. Phân biệt rạch ròi `X⁺` và `F⁺`
 
-## 5.4.4. Phân biệt `F⁺` và `X⁺`
+Khi mới học Chương 5, rất nhiều sinh viên nhìn ký hiệu dấu cộng ở trên cao (`⁺`) rồi đánh đồng `X⁺` với `F⁺`. Thực chất, chúng cùng mang tên *"bao đóng"* *(closure — tức đóng kín lại sau khi đã gom hết những gì suy ra được)* nhưng áp dụng cho **hai đối tượng hoàn toàn khác nhau**.
 
-Hai ký hiệu trông giống nhau nhưng là **hai thứ hoàn toàn khác**, và đây là chỗ nhầm lẫn kinh điển.
+!!! note "Định nghĩa 5.7 (Bao đóng của tập phụ thuộc hàm `F⁺`)"
 
-**Bảng 5.10. `F⁺` và `X⁺` — hai thứ khác nhau**
+    Cho tập phụ thuộc hàm `F` trên lược đồ `R`. **Bao đóng của `F`**, ký hiệu **`F⁺`**, là **tập hợp tất cả các phụ thuộc hàm `X → Y`** có thể suy ra được từ `F` bằng hệ luật dẫn Armstrong *(kể cả các phụ thuộc tầm thường do luật phản xạ sinh ra)*.
 
-| | `F⁺` | `X⁺` |
+**Bảng 5.14. Đối chiếu trực diện `X⁺` và `F⁺`**
+
+| Tiêu chí so sánh | Bao đóng của tập thuộc tính **`X⁺`** | Bao đóng của tập phụ thuộc hàm **`F⁺`** |
 |---|---|---|
-| **Đầu vào** | Một **tập phụ thuộc hàm** `F` | Một **tập thuộc tính** `X` *(kèm `F`)* |
-| **Kết quả là** | Một **tập phụ thuộc hàm** | Một **tập thuộc tính** |
-| **Nội dung** | Mọi phụ thuộc suy ra được từ `F` | Mọi thuộc tính suy ra được từ `X` |
-| **Kích thước** | Rất lớn — **hàm mũ** | Nhỏ — không quá số thuộc tính của `R` |
-| **Tính được không** | Trên lý thuyết được, thực tế **không khả thi** | **Rất dễ** — thuật toán ở mục 5.4.1 |
+| **Đầu vào** | Một **tập thuộc tính** `X` *(kèm tập `F` làm công cụ)* | Một **tập phụ thuộc hàm** `F` |
+| **Bản chất các phần tử bên trong** | Là **tập các chữ cái (thuộc tính)**<br/>Ví dụ: `{A, B, C}` | Là **tập các mũi tên (phụ thuộc hàm)**<br/>Ví dụ: `{A → B, B → C, A → C, A → BC, …}` |
+| **Kích thước tối đa (trên lược đồ `n` thuộc tính)** | **Rất nhỏ:** tối đa **`n` thuộc tính** *(luôn là tập con của `R`)* | **Khổng lồ (tăng theo hàm mũ):** có thể lên tới **`2ⁿ × 2ⁿ = 4ⁿ` mũi tên** |
+| **Độ phức tạp tính toán** | **Tính rất nhanh (đa thức):** chỉ vài vòng quét qua `F` trên giấy | **Không khả thi trong thực tế:** chỉ với `n = 10` thuộc tính đã có thể tới hàng trăm nghìn phụ thuộc |
+| **Vai trò trong học phần** | **Công cụ thực hành trực tiếp** ở mọi bài tập từ mục 5.4 đến 5.9 | **Khái niệm lý thuyết** để định nghĩa tính tương đương (`F ≡ G ⟺ F⁺ = G⁺`) |
 
-Câu phân biệt gọn nhất: **`F⁺` là tập các mũi tên; `X⁺` là tập các chữ cái.**
+Để thấy tận mắt sự chênh lệch giữa hai con số ấy, hãy nhìn vào một lược đồ nhỏ nhất có thể — chỉ gồm **3 thuộc tính**:
 
-!!! warning "Chú ý"
+!!! example "Ví dụ 5.7 — Đếm thử `A⁺` và `F⁺` trên lược đồ chỉ có 3 thuộc tính"
 
-    Chính vì `F⁺` quá lớn để tính mà toàn bộ lý thuyết chuẩn hóa được xây trên `X⁺`. Mọi câu hỏi tưởng như cần `F⁺` — *"phụ thuộc này có đúng không"*, *"tập này có phải khóa không"* — đều được quy về việc tính một vài bao đóng `X⁺`. Đó là đóng góp thực dụng lớn nhất của khái niệm bao đóng.
+    Cho `R(A, B, C)` và `F = {A → B, B → C}`.
+
+    - **Nếu tính bao đóng thuộc tính `A⁺`:** Khởi tạo `{A}` → nhờ `A → B` thêm `B` → nhờ `B → C` thêm `C` → dừng. Kết quả **`A⁺ = {A, B, C}` chỉ gồm đúng 3 chữ cái**, tính xong trong 5 giây.
+    - **Nếu cố liệt kê bao đóng tập phụ thuộc `F⁺`:**
+      - Từ vế trái `A` *(vì `A⁺ = {A, B, C}` có `2³ − 1 = 7` tập con khác rỗng)*, luật tách và luật hợp sinh ra **7 phụ thuộc**: `A → A`, `A → B`, `A → C`, `A → AB`, `A → AC`, `A → BC`, `A → ABC`.
+      - Từ vế trái `AB`, `AC`, `ABC` *(bao đóng cũng bằng `{A, B, C}`)*, mỗi vế trái lại sinh ra **7 phụ thuộc** nữa → thêm `3 × 7 = 21` phụ thuộc!
+      - Từ vế trái `B` và `BC` *(bao đóng bằng `{B, C}`, có `2² − 1 = 3` tập con)*, mỗi vế trái sinh ra **3 phụ thuộc** (`B → B`, `B → C`, `B → BC` và `BC → B`, `BC → C`, `BC → BC`) → thêm `2 × 3 = 6` phụ thuộc.
+      - Từ vế trái `C` *(bao đóng bằng `{C}`)* sinh ra **1 phụ thuộc tầm thường** `C → C`.
+      - **Tổng cộng:** Chỉ với 3 thuộc tính và 2 mũi tên ban đầu, tập **`F⁺` đã phình lên thành `7 + 21 + 6 + 1 = 35` phụ thuộc hàm**! Nếu lược đồ có 7 thuộc tính như `GHIDANH_PHANG`, `F⁺` chứa hàng nghìn mũi tên và không ai có thể liệt kê bằng tay.
+
+Câu khẩu quyết ngắn nhất để không bao giờ nhầm: **`X⁺` là một túi đựng các chữ cái; `F⁺` là một kho chứa các mũi tên — và nhờ có túi `X⁺`, ta không bao giờ phải mở kho `F⁺` ra đếm.**
 
 !!! question "Tự kiểm tra 5.4"
 
     *(tự trả lời trước, rồi mở đáp án bên dưới)*
 
-    1. Với `R(A, B, C, D)` và `F = {A → B, B → C, CD → A}` của Ví dụ 5.3, tính `(CD)⁺` và `C⁺`, ghi rõ từng vòng.
+    1. Với `R(A, B, C, D)` và `F = {A → B, B → C, CD → A}` của Ví dụ 5.6, tính `(CD)⁺` và `C⁺`, ghi rõ từng vòng.
     2. `C → B` có suy ra được từ `F` không? Trả lời bằng một bao đóng.
     3. Một bạn tính `F⁺` để trả lời câu 2. Bạn ấy có sai không? Vì sao giáo trình khuyên dùng `X⁺`?
 

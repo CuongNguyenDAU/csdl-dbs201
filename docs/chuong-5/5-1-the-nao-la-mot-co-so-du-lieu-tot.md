@@ -28,11 +28,11 @@ flowchart LR
     C1 ~~~ C2
     C2 ~~~ C3
     C3 ~~~ C4
-    style C5 fill:#1F4E79,color:#fff,stroke:#1F4E79,stroke-width:2px
-    style C1 fill:#D9E2F3,stroke:#1F4E79
-    style C2 fill:#D9E2F3,stroke:#1F4E79
-    style C3 fill:#D9E2F3,stroke:#1F4E79
-    style C4 fill:#D9E2F3,stroke:#1F4E79
+    style C5 fill:#1F4E79,color:#ffffff,stroke:#1F4E79,stroke-width:2px
+    style C1 fill:#D9E2F3,color:#111111,stroke:#1F4E79,stroke-width:1.5px
+    style C2 fill:#D9E2F3,color:#111111,stroke:#1F4E79,stroke-width:1.5px
+    style C3 fill:#D9E2F3,color:#111111,stroke:#1F4E79,stroke-width:1.5px
+    style C4 fill:#D9E2F3,color:#111111,stroke:#1F4E79,stroke-width:1.5px
 ```
 
 ## 5.1.2. Định nghĩa "tốt" đo được
@@ -57,7 +57,7 @@ Từ *"tốt"* trong câu *"thiết kế cơ sở dữ liệu tốt"* xưa nay v
 | Bảo toàn thông tin | Điều kiện **lossless join** | 5.8.2 |
 | Bảo toàn phụ thuộc hàm | Đối chiếu tập `F` với các bảng con | 5.8.3 |
 
-Điểm quan trọng: bốn tiêu chí này **không phải lúc nào cũng đạt được cùng lúc**. Mục 5.8.4 sẽ chứng minh rằng đôi khi phải **chọn** giữa tiêu chí 1 và tiêu chí 4 — và đó là lý do trong thực tế người ta thường **dừng ở 3NF** thay vì leo lên BCNF.
+Điểm quan trọng: bốn tiêu chí này **không phải lúc nào cũng đạt được cùng lúc**. Mục 5.8.4 sẽ chứng minh rằng ở mức **3NF** ta luôn đạt được trọn vẹn cả bốn tiêu chí; còn mục 5.10.1 sẽ chỉ ra vì sao khi đòi hỏi mức chuẩn cao hơn nữa thì đôi khi phải **đánh đổi** giữa tiêu chí 1 và tiêu chí 4.
 
 ## 5.1.3. Vị trí của chuẩn hóa trong quy trình thiết kế
 

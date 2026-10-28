@@ -10,10 +10,6 @@ Mô hình ER cơ bản trình bày ở các mục trên đã đủ dùng cho ph�
 
     Trung tâm ABC muốn quản lý toàn bộ **nhân sự** — bao gồm giáo viên và nhân viên hành chính. Cả hai nhóm đều có mã nhân sự, họ tên, ngày sinh, số điện thoại, ngày vào làm. Nhưng riêng giáo viên còn có bằng cấp và chứng chỉ tiếng Anh; riêng nhân viên hành chính có bộ phận công tác và ca làm việc.
 
-![](../hinh-ve/slide/internet/bai_xe.jpg){width=60%}
-
-*Ảnh minh họa: bãi giữ xe của một siêu thị ở Đông Hà. Xe máy và ô tô đều có biển số, chủ xe, giờ vào bãi; nhưng xe máy có dung tích xi lanh, ô tô có số chỗ ngồi — vừa giống vừa khác nhau, và "xe máy *là một* xe" — Nguồn: Wikimedia Commons · Phương Huy · CC BY-SA 4.0.*
-
 Mục này giải Ví dụ 2.7 **qua năm bước**, mỗi bước một hình vẽ theo ký pháp Chen, để người học thấy mô hình mở rộng được sinh ra từ đâu chứ không phải được áp đặt từ trên xuống.
 
 **Bước 1 — đọc quy tắc, tách thuộc tính chung và thuộc tính riêng.** Việc đầu tiên là lập một bảng đối chiếu: thuộc tính nào cả hai nhóm đều có, thuộc tính nào chỉ một nhóm có.
@@ -38,65 +34,7 @@ Kết quả rất rõ: **năm thuộc tính chung** và **hai cặp thuộc tín
 
 **Hình 2.16. Hai phương án vẽ Ví dụ 2.7 bằng ER cơ bản — cả hai đều tồi**
 
-```mermaid
-flowchart TB
-    subgraph PA["PHƯƠNG ÁN (a) — hai thực thể riêng: năm oval chung phải vẽ HAI LẦN"]
-        direction LR
-        a1(["<u>MANS</u>"]) --- GV["GIAOVIEN"]
-        a2(["HOTEN"]) --- GV
-        a3(["NGAYSINH"]) --- GV
-        GV --- a4(["SDT"])
-        GV --- a5(["NGAYVAOLAM"])
-        GV --- a6(["BANGCAP"])
-        GV --- a7(["CHUNGCHI_TIENGANH"])
-        b1(["<u>MANS</u>"]) --- HC["NHANVIEN_HANHCHINH"]
-        b2(["HOTEN"]) --- HC
-        b3(["NGAYSINH"]) --- HC
-        HC --- b4(["SDT"])
-        HC --- b5(["NGAYVAOLAM"])
-        HC --- b6(["BOPHAN"])
-        HC --- b7(["CA_LAMVIEC"])
-    end
-    subgraph PB["PHƯƠNG ÁN (b) — gộp một thực thể: bốn oval đỏ luôn RỖNG ở một nửa số dòng"]
-        direction LR
-        c1(["<u>MANS</u>"]) --- NS["NHANSU"]
-        c2(["HOTEN"]) --- NS
-        c3(["NGAYSINH"]) --- NS
-        c4(["SDT"]) --- NS
-        c5(["NGAYVAOLAM"]) --- NS
-        NS --- c6(["BANGCAP"])
-        NS --- c7(["CHUNGCHI_TIENGANH"])
-        NS --- c8(["BOPHAN"])
-        NS --- c9(["CA_LAMVIEC"])
-    end
-    PA ~~~ PB
-    style GV fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
-    style HC fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
-    style NS fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
-    style a1 fill:#FFF2CC,stroke:#BF9000
-    style a2 fill:#FFF2CC,stroke:#BF9000
-    style a3 fill:#FFF2CC,stroke:#BF9000
-    style a4 fill:#FFF2CC,stroke:#BF9000
-    style a5 fill:#FFF2CC,stroke:#BF9000
-    style b1 fill:#FFF2CC,stroke:#BF9000
-    style b2 fill:#FFF2CC,stroke:#BF9000
-    style b3 fill:#FFF2CC,stroke:#BF9000
-    style b4 fill:#FFF2CC,stroke:#BF9000
-    style b5 fill:#FFF2CC,stroke:#BF9000
-    style a6 fill:#fff,stroke:#1F4E79
-    style a7 fill:#fff,stroke:#1F4E79
-    style b6 fill:#fff,stroke:#1F4E79
-    style b7 fill:#fff,stroke:#1F4E79
-    style c1 fill:#fff,stroke:#1F4E79
-    style c2 fill:#fff,stroke:#1F4E79
-    style c3 fill:#fff,stroke:#1F4E79
-    style c4 fill:#fff,stroke:#1F4E79
-    style c5 fill:#fff,stroke:#1F4E79
-    style c6 fill:#fff,stroke:#C00000,stroke-width:2px,stroke-dasharray: 3 3
-    style c7 fill:#fff,stroke:#C00000,stroke-width:2px,stroke-dasharray: 3 3
-    style c8 fill:#fff,stroke:#C00000,stroke-width:2px,stroke-dasharray: 3 3
-    style c9 fill:#fff,stroke:#C00000,stroke-width:2px,stroke-dasharray: 3 3
-```
+![](../hinh-ve/chen/C2_hinh16_hai_phuong_an_er_co_ban.png)
 
 **Phương án (a) — tạo hai thực thể riêng biệt** `GIAOVIEN` và `NHANVIEN_HANHCHINH`. Nhìn vào hình: mười oval tô vàng là **năm thuộc tính chung vẽ hai lần**. Đó chính là dư thừa — lần này không phải dư thừa dữ liệu mà là **dư thừa ở mức cấu trúc**. Hậu quả rất thực tế: khi trung tâm muốn bổ sung trường "email công vụ" cho mọi nhân sự, phải sửa ở hai chỗ; quên một chỗ là hai nhóm nhân sự có cấu trúc lệch nhau.
 
@@ -116,53 +54,13 @@ flowchart TB
 
 **Hình 2.17. Bước 3 — thực thể cha `NHANSU` chỉ mang năm thuộc tính chung**
 
-```mermaid
-flowchart TB
-    K(["<u>MANS</u>"]) --- NS["NHANSU"]
-    A1(["HOTEN"]) --- NS
-    A2(["NGAYSINH"]) --- NS
-    NS --- A3(["SDT"])
-    NS --- A4(["NGAYVAOLAM"])
-    style NS fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
-    style K fill:#fff,stroke:#1F4E79
-    style A1 fill:#fff,stroke:#1F4E79
-    style A2 fill:#fff,stroke:#1F4E79
-    style A3 fill:#fff,stroke:#1F4E79
-    style A4 fill:#fff,stroke:#1F4E79
-```
+![](../hinh-ve/chen/C2_hinh17_eer_buoc3_cha.png)
 
-**Bước 4 — vẽ hai thực thể con và nối chúng với cha.** Mỗi thực thể con chỉ mang **thuộc tính riêng** của nó — hai oval, không hơn. Chúng nối với cha qua một **vòng tròn** đặt giữa: đó là ký hiệu duy nhất mà EER thêm vào bộ ký hiệu Chen. Thực thể con **không vẽ lại** `MANS` hay bất kỳ thuộc tính chung nào; chúng sẽ có được các thuộc tính ấy nhờ cơ chế kế thừa ở mục 2.7.3.
+**Bước 4 — vẽ hai thực thể con và nối chúng với cha.** Mỗi thực thể con chỉ mang **thuộc tính riêng** của nó — hai oval, không hơn. Chúng nối với cha qua một **vòng tròn** đặt giữa kèm ký hiệu tập con **`⊂`** mở về phía thực thể con: đó là ký hiệu chuẩn mà EER thêm vào bộ ký hiệu Chen. Thực thể con **không vẽ lại** `MANS` hay bất kỳ thuộc tính chung nào; chúng sẽ có được các thuộc tính ấy nhờ cơ chế kế thừa ở mục 2.7.3.
 
 **Hình 2.18. Bước 4 — phân cấp cha–con của Ví dụ 2.7, ký pháp Chen mở rộng**
 
-```mermaid
-flowchart TB
-    K(["<u>MANS</u>"]) --- NS["NHANSU"]
-    A1(["HOTEN"]) --- NS
-    A2(["NGAYSINH"]) --- NS
-    NS --- A3(["SDT"])
-    NS --- A4(["NGAYVAOLAM"])
-    NS --- ISA(("IS-A"))
-    ISA --- GV["GIAOVIEN"]
-    ISA --- HC["NHANVIEN_HANHCHINH"]
-    GV --- G1(["BANGCAP"])
-    GV --- G2(["CHUNGCHI_TIENGANH"])
-    HC --- H1(["BOPHAN"])
-    HC --- H2(["CA_LAMVIEC"])
-    style NS fill:#1F4E79,color:#fff,stroke:#1F4E79,stroke-width:2px
-    style GV fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
-    style HC fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
-    style ISA fill:#FFF2CC,stroke:#C00000,stroke-width:2px
-    style K fill:#fff,stroke:#1F4E79
-    style A1 fill:#fff,stroke:#1F4E79
-    style A2 fill:#fff,stroke:#1F4E79
-    style A3 fill:#fff,stroke:#1F4E79
-    style A4 fill:#fff,stroke:#1F4E79
-    style G1 fill:#fff,stroke:#1F4E79
-    style G2 fill:#fff,stroke:#1F4E79
-    style H1 fill:#fff,stroke:#1F4E79
-    style H2 fill:#fff,stroke:#1F4E79
-```
+![](../hinh-ve/chen/C2_hinh18_eer_buoc4_cha_con.png)
 
 So với Hình 2.16, lược đồ này có **đúng chín oval** — mỗi thuộc tính vẽ **một lần**, ở đúng tầng của nó. Không còn oval vàng lặp lại như phương án (a), cũng không còn oval đỏ rỗng như phương án (b).
 
@@ -188,28 +86,7 @@ Ngược lại, **liên kết riêng của thực thể con thì không lan lên
 
 **Hình 2.19. Liên kết gắn ở tầng nào thì ai có — kế thừa liên kết trong phân cấp**
 
-```mermaid
-flowchart TB
-    TK["TAIKHOAN"] ---|"(1, 1)"| R0{"được cấp"}
-    R0 ---|"(1, 1)"| NS["NHANSU"]
-    NS --- ISA(("IS-A"))
-    ISA --- GV["GIAOVIEN"]
-    ISA --- HC["NHANVIEN_HANHCHINH"]
-    GV ---|"(0, N)"| R1{"phụ trách"}
-    R1 ---|"(1, 1)"| LOP["LOP"]
-    N1["gắn ở CHA →<br/>cả hai con đều có"] -.- R0
-    N2["gắn ở CON →<br/>chỉ GIAOVIEN có,<br/>NHANVIEN_HANHCHINH không"] -.- R1
-    style NS fill:#1F4E79,color:#fff,stroke:#1F4E79,stroke-width:2px
-    style GV fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
-    style HC fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
-    style TK fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
-    style LOP fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
-    style ISA fill:#FFF2CC,stroke:#C00000,stroke-width:2px
-    style R0 fill:#E2F0D9,stroke:#548235
-    style R1 fill:#E2F0D9,stroke:#548235
-    style N1 fill:#FFF2CC,stroke:#BF9000
-    style N2 fill:#FFF2CC,stroke:#BF9000
-```
+![](../hinh-ve/chen/C2_hinh19_eer_ke_thua_lien_ket.png)
 
 Hình trên bỏ bớt các oval thuộc tính để tập trung vào liên kết. Đọc từ trên xuống: liên kết *"được cấp"* chạm vào `NHANSU`, nên **chảy xuống** cả hai con; liên kết *"phụ trách"* chạm vào `GIAOVIEN`, nên **dừng ở đó** — trên lược đồ không có đường nào từ `LOP` tới `NHANVIEN_HANHCHINH`, và đó chính là cách EER nói rằng nhân viên hành chính không phụ trách lớp.
 
@@ -266,49 +143,9 @@ Bốn tổ hợp ấy vẽ ra thành bốn lược đồ chỉ khác nhau ở **
 
 **Hình 2.20. Bốn tổ hợp ràng buộc của phân cấp cha–con — ký hiệu trên lược đồ**
 
-```mermaid
-flowchart TB
-    subgraph Q1["RỜI NHAU + ĐẦY ĐỦ"]
-        NS1["NHANSU"] ===|"đầy đủ"| I1(("d"))
-        I1 --- G1["GIAOVIEN"]
-        I1 --- H1["NV_HANHCHINH"]
-    end
-    subgraph Q2["RỜI NHAU + KHÔNG ĐẦY ĐỦ"]
-        NS2["NHANSU"] ---|"không đầy đủ"| I2(("d"))
-        I2 --- G2["GIAOVIEN"]
-        I2 --- H2["NV_HANHCHINH"]
-    end
-    subgraph Q3["CHỒNG LẤN + ĐẦY ĐỦ"]
-        NS3["NHANSU"] ===|"đầy đủ"| I3(("o"))
-        I3 --- G3["GIAOVIEN"]
-        I3 --- H3["NV_HANHCHINH"]
-    end
-    subgraph Q4["CHỒNG LẤN + KHÔNG ĐẦY ĐỦ"]
-        NS4["NHANSU"] ---|"không đầy đủ"| I4(("o"))
-        I4 --- G4["GIAOVIEN"]
-        I4 --- H4["NV_HANHCHINH"]
-    end
-    Q1 ~~~ Q3
-    Q2 ~~~ Q4
-    style NS1 fill:#1F4E79,color:#fff,stroke:#1F4E79,stroke-width:2px
-    style NS2 fill:#1F4E79,color:#fff,stroke:#1F4E79,stroke-width:2px
-    style NS3 fill:#1F4E79,color:#fff,stroke:#1F4E79,stroke-width:2px
-    style NS4 fill:#1F4E79,color:#fff,stroke:#1F4E79,stroke-width:2px
-    style G1 fill:#D9E2F3,stroke:#1F4E79
-    style G2 fill:#D9E2F3,stroke:#1F4E79
-    style G3 fill:#D9E2F3,stroke:#1F4E79
-    style G4 fill:#D9E2F3,stroke:#1F4E79
-    style H1 fill:#D9E2F3,stroke:#1F4E79
-    style H2 fill:#D9E2F3,stroke:#1F4E79
-    style H3 fill:#D9E2F3,stroke:#1F4E79
-    style H4 fill:#D9E2F3,stroke:#1F4E79
-    style I1 fill:#FFF2CC,stroke:#C00000,stroke-width:2px
-    style I2 fill:#FFF2CC,stroke:#C00000,stroke-width:2px
-    style I3 fill:#FFF2CC,stroke:#C00000,stroke-width:2px
-    style I4 fill:#FFF2CC,stroke:#C00000,stroke-width:2px
-```
+![](../hinh-ve/chen/C2_hinh20_eer_bon_to_hop.png)
 
-Quy ước đọc: chữ **`d`** *(disjoint)* hay **`o`** *(overlapping)* trong vòng tròn trả lời câu hỏi thứ nhất; cạnh **nét đậm ghi "đầy đủ"** *(ký pháp gốc vẽ hai vạch)* hay **nét thường ghi "không đầy đủ"** *(một vạch)* trả lời câu hỏi thứ hai. Khi vẽ tay, hãy vẽ đúng hai vạch song song cho trường hợp đầy đủ.
+Quy ước đọc: chữ **`d`** *(disjoint)* hay **`o`** *(overlapping)* trong vòng tròn trả lời câu hỏi thứ nhất; cạnh **hai vạch song song** *(đầy đủ)* hay **một vạch đơn** *(không đầy đủ)* nối từ thực thể cha xuống vòng tròn trả lời câu hỏi thứ hai; dấu tập con **`⊂`** trên các nhánh dưới mở về phía thực thể con.
 
 !!! example "Ví dụ 2.8 — Bước 5 của Ví dụ 2.7"
 

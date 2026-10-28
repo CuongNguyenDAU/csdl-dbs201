@@ -44,8 +44,8 @@ flowchart LR
     S["<b>σ — PHÉP CHỌN</b><br/>─────────<br/>Cắt <b>NGANG</b><br/>Giữ lại một số <b>DÒNG</b><br/>Giữ nguyên mọi cột<br/><br/><i>σ HOCPHI &gt; 2000000 (GHIDANH)</i>"]
     P["<b>π — PHÉP CHIẾU</b><br/>─────────<br/>Cắt <b>DỌC</b><br/>Giữ lại một số <b>CỘT</b><br/>Giữ nguyên mọi dòng<br/><br/><i>π MAHV, HOTEN (HOCVIEN)</i>"]
     S --- P
-    style S fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
-    style P fill:#E2F0D9,stroke:#548235,stroke-width:2px
+    style S fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px,color:#111111
+    style P fill:#E2F0D9,stroke:#548235,stroke-width:2px,color:#111111
 ```
 
 !!! example "Ví dụ 3.8"
@@ -117,10 +117,10 @@ flowchart BT
     L["<b>HOCVIEN</b><br/>3 bộ · 4 cột"] --> S["<b>σ</b> MALOP = 'A1'<br/><i>giữ 2 bộ · 4 cột</i>"]
     S --> P["<b>π</b> MAHV, HOTEN<br/><i>2 bộ · 2 cột</i>"]
     P --> KQ["<b>KẾT QUẢ</b>"]
-    style L fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
-    style S fill:#FFF2CC,stroke:#BF9000
-    style P fill:#FFF2CC,stroke:#BF9000
-    style KQ fill:#E2F0D9,stroke:#548235,stroke-width:2px
+    style L fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px,color:#111111
+    style S fill:#FFF2CC,stroke:#BF9000,color:#111111
+    style P fill:#FFF2CC,stroke:#BF9000,color:#111111
+    style KQ fill:#E2F0D9,stroke:#548235,stroke-width:2px,color:#111111
 ```
 
 Thứ tự thực hiện có ảnh hưởng tới hiệu quả. Nên **chọn trước, chiếu sau**: lọc bỏ bớt dòng rồi mới cắt cột thì khối lượng dữ liệu phải xử lý ở bước sau nhỏ hơn. Nếu làm ngược lại — chiếu trước lên hai cột `MAHV`, `HOTEN` — thì kết quả trung gian là bảng hai cột ở Ví dụ 3.8: cột `MALOP` đã bị bỏ đi, và **không còn cách nào lọc theo lớp nữa** — phép chọn `σ_MALOP='A1'` áp lên một bảng không có cột `MALOP` là vô nghĩa. Trong trường hợp này, làm ngược thứ tự không chỉ chậm hơn mà là **sai**.

@@ -23,60 +23,7 @@ Bốn quy tắc ấy nhìn thấy được trên hình: bên trái là mảnh l�
 
 **Hình 3.5. Bốn quy tắc ánh xạ và trường hợp thực thể yếu — từ mảnh lược đồ Chen sang bảng**
 
-```mermaid
-flowchart TB
-    subgraph Q1["QT1 — thực thể mạnh → một bảng, thuộc tính khóa → khóa chính"]
-        direction LR
-        k1(["<u>MAGV</u>"]) --- E1["GIAOVIEN"]
-        E1 --- a1(["HOTEN_GV"])
-        E1 ==> T1["GIAOVIEN(<u>MAGV</u>, HOTEN_GV, BANGCAP)"]
-    end
-    subgraph Q2["QT2 — liên kết 1:1 → khóa ngoại đặt ở bên tham gia BẮT BUỘC"]
-        direction LR
-        E2a["NHANVIEN"] ---|"(0, 1)"| R2{"được cấp"}
-        R2 ---|"(1, 1)"| E2b["TAIKHOAN"]
-        R2 ==> T2["TAIKHOAN(<u>MATK</u>, MATKHAU, MANV↗)"]
-    end
-    subgraph Q3["QT3 — liên kết 1:M → khóa chính bên 1 sang bên NHIỀU làm khóa ngoại"]
-        direction LR
-        E3a["GIAOVIEN"] ---|"(0, N)"| R3{"phụ trách"}
-        R3 ---|"(1, 1)"| E3b["LOP"]
-        R3 ==> T3["LOP(<u>MALOP</u>, TENLOP, NGAYKG, MAGV↗)"]
-    end
-    subgraph Q4["QT4 — liên kết M:N → BẢNG MỚI, khóa phức hợp ghép hai khóa chính"]
-        direction LR
-        E4a["HOCVIEN"] ---|"M"| R4{"ghi danh"}
-        R4 ---|"N"| E4b["LOP"]
-        R4 ==> T4["GHIDANH(<u>MAHV</u>↗, <u>MALOP</u>↗, NGAYGHIDANH, HOCPHI)"]
-    end
-    subgraph Q5["Thực thể yếu → một bảng, khóa phức hợp mượn khóa của thực thể chủ"]
-        direction LR
-        E5a["HOCVIEN"] ---|"(0, N)"| R5{"có"}
-        R5 ---|"(1, 1)"| E5b[["DIENTHOAI"]]
-        R5 ==> T5["DIENTHOAI(<u>MAHV</u>↗, <u>SODT</u>)"]
-    end
-    Q1 ~~~ Q2 ~~~ Q3 ~~~ Q4 ~~~ Q5
-    style E1 fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
-    style E2a fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
-    style E2b fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
-    style E3a fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
-    style E3b fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
-    style E4a fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
-    style E4b fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
-    style E5a fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
-    style E5b fill:#FFF2CC,stroke:#C00000,stroke-width:3px
-    style R2 fill:#E2F0D9,stroke:#548235
-    style R3 fill:#E2F0D9,stroke:#548235
-    style R4 fill:#FFD9D9,stroke:#C00000,stroke-width:2px
-    style R5 fill:#E2F0D9,stroke:#548235,stroke-width:3px
-    style k1 fill:#fff,stroke:#1F4E79
-    style a1 fill:#fff,stroke:#1F4E79
-    style T1 fill:#fff,stroke:#1F4E79,stroke-width:2px
-    style T2 fill:#fff,stroke:#1F4E79,stroke-width:2px
-    style T3 fill:#fff,stroke:#1F4E79,stroke-width:2px
-    style T4 fill:#fff,stroke:#1F4E79,stroke-width:2px
-    style T5 fill:#fff,stroke:#1F4E79,stroke-width:2px
-```
+![](../hinh-ve/chen/C3_hinh05_bon_quy_tac_anh_xa.png)
 
 *(Gạch chân = khóa chính; ↗ = khóa ngoại. Hàng QT2 dùng một ví dụ ngoài bài toán ABC vì lược đồ ABC không có liên kết 1:1.)*
 
@@ -97,10 +44,11 @@ flowchart TB
     Q --> R["<b>ĐÚNG — đặt ở phía 'nhiều'</b><br/>LOP(<u>MALOP</u>, TENLOP, <b>MAGV</b>)"]
     W --> W2["Ô MALOP của cô Lê Hoa phải chứa<br/><b>'A1, A2, A3, A4'</b><br/>= <b>bốn giá trị trong một ô</b><br/>─────────<br/>Vi phạm <b>Đặc trưng 4</b><br/>= đúng lỗi thuộc tính đa trị<br/>đã bị cấm ở Chương 2"]
     R --> R2["Mỗi lớp có <b>đúng một</b> giáo viên<br/>→ ô MAGV chứa <b>một giá trị</b><br/>─────────<br/>GV1 xuất hiện ở <b>bốn DÒNG</b><br/>— hoàn toàn hợp lệ"]
-    style W fill:#FFD9D9,stroke:#C00000
-    style W2 fill:#FFD9D9,stroke:#C00000,stroke-width:2px
-    style R fill:#D9E2F3,stroke:#1F4E79
-    style R2 fill:#E2F0D9,stroke:#548235,stroke-width:2px
+    style Q fill:#F2F4F8,stroke:#1F4E79,color:#111111
+    style W fill:#FFD9D9,stroke:#C00000,color:#111111
+    style W2 fill:#FFD9D9,stroke:#C00000,stroke-width:2px,color:#111111
+    style R fill:#D9E2F3,stroke:#1F4E79,color:#111111
+    style R2 fill:#E2F0D9,stroke:#548235,stroke-width:2px,color:#111111
 ```
 
 Hãy điền dữ liệu thật cho cả hai cách để thấy cách nào đứng vững.
@@ -136,7 +84,9 @@ Hãy điền dữ liệu thật cho cả hai cách để thấy cách nào đứ
 
 Ở Chương 2, thuộc tính đa trị `SDT` đã được tách thành thực thể yếu `DIENTHOAI`. Bước ánh xạ chỉ việc chuyển nó thành bảng.
 
-> **Quy tắc.** Một **thực thể yếu** trở thành **một bảng riêng**. Khóa chính của bảng ấy là **khóa phức hợp**, ghép từ ① khóa chính của thực thể chủ *(đồng thời là khóa ngoại trỏ về thực thể chủ)* và ② thuộc tính phân biệt riêng của thực thể yếu.
+!!! tip "Quy tắc"
+
+    Một **thực thể yếu** trở thành **một bảng riêng**. Khóa chính của bảng ấy là **khóa phức hợp**, ghép từ ① khóa chính của thực thể chủ *(đồng thời là khóa ngoại trỏ về thực thể chủ)* và ② thuộc tính phân biệt riêng của thực thể yếu.
 
 !!! example "Ví dụ 3.5"
 
@@ -214,19 +164,7 @@ Mục 2.7 của Chương 2 đã giới thiệu quan hệ cha/con. Mô hình quan
 
 *(Để hình gọn, chỉ ghi hai thuộc tính chung `HOTEN`, `NGAYSINH` và một thuộc tính riêng mỗi bên; lược đồ đầy đủ của Ví dụ 2.7 có năm thuộc tính chung và hai thuộc tính riêng mỗi con.)*
 
-```mermaid
-flowchart TB
-    P1["<b>PHƯƠNG ÁN 1 — MỘT BẢNG DUY NHẤT</b><br/>NHANSU(<u>MANS</u>, HOTEN, NGAYSINH,<br/>LOAI, BANGCAP, BOPHAN)<br/><i>gộp mọi thuộc tính, thêm cột phân loại</i>"]
-    P2["<b>PHƯƠNG ÁN 2 — MỖI CON MỘT BẢNG</b><br/>GIAOVIEN(<u>MANS</u>, HOTEN, NGAYSINH, BANGCAP)<br/>NHANVIEN_HANHCHINH(<u>MANS</u>, HOTEN, NGAYSINH, BOPHAN)<br/><i>bỏ hẳn bảng cha</i>"]
-    P3["<b>PHƯƠNG ÁN 3 — CHA VÀ CÁC CON</b><br/>NHANSU(<u>MANS</u>, HOTEN, NGAYSINH)<br/>GIAOVIEN(<u>MANS</u> → NHANSU, BANGCAP)<br/>NHANVIEN_HANHCHINH(<u>MANS</u> → NHANSU, BOPHAN)"]
-    P1 --> C1["Hợp khi: ít thuộc tính riêng<br/>ràng buộc <b>chồng lấn</b><br/>─────────<br/>Nhược: <b>nhiều ô rỗng</b>"]
-    P2 --> C2["Hợp khi: <b>rời nhau + đầy đủ</b><br/>─────────<br/>Nhược: lặp thuộc tính chung<br/>khó truy vấn toàn bộ nhân sự"]
-    P3 --> C3["Hợp khi: <b>tổng quát nhất</b><br/>đặc biệt khi chồng lấn<br/>─────────<br/>Nhược: phải <b>kết bảng</b> mới đủ thông tin"]
-    style P1 fill:#FFF2CC,stroke:#C00000
-    style P2 fill:#FFF2CC,stroke:#C00000
-    style P3 fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
-    style C3 fill:#E2F0D9,stroke:#548235,stroke-width:2px
-```
+![](../hinh-ve/chen/C3_hinh07_ba_phuong_an_eer.png)
 
 **Phương án 1 — một bảng duy nhất.** Gộp tất cả thuộc tính của cha và mọi con vào một bảng, thêm một cột `LOAI` để phân biệt. Ưu điểm là mọi truy vấn chỉ đọc một bảng. Nhược điểm là **ô rỗng tràn lan**: mọi giáo viên đều có ô `BOPHAN` trống và mọi nhân viên hành chính đều có ô `BANGCAP` trống. Chỉ nên dùng khi các con có **rất ít thuộc tính riêng**.
 

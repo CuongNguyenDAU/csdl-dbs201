@@ -2,10 +2,6 @@
 
 ## 4.8.1. Chọn hành động cho từng khóa ngoại
 
-![](../hinh-ve/slide/internet/nhap_lieu.jpg){width=55%}
-
-*Ảnh minh họa: nhân viên nhập liệu tại bàn làm việc. Mỗi phím gõ vào là một lần thêm hoặc sửa dữ liệu — và là một lần ràng buộc phải đứng ra kiểm tra, dù người gõ có nhớ quy tắc hay không — Nguồn: Wikimedia Commons · Department of Labor · Public domain.*
-
 Lược đồ ABC có sáu khóa ngoại. Với mỗi khóa phải chọn hành động khi xóa bản ghi cha, và lựa chọn hoàn toàn dựa vào nghiệp vụ.
 
 **Bảng 4.25. Cùng thao tác "xóa", ba khóa ngoại, ba hành động khác nhau**

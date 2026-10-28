@@ -15,10 +15,11 @@ flowchart LR
     B5["<b>BƯỚC 5</b><br/>Vẽ và<br/>KIỂM TRA<br/><i>đối chiếu quy tắc</i>"]
     B1 --> B2 --> B3 --> B4 --> B5
     B5 -.->|"phát hiện thiếu sót"| B1
-    style B1 fill:#D9E2F3,stroke:#1F4E79
-    style B3 fill:#1F4E79,color:#fff,stroke:#1F4E79,stroke-width:2px
-    style B4 fill:#FFF2CC,stroke:#C00000
-    style B5 fill:#E2F0D9,stroke:#548235
+    style B1 fill:#D9E2F3,stroke:#1F4E79,color:#111111
+    style B2 fill:#D9E2F3,stroke:#1F4E79,color:#111111
+    style B3 fill:#1F4E79,color:#ffffff,stroke:#1F4E79,stroke-width:2px
+    style B4 fill:#FFF2CC,stroke:#C00000,color:#111111
+    style B5 fill:#E2F0D9,stroke:#548235,color:#111111
 ```
 
 Mũi tên nét đứt quay ngược từ Bước 5 về Bước 1 không phải là chi tiết trang trí. Thiết kế cơ sở dữ liệu là một quá trình **lặp**: bước kiểm tra cuối cùng gần như luôn phát hiện ra thiếu sót, và khi ấy phải quay lại. Người thiết kế có kinh nghiệm coi việc lặp hai đến ba vòng là bình thường.
@@ -57,44 +58,11 @@ Ký pháp **Crow's Foot** *(chân quạ)* là ký pháp được các công cụ
 
 **Hình 2.22. Cùng một liên kết vẽ bằng hai ký pháp — (a) ký pháp Chen**
 
-```mermaid
-flowchart LR
-    K1(["<u>MAGV</u>"]) --- GV["GIAOVIEN"]
-    A1(["HOTEN_GV"]) --- GV
-    A2(["BANGCAP"]) --- GV
-    GV ---|"(0, N)"| RR{"phụ trách"}
-    RR ---|"(1, 1)"| LL["LOP"]
-    LL --- K2(["<u>MALOP</u>"])
-    LL --- B1(["TENLOP"])
-    LL --- B2(["NGAYKG"])
-    style GV fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
-    style LL fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
-    style RR fill:#E2F0D9,stroke:#548235
-    style K1 fill:#fff,stroke:#1F4E79
-    style K2 fill:#fff,stroke:#1F4E79
-    style A1 fill:#fff,stroke:#1F4E79
-    style A2 fill:#fff,stroke:#1F4E79
-    style B1 fill:#fff,stroke:#1F4E79
-    style B2 fill:#fff,stroke:#1F4E79
-```
+![](../hinh-ve/chen/C2_hinh22_doi_chieu_chen.png)
 
 **Hình 2.23. Cùng một liên kết vẽ bằng hai ký pháp — (b) ký pháp Crow's Foot**
 
-```mermaid
-erDiagram
-    GIAOVIEN ||--o{ LOP : "phụ trách"
-    GIAOVIEN {
-        string MAGV PK
-        string HOTEN_GV
-        string BANGCAP
-    }
-    LOP {
-        string MALOP PK
-        string TENLOP
-        date NGAYKG
-        string MAGV FK
-    }
-```
+![](../hinh-ve/chen/C2_hinh23_doi_chieu_crowsfoot.png)
 
 Hai hình chứa cùng một thiết kế. Điểm khác dễ thấy nhất: ở Crow's Foot, `MAGV` xuất hiện **thêm một lần trong `LOP`** với nhãn `FK` — ký pháp này đã "nhìn trước" cách cài đặt bằng khóa ngoại ở Chương 3, trong khi Chen chỉ mô tả nghiệp vụ.
 

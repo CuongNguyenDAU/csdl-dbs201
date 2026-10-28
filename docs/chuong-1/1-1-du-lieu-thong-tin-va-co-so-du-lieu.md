@@ -60,10 +60,10 @@ flowchart BT
     I["<b>INFORMATION — thông tin</b><br/>Doanh thu lớp A1 quý này: 6.300.000 đ"]
     D["<b>DATA — dữ liệu</b><br/>2.000.000 · 2.500.000 · 1.800.000"]
     D --> I --> K --> W
-    style D fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
-    style I fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
-    style K fill:#FFF2CC,stroke:#BF9000
-    style W fill:#FFD9D9,stroke:#C00000,stroke-width:2px
+    style D fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px,color:#111111
+    style I fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px,color:#111111
+    style K fill:#FFF2CC,stroke:#BF9000,color:#111111
+    style W fill:#FFD9D9,stroke:#C00000,stroke-width:2px,color:#111111
 ```
 
 Hai tầng tô xanh là phạm vi của học phần. Hai tầng trên là đích đến của tổ chức — và cũng là nơi một thiết kế tồi ở tầng dưới cùng để lại hậu quả đắt nhất.
@@ -107,9 +107,9 @@ Ba tính từ trong định nghĩa trên đều mang ý nghĩa cụ thể, khôn
 
     **Metadata** là phần dữ liệu **mô tả đặc trưng của chính dữ liệu** được lưu trong cơ sở dữ liệu: tên các trường, kiểu dữ liệu, độ dài, tính bắt buộc, các ràng buộc phải thỏa mãn và mối liên hệ giữa các nhóm dữ liệu.
 
-![](../hinh-ve/slide/internet/mau_don.jpg){width=50%}
+![](../hinh-ve/minh-hoa/C1_mh01_phieu_dang_ky_metadata.png){width=85%}
 
-*Ảnh minh họa: một mẫu đơn đã điền. Phần in sẵn — nhãn ô, chỗ chia ngăn, chỉ dẫn — có trước khi ai điền và quy định người ta được điền gì: đó là metadata; phần viết tay vào ô là dữ liệu — Nguồn: Wikimedia Commons · Unknown author · Public domain.*
+*Ảnh minh họa: Phiếu đăng ký học viên tại Trung tâm Anh ngữ ABC — phần nhãn trường, định dạng và dấu sao bắt buộc in sẵn là metadata (siêu dữ liệu); phần giá trị cụ thể điền vào ô là dữ liệu — Nguồn: Tác giả tự vẽ.*
 
 Khái niệm metadata thường gây khó khăn ở lần tiếp xúc đầu tiên vì nó có tính tự quy chiếu. Một phép loại suy giúp làm rõ: hãy nghĩ tới một **mẫu đơn đăng ký in sẵn**. Những gì *người ta điền vào* mẫu đơn — "Trần An", "12/04/2005" — đó là **dữ liệu**. Còn những gì *đã in sẵn trên mẫu đơn* — dòng chữ "Họ và tên" bên cạnh ô trống, ghi chú "chỉ nhận chữ cái", dấu sao đỏ báo hiệu trường bắt buộc, ô "Ngày sinh" chia sẵn thành ba ngăn ngày/tháng/năm — đó là **metadata**. Mẫu đơn tồn tại trước khi có người điền, và nó quy định người ta được phép điền cái gì.
 

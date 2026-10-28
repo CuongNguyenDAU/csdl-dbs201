@@ -20,10 +20,10 @@ flowchart LR
     B2["<b>BƯỚC 2</b><br/>Chọn σ<br/><i>giữ lại các cặp có<br/>giá trị KHỚP nhau ở<br/>thuộc tính chung</i>"]
     B3["<b>BƯỚC 3</b><br/>Chiếu π<br/><i>bỏ đi cột<br/>bị lặp hai lần</i>"]
     B1 --> B2 --> B3 --> KQ["<b>KẾT QUẢ</b><br/>R ⋈ S"]
-    style B1 fill:#FFF2CC,stroke:#C00000
-    style B2 fill:#D9E2F3,stroke:#1F4E79
-    style B3 fill:#D9E2F3,stroke:#1F4E79
-    style KQ fill:#E2F0D9,stroke:#548235,stroke-width:2px
+    style B1 fill:#FFF2CC,stroke:#C00000,color:#111111
+    style B2 fill:#D9E2F3,stroke:#1F4E79,color:#111111
+    style B3 fill:#D9E2F3,stroke:#1F4E79,color:#111111
+    style KQ fill:#E2F0D9,stroke:#548235,stroke-width:2px,color:#111111
 ```
 
 !!! abstract "Công thức"
@@ -72,9 +72,9 @@ Hiểu được ba bước này giải thích được nhiều điều. Thứ nh
 | **Kết ngoài phải** *(right outer join)* | `⟖` | Giữ **mọi bộ của bảng phải** |
 | **Kết ngoài đầy đủ** *(full outer join)* | `⟗` | Giữ **mọi bộ của cả hai bảng** |
 
-![](../hinh-ve/slide/internet/so_diem_danh.jpg){width=55%}
+![](../hinh-ve/minh-hoa/C3_mh02_inner_vs_left_join.png){width=85%}
 
-*Ảnh minh họa: sổ điểm danh. Người vắng vẫn có dòng, chỉ để trống ô chữ ký — danh sách không mất ai. Kết ngoài giữ bộ không khớp và điền rỗng đúng như sổ điểm danh; kết trong thì bỏ hẳn — Nguồn: Wikimedia Commons · KeMang · CC0.*
+*Ảnh minh họa: Đối chiếu trực quan Kết trong (INNER JOIN) và Kết ngoài trái (LEFT OUTER JOIN) giữa GIAOVIEN và LOP — giáo viên mới GV3 Phạm Nam chưa nhận lớp bị loại khỏi kết trong, nhưng được giữ lại kèm giá trị NULL ở kết ngoài trái — Nguồn: Tác giả tự vẽ.*
 
 Khác biệt cốt lõi giữa **kết trong** và **kết ngoài** nằm ở cách xử lý các bộ **không tìm được bạn khớp**. Kết trong **vứt bỏ** chúng; kết ngoài **giữ lại** và điền giá trị rỗng vào phần thiếu.
 
@@ -148,9 +148,9 @@ flowchart LR
     B["<b>BƯỚC 2</b><br/>Chọn σ<br/><i>lọc các dòng có<br/>HOTEN_GV = rỗng</i>"]
     C["<b>KẾT QUẢ</b><br/>Danh sách các lớp có<br/><b>MAGV mồ côi</b><br/>─────────<br/>σ HOTEN_GV IS NULL<br/>(LOP ⟕ GIAOVIEN)"]
     A --> B --> C
-    style A fill:#D9E2F3,stroke:#1F4E79
-    style B fill:#D9E2F3,stroke:#1F4E79
-    style C fill:#FFD9D9,stroke:#C00000,stroke-width:2px
+    style A fill:#D9E2F3,stroke:#1F4E79,color:#111111
+    style B fill:#D9E2F3,stroke:#1F4E79,color:#111111
+    style C fill:#FFD9D9,stroke:#C00000,stroke-width:2px,color:#111111
 ```
 
 **Nguyên lý hoạt động.** Kết ngoài trái giữ lại **mọi** dòng của bảng `LOP`. Với những lớp có `MAGV` hợp lệ, các cột lấy từ `GIAOVIEN` sẽ có giá trị. Với những lớp có `MAGV` mồ côi, **không tìm được bộ khớp** nên các cột ấy bị điền **rỗng**. Vậy chỉ cần lọc lấy các dòng có cột bên phải rỗng là ra danh sách lỗi.
@@ -181,10 +181,6 @@ flowchart LR
 Kỹ thuật này nối thẳng sang Chương 4. Ở đó, việc **phát hiện** lỗi sẽ được nâng lên thành việc **ngăn chặn** lỗi bằng cách khai báo ràng buộc ngay từ đầu.
 
 ## 3.7.4. Phép chia
-
-![](../hinh-ve/slide/internet/bang_diem.jpg){width=60%}
-
-*Ảnh minh họa: một bảng điểm cuối khóa. Muốn tốt nghiệp phải đạt *tất cả* môn bắt buộc: thừa môn tự chọn không sao, thiếu một môn bắt buộc là loại — đúng cấu trúc câu hỏi mà phép chia trả lời — Nguồn: Wikimedia Commons · Columbus Public Schools · Public domain.*
 
 Phép chia là phép toán khó nhất trong tám phép, nhưng nó trả lời được một loại câu hỏi mà các phép khác không diễn đạt trực tiếp được: câu hỏi có chữ **"tất cả"**.
 
@@ -268,11 +264,16 @@ flowchart LR
     QH --> Q3["<b>⋈</b> Kết — ghép bảng"]
     QH --> Q4["<b>÷</b> Chia — 'tất cả'"]
     T4 ~~~ QH
-    style TH fill:#1F4E79,color:#fff,stroke:#1F4E79,stroke-width:2px
-    style QH fill:#548235,color:#fff,stroke:#548235,stroke-width:2px
-    style T4 fill:#FFF2CC,stroke:#C00000
-    style Q3 fill:#E2F0D9,stroke:#548235,stroke-width:2px
-    style Q4 fill:#FFD9D9,stroke:#C00000
+    style TH fill:#1F4E79,color:#ffffff,stroke:#1F4E79,stroke-width:2px
+    style QH fill:#548235,color:#ffffff,stroke:#548235,stroke-width:2px
+    style T1 fill:#D9E2F3,stroke:#1F4E79,color:#111111
+    style T2 fill:#D9E2F3,stroke:#1F4E79,color:#111111
+    style T3 fill:#D9E2F3,stroke:#1F4E79,color:#111111
+    style T4 fill:#FFF2CC,stroke:#C00000,color:#111111
+    style Q1 fill:#E2F0D9,stroke:#548235,color:#111111
+    style Q2 fill:#E2F0D9,stroke:#548235,color:#111111
+    style Q3 fill:#E2F0D9,stroke:#548235,stroke-width:2px,color:#111111
+    style Q4 fill:#FFD9D9,stroke:#C00000,color:#111111
 ```
 
 Bảng dưới đây gom tám phép toán vào **một trang tra cứu** cho người tự học: ký hiệu, cách đọc, công thức và một ví dụ trên lược đồ ABC.

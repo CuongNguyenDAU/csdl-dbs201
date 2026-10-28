@@ -6,7 +6,7 @@
 
 Ý tưởng nền tảng: **không phải thuộc tính nào cũng có cơ hội nằm trong khóa như nhau**. Phân loại trước thì phạm vi tìm kiếm thu hẹp rất nhiều.
 
-!!! note "Định nghĩa 5.7"
+!!! note "Định nghĩa 5.8"
 
     Với lược đồ `R` và tập phụ thuộc hàm `F`, chia các thuộc tính thành ba nhóm:
 
@@ -23,16 +23,16 @@ flowchart LR
     TD["<b>TĐ — TẬP ĐÍCH</b><br/>chỉ ở vế PHẢI<br/>─────────<br/>Luôn suy ra được từ cái khác<br/>→ <b>KHÔNG BAO GIỜ</b> trong khóa"]
     TN ~~~ TG
     TG ~~~ TD
-    style TN fill:#E2F0D9,stroke:#548235,stroke-width:2px
-    style TG fill:#FFF2CC,stroke:#C00000,stroke-width:2px
-    style TD fill:#FFD9D9,stroke:#C00000
+    style TN fill:#E2F0D9,color:#111111,stroke:#548235,stroke-width:2px
+    style TG fill:#FFF2CC,color:#111111,stroke:#C00000,stroke-width:2px
+    style TD fill:#FFD9D9,color:#111111,stroke:#C00000,stroke-width:2px
 ```
 
 Lý do đằng sau ba nhóm rất trực quan. Thuộc tính thuộc **`TN`** không nằm ở vế phải của bất kỳ phụ thuộc nào, nên **không có cách nào suy ra nó** — muốn suy ra toàn bộ lược đồ thì buộc phải có nó ngay từ đầu. Ngược lại, thuộc tính thuộc **`TĐ`** luôn suy ra được từ thứ khác, nên đưa nó vào khóa chỉ làm khóa thừa, vi phạm tính tối thiểu. Chỉ nhóm **`TG`** là còn phải thử.
 
-Thử phân nhóm ngay trên bảng phẳng của Trung tâm ABC — bảy thuộc tính và bốn phụ thuộc hàm rút từ nghiệp vụ *(tập `F` này sẽ được lập chính thức ở Bảng 5.18)*: `MAHV → HOTEN`, `MALOP → TENLOP, MAGV`, `MAGV → HOTEN_GV`, `(MAHV, MALOP) → HOCPHI`.
+Thử phân nhóm ngay trên bảng phẳng của Trung tâm ABC — bảy thuộc tính và bốn phụ thuộc hàm rút từ nghiệp vụ *(tập `F` này sẽ được lập chính thức ở Bảng 5.26)*: `MAHV → HOTEN`, `MALOP → TENLOP, MAGV`, `MAGV → HOTEN_GV`, `(MAHV, MALOP) → HOCPHI`.
 
-**Bảng 5.11. Phân nhóm bảy thuộc tính của `GHIDANH_PHANG` — gạch vế trái, gạch vế phải**
+**Bảng 5.15. Phân nhóm bảy thuộc tính của `GHIDANH_PHANG` — gạch vế trái, gạch vế phải**
 
 | Thuộc tính | Có ở vế trái? | Có ở vế phải? | Nhóm | Vì sao |
 |:--:|:--:|:--:|:--:|---|
@@ -80,13 +80,15 @@ Bước 4 chính là bước bảo đảm **tính tối thiểu** đã học ở
 
 Khi `TG` lớn, số tập con `2^|TG|` tăng rất nhanh — `|TG| = 10` đã cho hơn một nghìn tập con. Có một mẹo cắt giảm đáng kể khối lượng tính.
 
-> **Mẹo.** Duyệt các tập con của `TG` theo **kích thước tăng dần**. Nếu `TN ∪ Xᵢ` đã là siêu khóa, thì **mọi tập cha** của `Xᵢ` cũng là siêu khóa nhưng **chắc chắn không tối thiểu** — nên **loại luôn, không cần tính bao đóng** cho chúng.
+!!! tip "Mẹo"
+
+    Duyệt các tập con của `TG` theo **kích thước tăng dần**. Nếu `TN ∪ Xᵢ` đã là siêu khóa, thì **mọi tập cha** của `Xᵢ` cũng là siêu khóa nhưng **chắc chắn không tối thiểu** — nên **loại luôn, không cần tính bao đóng** cho chúng.
 
 Mẹo này dựa trên một nhận xét đơn giản: bao đóng có tính **đơn điệu** — thêm thuộc tính vào `X` thì `X⁺` chỉ có thể lớn lên chứ không nhỏ đi. Vì vậy khi đã tìm được một siêu khóa nhỏ, mọi thứ chứa nó đều thừa.
 
 ## 5.5.5. Ví dụ đầy đủ — tìm tất cả khóa
 
-!!! example "Ví dụ 5.4"
+!!! example "Ví dụ 5.8"
 
     Cho `R(A, B, C, D)` và `F = {A → B, B → C, CD → A}`. Tìm **tất cả** khóa.
 
@@ -148,14 +150,14 @@ flowchart BT
     AB --> ABC
     AC --> ABC
     BC --> ABC
-    style E fill:#FFD9D9,stroke:#C00000
-    style A fill:#E2F0D9,stroke:#548235,stroke-width:2px
-    style B fill:#E2F0D9,stroke:#548235,stroke-width:2px
-    style C fill:#E2F0D9,stroke:#548235,stroke-width:2px
-    style AB fill:#EDEDED,stroke:#999,color:#777
-    style AC fill:#EDEDED,stroke:#999,color:#777
-    style BC fill:#EDEDED,stroke:#999,color:#777
-    style ABC fill:#EDEDED,stroke:#999,color:#777
+    style E fill:#FFD9D9,color:#111111,stroke:#C00000,stroke-width:1.5px
+    style A fill:#E2F0D9,color:#111111,stroke:#548235,stroke-width:2px
+    style B fill:#E2F0D9,color:#111111,stroke:#548235,stroke-width:2px
+    style C fill:#E2F0D9,color:#111111,stroke:#548235,stroke-width:2px
+    style AB fill:#EDEDED,color:#222222,stroke:#777777
+    style AC fill:#EDEDED,color:#222222,stroke:#777777
+    style BC fill:#EDEDED,color:#222222,stroke:#777777
+    style ABC fill:#EDEDED,color:#222222,stroke:#777777
 ```
 
 Chỉ **bốn** bao đóng phải tính *(tầng 0 và tầng 1)* thay vì tám; với `TG` lớn hơn, phần tiết kiệm còn lớn hơn nhiều.

@@ -19,10 +19,6 @@ TIENQUYET (MAKH_truoc↗KHOAHOC, MAKH_sau↗KHOAHOC)
 
 ## 4.7.2. Sáu câu hỏi để không bỏ sót
 
-![](../hinh-ve/slide/internet/checklist_phi_cong.jpg){width=55%}
-
-*Ảnh minh họa: phi hành gia đọc danh sách kiểm tra (checklist) trước khi thao tác. Nghề nào cũng cần một danh sách như vậy để không bỏ sót; sáu câu hỏi dưới đây là checklist của người thiết kế khi đi "săn" ràng buộc — Nguồn: Wikimedia Commons · NASA · Public domain.*
-
 Bảng 4.6 được chuyển thành một **quy trình sáu câu hỏi**. Đi lần lượt qua sáu câu này thì không bỏ sót loại nào.
 
 **Bảng 4.21. Sáu câu hỏi phát hiện ràng buộc**
@@ -66,12 +62,12 @@ flowchart LR
     N3["<b>Sĩ số lệch</b>"] -->|"bịt bằng"| R6["<b>R6</b><br/>Liên bộ liên QH"]
     N1 ~~~ N2
     N2 ~~~ N3
-    style N1 fill:#FFD9D9,stroke:#C00000
-    style N2 fill:#FFD9D9,stroke:#C00000
-    style N3 fill:#FFD9D9,stroke:#C00000
-    style R1 fill:#E2F0D9,stroke:#548235
-    style R5 fill:#E2F0D9,stroke:#548235
-    style R6 fill:#E2F0D9,stroke:#548235
+    style N1 fill:#FFD9D9,stroke:#C00000,color:#111111
+    style N2 fill:#FFD9D9,stroke:#C00000,color:#111111
+    style N3 fill:#FFD9D9,stroke:#C00000,color:#111111
+    style R1 fill:#E2F0D9,stroke:#548235,color:#111111
+    style R5 fill:#E2F0D9,stroke:#548235,color:#111111
+    style R6 fill:#E2F0D9,stroke:#548235,color:#111111
 ```
 
 ## 4.7.5. Cờ đỏ thiết kế — khi một ràng buộc quá khó
@@ -102,10 +98,10 @@ flowchart LR
     S --> D["<b>CHẨN ĐOÁN</b><br/>SISO là <b>thuộc tính dẫn xuất</b><br/>→ tạo ra <b>HAI NGUỒN SỰ THẬT</b><br/>cho cùng một thông tin"]
     D --> T["<b>ĐƠN THUỐC</b><br/><b>Bỏ hẳn cột SISO</b><br/>tính khi cần bằng phép đếm"]
     T --> K["<b>KẾT QUẢ</b><br/><b>R6 biến mất</b> — không cần ràng buộc nữa<br/>Chỉ còn <b>một nguồn sự thật</b><br/>→ không thể mâu thuẫn"]
-    style S fill:#FFD9D9,stroke:#C00000
-    style D fill:#FFF2CC,stroke:#C00000
-    style T fill:#D9E2F3,stroke:#1F4E79
-    style K fill:#E2F0D9,stroke:#548235,stroke-width:2px
+    style S fill:#FFD9D9,stroke:#C00000,color:#111111
+    style D fill:#FFF2CC,stroke:#C00000,color:#111111
+    style T fill:#D9E2F3,stroke:#1F4E79,color:#111111
+    style K fill:#E2F0D9,stroke:#548235,stroke-width:2px,color:#111111
 ```
 
 Chẩn đoán này chính là câu hỏi đã treo lại từ **mục 2.2.5** của Chương 2, khi bàn thuộc tính dẫn xuất *"lưu lại hay tính lại"*. Đến đây đã có câu trả lời đầy đủ: lưu lại tạo ra **hai nguồn sự thật** cho cùng một thông tin, và hai nguồn sự thật thì sớm muộn cũng mâu thuẫn — đúng chuỗi nhân quả *dư thừa → không nhất quán* của mục 1.3.3.

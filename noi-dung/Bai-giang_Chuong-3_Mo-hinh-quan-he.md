@@ -1,6 +1,6 @@
 # CHƯƠNG 3. MÔ HÌNH DỮ LIỆU QUAN HỆ VÀ CÁC PHÉP TOÁN
 
-> **Ghi chú biên soạn (v5 — bản giáo trình, tăng cường dữ liệu minh họa và công thức cho người tự học).** Bản này giữ nguyên cấu trúc mục **3.1–3.7 khớp với Mục 8 của đề cương chi tiết** *(8 tiết · CLO2, CLO3)* và văn phong giáo trình của bản v4. So với v4, có bốn nhóm thay đổi: ① **mọi ví dụ trước đây chỉ diễn giải bằng lời hoặc chỉ nêu biểu thức nay đều có bảng dữ liệu tính tay được** — bậc/lực lượng/miền *(Bảng 3.3)*, bảng tính không phải quan hệ *(Bảng 3.5)*, phép thử hai dòng cho phụ thuộc hàm *(Bảng 3.7)*, hai khóa dự tuyển *(Bảng 3.9)*, khóa chính – khóa ngoại và bốn lần thử chèn *(Bảng 3.10, 3.11)*, cách sai – cách đúng đặt khóa ngoại *(Bảng 3.14)*, liên kết đệ quy *(Bảng 3.15)*, ba phương án cha/con trên cùng ba người *(Bảng 3.16)*, khả hợp *(Bảng 3.18)*, bốn phép tập hợp *(Bảng 3.19)*, tích Descartes *(Bảng 3.21)* dùng tiếp cho ba bước của phép kết *(Ví dụ 3.13)*, bốn biến thể kết *(Bảng 3.23)*, ma trận ✓ của phép chia *(Bảng 3.24)*, bộ dữ liệu mẫu và kết quả sáu truy vấn *(Bảng 3.30, 3.31)*; ② **bổ sung công thức hình thức** cho phụ thuộc hàm, chọn, chiếu, ba phép tập hợp, kết tự nhiên, kết ngoài dò lỗi và phép chia — mỗi công thức kèm câu đọc thành lời — và **bảng tra ký hiệu** *(Bảng 3.25)* kèm cách đọc tiếng Việt; ③ thêm hai hình: tập lồng nhau siêu khóa – khóa dự tuyển – khóa chính *(Hình 3.3)* và bốn quy tắc ánh xạ từ mảnh lược đồ Chen sang bảng *(Hình 3.5)*, cây biểu thức *(Hình 3.9)*; sửa `TIENQUYET` nối `KHOAHOC` hai lần ở Hình 3.14; đồng bộ tên `NHANVIEN_HANHCHINH` với Chương 2; ④ thêm bốn hộp **Tự kiểm tra** cuối các mục 3.2, 3.4, 3.6, 3.7 với đáp án trước phần Câu hỏi ôn tập, phục vụ tự học. Số hình: **14**; số bảng: **32**; ngoài ra có **8 ảnh minh họa thực tế** không đánh số (Wikimedia Commons, giấy phép CC/PD, ghi nguồn dưới ảnh). Hoạt động tổ chức lớp học ở **Phụ lục 3A**. Tài liệu tham khảo: [1] Tô Văn Nam (2005); [3] Coronel & Morris, *Database Systems*, Ch.3.
+> **Ghi chú biên soạn (v5 — bản giáo trình, tăng cường dữ liệu minh họa và công thức cho người tự học).** Bản này giữ nguyên cấu trúc mục **3.1–3.7 khớp với Mục 8 của đề cương chi tiết** *(8 tiết · CLO2, CLO3)* và văn phong giáo trình của bản v4. So với v4, có bốn nhóm thay đổi: ① **mọi ví dụ trước đây chỉ diễn giải bằng lời hoặc chỉ nêu biểu thức nay đều có bảng dữ liệu tính tay được** — bậc/lực lượng/miền *(Bảng 3.3)*, bảng tính không phải quan hệ *(Bảng 3.5)*, phép thử hai dòng cho phụ thuộc hàm *(Bảng 3.7)*, hai khóa dự tuyển *(Bảng 3.9)*, khóa chính – khóa ngoại và bốn lần thử chèn *(Bảng 3.10, 3.11)*, cách sai – cách đúng đặt khóa ngoại *(Bảng 3.14)*, liên kết đệ quy *(Bảng 3.15)*, ba phương án cha/con trên cùng ba người *(Bảng 3.16)*, khả hợp *(Bảng 3.18)*, bốn phép tập hợp *(Bảng 3.19)*, tích Descartes *(Bảng 3.21)* dùng tiếp cho ba bước của phép kết *(Ví dụ 3.13)*, bốn biến thể kết *(Bảng 3.23)*, ma trận ✓ của phép chia *(Bảng 3.24)*, bộ dữ liệu mẫu và kết quả sáu truy vấn *(Bảng 3.30, 3.31)*; ② **bổ sung công thức hình thức** cho phụ thuộc hàm, chọn, chiếu, ba phép tập hợp, kết tự nhiên, kết ngoài dò lỗi và phép chia — mỗi công thức kèm câu đọc thành lời — và **bảng tra ký hiệu** *(Bảng 3.25)* kèm cách đọc tiếng Việt; ③ thêm hai hình: tập lồng nhau siêu khóa – khóa dự tuyển – khóa chính *(Hình 3.3)* và bốn quy tắc ánh xạ từ mảnh lược đồ Chen sang bảng *(Hình 3.5)*, cây biểu thức *(Hình 3.9)*; sửa `TIENQUYET` nối `KHOAHOC` hai lần ở Hình 3.14; đồng bộ tên `NHANVIEN_HANHCHINH` với Chương 2; ④ thêm bốn hộp **Tự kiểm tra** cuối các mục 3.2, 3.4, 3.6, 3.7 với đáp án trước phần Câu hỏi ôn tập, phục vụ tự học. Số hình: **14**; số bảng: **32**; ngoài ra có **3 ảnh minh họa** không đánh số (gồm 2 hình minh họa tự vẽ 300 DPI và 1 ảnh thực tế có dẫn nguồn). Hoạt động tổ chức lớp học ở **Phụ lục 3A**. Tài liệu tham khảo: [1] Tô Văn Nam (2005); [3] Coronel & Morris, *Database Systems*, Ch.3.
 
 ---
 
@@ -134,10 +134,6 @@ Hai đặc trưng được đánh dấu sao đáng dừng lại phân tích, vì
 
 **Đặc trưng 4 — mỗi ô một giá trị đơn.** Người học đã gặp nguyên tắc này ở Chương 2 mà chưa biết tên nó. Chính vì nguyên tắc này mà cách nhồi ba số điện thoại vào một ô bị bác bỏ ở mục 2.2.4. Hôm nay ta gọi đúng tên, và ở mục 3.4.2 sẽ dùng nó thêm một lần nữa để **chứng minh** vì sao khóa ngoại bắt buộc phải đặt ở phía "nhiều". Ở Chương 5, nguyên tắc này sẽ được nâng lên thành **dạng chuẩn 1**.
 
-![](hinh-ve/slide/internet/bo_bai_xao.jpg){width=50%}
-
-*Ảnh minh họa: máy xáo bài. Sau khi xáo, không có khái niệm "lá thứ năm"; muốn lấy một lá phải gọi tên nó. Bảng quan hệ là một tập hợp, cũng không có thứ tự — muốn lấy một dòng phải gọi bằng giá trị khóa — Nguồn: Wikimedia Commons · thekirbster · CC BY 2.0.*
-
 **Đặc trưng 7 — thứ tự không quan trọng.** Đây là đặc trưng nghe lạ nhất với người quen dùng bảng tính, nên cần một bảng đối chiếu.
 
 **Bảng 3.6. Bảng tính và bảng quan hệ — hai cách nghĩ về "vị trí"**
@@ -168,18 +164,18 @@ flowchart LR
     R3 ~~~ E5
     R2 ~~~ E4
     R4 ~~~ E6
-    style E1 fill:#D9E2F3,stroke:#1F4E79
-    style E2 fill:#D9E2F3,stroke:#1F4E79
-    style E3 fill:#D9E2F3,stroke:#1F4E79
-    style E4 fill:#D9E2F3,stroke:#1F4E79
-    style E5 fill:#D9E2F3,stroke:#1F4E79
-    style E6 fill:#D9E2F3,stroke:#1F4E79
-    style R1 fill:#E2F0D9,stroke:#548235
-    style R2 fill:#E2F0D9,stroke:#548235
-    style R3 fill:#E2F0D9,stroke:#548235
-    style R4 fill:#E2F0D9,stroke:#548235
-    style R5 fill:#FFF2CC,stroke:#C00000,stroke-width:2px
-    style R6 fill:#FFF2CC,stroke:#C00000,stroke-width:2px
+    style E1 fill:#D9E2F3,stroke:#1F4E79,color:#111111
+    style E2 fill:#D9E2F3,stroke:#1F4E79,color:#111111
+    style E3 fill:#D9E2F3,stroke:#1F4E79,color:#111111
+    style E4 fill:#D9E2F3,stroke:#1F4E79,color:#111111
+    style E5 fill:#D9E2F3,stroke:#1F4E79,color:#111111
+    style E6 fill:#D9E2F3,stroke:#1F4E79,color:#111111
+    style R1 fill:#E2F0D9,stroke:#548235,color:#111111
+    style R2 fill:#E2F0D9,stroke:#548235,color:#111111
+    style R3 fill:#E2F0D9,stroke:#548235,color:#111111
+    style R4 fill:#E2F0D9,stroke:#548235,color:#111111
+    style R5 fill:#FFF2CC,stroke:#C00000,stroke-width:2px,color:#111111
+    style R6 fill:#FFF2CC,stroke:#C00000,stroke-width:2px,color:#111111
 ```
 
 Bốn dòng đầu là phép dịch **một–một**, gần như đổi tên. Hai dòng cuối, được tô đậm, là chỗ **phép dịch không còn máy móc**: một liên kết ở Chương 2 không biến thành một bảng, mà biến thành **một cột khóa ngoại** hoặc **một bảng hoàn toàn mới**. Đó là nội dung chính của mục 3.4.
@@ -202,9 +198,9 @@ Trước khi định nghĩa khóa, cần một công cụ để nói về **quan
 
 > **Định nghĩa 3.3.** Thuộc tính `B` **phụ thuộc hàm** vào thuộc tính `A`, viết là **`A → B`**, nếu **mỗi giá trị của `A` xác định duy nhất một giá trị của `B`**. Khi đó `A` gọi là **vế trái** *(determinant)* và `B` là **vế phải**.
 
-![](hinh-ve/slide/internet/quet_ma_vach.jpg){width=50%}
+![](hinh-ve/minh-hoa/C3_mh01_phu_thuoc_ham_anh_xa.png){width=85%}
 
-*Ảnh minh họa: máy quét mã vạch ở quầy thu ngân. Quét mã là ra tên và giá: biết mã thì biết chắc giá (`MASP → DONGIA`), nhưng biết giá không suy ra được mã vì nhiều mặt hàng cùng giá — Nguồn: Wikimedia Commons · Network.nt · Public domain.*
+*Ảnh minh họa: Sơ đồ ánh xạ giữa các giá trị thuộc tính tại Trung tâm Anh ngữ ABC — chiều thuận MALOP → MAGV là phụ thuộc hàm vì mỗi lớp chỉ dẫn tới đúng một giáo viên; chiều ngược MAGV không xác định duy nhất MALOP vì GV1 phụ trách ba lớp khác nhau — Nguồn: Tác giả tự vẽ.*
 
 Cách đọc thực dụng của `A → B` là: *"biết `A` thì biết chắc `B`"*.
 
@@ -239,10 +235,10 @@ Ví dụ trên minh họa đặc điểm quan trọng nhất của phụ thuộc
 flowchart LR
     A["<b>MAHV</b><br/>HV01"] -->|"xác định duy nhất"| B["<b>HOTEN</b><br/>Trần An"]
     C["<b>HOTEN</b><br/>Trần An"] -.->|"KHÔNG xác định được<br/>có thể là HV01 hoặc HV03"| D["<b>MAHV</b><br/>?"]
-    style A fill:#E2F0D9,stroke:#548235,stroke-width:2px
-    style B fill:#E2F0D9,stroke:#548235
-    style C fill:#FFD9D9,stroke:#C00000,stroke-width:2px
-    style D fill:#FFD9D9,stroke:#C00000
+    style A fill:#E2F0D9,stroke:#548235,stroke-width:2px,color:#111111
+    style B fill:#E2F0D9,stroke:#548235,color:#111111
+    style C fill:#FFD9D9,stroke:#C00000,stroke-width:2px,color:#111111
+    style D fill:#FFD9D9,stroke:#C00000,color:#111111
 ```
 
 > **Chú ý.** Phụ thuộc hàm là một **quy tắc nghiệp vụ**, không phải một quan sát trên dữ liệu hiện có. Nếu hôm nay bảng chỉ có 3 học viên và tình cờ không ai trùng tên, ta **không được kết luận** `HOTEN → MAHV`. Câu hỏi đúng phải là: *"nghiệp vụ có cho phép hai học viên trùng tên không?"* Nếu có thì phụ thuộc hàm ấy không tồn tại, bất kể dữ liệu hiện tại trông thế nào. Đây là lỗi rất phổ biến, và Chương 5 sẽ quay lại điểm này khi dùng phụ thuộc hàm làm công cụ chuẩn hóa.
@@ -296,14 +292,14 @@ flowchart TB
             end
         end
     end
-    style SK fill:#FFF2CC,stroke:#BF9000
-    style CK fill:#E2F0D9,stroke:#548235
-    style PK fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
-    style C1 fill:#1F4E79,color:#fff,stroke:#1F4E79
-    style C2 fill:#fff,stroke:#548235
-    style S1 fill:#fff,stroke:#BF9000
-    style S2 fill:#fff,stroke:#BF9000
-    style S3 fill:#fff,stroke:#BF9000
+    style SK fill:#FFF2CC,stroke:#BF9000,color:#111111
+    style CK fill:#E2F0D9,stroke:#548235,color:#111111
+    style PK fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px,color:#111111
+    style C1 fill:#1F4E79,color:#ffffff,stroke:#1F4E79
+    style C2 fill:#ffffff,stroke:#548235,color:#111111
+    style S1 fill:#ffffff,stroke:#BF9000,color:#111111
+    style S2 fill:#ffffff,stroke:#BF9000,color:#111111
+    style S3 fill:#ffffff,stroke:#BF9000,color:#111111
 ```
 
 Đọc hình từ ngoài vào trong. Vòng ngoài cùng chứa **mọi tập thuộc tính đủ duy nhất**, kể cả những tập thừa như `{MAHV, HOTEN}`. Vòng giữa chỉ giữ lại những tập **không bỏ bớt được** — ở đây là `{MAHV}` và `{CCCD}`. Vòng trong cùng là **một** tập được người thiết kế chỉ định. Khóa ngoại và khóa phụ không nằm trong hình này vì chúng thuộc một trục phân loại khác: chúng nói về *vai trò* của thuộc tính, không nói về *tính duy nhất*.
@@ -311,10 +307,6 @@ flowchart TB
 > **Chú ý.** Phân biệt **siêu khóa** và **khóa dự tuyển** chính là phân biệt *tính duy nhất* với *tính tối thiểu* — hai tiêu chí đã nêu ở Bảng 2.5 của Chương 2. Ở Chương 2 ta yêu cầu thuộc tính khóa thỏa mãn **cả hai**; ở đây ta đặt tên riêng cho từng mức: thỏa mãn duy nhất là **siêu khóa**, thỏa mãn thêm tối thiểu là **khóa dự tuyển**.
 
 ### 3.2.4. Khóa chính và khóa ngoại — hai vai trò khác nhau
-
-![](hinh-ve/slide/internet/danh_ba_dien_thoai.jpg){width=55%}
-
-*Ảnh minh họa: một trang danh bạ điện thoại năm 1905. Số điện thoại ghi trong danh bạ là số *của người khác* mà ta ghi lại để liên hệ — giống khóa ngoại; còn số căn cước của chính mình mới giống khóa chính — Nguồn: Wikimedia Commons · DPLA · Public domain.*
 
 Hai loại khóa này được dùng nhiều nhất, và cũng hay bị lẫn vai trò. Một phép loại suy giúp phân định rất rõ.
 
@@ -324,10 +316,10 @@ Hai loại khóa này được dùng nhiều nhất, và cũng hay bị lẫn va
 flowchart LR
     PK["<b>KHÓA CHÍNH</b><br/>─────────<br/>Ví như <b>số căn cước</b><br/>của chính mình<br/><br/>Duy nhất · Không rỗng<br/>Không đổi"] --> Q1["Trả lời:<br/><i>Dòng này là AI?</i>"]
     FK["<b>KHÓA NGOẠI</b><br/>─────────<br/>Ví như <b>địa chỉ nhà</b><br/>của người khác<br/><br/>Có thể trùng · Có thể rỗng<br/>Phải TỒN TẠI nếu có"] --> Q2["Trả lời:<br/><i>Dòng này LIÊN QUAN tới ai?</i>"]
-    style PK fill:#1F4E79,color:#fff,stroke:#1F4E79,stroke-width:2px
-    style FK fill:#FFF2CC,stroke:#C00000,stroke-width:2px
-    style Q1 fill:#E2F0D9,stroke:#548235
-    style Q2 fill:#E2F0D9,stroke:#548235
+    style PK fill:#1F4E79,color:#ffffff,stroke:#1F4E79,stroke-width:2px
+    style FK fill:#FFF2CC,stroke:#C00000,stroke-width:2px,color:#111111
+    style Q1 fill:#E2F0D9,stroke:#548235,color:#111111
+    style Q2 fill:#E2F0D9,stroke:#548235,color:#111111
 ```
 
 Phép loại suy ấy hiện ra bằng dữ liệu như sau. Cột `MAGV` xuất hiện ở **cả hai bảng** nhưng với hai vai trò: trong `GIAOVIEN` nó là **khóa chính** *(căn cước của giáo viên)*, trong `LOP` nó là **khóa ngoại** *(địa chỉ liên hệ mà lớp ghi lại để biết giáo viên của mình là ai)*.
@@ -373,10 +365,6 @@ Mô hình quan hệ đặt ra **hai ràng buộc bắt buộc** mà mọi cơ s�
 ### 3.3.1. Toàn vẹn thực thể
 
 > **Định nghĩa 3.5.** **Toàn vẹn thực thể** *(entity integrity)*: khóa chính của mọi quan hệ phải **duy nhất** và **không được nhận giá trị rỗng** *(null)* ở bất kỳ thành phần nào.
-
-![](hinh-ve/slide/internet/ve_so.jpg){width=55%}
-
-*Ảnh minh họa: người chơi điền vé số. Tờ vé không có dãy số thì không dò được, không trả thưởng được; hai vé cùng số thì không biết trả cho ai — đó là ý nghĩa của toàn vẹn thực thể — Nguồn: Wikimedia Commons · Santeri Viinamäki · CC BY-SA 4.0.*
 
 Lý do rất trực tiếp. Khóa chính tồn tại để **định danh** một dòng. Nếu nó rỗng thì dòng đó không có danh tính — ta không có cách nào chỉ đích danh nó để đọc, sửa hay xóa. Nếu nó trùng thì hai dòng có cùng danh tính, và hệ thống không phân biệt được chúng.
 
@@ -454,60 +442,7 @@ Bốn quy tắc ấy nhìn thấy được trên hình: bên trái là mảnh l�
 
 **Hình 3.5. Bốn quy tắc ánh xạ và trường hợp thực thể yếu — từ mảnh lược đồ Chen sang bảng**
 
-```mermaid
-flowchart TB
-    subgraph Q1["QT1 — thực thể mạnh → một bảng, thuộc tính khóa → khóa chính"]
-        direction LR
-        k1(["<u>MAGV</u>"]) --- E1["GIAOVIEN"]
-        E1 --- a1(["HOTEN_GV"])
-        E1 ==> T1["GIAOVIEN(<u>MAGV</u>, HOTEN_GV, BANGCAP)"]
-    end
-    subgraph Q2["QT2 — liên kết 1:1 → khóa ngoại đặt ở bên tham gia BẮT BUỘC"]
-        direction LR
-        E2a["NHANVIEN"] ---|"(0, 1)"| R2{"được cấp"}
-        R2 ---|"(1, 1)"| E2b["TAIKHOAN"]
-        R2 ==> T2["TAIKHOAN(<u>MATK</u>, MATKHAU, MANV↗)"]
-    end
-    subgraph Q3["QT3 — liên kết 1:M → khóa chính bên 1 sang bên NHIỀU làm khóa ngoại"]
-        direction LR
-        E3a["GIAOVIEN"] ---|"(0, N)"| R3{"phụ trách"}
-        R3 ---|"(1, 1)"| E3b["LOP"]
-        R3 ==> T3["LOP(<u>MALOP</u>, TENLOP, NGAYKG, MAGV↗)"]
-    end
-    subgraph Q4["QT4 — liên kết M:N → BẢNG MỚI, khóa phức hợp ghép hai khóa chính"]
-        direction LR
-        E4a["HOCVIEN"] ---|"M"| R4{"ghi danh"}
-        R4 ---|"N"| E4b["LOP"]
-        R4 ==> T4["GHIDANH(<u>MAHV</u>↗, <u>MALOP</u>↗, NGAYGHIDANH, HOCPHI)"]
-    end
-    subgraph Q5["Thực thể yếu → một bảng, khóa phức hợp mượn khóa của thực thể chủ"]
-        direction LR
-        E5a["HOCVIEN"] ---|"(0, N)"| R5{"có"}
-        R5 ---|"(1, 1)"| E5b[["DIENTHOAI"]]
-        R5 ==> T5["DIENTHOAI(<u>MAHV</u>↗, <u>SODT</u>)"]
-    end
-    Q1 ~~~ Q2 ~~~ Q3 ~~~ Q4 ~~~ Q5
-    style E1 fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
-    style E2a fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
-    style E2b fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
-    style E3a fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
-    style E3b fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
-    style E4a fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
-    style E4b fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
-    style E5a fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
-    style E5b fill:#FFF2CC,stroke:#C00000,stroke-width:3px
-    style R2 fill:#E2F0D9,stroke:#548235
-    style R3 fill:#E2F0D9,stroke:#548235
-    style R4 fill:#FFD9D9,stroke:#C00000,stroke-width:2px
-    style R5 fill:#E2F0D9,stroke:#548235,stroke-width:3px
-    style k1 fill:#fff,stroke:#1F4E79
-    style a1 fill:#fff,stroke:#1F4E79
-    style T1 fill:#fff,stroke:#1F4E79,stroke-width:2px
-    style T2 fill:#fff,stroke:#1F4E79,stroke-width:2px
-    style T3 fill:#fff,stroke:#1F4E79,stroke-width:2px
-    style T4 fill:#fff,stroke:#1F4E79,stroke-width:2px
-    style T5 fill:#fff,stroke:#1F4E79,stroke-width:2px
-```
+![](hinh-ve/chen/C3_hinh05_bon_quy_tac_anh_xa.png)
 
 *(Gạch chân = khóa chính; ↗ = khóa ngoại. Hàng QT2 dùng một ví dụ ngoài bài toán ABC vì lược đồ ABC không có liên kết 1:1.)*
 
@@ -528,10 +463,11 @@ flowchart TB
     Q --> R["<b>ĐÚNG — đặt ở phía 'nhiều'</b><br/>LOP(<u>MALOP</u>, TENLOP, <b>MAGV</b>)"]
     W --> W2["Ô MALOP của cô Lê Hoa phải chứa<br/><b>'A1, A2, A3, A4'</b><br/>= <b>bốn giá trị trong một ô</b><br/>─────────<br/>Vi phạm <b>Đặc trưng 4</b><br/>= đúng lỗi thuộc tính đa trị<br/>đã bị cấm ở Chương 2"]
     R --> R2["Mỗi lớp có <b>đúng một</b> giáo viên<br/>→ ô MAGV chứa <b>một giá trị</b><br/>─────────<br/>GV1 xuất hiện ở <b>bốn DÒNG</b><br/>— hoàn toàn hợp lệ"]
-    style W fill:#FFD9D9,stroke:#C00000
-    style W2 fill:#FFD9D9,stroke:#C00000,stroke-width:2px
-    style R fill:#D9E2F3,stroke:#1F4E79
-    style R2 fill:#E2F0D9,stroke:#548235,stroke-width:2px
+    style Q fill:#F2F4F8,stroke:#1F4E79,color:#111111
+    style W fill:#FFD9D9,stroke:#C00000,color:#111111
+    style W2 fill:#FFD9D9,stroke:#C00000,stroke-width:2px,color:#111111
+    style R fill:#D9E2F3,stroke:#1F4E79,color:#111111
+    style R2 fill:#E2F0D9,stroke:#548235,stroke-width:2px,color:#111111
 ```
 
 Hãy điền dữ liệu thật cho cả hai cách để thấy cách nào đứng vững.
@@ -635,19 +571,7 @@ Mục 2.7 của Chương 2 đã giới thiệu quan hệ cha/con. Mô hình quan
 
 *(Để hình gọn, chỉ ghi hai thuộc tính chung `HOTEN`, `NGAYSINH` và một thuộc tính riêng mỗi bên; lược đồ đầy đủ của Ví dụ 2.7 có năm thuộc tính chung và hai thuộc tính riêng mỗi con.)*
 
-```mermaid
-flowchart TB
-    P1["<b>PHƯƠNG ÁN 1 — MỘT BẢNG DUY NHẤT</b><br/>NHANSU(<u>MANS</u>, HOTEN, NGAYSINH,<br/>LOAI, BANGCAP, BOPHAN)<br/><i>gộp mọi thuộc tính, thêm cột phân loại</i>"]
-    P2["<b>PHƯƠNG ÁN 2 — MỖI CON MỘT BẢNG</b><br/>GIAOVIEN(<u>MANS</u>, HOTEN, NGAYSINH, BANGCAP)<br/>NHANVIEN_HANHCHINH(<u>MANS</u>, HOTEN, NGAYSINH, BOPHAN)<br/><i>bỏ hẳn bảng cha</i>"]
-    P3["<b>PHƯƠNG ÁN 3 — CHA VÀ CÁC CON</b><br/>NHANSU(<u>MANS</u>, HOTEN, NGAYSINH)<br/>GIAOVIEN(<u>MANS</u> → NHANSU, BANGCAP)<br/>NHANVIEN_HANHCHINH(<u>MANS</u> → NHANSU, BOPHAN)"]
-    P1 --> C1["Hợp khi: ít thuộc tính riêng<br/>ràng buộc <b>chồng lấn</b><br/>─────────<br/>Nhược: <b>nhiều ô rỗng</b>"]
-    P2 --> C2["Hợp khi: <b>rời nhau + đầy đủ</b><br/>─────────<br/>Nhược: lặp thuộc tính chung<br/>khó truy vấn toàn bộ nhân sự"]
-    P3 --> C3["Hợp khi: <b>tổng quát nhất</b><br/>đặc biệt khi chồng lấn<br/>─────────<br/>Nhược: phải <b>kết bảng</b> mới đủ thông tin"]
-    style P1 fill:#FFF2CC,stroke:#C00000
-    style P2 fill:#FFF2CC,stroke:#C00000
-    style P3 fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
-    style C3 fill:#E2F0D9,stroke:#548235,stroke-width:2px
-```
+![](hinh-ve/chen/C3_hinh07_ba_phuong_an_eer.png)
 
 **Phương án 1 — một bảng duy nhất.** Gộp tất cả thuộc tính của cha và mọi con vào một bảng, thêm một cột `LOAI` để phân biệt. Ưu điểm là mọi truy vấn chỉ đọc một bảng. Nhược điểm là **ô rỗng tràn lan**: mọi giáo viên đều có ô `BOPHAN` trống và mọi nhân viên hành chính đều có ô `BANGCAP` trống. Chỉ nên dùng khi các con có **rất ít thuộc tính riêng**.
 
@@ -761,8 +685,8 @@ flowchart LR
     S["<b>σ — PHÉP CHỌN</b><br/>─────────<br/>Cắt <b>NGANG</b><br/>Giữ lại một số <b>DÒNG</b><br/>Giữ nguyên mọi cột<br/><br/><i>σ HOCPHI &gt; 2000000 (GHIDANH)</i>"]
     P["<b>π — PHÉP CHIẾU</b><br/>─────────<br/>Cắt <b>DỌC</b><br/>Giữ lại một số <b>CỘT</b><br/>Giữ nguyên mọi dòng<br/><br/><i>π MAHV, HOTEN (HOCVIEN)</i>"]
     S --- P
-    style S fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
-    style P fill:#E2F0D9,stroke:#548235,stroke-width:2px
+    style S fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px,color:#111111
+    style P fill:#E2F0D9,stroke:#548235,stroke-width:2px,color:#111111
 ```
 
 > **Ví dụ 3.8.** Cho bảng `HOCVIEN`:
@@ -828,10 +752,10 @@ flowchart BT
     L["<b>HOCVIEN</b><br/>3 bộ · 4 cột"] --> S["<b>σ</b> MALOP = 'A1'<br/><i>giữ 2 bộ · 4 cột</i>"]
     S --> P["<b>π</b> MAHV, HOTEN<br/><i>2 bộ · 2 cột</i>"]
     P --> KQ["<b>KẾT QUẢ</b>"]
-    style L fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
-    style S fill:#FFF2CC,stroke:#BF9000
-    style P fill:#FFF2CC,stroke:#BF9000
-    style KQ fill:#E2F0D9,stroke:#548235,stroke-width:2px
+    style L fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px,color:#111111
+    style S fill:#FFF2CC,stroke:#BF9000,color:#111111
+    style P fill:#FFF2CC,stroke:#BF9000,color:#111111
+    style KQ fill:#E2F0D9,stroke:#548235,stroke-width:2px,color:#111111
 ```
 
 Thứ tự thực hiện có ảnh hưởng tới hiệu quả. Nên **chọn trước, chiếu sau**: lọc bỏ bớt dòng rồi mới cắt cột thì khối lượng dữ liệu phải xử lý ở bước sau nhỏ hơn. Nếu làm ngược lại — chiếu trước lên hai cột `MAHV`, `HOTEN` — thì kết quả trung gian là bảng hai cột ở Ví dụ 3.8: cột `MALOP` đã bị bỏ đi, và **không còn cách nào lọc theo lớp nữa** — phép chọn `σ_MALOP='A1'` áp lên một bảng không có cột `MALOP` là vô nghĩa. Trong trường hợp này, làm ngược thứ tự không chỉ chậm hơn mà là **sai**.
@@ -920,10 +844,6 @@ Cần lưu ý rằng **phép hiệu không giao hoán**: `A − B` khác `B − 
 
 > **Định nghĩa 3.11.** **Tích Descartes** *(Cartesian product)* `R × S` ghép **mỗi bộ của `R` với mọi bộ của `S`**. Nếu `R` có bậc `m` và lực lượng `p`, còn `S` có bậc `n` và lực lượng `q`, thì `R × S` có **bậc `m + n`** và **lực lượng `p × q`**.
 
-![](hinh-ve/slide/internet/thuc_don_combo.jpg){width=60%}
-
-*Ảnh minh họa: bảng thực đơn đồ ăn nhanh. Ba món chính và hai đồ uống cho sáu combo khả dĩ, kể cả combo chẳng ai gọi — tích Descartes ghép cơ học mọi cặp đúng như thế — Nguồn: Wikimedia Commons · Dave O · CC BY-SA 2.0.*
-
 Tích Descartes được xếp vào **nhóm phép toán tập hợp** vì nó kế thừa trực tiếp từ lý thuyết tập hợp, giống ba phép trên. Nhưng nó **khác ba phép kia ở một điểm căn bản**, và đây là chỗ người học hay nhầm.
 
 **Ba phép `∪`, `∩`, `−` đòi hỏi khả hợp; tích Descartes thì không.** Lý do nằm ở bản chất phép toán. Ba phép đầu **so sánh các bộ với nhau** để quyết định giữ hay bỏ, nên hai bộ phải có cùng cấu trúc mới so sánh được. Tích Descartes **không so sánh gì cả** — nó chỉ nối hai bộ lại thành một bộ dài hơn, nên hai quan hệ đầu vào có cấu trúc thế nào cũng được.
@@ -996,10 +916,10 @@ flowchart LR
     B2["<b>BƯỚC 2</b><br/>Chọn σ<br/><i>giữ lại các cặp có<br/>giá trị KHỚP nhau ở<br/>thuộc tính chung</i>"]
     B3["<b>BƯỚC 3</b><br/>Chiếu π<br/><i>bỏ đi cột<br/>bị lặp hai lần</i>"]
     B1 --> B2 --> B3 --> KQ["<b>KẾT QUẢ</b><br/>R ⋈ S"]
-    style B1 fill:#FFF2CC,stroke:#C00000
-    style B2 fill:#D9E2F3,stroke:#1F4E79
-    style B3 fill:#D9E2F3,stroke:#1F4E79
-    style KQ fill:#E2F0D9,stroke:#548235,stroke-width:2px
+    style B1 fill:#FFF2CC,stroke:#C00000,color:#111111
+    style B2 fill:#D9E2F3,stroke:#1F4E79,color:#111111
+    style B3 fill:#D9E2F3,stroke:#1F4E79,color:#111111
+    style KQ fill:#E2F0D9,stroke:#548235,stroke-width:2px,color:#111111
 ```
 
 > **Công thức.** Với `A` là thuộc tính chung của `R` và `S`:
@@ -1044,9 +964,9 @@ Hiểu được ba bước này giải thích được nhiều điều. Thứ nh
 | **Kết ngoài phải** *(right outer join)* | `⟖` | Giữ **mọi bộ của bảng phải** |
 | **Kết ngoài đầy đủ** *(full outer join)* | `⟗` | Giữ **mọi bộ của cả hai bảng** |
 
-![](hinh-ve/slide/internet/so_diem_danh.jpg){width=55%}
+![](hinh-ve/minh-hoa/C3_mh02_inner_vs_left_join.png){width=85%}
 
-*Ảnh minh họa: sổ điểm danh. Người vắng vẫn có dòng, chỉ để trống ô chữ ký — danh sách không mất ai. Kết ngoài giữ bộ không khớp và điền rỗng đúng như sổ điểm danh; kết trong thì bỏ hẳn — Nguồn: Wikimedia Commons · KeMang · CC0.*
+*Ảnh minh họa: Đối chiếu trực quan Kết trong (INNER JOIN) và Kết ngoài trái (LEFT OUTER JOIN) giữa GIAOVIEN và LOP — giáo viên mới GV3 Phạm Nam chưa nhận lớp bị loại khỏi kết trong, nhưng được giữ lại kèm giá trị NULL ở kết ngoài trái — Nguồn: Tác giả tự vẽ.*
 
 Khác biệt cốt lõi giữa **kết trong** và **kết ngoài** nằm ở cách xử lý các bộ **không tìm được bạn khớp**. Kết trong **vứt bỏ** chúng; kết ngoài **giữ lại** và điền giá trị rỗng vào phần thiếu.
 
@@ -1120,9 +1040,9 @@ flowchart LR
     B["<b>BƯỚC 2</b><br/>Chọn σ<br/><i>lọc các dòng có<br/>HOTEN_GV = rỗng</i>"]
     C["<b>KẾT QUẢ</b><br/>Danh sách các lớp có<br/><b>MAGV mồ côi</b><br/>─────────<br/>σ HOTEN_GV IS NULL<br/>(LOP ⟕ GIAOVIEN)"]
     A --> B --> C
-    style A fill:#D9E2F3,stroke:#1F4E79
-    style B fill:#D9E2F3,stroke:#1F4E79
-    style C fill:#FFD9D9,stroke:#C00000,stroke-width:2px
+    style A fill:#D9E2F3,stroke:#1F4E79,color:#111111
+    style B fill:#D9E2F3,stroke:#1F4E79,color:#111111
+    style C fill:#FFD9D9,stroke:#C00000,stroke-width:2px,color:#111111
 ```
 
 **Nguyên lý hoạt động.** Kết ngoài trái giữ lại **mọi** dòng của bảng `LOP`. Với những lớp có `MAGV` hợp lệ, các cột lấy từ `GIAOVIEN` sẽ có giá trị. Với những lớp có `MAGV` mồ côi, **không tìm được bộ khớp** nên các cột ấy bị điền **rỗng**. Vậy chỉ cần lọc lấy các dòng có cột bên phải rỗng là ra danh sách lỗi.
@@ -1149,10 +1069,6 @@ flowchart LR
 Kỹ thuật này nối thẳng sang Chương 4. Ở đó, việc **phát hiện** lỗi sẽ được nâng lên thành việc **ngăn chặn** lỗi bằng cách khai báo ràng buộc ngay từ đầu.
 
 ### 3.7.4. Phép chia
-
-![](hinh-ve/slide/internet/bang_diem.jpg){width=60%}
-
-*Ảnh minh họa: một bảng điểm cuối khóa. Muốn tốt nghiệp phải đạt *tất cả* môn bắt buộc: thừa môn tự chọn không sao, thiếu một môn bắt buộc là loại — đúng cấu trúc câu hỏi mà phép chia trả lời — Nguồn: Wikimedia Commons · Columbus Public Schools · Public domain.*
 
 Phép chia là phép toán khó nhất trong tám phép, nhưng nó trả lời được một loại câu hỏi mà các phép khác không diễn đạt trực tiếp được: câu hỏi có chữ **"tất cả"**.
 
@@ -1228,11 +1144,16 @@ flowchart LR
     QH --> Q3["<b>⋈</b> Kết — ghép bảng"]
     QH --> Q4["<b>÷</b> Chia — 'tất cả'"]
     T4 ~~~ QH
-    style TH fill:#1F4E79,color:#fff,stroke:#1F4E79,stroke-width:2px
-    style QH fill:#548235,color:#fff,stroke:#548235,stroke-width:2px
-    style T4 fill:#FFF2CC,stroke:#C00000
-    style Q3 fill:#E2F0D9,stroke:#548235,stroke-width:2px
-    style Q4 fill:#FFD9D9,stroke:#C00000
+    style TH fill:#1F4E79,color:#ffffff,stroke:#1F4E79,stroke-width:2px
+    style QH fill:#548235,color:#ffffff,stroke:#548235,stroke-width:2px
+    style T1 fill:#D9E2F3,stroke:#1F4E79,color:#111111
+    style T2 fill:#D9E2F3,stroke:#1F4E79,color:#111111
+    style T3 fill:#D9E2F3,stroke:#1F4E79,color:#111111
+    style T4 fill:#FFF2CC,stroke:#C00000,color:#111111
+    style Q1 fill:#E2F0D9,stroke:#548235,color:#111111
+    style Q2 fill:#E2F0D9,stroke:#548235,color:#111111
+    style Q3 fill:#E2F0D9,stroke:#548235,stroke-width:2px,color:#111111
+    style Q4 fill:#FFD9D9,stroke:#C00000,color:#111111
 ```
 
 Bảng dưới đây gom tám phép toán vào **một trang tra cứu** cho người tự học: ký hiệu, cách đọc, công thức và một ví dụ trên lược đồ ABC.
@@ -1288,14 +1209,14 @@ flowchart LR
     E2["<b>2 liên kết 1:M</b><br/>KHOAHOC–LOP<br/>GIAOVIEN–LOP"] -->|"QT3"| R2["<b>2 cột khóa ngoại</b><br/>đặt trong bảng LOP<br/>MAKH · MAGV"]
     E3["<b>1 thực thể yếu</b><br/>DIENTHOAI"] -->|"mục 3.4.3"| R3["<b>1 bảng</b><br/>khóa phức hợp<br/>(MAHV, SODT)"]
     E4["<b>2 thực thể kết hợp</b><br/>GHIDANH · TIENQUYET"] -->|"QT4"| R4["<b>2 bảng</b><br/>khóa phức hợp<br/>2 khóa ngoại mỗi bảng"]
-    style E1 fill:#D9E2F3,stroke:#1F4E79
-    style E2 fill:#D9E2F3,stroke:#1F4E79
-    style E3 fill:#FFF2CC,stroke:#C00000
-    style E4 fill:#FFF2CC,stroke:#C00000
-    style R1 fill:#E2F0D9,stroke:#548235
-    style R2 fill:#E2F0D9,stroke:#548235
-    style R3 fill:#E2F0D9,stroke:#548235
-    style R4 fill:#E2F0D9,stroke:#548235
+    style E1 fill:#D9E2F3,stroke:#1F4E79,color:#111111
+    style E2 fill:#D9E2F3,stroke:#1F4E79,color:#111111
+    style E3 fill:#FFF2CC,stroke:#C00000,color:#111111
+    style E4 fill:#FFF2CC,stroke:#C00000,color:#111111
+    style R1 fill:#E2F0D9,stroke:#548235,color:#111111
+    style R2 fill:#E2F0D9,stroke:#548235,color:#111111
+    style R3 fill:#E2F0D9,stroke:#548235,color:#111111
+    style R4 fill:#E2F0D9,stroke:#548235,color:#111111
 ```
 
 **Bảng 3.27. Ánh xạ từng thành phần**
@@ -1316,51 +1237,7 @@ flowchart LR
 
 **Hình 3.14. Lược đồ quan hệ của Trung tâm Anh ngữ ABC — bảy bảng**
 
-```mermaid
-erDiagram
-    KHOAHOC ||--o{ LOP : "MAKH"
-    GIAOVIEN ||--o{ LOP : "MAGV"
-    HOCVIEN ||--o{ DIENTHOAI : "MAHV"
-    HOCVIEN ||--o{ GHIDANH : "MAHV"
-    LOP ||--o{ GHIDANH : "MALOP"
-    KHOAHOC ||--o{ TIENQUYET : "MAKH_truoc"
-    KHOAHOC ||--o{ TIENQUYET : "MAKH_sau"
-    GIAOVIEN {
-        string MAGV PK
-        string HOTEN_GV
-        string BANGCAP
-    }
-    KHOAHOC {
-        string MAKH PK
-        string TENKH
-    }
-    LOP {
-        string MALOP PK
-        string TENLOP
-        date NGAYKG
-        string MAGV FK
-        string MAKH FK
-    }
-    HOCVIEN {
-        string MAHV PK
-        string HOTEN
-        date NGAYSINH
-    }
-    DIENTHOAI {
-        string MAHV PK
-        string SODT PK
-    }
-    GHIDANH {
-        string MAHV PK
-        string MALOP PK
-        date NGAYGHIDANH
-        int HOCPHI
-    }
-    TIENQUYET {
-        string MAKH_truoc PK
-        string MAKH_sau PK
-    }
-```
+![](hinh-ve/chen/C3_hinh14_luoc_do_quan_he_abc.png)
 
 ### 3.8.3. Kiểm tra toàn vẹn trên lược đồ
 

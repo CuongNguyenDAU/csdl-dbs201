@@ -70,7 +70,7 @@
         "Mọi phụ thuộc đều đầy đủ · không có bắc cầu · đạt 3NF"
       ],
       "answer": 0,
-      "explain": "Ba điều kiện của Định nghĩa 5.9, và chúng cũng chính là ba bước của thuật toán. Vế **trái** vẫn được phép nhiều thuộc tính, chỉ cần không có thuộc tính nào **thừa** trong đó. Phủ tối thiểu không nhất thiết duy nhất — thứ tự loại bỏ khác nhau có thể cho kết quả khác nhau nhưng đều tương đương với `F`."
+      "explain": "Ba điều kiện của Định nghĩa 5.10, và chúng cũng chính là ba bước của thuật toán. Vế **trái** vẫn được phép nhiều thuộc tính, chỉ cần không có thuộc tính nào **thừa** trong đó. Phủ tối thiểu không nhất thiết duy nhất — thứ tự loại bỏ khác nhau có thể cho kết quả khác nhau nhưng đều tương đương với `F`."
     },
     {
       "id": "c5q06",

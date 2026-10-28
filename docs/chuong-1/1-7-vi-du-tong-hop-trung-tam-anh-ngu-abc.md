@@ -31,10 +31,10 @@ flowchart LR
     GV["<b>GIAOVIEN</b><br/>MAGV <i>(khóa)</i><br/>HOTEN_GV<br/>SDT_GV<br/><i>Lê Hoa: 1 dòng duy nhất</i>"]
     HV -->|"thuộc lớp"| LOP
     LOP -->|"do giáo viên phụ trách"| GV
-    style OLD fill:#FFD9D9,stroke:#C00000,stroke-width:2px
-    style HV fill:#D9E2F3,stroke:#1F4E79
-    style LOP fill:#D9E2F3,stroke:#1F4E79
-    style GV fill:#D9E2F3,stroke:#1F4E79
+    style OLD fill:#FFD9D9,stroke:#C00000,stroke-width:2px,color:#111111
+    style HV fill:#D9E2F3,stroke:#1F4E79,color:#111111
+    style LOP fill:#D9E2F3,stroke:#1F4E79,color:#111111
+    style GV fill:#D9E2F3,stroke:#1F4E79,color:#111111
 ```
 
 Ba bảng thu được, viết theo quy ước sẽ dùng từ Chương 3 trở đi:

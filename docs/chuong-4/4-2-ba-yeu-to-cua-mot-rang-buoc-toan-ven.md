@@ -15,8 +15,11 @@ flowchart TB
     R --> E2["<b>② BỐI CẢNH</b><br/><i>động chạm BẢNG NÀO?</i><br/>─────<br/>một bảng → mục 4.5<br/>nhiều bảng → mục 4.6"]
     R --> E3["<b>③ BẢNG TẦM ẢNH HƯỞNG</b><br/><i>THAO TÁC NÀO nguy hiểm?</i><br/>─────<br/>Thêm · Xóa · Sửa<br/>đánh dấu + hoặc −"]
     R --> E4["<b>(+) HÀNH ĐỘNG</b><br/><i>vi phạm thì LÀM GÌ?</i><br/>─────<br/>Từ chối · Lan truyền · Gán rỗng"]
-    style R fill:#1F4E79,color:#fff,stroke:#1F4E79,stroke-width:2px
-    style E3 fill:#FFF2CC,stroke:#C00000,stroke-width:2px
+    style R fill:#1F4E79,color:#ffffff,stroke:#1F4E79,stroke-width:2px
+    style E1 fill:#D9E2F3,stroke:#1F4E79,color:#111111
+    style E2 fill:#D9E2F3,stroke:#1F4E79,color:#111111
+    style E3 fill:#FFF2CC,stroke:#C00000,stroke-width:2px,color:#111111
+    style E4 fill:#E2F0D9,stroke:#548235,color:#111111
 ```
 
 Yếu tố thứ ba được tô đậm vì nó là **kỹ năng chữ ký của chương này**, và được dành hẳn mục 4.3.

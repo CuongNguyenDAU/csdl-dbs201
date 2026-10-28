@@ -32,10 +32,13 @@ flowchart TB
     G -->|"Nhiều + Một"| R2["<b>1:M</b>"]
     G -->|"Một + Nhiều"| R3["<b>1:M</b><br/><i>đảo chiều</i>"]
     G -->|"Nhiều + Nhiều"| R4["<b>M:N</b><br/><i>bắt buộc phải tách</i>"]
-    style Q1 fill:#1F4E79,color:#fff,stroke:#1F4E79
-    style Q2 fill:#1F4E79,color:#fff,stroke:#1F4E79
-    style R4 fill:#FFD9D9,stroke:#C00000,stroke-width:2px
-    style G fill:#FFF2CC,stroke:#C00000
+    style Q1 fill:#1F4E79,color:#ffffff,stroke:#1F4E79
+    style Q2 fill:#1F4E79,color:#ffffff,stroke:#1F4E79
+    style R1 fill:#E2F0D9,stroke:#548235,color:#111111
+    style R2 fill:#E2F0D9,stroke:#548235,color:#111111
+    style R3 fill:#E2F0D9,stroke:#548235,color:#111111
+    style R4 fill:#FFD9D9,stroke:#C00000,stroke-width:2px,color:#111111
+    style G fill:#FFF2CC,stroke:#C00000,color:#111111
 ```
 
 Sức mạnh của kỹ thuật này nằm ở chỗ nó **buộc người thiết kế phải hỏi cả chiều ngược lại** — mà chiều ngược lại chính là chiều người ta hay quên. Khi nghe *"một giáo viên phụ trách nhiều lớp"*, phản xạ tự nhiên là kết luận ngay 1:M. Nhưng nếu không hỏi tiếp *"một lớp do bao nhiêu giáo viên phụ trách?"*, ta có thể bỏ sót trường hợp trung tâm cho phép hai giáo viên đồng phụ trách một lớp — và khi ấy liên kết thật sự là M:N.

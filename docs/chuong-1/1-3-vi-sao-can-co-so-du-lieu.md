@@ -6,10 +6,6 @@ Mục này trả lời câu hỏi nền tảng nhất của chương: **nếu đ
 
 ## 1.3.1. Hệ thống tệp và bốn hạn chế của nó
 
-![](../hinh-ve/slide/internet/tep_giay.jpg){width=60%}
-
-*Ảnh minh họa: tủ tệp hồ sơ giấy. Hệ thống tệp là phiên bản điện tử của cách quản lý này: mỗi bộ phận một ngăn riêng, cùng một người có hồ sơ ở nhiều ngăn, sửa một ngăn thì các ngăn kia không biết — Nguồn: Wikimedia Commons · Tony Webster · CC BY-SA 2.0.*
-
 Trước khi cơ sở dữ liệu ra đời vào cuối những năm 1960, các tổ chức quản lý dữ liệu bằng **hệ thống tệp** *(file system)*: mỗi bộ phận nghiệp vụ có tệp dữ liệu riêng và chương trình xử lý riêng. Cách làm này vẫn còn phổ biến đến ngày nay dưới hình thức "mỗi phòng một tệp bảng tính".
 
 **Hình 1.3. Hệ thống tệp và cách tiếp cận cơ sở dữ liệu**
@@ -27,11 +23,11 @@ flowchart LR
         B3["Phòng Kế toán"] --> D
         D --> DB[("<b>CSDL</b><br/>dùng chung")]
     end
-    style F1 fill:#FFD9D9,stroke:#C00000
-    style F2 fill:#FFD9D9,stroke:#C00000
-    style F3 fill:#FFD9D9,stroke:#C00000
-    style D fill:#1F4E79,color:#fff,stroke:#1F4E79,stroke-width:2px
-    style DB fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
+    style F1 fill:#FFD9D9,stroke:#C00000,color:#111111
+    style F2 fill:#FFD9D9,stroke:#C00000,color:#111111
+    style F3 fill:#FFD9D9,stroke:#C00000,color:#111111
+    style D fill:#1F4E79,color:#ffffff,stroke:#1F4E79,stroke-width:2px
+    style DB fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px,color:#111111
 ```
 
 Hình vẽ mới cho thấy *ai giữ tệp nào*. Hãy mở ba tệp ấy ra và nhìn vào một học viên cụ thể.
@@ -106,10 +102,10 @@ flowchart LR
     A["<b>DƯ THỪA</b><br/>một sự thật lưu ở nhiều chỗ<br/><i>tốn ít dung lượng</i>"] --> B["<b>KHÔNG NHẤT QUÁN</b><br/>cập nhật sót một chỗ<br/><i>hai giá trị mâu thuẫn, không ai báo</i>"]
     B --> C["<b>BÁO CÁO SAI</b><br/>hai phòng đếm ra hai con số<br/><i>không biết số nào đúng</i>"]
     C --> D["<b>QUYẾT ĐỊNH SAI</b><br/>mở lớp khi đang thừa chỗ<br/><i>hàng trăm triệu đồng</i>"]
-    style A fill:#E2F0D9,stroke:#548235
-    style B fill:#FFF2CC,stroke:#BF9000
-    style C fill:#FCE4D6,stroke:#C55A11
-    style D fill:#FFD9D9,stroke:#C00000,stroke-width:2px
+    style A fill:#E2F0D9,stroke:#548235,color:#111111
+    style B fill:#FFF2CC,stroke:#BF9000,color:#111111
+    style C fill:#FCE4D6,stroke:#C55A11,color:#111111
+    style D fill:#FFD9D9,stroke:#C00000,stroke-width:2px,color:#111111
 ```
 
 Điều đáng lưu ý về mặt quản trị là **chi phí của chuỗi này tăng dần theo từng mắt xích**. Ở mắt xích đầu, dư thừa chỉ tốn ít dung lượng đĩa, gần như miễn phí. Ở mắt xích cuối, một quyết định kinh doanh sai có thể tốn hàng trăm triệu đồng. Nhưng vì tổn thất chỉ bộc lộ ở cuối chuỗi, người ta thường không truy ngược về nguyên nhân gốc, và tiếp tục sống chung với thiết kế tồi.

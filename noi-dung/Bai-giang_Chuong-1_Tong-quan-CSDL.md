@@ -1,6 +1,6 @@
 # CHƯƠNG 1. TỔNG QUAN VỀ CƠ SỞ DỮ LIỆU
 
-> **Ghi chú biên soạn (v5 — bản giáo trình, tăng cường hình, bảng dữ liệu và ảnh thực tế cho người tự học).** Bản này giữ cấu trúc mục **1.1–1.6 khớp với Mục 8 của đề cương chi tiết** *(4 tiết · CLO2)* và văn phong giáo trình của bản v4. So với v4: ① **mọi ví dụ và phép loại suy trước đây chỉ diễn giải bằng lời nay có bảng hoặc hình đi kèm** — Ví dụ 1.1 theo công thức *(Bảng 1.1)*, tháp DIKW *(Hình 1.1)*, mẫu đơn in sẵn *(Bảng 1.4)*, ba dòng bảng tính chấp nhận mà hệ quản trị từ chối *(Bảng 1.6)*, loại suy thư viện *(Bảng 1.7)*, ba tệp cùng chứa một học viên *(Bảng 1.9)*, đếm ô thừa theo cột kèm công thức tỷ lệ *(Bảng 1.11)*, chuỗi nhân quả *(Hình 1.4)*, bốn mô hình một sự thật *(Bảng 1.14)*, ba mức mô hình *(Hình 1.7)*, loại suy nhà hàng *(Bảng 1.15)*, khung nhìn trước/sau và bốn loại thay đổi *(Bảng 1.17, 1.18)*, dòng dữ liệu cố định độ rộng *(Bảng 1.19)*, số dư qua bốn thời điểm của một giao dịch *(Bảng 1.21)*, sáu chức năng *(Bảng 1.23)*, số ô hai thiết kế theo quy mô kèm công thức *(Bảng 1.26)*; ② **9 ảnh minh họa thực tế** không đánh số (Wikimedia Commons, giấy phép CC/PD, ghi nguồn dưới ảnh); ③ bốn hộp **Tự kiểm tra** cuối các mục 1.1, 1.3, 1.5, 1.7 với đáp án trước phần Câu hỏi ôn tập. Số hình: **11**; số bảng: **26**. Các hoạt động tổ chức lớp học ở **Phụ lục 1A**. Tài liệu tham khảo chính: [1] Tô Văn Nam (2005); [3] Coronel & Morris, *Database Systems*, Ch.1–Ch.2.
+> **Ghi chú biên soạn (v5 — bản giáo trình, tăng cường hình, bảng dữ liệu và ảnh thực tế cho người tự học).** Bản này giữ cấu trúc mục **1.1–1.6 khớp với Mục 8 của đề cương chi tiết** *(4 tiết · CLO2)* và văn phong giáo trình của bản v4. So với v4: ① **mọi ví dụ và phép loại suy trước đây chỉ diễn giải bằng lời nay có bảng hoặc hình đi kèm** — Ví dụ 1.1 theo công thức *(Bảng 1.1)*, tháp DIKW *(Hình 1.1)*, mẫu đơn in sẵn *(Bảng 1.4)*, ba dòng bảng tính chấp nhận mà hệ quản trị từ chối *(Bảng 1.6)*, loại suy thư viện *(Bảng 1.7)*, ba tệp cùng chứa một học viên *(Bảng 1.9)*, đếm ô thừa theo cột kèm công thức tỷ lệ *(Bảng 1.11)*, chuỗi nhân quả *(Hình 1.4)*, bốn mô hình một sự thật *(Bảng 1.14)*, ba mức mô hình *(Hình 1.7)*, loại suy nhà hàng *(Bảng 1.15)*, khung nhìn trước/sau và bốn loại thay đổi *(Bảng 1.17, 1.18)*, dòng dữ liệu cố định độ rộng *(Bảng 1.19)*, số dư qua bốn thời điểm của một giao dịch *(Bảng 1.21)*, sáu chức năng *(Bảng 1.23)*, số ô hai thiết kế theo quy mô kèm công thức *(Bảng 1.26)*; ② **4 ảnh minh họa** không đánh số (gồm 2 hình minh họa tự vẽ 300 DPI gắn dữ liệu Trung tâm ABC và 2 ảnh thực tế có dẫn nguồn); ③ bốn hộp **Tự kiểm tra** cuối các mục 1.1, 1.3, 1.5, 1.7 với đáp án trước phần Câu hỏi ôn tập. Số hình: **11**; số bảng: **26**. Các hoạt động tổ chức lớp học ở **Phụ lục 1A**. Tài liệu tham khảo chính: [1] Tô Văn Nam (2005); [3] Coronel & Morris, *Database Systems*, Ch.1–Ch.2.
 
 ---
 
@@ -91,10 +91,10 @@ flowchart BT
     I["<b>INFORMATION — thông tin</b><br/>Doanh thu lớp A1 quý này: 6.300.000 đ"]
     D["<b>DATA — dữ liệu</b><br/>2.000.000 · 2.500.000 · 1.800.000"]
     D --> I --> K --> W
-    style D fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
-    style I fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
-    style K fill:#FFF2CC,stroke:#BF9000
-    style W fill:#FFD9D9,stroke:#C00000,stroke-width:2px
+    style D fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px,color:#111111
+    style I fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px,color:#111111
+    style K fill:#FFF2CC,stroke:#BF9000,color:#111111
+    style W fill:#FFD9D9,stroke:#C00000,stroke-width:2px,color:#111111
 ```
 
 Hai tầng tô xanh là phạm vi của học phần. Hai tầng trên là đích đến của tổ chức — và cũng là nơi một thiết kế tồi ở tầng dưới cùng để lại hậu quả đắt nhất.
@@ -134,9 +134,9 @@ Ba tính từ trong định nghĩa trên đều mang ý nghĩa cụ thể, khôn
 
 > **Định nghĩa 1.3.** **Metadata** là phần dữ liệu **mô tả đặc trưng của chính dữ liệu** được lưu trong cơ sở dữ liệu: tên các trường, kiểu dữ liệu, độ dài, tính bắt buộc, các ràng buộc phải thỏa mãn và mối liên hệ giữa các nhóm dữ liệu.
 
-![](hinh-ve/slide/internet/mau_don.jpg){width=50%}
+![](hinh-ve/minh-hoa/C1_mh01_phieu_dang_ky_metadata.png){width=85%}
 
-*Ảnh minh họa: một mẫu đơn đã điền. Phần in sẵn — nhãn ô, chỗ chia ngăn, chỉ dẫn — có trước khi ai điền và quy định người ta được điền gì: đó là metadata; phần viết tay vào ô là dữ liệu — Nguồn: Wikimedia Commons · Unknown author · Public domain.*
+*Ảnh minh họa: Phiếu đăng ký học viên tại Trung tâm Anh ngữ ABC — phần nhãn trường, định dạng và dấu sao bắt buộc in sẵn là metadata (siêu dữ liệu); phần giá trị cụ thể điền vào ô là dữ liệu — Nguồn: Tác giả tự vẽ.*
 
 Khái niệm metadata thường gây khó khăn ở lần tiếp xúc đầu tiên vì nó có tính tự quy chiếu. Một phép loại suy giúp làm rõ: hãy nghĩ tới một **mẫu đơn đăng ký in sẵn**. Những gì *người ta điền vào* mẫu đơn — "Trần An", "12/04/2005" — đó là **dữ liệu**. Còn những gì *đã in sẵn trên mẫu đơn* — dòng chữ "Họ và tên" bên cạnh ô trống, ghi chú "chỉ nhận chữ cái", dấu sao đỏ báo hiệu trường bắt buộc, ô "Ngày sinh" chia sẵn thành ba ngăn ngày/tháng/năm — đó là **metadata**. Mẫu đơn tồn tại trước khi có người điền, và nó quy định người ta được phép điền cái gì.
 
@@ -210,9 +210,12 @@ flowchart LR
     APP["<b>Ứng dụng</b><br/>phần mềm quản lý<br/>trung tâm"] -->|"yêu cầu"| DBMS
     ADMIN["Quản trị viên CSDL"] -->|"quản trị"| DBMS
     DBMS["<b>DBMS</b><br/>Hệ quản trị CSDL<br/>─────────<br/>kiểm tra hợp lệ<br/>phân quyền<br/>điều phối truy cập"] -->|"đọc / ghi"| DB[("<b>CƠ SỞ DỮ LIỆU</b><br/>dữ liệu người dùng<br/>+ metadata")]
-    style DBMS fill:#1F4E79,color:#fff,stroke:#1F4E79,stroke-width:2px
-    style DB fill:#FFF2CC,stroke:#C00000,stroke-width:2px
-    style APP fill:#D9E2F3,stroke:#1F4E79
+    style DBMS fill:#1F4E79,color:#ffffff,stroke:#1F4E79,stroke-width:2px
+    style DB fill:#FFF2CC,stroke:#C00000,stroke-width:2px,color:#111111
+    style APP fill:#D9E2F3,stroke:#1F4E79,color:#111111
+    style U1 fill:#F9FAFC,stroke:#1F4E79,color:#111111
+    style U2 fill:#F9FAFC,stroke:#1F4E79,color:#111111
+    style ADMIN fill:#F9FAFC,stroke:#1F4E79,color:#111111
 ```
 
 Vai trò trung gian đem lại một lợi ích ít khi được nhận ra ngay: nó **giấu đi sự phức tạp của việc lưu trữ**. Người dùng chỉ cần nói "cho tôi danh sách học viên lớp A1"; họ không cần biết dữ liệu nằm ở tệp nào, trên ổ đĩa nào, được sắp xếp ra sao, có chỉ mục hay không. Toàn bộ phần đó do hệ quản trị cơ sở dữ liệu lo. Ý tưởng "giấu đi sự phức tạp" này sẽ được hệ thống hóa thành một kiến trúc chính thức ở mục 1.5.
@@ -224,10 +227,6 @@ Ba thuật ngữ này rất hay bị dùng lẫn, kể cả trong tài liệu ch
 - **Cơ sở dữ liệu** *(database)* là **dữ liệu** — phần nội dung được lưu trữ, gồm dữ liệu người dùng và metadata.
 - **Hệ quản trị cơ sở dữ liệu** *(DBMS)* là **phần mềm** quản lý cơ sở dữ liệu đó. MySQL, SQL Server, PostgreSQL, Oracle là những hệ quản trị cơ sở dữ liệu.
 - **Hệ cơ sở dữ liệu** *(database system)* là **toàn bộ hệ thống** gồm cơ sở dữ liệu, hệ quản trị cơ sở dữ liệu, phần cứng, các ứng dụng, quy trình vận hành và con người sử dụng nó.
-
-![](hinh-ve/slide/internet/thu_vien.jpg){width=70%}
-
-*Ảnh minh họa: phòng đọc của một thư viện đại học. Sách trên giá là cơ sở dữ liệu; thủ thư cùng hệ thống phiếu mượn và quy tắc xếp giá là hệ quản trị; cả tòa nhà với giá sách, thủ thư, nội quy và bạn đọc là hệ cơ sở dữ liệu — Nguồn: Wikimedia Commons · Dr. Marcus Gossler · CC BY-SA 3.0.*
 
 Một cách ghi nhớ: nếu ví cơ sở dữ liệu là **sách trong thư viện**, thì hệ quản trị cơ sở dữ liệu là **người thủ thư** cùng toàn bộ hệ thống phiếu mượn và quy tắc sắp xếp, còn hệ cơ sở dữ liệu là **cả thư viện** — bao gồm tòa nhà, giá sách, thủ thư, nội quy và bạn đọc.
 
@@ -268,10 +267,6 @@ Mục này trả lời câu hỏi nền tảng nhất của chương: **nếu đ
 
 ### 1.3.1. Hệ thống tệp và bốn hạn chế của nó
 
-![](hinh-ve/slide/internet/tep_giay.jpg){width=60%}
-
-*Ảnh minh họa: tủ tệp hồ sơ giấy. Hệ thống tệp là phiên bản điện tử của cách quản lý này: mỗi bộ phận một ngăn riêng, cùng một người có hồ sơ ở nhiều ngăn, sửa một ngăn thì các ngăn kia không biết — Nguồn: Wikimedia Commons · Tony Webster · CC BY-SA 2.0.*
-
 Trước khi cơ sở dữ liệu ra đời vào cuối những năm 1960, các tổ chức quản lý dữ liệu bằng **hệ thống tệp** *(file system)*: mỗi bộ phận nghiệp vụ có tệp dữ liệu riêng và chương trình xử lý riêng. Cách làm này vẫn còn phổ biến đến ngày nay dưới hình thức "mỗi phòng một tệp bảng tính".
 
 **Hình 1.3. Hệ thống tệp và cách tiếp cận cơ sở dữ liệu**
@@ -289,11 +284,11 @@ flowchart LR
         B3["Phòng Kế toán"] --> D
         D --> DB[("<b>CSDL</b><br/>dùng chung")]
     end
-    style F1 fill:#FFD9D9,stroke:#C00000
-    style F2 fill:#FFD9D9,stroke:#C00000
-    style F3 fill:#FFD9D9,stroke:#C00000
-    style D fill:#1F4E79,color:#fff,stroke:#1F4E79,stroke-width:2px
-    style DB fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
+    style F1 fill:#FFD9D9,stroke:#C00000,color:#111111
+    style F2 fill:#FFD9D9,stroke:#C00000,color:#111111
+    style F3 fill:#FFD9D9,stroke:#C00000,color:#111111
+    style D fill:#1F4E79,color:#ffffff,stroke:#1F4E79,stroke-width:2px
+    style DB fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px,color:#111111
 ```
 
 Hình vẽ mới cho thấy *ai giữ tệp nào*. Hãy mở ba tệp ấy ra và nhìn vào một học viên cụ thể.
@@ -366,10 +361,10 @@ flowchart LR
     A["<b>DƯ THỪA</b><br/>một sự thật lưu ở nhiều chỗ<br/><i>tốn ít dung lượng</i>"] --> B["<b>KHÔNG NHẤT QUÁN</b><br/>cập nhật sót một chỗ<br/><i>hai giá trị mâu thuẫn, không ai báo</i>"]
     B --> C["<b>BÁO CÁO SAI</b><br/>hai phòng đếm ra hai con số<br/><i>không biết số nào đúng</i>"]
     C --> D["<b>QUYẾT ĐỊNH SAI</b><br/>mở lớp khi đang thừa chỗ<br/><i>hàng trăm triệu đồng</i>"]
-    style A fill:#E2F0D9,stroke:#548235
-    style B fill:#FFF2CC,stroke:#BF9000
-    style C fill:#FCE4D6,stroke:#C55A11
-    style D fill:#FFD9D9,stroke:#C00000,stroke-width:2px
+    style A fill:#E2F0D9,stroke:#548235,color:#111111
+    style B fill:#FFF2CC,stroke:#BF9000,color:#111111
+    style C fill:#FCE4D6,stroke:#C55A11,color:#111111
+    style D fill:#FFD9D9,stroke:#C00000,stroke-width:2px,color:#111111
 ```
 
 Điều đáng lưu ý về mặt quản trị là **chi phí của chuỗi này tăng dần theo từng mắt xích**. Ở mắt xích đầu, dư thừa chỉ tốn ít dung lượng đĩa, gần như miễn phí. Ở mắt xích cuối, một quyết định kinh doanh sai có thể tốn hàng trăm triệu đồng. Nhưng vì tổn thất chỉ bộc lộ ở cuối chuỗi, người ta thường không truy ngược về nguyên nhân gốc, và tiếp tục sống chung với thiết kế tồi.
@@ -413,10 +408,6 @@ Tuy vậy, cần giữ một cái nhìn cân bằng. Cách tiếp cận cơ sở
 
 Mô hình dữ liệu đóng vai trò như một **bộ từ vựng chung**. Khi ta nói "hãy dùng mô hình quan hệ", điều đó có nghĩa là mọi người tham gia dự án cùng thống nhất rằng dữ liệu sẽ được tổ chức thành các *bảng* gồm *dòng* và *cột*, rằng các bảng liên hệ với nhau qua *khóa*, và rằng có một tập phép toán xác định để lấy dữ liệu ra. Không có bộ từ vựng chung ấy, mỗi người thiết kế theo một kiểu và không ai đọc được thiết kế của ai.
 
-![](hinh-ve/slide/internet/ban_ve_kien_truc.jpg){width=60%}
-
-*Ảnh minh họa: mô hình mặt bằng một căn hộ. Bản vẽ không phải ngôi nhà, nhưng nhờ quy ước chung về nét vẽ mà người ở nơi khác đọc vẫn hiểu — mô hình dữ liệu là bộ quy ước chung như thế cho dữ liệu — Nguồn: Wikimedia Commons · Tallbox · CC BY-SA 4.0.*
-
 Có thể so sánh mô hình dữ liệu với **bản vẽ kiến trúc** trong xây dựng. Bản vẽ không phải ngôi nhà, nhưng nó quy ước rằng đường nét đậm là tường chịu lực, ô vuông có hai đường chéo là cửa sổ. Nhờ quy ước ấy mà kiến trúc sư ở Đà Nẵng vẽ xong, thợ xây ở Hà Nội đọc vẫn hiểu.
 
 ### 1.4.2. Các thế hệ mô hình dữ liệu
@@ -456,11 +447,11 @@ flowchart TB
     L1 --> H3["HV03<br/>Phạm Cường"]
     L2 --> H4["HV04<br/>Võ Dung"]
     L2 --> H1B["HV01<br/>Trần An<br/><i>BẢN SAO THỨ HAI</i>"]
-    style GV1 fill:#1F4E79,color:#fff,stroke:#1F4E79
-    style GV2 fill:#1F4E79,color:#fff,stroke:#1F4E79
-    style L1 fill:#D9E2F3,stroke:#1F4E79
-    style L2 fill:#D9E2F3,stroke:#1F4E79
-    style H1B fill:#FFD9D9,stroke:#C00000,stroke-width:2px
+    style GV1 fill:#1F4E79,color:#ffffff,stroke:#1F4E79
+    style GV2 fill:#1F4E79,color:#ffffff,stroke:#1F4E79
+    style L1 fill:#D9E2F3,stroke:#1F4E79,color:#111111
+    style L2 fill:#D9E2F3,stroke:#1F4E79,color:#111111
+    style H1B fill:#FFD9D9,stroke:#C00000,stroke-width:2px,color:#111111
 ```
 
 Khi Trần An đăng ký thêm lớp A2, mô hình phân cấp lâm vào bế tắc. Quy tắc "mỗi con một cha" không cho phép nút *Trần An* vừa treo dưới lớp A1 vừa treo dưới lớp A2. Lối thoát duy nhất là **tạo thêm một bản sao** của Trần An dưới nhánh A2.
@@ -484,11 +475,11 @@ flowchart TB
     L1 --> H3["HV03<br/>Phạm Cường"]
     L2 --> H1
     L2 --> H4["HV04<br/>Võ Dung"]
-    style GV1 fill:#1F4E79,color:#fff,stroke:#1F4E79
-    style GV2 fill:#1F4E79,color:#fff,stroke:#1F4E79
-    style L1 fill:#D9E2F3,stroke:#1F4E79
-    style L2 fill:#D9E2F3,stroke:#1F4E79
-    style H1 fill:#E2F0D9,stroke:#548235,stroke-width:2px
+    style GV1 fill:#1F4E79,color:#ffffff,stroke:#1F4E79
+    style GV2 fill:#1F4E79,color:#ffffff,stroke:#1F4E79
+    style L1 fill:#D9E2F3,stroke:#1F4E79,color:#111111
+    style L2 fill:#D9E2F3,stroke:#1F4E79,color:#111111
+    style H1 fill:#E2F0D9,stroke:#548235,stroke-width:2px,color:#111111
 ```
 
 Bài toán dư thừa được giải quyết: Trần An chỉ tồn tại **một bản duy nhất**, có hai mũi tên trỏ tới từ hai lớp. Nhưng mô hình mạng lại sinh ra một khó khăn mới, lần này nằm ở phía người lập trình.
@@ -597,9 +588,9 @@ Trong quá trình thiết kế, mô hình dữ liệu được xây dựng qua b
 ```mermaid
 flowchart LR
     Q["<b>MÔ HÌNH QUAN NIỆM</b><br/>Nghiệp vụ có những gì?<br/>─────────<br/>lược đồ ER<br/><i>Chương 2</i>"] --> L["<b>MÔ HÌNH LOGIC</b><br/>Tổ chức thành bảng ra sao?<br/>─────────<br/>HOCVIEN(<u>MAHV</u>, HOTEN, MALOP)<br/><i>Chương 3</i>"] --> V["<b>MÔ HÌNH VẬT LÝ</b><br/>Lưu lên đĩa thế nào?<br/>─────────<br/>kiểu dữ liệu, chỉ mục, phân vùng<br/><i>học phần Hệ quản trị</i>"]
-    style Q fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
-    style L fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
-    style V fill:#EDEDED,stroke:#7F7F7F
+    style Q fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px,color:#111111
+    style L fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px,color:#111111
+    style V fill:#EDEDED,stroke:#7F7F7F,color:#111111
 ```
 
 Ba mức này tương ứng với ba câu hỏi kế tiếp nhau: **"Nghiệp vụ có những gì?"** rồi **"Tổ chức thành bảng ra sao?"** rồi **"Lưu lên đĩa thế nào?"**. Người thiết kế đi tuần tự từ trên xuống; đi tắt là nguyên nhân phổ biến nhất của những thiết kế hỏng.
@@ -612,10 +603,6 @@ Ba mức này tương ứng với ba câu hỏi kế tiếp nhau: **"Nghiệp v�
 >
 > **Thể hiện** *(instance)* là **tập dữ liệu thực tế** đang có trong cơ sở dữ liệu **tại một thời điểm cụ thể**. Thể hiện **thay đổi liên tục** theo từng thao tác thêm, sửa, xóa.
 
-![](hinh-ve/slide/internet/khuon_banh.jpg){width=55%}
-
-*Ảnh minh họa: một khuôn nướng nhiều ngăn. Khuôn dùng được hàng nghìn lần, mỗi lần cho ra mẻ bánh khác nhau về nhân và màu nhưng cùng hình dạng — lược đồ là cái khuôn, mỗi thể hiện là một mẻ bánh — Nguồn: Wikimedia Commons · Melissa · CC BY 2.0.*
-
 Cách phân biệt dễ nhớ nhất: **lược đồ là cái khuôn, thể hiện là cái bánh đúc ra từ khuôn đó**. Một cái khuôn dùng được hàng nghìn lần, mỗi lần cho ra một chiếc bánh khác nhau về nhân, về màu, nhưng tất cả đều cùng hình dạng.
 
 **Hình 1.8. Một lược đồ — nhiều thể hiện theo thời gian**
@@ -626,10 +613,10 @@ flowchart LR
     S --> T1["<b>Thể hiện ngày 01/9</b><br/>SV01 · Trần An · 3.2<br/>SV02 · Lê Bình · 2.8"]
     S --> T2["<b>Thể hiện ngày 15/9</b><br/>SV01 · Trần An · 3.2<br/>SV02 · Lê Bình · 3.0<br/>SV03 · Phạm Cường · 3.5"]
     S --> T3["<b>Thể hiện ngày 30/9</b><br/>SV01 · Trần An · 3.4<br/>SV03 · Phạm Cường · 3.5"]
-    style S fill:#1F4E79,color:#fff,stroke:#1F4E79,stroke-width:2px
-    style T1 fill:#D9E2F3,stroke:#1F4E79
-    style T2 fill:#D9E2F3,stroke:#1F4E79
-    style T3 fill:#D9E2F3,stroke:#1F4E79
+    style S fill:#1F4E79,color:#ffffff,stroke:#1F4E79,stroke-width:2px
+    style T1 fill:#D9E2F3,stroke:#1F4E79,color:#111111
+    style T2 fill:#D9E2F3,stroke:#1F4E79,color:#111111
+    style T3 fill:#D9E2F3,stroke:#1F4E79,color:#111111
 ```
 
 Ba thể hiện trong hình khác nhau hoàn toàn về nội dung: số dòng khác nhau, điểm số thay đổi, có sinh viên mới thêm vào và có sinh viên đã rút. Nhưng **cả ba đều tuân theo đúng một lược đồ**: đều có ba cột với đúng tên ấy và đúng kiểu ấy.
@@ -661,10 +648,10 @@ flowchart LR
     V1 -.->|"<b>Độc lập LOGIC</b><br/>đổi lược đồ quan niệm<br/>→ khung nhìn KHÔNG đổi"| CON
     V2 -.-> CON
     CON -.->|"<b>Độc lập VẬT LÝ</b><br/>đổi cách lưu trữ<br/>→ lược đồ KHÔNG đổi"| INT
-    style CON fill:#1F4E79,color:#fff,stroke:#1F4E79,stroke-width:2px
-    style V1 fill:#D9E2F3,stroke:#1F4E79
-    style V2 fill:#D9E2F3,stroke:#1F4E79
-    style INT fill:#FFF2CC,stroke:#C00000
+    style CON fill:#1F4E79,color:#ffffff,stroke:#1F4E79,stroke-width:2px
+    style V1 fill:#D9E2F3,stroke:#1F4E79,color:#111111
+    style V2 fill:#D9E2F3,stroke:#1F4E79,color:#111111
+    style INT fill:#FFF2CC,stroke:#C00000,color:#111111
 ```
 
 **Mức ngoài** *(external level)* là góc nhìn của từng nhóm người dùng. Mỗi nhóm chỉ thấy phần dữ liệu liên quan tới công việc của mình, dưới dạng một **khung nhìn** *(view)*. Một cơ sở dữ liệu có thể có rất nhiều khung nhìn khác nhau. Phòng Kế toán không nhìn thấy cột điểm, và điều đó vừa đơn giản hóa công việc của họ vừa là một biện pháp bảo mật.
@@ -672,10 +659,6 @@ flowchart LR
 **Mức quan niệm** *(conceptual level)* là góc nhìn tổng thể của người thiết kế: toàn bộ các bảng, các cột, các liên kết và ràng buộc của cả tổ chức. Mức này **chỉ có một**, và nó chính là sản phẩm của công việc thiết kế mà học phần này dạy.
 
 **Mức trong** *(internal level)* là góc nhìn của hệ quản trị cơ sở dữ liệu: dữ liệu được lưu vào tệp nào, tổ chức theo cấu trúc gì, có chỉ mục nào để tìm nhanh. Mức này cũng chỉ có một.
-
-![](hinh-ve/slide/internet/thuc_don_combo.jpg){width=60%}
-
-*Ảnh minh họa: bảng thực đơn của một quán ăn nhanh. Khách chỉ thấy tên món và giá — đó là mức ngoài; sổ công thức của bếp là mức quan niệm; kho và tủ đông là mức trong — Nguồn: Wikimedia Commons · Dave O · CC BY-SA 2.0.*
 
 Một phép loại suy giúp ghi nhớ ba mức trên là **nhà hàng**. Mức ngoài là **thực đơn** mà khách cầm trên tay — chỉ ghi tên món và giá, và nhà hàng có thể có nhiều thực đơn khác nhau cho khách chay, cho trẻ em, cho tiệc cưới. Mức quan niệm là **sổ công thức tổng thể** mà bếp trưởng nắm giữ — đầy đủ mọi món, định lượng từng nguyên liệu. Mức trong là **kho và tủ đông** — nguyên liệu cất ở ngăn nào, sắp xếp ra sao. Điểm mấu chốt: **khách không cần biết kho lạnh nằm ở đâu, và bếp trưởng không cần biết khách đang đọc trang nào của thực đơn.** Mỗi mức làm việc của mình.
 
@@ -796,9 +779,9 @@ Cần nhắc lại phạm vi: học phần này **không dạy viết câu lện
 
 > **Định nghĩa 1.8.** **Giao dịch** *(transaction)* là một **dãy các thao tác trên cơ sở dữ liệu được xem như một đơn vị công việc không thể chia nhỏ**: hoặc toàn bộ dãy thao tác đó được thực hiện trọn vẹn, hoặc không thao tác nào có hiệu lực.
 
-![](hinh-ve/slide/internet/may_atm.jpg){width=45%}
+![](hinh-ve/minh-hoa/C1_mh02_giao_dich_acid.png){width=85%}
 
-*Ảnh minh họa: một buồng ATM ở Hà Nội. Mỗi lần rút tiền là một giao dịch: trừ tài khoản và nhả tiền phải cùng xảy ra hoặc cùng không xảy ra — máy mất điện giữa chừng thì tài khoản phải được hoàn lại — Nguồn: Wikimedia Commons · Phan Minh Tuấn · CC BY-SA 4.0.*
+*Ảnh minh họa: Cơ chế giao dịch khi chuyển khoản học phí 3.000.000đ — hoặc thực hiện trọn vẹn cả hai bước (COMMIT), hoặc tự động hoàn tác về nguyên trạng khi xảy ra sự cố mất điện giữa chừng (ROLLBACK) — Nguồn: Tác giả tự vẽ.*
 
 Ví dụ kinh điển là chuyển khoản ngân hàng. Chuyển 1 triệu đồng từ tài khoản A sang tài khoản B gồm hai thao tác: trừ 1 triệu ở A, rồi cộng 1 triệu vào B. Nếu hệ thống mất điện đúng vào khoảnh khắc giữa hai thao tác, tiền đã bị trừ ở A nhưng chưa được cộng vào B — **1 triệu đồng biến mất**. Cơ chế giao dịch bảo đảm tình huống đó không xảy ra: khi hệ thống khởi động lại, thao tác trừ tiền dở dang sẽ được hoàn tác, số dư của A trở về nguyên trạng.
 
@@ -866,9 +849,11 @@ flowchart LR
     PROC["<b>2. THỦ TỤC</b><br/>quy tắc vận hành<br/>quy trình sao lưu<br/>chính sách phân quyền"] --> SW
     HW["<b>3. PHẦN CỨNG</b><br/>máy chủ, đĩa, mạng"] --> SW
     SW["<b>4. PHẦN MỀM</b><br/>hệ điều hành<br/><b>DBMS</b><br/>ứng dụng nghiệp vụ"] --> DATA[("<b>5. DỮ LIỆU</b><br/>dữ liệu người dùng<br/>+ metadata")]
-    style SW fill:#1F4E79,color:#fff,stroke:#1F4E79,stroke-width:2px
-    style DATA fill:#FFF2CC,stroke:#C00000,stroke-width:2px
-    style PEOPLE fill:#D9E2F3,stroke:#1F4E79
+    style SW fill:#1F4E79,color:#ffffff,stroke:#1F4E79,stroke-width:2px
+    style DATA fill:#FFF2CC,stroke:#C00000,stroke-width:2px,color:#111111
+    style PEOPLE fill:#D9E2F3,stroke:#1F4E79,color:#111111
+    style PROC fill:#F9FAFC,stroke:#1F4E79,color:#111111
+    style HW fill:#F9FAFC,stroke:#1F4E79,color:#111111
 ```
 
 Thành phần **con người** gồm nhiều vai trò khác nhau, và người học nên định vị được mình sẽ đứng ở đâu sau khi ra trường. *Quản trị viên hệ thống* lo phần cứng và mạng. *Quản trị viên cơ sở dữ liệu* chịu trách nhiệm vận hành hệ quản trị: phân quyền, sao lưu, theo dõi hiệu năng. *Người thiết kế cơ sở dữ liệu* xây dựng lược đồ — **đây chính là vai trò mà học phần này đào tạo**. *Lập trình viên* viết các ứng dụng sử dụng cơ sở dữ liệu. *Người dùng cuối* là nhân viên nghiệp vụ khai thác hệ thống hằng ngày.
@@ -929,10 +914,10 @@ flowchart LR
     GV["<b>GIAOVIEN</b><br/>MAGV <i>(khóa)</i><br/>HOTEN_GV<br/>SDT_GV<br/><i>Lê Hoa: 1 dòng duy nhất</i>"]
     HV -->|"thuộc lớp"| LOP
     LOP -->|"do giáo viên phụ trách"| GV
-    style OLD fill:#FFD9D9,stroke:#C00000,stroke-width:2px
-    style HV fill:#D9E2F3,stroke:#1F4E79
-    style LOP fill:#D9E2F3,stroke:#1F4E79
-    style GV fill:#D9E2F3,stroke:#1F4E79
+    style OLD fill:#FFD9D9,stroke:#C00000,stroke-width:2px,color:#111111
+    style HV fill:#D9E2F3,stroke:#1F4E79,color:#111111
+    style LOP fill:#D9E2F3,stroke:#1F4E79,color:#111111
+    style GV fill:#D9E2F3,stroke:#1F4E79,color:#111111
 ```
 
 Ba bảng thu được, viết theo quy ước sẽ dùng từ Chương 3 trở đi:

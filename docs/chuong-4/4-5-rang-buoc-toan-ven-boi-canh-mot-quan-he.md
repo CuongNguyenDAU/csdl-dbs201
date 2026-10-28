@@ -18,10 +18,6 @@ Ba loại đầu tiên trong Bảng 4.6 có bối cảnh chỉ gồm **một qua
     - `∀t ∈ LOP : 5 ≤ t.SUCCHUA ≤ 40` — sức chứa nằm trong khoảng hợp lệ.
     - `∀t ∈ GIAOVIEN : t.BANGCAP ∈ {Cử nhân, Thạc sĩ, Tiến sĩ}` — chỉ nhận ba giá trị.
 
-![](../hinh-ve/slide/internet/bien_toc_do.jpg){width=55%}
-
-*Ảnh minh họa: biển giới hạn tốc độ trên cao tốc Biên Hòa – Vũng Tàu: tối đa 80, tối thiểu 60. Một ràng buộc miền giá trị đúng nghĩa — chỉ giới hạn một con số, không cần biết xe nào, ai lái — Nguồn: Wikimedia Commons · MinhVN1863 · CC BY-SA 4.0.*
-
 Đây là loại **dễ phát hiện và dễ cài đặt nhất** — khai báo bằng `CHECK` hoặc bằng chính kiểu dữ liệu. Bảng tầm ảnh hưởng của nó cũng đơn giản: chỉ **thêm** và **sửa** là nguy hiểm, còn **xóa** thì không bao giờ.
 
 ## 4.5.2. Ràng buộc liên thuộc tính
@@ -79,9 +75,10 @@ flowchart LR
     Q --> T{"<b>Che hết các dòng khác,<br/>chỉ nhìn MỘT dòng —<br/>có kiểm tra được không?</b>"}
     T -->|"CÓ"| A["<b>LIÊN THUỘC TÍNH</b><br/>NGAYKT ≥ NGAYKG<br/><i>nhìn một dòng là đủ</i>"]
     T -->|"KHÔNG"| B["<b>LIÊN BỘ</b><br/>MAHV không trùng<br/><i>phải so với dòng khác</i>"]
-    style T fill:#1F4E79,color:#fff,stroke:#1F4E79,stroke-width:2px
-    style A fill:#E2F0D9,stroke:#548235
-    style B fill:#FFF2CC,stroke:#C00000
+    style Q fill:#D9E2F3,stroke:#1F4E79,color:#111111
+    style T fill:#1F4E79,color:#ffffff,stroke:#1F4E79,stroke-width:2px
+    style A fill:#E2F0D9,stroke:#548235,color:#111111
+    style B fill:#FFF2CC,stroke:#C00000,color:#111111
 ```
 
 Phép thử này cũng giải thích luôn **vì sao độ khó cài đặt tăng dần**. Ràng buộc liên thuộc tính chỉ cần nhìn một dòng nên hệ quản trị kiểm tra tức thì bằng `CHECK`. Ràng buộc liên bộ phải quét cả bảng, nên hệ quản trị phải dựng sẵn **chỉ mục duy nhất** để kiểm cho nhanh.

@@ -46,9 +46,13 @@ CHUONG = {
 # Khối trích dẫn `> **Nhãn.**` đổi thành khung màu của Material.
 KHUNG = [
     (r"Định nghĩa", "note", "Định nghĩa"),
+    (r"Định lý", "note", "Định lý"),
+    (r"Hệ quả", "note", "Hệ quả"),
     (r"Ví dụ", "example", "Ví dụ"),
     (r"Chú ý", "warning", "Chú ý"),
     (r"Ghi nhớ", "tip", "Ghi nhớ"),
+    (r"Mẹo", "tip", "Mẹo"),
+    (r"Quy tắc", "tip", "Quy tắc"),
     (r"Tự kiểm tra", "question", "Tự kiểm tra"),
     (r"Công thức", "abstract", "Công thức"),
 ]

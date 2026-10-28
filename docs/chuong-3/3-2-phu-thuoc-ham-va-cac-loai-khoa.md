@@ -16,9 +16,9 @@ Trước khi định nghĩa khóa, cần một công cụ để nói về **quan
 
     Thuộc tính `B` **phụ thuộc hàm** vào thuộc tính `A`, viết là **`A → B`**, nếu **mỗi giá trị của `A` xác định duy nhất một giá trị của `B`**. Khi đó `A` gọi là **vế trái** *(determinant)* và `B` là **vế phải**.
 
-![](../hinh-ve/slide/internet/quet_ma_vach.jpg){width=50%}
+![](../hinh-ve/minh-hoa/C3_mh01_phu_thuoc_ham_anh_xa.png){width=85%}
 
-*Ảnh minh họa: máy quét mã vạch ở quầy thu ngân. Quét mã là ra tên và giá: biết mã thì biết chắc giá (`MASP → DONGIA`), nhưng biết giá không suy ra được mã vì nhiều mặt hàng cùng giá — Nguồn: Wikimedia Commons · Network.nt · Public domain.*
+*Ảnh minh họa: Sơ đồ ánh xạ giữa các giá trị thuộc tính tại Trung tâm Anh ngữ ABC — chiều thuận MALOP → MAGV là phụ thuộc hàm vì mỗi lớp chỉ dẫn tới đúng một giáo viên; chiều ngược MAGV không xác định duy nhất MALOP vì GV1 phụ trách ba lớp khác nhau — Nguồn: Tác giả tự vẽ.*
 
 Cách đọc thực dụng của `A → B` là: *"biết `A` thì biết chắc `B`"*.
 
@@ -57,10 +57,10 @@ Ví dụ trên minh họa đặc điểm quan trọng nhất của phụ thuộc
 flowchart LR
     A["<b>MAHV</b><br/>HV01"] -->|"xác định duy nhất"| B["<b>HOTEN</b><br/>Trần An"]
     C["<b>HOTEN</b><br/>Trần An"] -.->|"KHÔNG xác định được<br/>có thể là HV01 hoặc HV03"| D["<b>MAHV</b><br/>?"]
-    style A fill:#E2F0D9,stroke:#548235,stroke-width:2px
-    style B fill:#E2F0D9,stroke:#548235
-    style C fill:#FFD9D9,stroke:#C00000,stroke-width:2px
-    style D fill:#FFD9D9,stroke:#C00000
+    style A fill:#E2F0D9,stroke:#548235,stroke-width:2px,color:#111111
+    style B fill:#E2F0D9,stroke:#548235,color:#111111
+    style C fill:#FFD9D9,stroke:#C00000,stroke-width:2px,color:#111111
+    style D fill:#FFD9D9,stroke:#C00000,color:#111111
 ```
 
 !!! warning "Chú ý"
@@ -118,14 +118,14 @@ flowchart TB
             end
         end
     end
-    style SK fill:#FFF2CC,stroke:#BF9000
-    style CK fill:#E2F0D9,stroke:#548235
-    style PK fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
-    style C1 fill:#1F4E79,color:#fff,stroke:#1F4E79
-    style C2 fill:#fff,stroke:#548235
-    style S1 fill:#fff,stroke:#BF9000
-    style S2 fill:#fff,stroke:#BF9000
-    style S3 fill:#fff,stroke:#BF9000
+    style SK fill:#FFF2CC,stroke:#BF9000,color:#111111
+    style CK fill:#E2F0D9,stroke:#548235,color:#111111
+    style PK fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px,color:#111111
+    style C1 fill:#1F4E79,color:#ffffff,stroke:#1F4E79
+    style C2 fill:#ffffff,stroke:#548235,color:#111111
+    style S1 fill:#ffffff,stroke:#BF9000,color:#111111
+    style S2 fill:#ffffff,stroke:#BF9000,color:#111111
+    style S3 fill:#ffffff,stroke:#BF9000,color:#111111
 ```
 
 Đọc hình từ ngoài vào trong. Vòng ngoài cùng chứa **mọi tập thuộc tính đủ duy nhất**, kể cả những tập thừa như `{MAHV, HOTEN}`. Vòng giữa chỉ giữ lại những tập **không bỏ bớt được** — ở đây là `{MAHV}` và `{CCCD}`. Vòng trong cùng là **một** tập được người thiết kế chỉ định. Khóa ngoại và khóa phụ không nằm trong hình này vì chúng thuộc một trục phân loại khác: chúng nói về *vai trò* của thuộc tính, không nói về *tính duy nhất*.
@@ -136,10 +136,6 @@ flowchart TB
 
 ## 3.2.4. Khóa chính và khóa ngoại — hai vai trò khác nhau
 
-![](../hinh-ve/slide/internet/danh_ba_dien_thoai.jpg){width=55%}
-
-*Ảnh minh họa: một trang danh bạ điện thoại năm 1905. Số điện thoại ghi trong danh bạ là số *của người khác* mà ta ghi lại để liên hệ — giống khóa ngoại; còn số căn cước của chính mình mới giống khóa chính — Nguồn: Wikimedia Commons · DPLA · Public domain.*
-
 Hai loại khóa này được dùng nhiều nhất, và cũng hay bị lẫn vai trò. Một phép loại suy giúp phân định rất rõ.
 
 **Hình 3.4. Khóa chính là "căn cước", khóa ngoại là "địa chỉ liên hệ"**
@@ -148,10 +144,10 @@ Hai loại khóa này được dùng nhiều nhất, và cũng hay bị lẫn va
 flowchart LR
     PK["<b>KHÓA CHÍNH</b><br/>─────────<br/>Ví như <b>số căn cước</b><br/>của chính mình<br/><br/>Duy nhất · Không rỗng<br/>Không đổi"] --> Q1["Trả lời:<br/><i>Dòng này là AI?</i>"]
     FK["<b>KHÓA NGOẠI</b><br/>─────────<br/>Ví như <b>địa chỉ nhà</b><br/>của người khác<br/><br/>Có thể trùng · Có thể rỗng<br/>Phải TỒN TẠI nếu có"] --> Q2["Trả lời:<br/><i>Dòng này LIÊN QUAN tới ai?</i>"]
-    style PK fill:#1F4E79,color:#fff,stroke:#1F4E79,stroke-width:2px
-    style FK fill:#FFF2CC,stroke:#C00000,stroke-width:2px
-    style Q1 fill:#E2F0D9,stroke:#548235
-    style Q2 fill:#E2F0D9,stroke:#548235
+    style PK fill:#1F4E79,color:#ffffff,stroke:#1F4E79,stroke-width:2px
+    style FK fill:#FFF2CC,stroke:#C00000,stroke-width:2px,color:#111111
+    style Q1 fill:#E2F0D9,stroke:#548235,color:#111111
+    style Q2 fill:#E2F0D9,stroke:#548235,color:#111111
 ```
 
 Phép loại suy ấy hiện ra bằng dữ liệu như sau. Cột `MAGV` xuất hiện ở **cả hai bảng** nhưng với hai vai trò: trong `GIAOVIEN` nó là **khóa chính** *(căn cước của giáo viên)*, trong `LOP` nó là **khóa ngoại** *(địa chỉ liên hệ mà lớp ghi lại để biết giáo viên của mình là ai)*.

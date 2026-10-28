@@ -1,6 +1,6 @@
 # CHƯƠNG 4. RÀNG BUỘC TOÀN VẸN
 
-> **Ghi chú biên soạn (v5 — bản giáo trình, tăng cường dữ liệu minh họa cho người tự học).** Bản này giữ nguyên hệ thống mục **4.1–4.8 khớp với Mục 8 của đề cương chi tiết** *(8 tiết · CLO2, CLO3)*, văn phong giáo trình và bốn nội dung bổ sung của bản v4 *(cú pháp khai báo ở mức đọc hiểu, trigger bằng mã giả, bảng tầm ảnh hưởng thành mục riêng, ba tầng đặt ràng buộc)*. So với v4, có ba nhóm thay đổi: ① **mọi ràng buộc trước đây chỉ nêu bằng lời hoặc bằng công thức nay đều có bảng dữ liệu để nhìn thấy dòng vi phạm** — ba dòng lọt lưới *(Bảng 4.1)*, dữ liệu để thử sáu thao tác của ràng buộc khóa ngoại *(Bảng 4.8)*, ba kết quả sau lệnh xóa giáo viên *(Bảng 4.12)*, một bảng `LOP` có ba dòng sai ba loại *(Bảng 4.15)*, kiểm tra R5 và R6 trên hai bảng đặt cạnh nhau *(Bảng 4.16, 4.18)*, chạy tay trigger *(Bảng 4.19)*; ② **công thức có bảng đọc từng mảnh** *(Bảng 4.4)*, hai ràng buộc mô tả đủ ba yếu tố đặt cạnh nhau *(Bảng 4.5)*, ma trận 2 × 3 giải thích vì sao có đúng sáu loại *(Bảng 4.7)*, bảng sai – đúng cho ba lỗi lập bảng tầm ảnh hưởng *(Bảng 4.10)*, bảng tầm ảnh hưởng của R5 và của ràng buộc sức chứa viết đúng chuẩn thay cho văn xuôi *(Bảng 4.17, 4.20)*; ③ thêm bốn hộp **Tự kiểm tra** cuối các mục 4.2, 4.3, 4.4, 4.6 với đáp án trước phần Câu hỏi ôn tập. Số hình: **10**; số bảng: **26**; ngoài ra có **7 ảnh minh họa thực tế** không đánh số (Wikimedia Commons, giấy phép CC/PD, ghi nguồn dưới ảnh). Hoạt động tổ chức lớp học ở **Phụ lục 4A**. Khung ràng buộc *(điều kiện – bối cảnh – bảng tầm ảnh hưởng)* theo [1] Tô Văn Nam (2005) và [2] Vũ Đức Thi (1997); đối chiếu [3] Coronel & Morris, Ch.3.
+> **Ghi chú biên soạn (v5 — bản giáo trình, tăng cường dữ liệu minh họa cho người tự học).** Bản này giữ nguyên hệ thống mục **4.1–4.8 khớp với Mục 8 của đề cương chi tiết** *(8 tiết · CLO2, CLO3)*, văn phong giáo trình và bốn nội dung bổ sung của bản v4 *(cú pháp khai báo ở mức đọc hiểu, trigger bằng mã giả, bảng tầm ảnh hưởng thành mục riêng, ba tầng đặt ràng buộc)*. So với v4, có ba nhóm thay đổi: ① **mọi ràng buộc trước đây chỉ nêu bằng lời hoặc bằng công thức nay đều có bảng dữ liệu để nhìn thấy dòng vi phạm** — ba dòng lọt lưới *(Bảng 4.1)*, dữ liệu để thử sáu thao tác của ràng buộc khóa ngoại *(Bảng 4.8)*, ba kết quả sau lệnh xóa giáo viên *(Bảng 4.12)*, một bảng `LOP` có ba dòng sai ba loại *(Bảng 4.15)*, kiểm tra R5 và R6 trên hai bảng đặt cạnh nhau *(Bảng 4.16, 4.18)*, chạy tay trigger *(Bảng 4.19)*; ② **công thức có bảng đọc từng mảnh** *(Bảng 4.4)*, hai ràng buộc mô tả đủ ba yếu tố đặt cạnh nhau *(Bảng 4.5)*, ma trận 2 × 3 giải thích vì sao có đúng sáu loại *(Bảng 4.7)*, bảng sai – đúng cho ba lỗi lập bảng tầm ảnh hưởng *(Bảng 4.10)*, bảng tầm ảnh hưởng của R5 và của ràng buộc sức chứa viết đúng chuẩn thay cho văn xuôi *(Bảng 4.17, 4.20)*; ③ thêm bốn hộp **Tự kiểm tra** cuối các mục 4.2, 4.3, 4.4, 4.6 với đáp án trước phần Câu hỏi ôn tập. Số hình: **10**; số bảng: **26**; ngoài ra có **2 ảnh minh họa tự vẽ** 300 DPI không đánh số (gắn dữ liệu Trung tâm ABC, ghi nguồn dưới ảnh). Hoạt động tổ chức lớp học ở **Phụ lục 4A**. Khung ràng buộc *(điều kiện – bối cảnh – bảng tầm ảnh hưởng)* theo [1] Tô Văn Nam (2005) và [2] Vũ Đức Thi (1997); đối chiếu [3] Coronel & Morris, Ch.3.
 
 ---
 
@@ -85,10 +85,6 @@ Ba dòng trên cũng chính là ba mức độ khó tăng dần mà chương s�
 
 > **Định nghĩa 4.1.** **Ràng buộc toàn vẹn** *(integrity constraint)* là một **điều kiện mà dữ liệu trong cơ sở dữ liệu phải luôn luôn thỏa mãn**, ở mọi thời điểm, nhằm phản ánh đúng các quy tắc nghiệp vụ của tổ chức.
 
-![](hinh-ve/slide/internet/bien_suc_chua.jpg){width=50%}
-
-*Ảnh minh họa: biển "sức chứa tối đa" gắn ở cửa một hội trường. Con số ấy phải đúng ở mọi thời điểm chứ không chỉ lúc mở cửa — đúng tinh thần "luôn luôn" của ràng buộc toàn vẹn, và cũng là ràng buộc "lớp không vượt sức chứa" của Trung tâm ABC — Nguồn: Wikimedia Commons · Dan Keck · CC0.*
-
 Ba chữ đáng chú ý trong định nghĩa là **"luôn luôn"**. Một ràng buộc không phải là điều kiện chỉ đúng lúc nhập liệu rồi thôi; nó phải đúng **trước và sau mọi thao tác**, trong suốt vòng đời hệ thống.
 
 Ràng buộc toàn vẹn có nguồn gốc trực tiếp từ **quy tắc nghiệp vụ** đã học ở mục 2.1.2. Điều này tạo nên một mạch xuyên suốt ba chương:
@@ -112,10 +108,10 @@ flowchart LR
     A["<b>Toàn vẹn thực thể</b><br/><i>Chương 3</i><br/>khóa chính duy nhất,<br/>không rỗng"] --> B["<b>Ràng buộc LIÊN BỘ</b><br/>bối cảnh một quan hệ<br/><i>mục 4.5.3</i>"]
     C["<b>Toàn vẹn tham chiếu</b><br/><i>Chương 3</i><br/>khóa ngoại phải tồn tại"] --> D["<b>Ràng buộc KHÓA NGOẠI</b><br/>bối cảnh nhiều quan hệ<br/><i>mục 4.6.1</i>"]
     A ~~~ C
-    style A fill:#D9E2F3,stroke:#1F4E79
-    style C fill:#D9E2F3,stroke:#1F4E79
-    style B fill:#E2F0D9,stroke:#548235,stroke-width:2px
-    style D fill:#E2F0D9,stroke:#548235,stroke-width:2px
+    style A fill:#D9E2F3,stroke:#1F4E79,color:#111111
+    style C fill:#D9E2F3,stroke:#1F4E79,color:#111111
+    style B fill:#E2F0D9,stroke:#548235,stroke-width:2px,color:#111111
+    style D fill:#E2F0D9,stroke:#548235,stroke-width:2px,color:#111111
 ```
 
 Cách nhìn này có giá trị thực tiễn: người học không phải nhớ hai hệ thống khái niệm song song, mà chỉ cần nhớ **một bộ sáu loại**, trong đó hai loại đã quen từ chương trước.
@@ -148,17 +144,13 @@ flowchart LR
     C2 ~~~ C3
     C3 ~~~ C4
     C4 ~~~ C5
-    style C1 fill:#E2F0D9,stroke:#548235
-    style C2 fill:#FFD9D9,stroke:#C00000
-    style C3 fill:#FFD9D9,stroke:#C00000
-    style C4 fill:#FFD9D9,stroke:#C00000
-    style C5 fill:#FFD9D9,stroke:#C00000
-    style DB fill:#1F4E79,color:#fff,stroke:#1F4E79,stroke-width:2px
+    style C1 fill:#E2F0D9,stroke:#548235,color:#111111
+    style C2 fill:#FFD9D9,stroke:#C00000,color:#111111
+    style C3 fill:#FFD9D9,stroke:#C00000,color:#111111
+    style C4 fill:#FFD9D9,stroke:#C00000,color:#111111
+    style C5 fill:#FFD9D9,stroke:#C00000,color:#111111
+    style DB fill:#1F4E79,color:#ffffff,stroke:#1F4E79,stroke-width:2px
 ```
-
-![](hinh-ve/slide/internet/cua_soat_ve.jpg){width=60%}
-
-*Ảnh minh họa: dãy cửa soát vé ở một ga tàu điện. Ga có nhiều lối vào; chỉ đặt máy soát ở một cửa thì hành khách không vé vẫn vào được bằng những cửa còn lại — kiểm tra ở tầng ứng dụng cũng chỉ khóa được một cửa như vậy — Nguồn: Wikimedia Commons · GK tramrunner RU · CC BY-SA 4.0.*
 
 Trong hình, chỉ **cửa 1** có kiểm tra vì đó là ứng dụng đã cài logic. Bốn cửa còn lại **hoàn toàn mở**. Và bốn cửa ấy đều là những đường vào rất thật trong thực tế: ứng dụng di động do nhóm khác viết và có thể quên một điều kiện, quản trị viên sửa dữ liệu trực tiếp lúc cần gấp, kịch bản nạp dữ liệu hàng loạt bỏ qua mọi tầng ứng dụng, và hệ thống của đối tác gọi thẳng vào.
 
@@ -185,8 +177,11 @@ flowchart TB
     R --> E2["<b>② BỐI CẢNH</b><br/><i>động chạm BẢNG NÀO?</i><br/>─────<br/>một bảng → mục 4.5<br/>nhiều bảng → mục 4.6"]
     R --> E3["<b>③ BẢNG TẦM ẢNH HƯỞNG</b><br/><i>THAO TÁC NÀO nguy hiểm?</i><br/>─────<br/>Thêm · Xóa · Sửa<br/>đánh dấu + hoặc −"]
     R --> E4["<b>(+) HÀNH ĐỘNG</b><br/><i>vi phạm thì LÀM GÌ?</i><br/>─────<br/>Từ chối · Lan truyền · Gán rỗng"]
-    style R fill:#1F4E79,color:#fff,stroke:#1F4E79,stroke-width:2px
-    style E3 fill:#FFF2CC,stroke:#C00000,stroke-width:2px
+    style R fill:#1F4E79,color:#ffffff,stroke:#1F4E79,stroke-width:2px
+    style E1 fill:#D9E2F3,stroke:#1F4E79,color:#111111
+    style E2 fill:#D9E2F3,stroke:#1F4E79,color:#111111
+    style E3 fill:#FFF2CC,stroke:#C00000,stroke-width:2px,color:#111111
+    style E4 fill:#E2F0D9,stroke:#548235,color:#111111
 ```
 
 Yếu tố thứ ba được tô đậm vì nó là **kỹ năng chữ ký của chương này**, và được dành hẳn mục 4.3.
@@ -311,9 +306,10 @@ flowchart LR
     C --> Q{"<b>Thao tác này có thể biến điều kiện<br/>từ ĐÚNG thành SAI không?</b>"}
     Q -->|"CÓ"| P["<b>dấu +</b><br/><i>phải đặt chốt kiểm tra</i>"]
     Q -->|"KHÔNG"| M["<b>dấu −</b><br/><i>bỏ qua được</i>"]
-    style Q fill:#1F4E79,color:#fff,stroke:#1F4E79,stroke-width:2px
-    style P fill:#FFD9D9,stroke:#C00000
-    style M fill:#E2F0D9,stroke:#548235
+    style C fill:#D9E2F3,stroke:#1F4E79,color:#111111
+    style Q fill:#1F4E79,color:#ffffff,stroke:#1F4E79,stroke-width:2px
+    style P fill:#FFD9D9,stroke:#C00000,color:#111111
+    style M fill:#E2F0D9,stroke:#548235,color:#111111
 ```
 
 Điểm cần nhấn mạnh: **giả thiết ngầm là điều kiện đang đúng trước thao tác**. Câu hỏi không phải *"thao tác này có làm dữ liệu sai không"* mà là *"nếu dữ liệu đang đúng, thao tác này có thể phá vỡ nó không"*.
@@ -371,9 +367,9 @@ flowchart LR
     CON["<b>BẢNG CON</b><br/>chứa <b>khóa ngoại</b><br/>(GHIDANH)<br/>─────────<br/>nguy hiểm khi <b>THÊM</b>"] -->|"khóa ngoại trỏ tới"| CHA["<b>BẢNG CHA</b><br/>chứa <b>khóa chính</b><br/>được trỏ tới<br/>(HOCVIEN)<br/>─────────<br/>nguy hiểm khi <b>XÓA</b>"]
     T["<b>THÊM ở CON — XÓA ở CHA</b><br/><i>cộng thêm: sửa khóa ở cả hai bên</i>"]
     CHA ~~~ T
-    style T fill:#1F4E79,color:#fff,stroke:#1F4E79,stroke-width:2px
-    style CHA fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
-    style CON fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
+    style T fill:#1F4E79,color:#ffffff,stroke:#1F4E79,stroke-width:2px
+    style CHA fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px,color:#111111
+    style CON fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px,color:#111111
 ```
 
 Lý do đằng sau câu thần chú rất trực quan. Thêm vào bảng con là **tạo ra một mũi tên mới** — mũi tên ấy có thể trỏ vào chỗ trống. Xóa ở bảng cha là **rút đi cái đích** — các mũi tên đang trỏ tới bỗng treo lơ lửng. Hai thao tác còn lại thì ngược lại: thêm vào cha là *tạo thêm đích*, xóa ở con là *bớt mũi tên* — cả hai đều chỉ làm tình hình an toàn hơn.
@@ -432,14 +428,15 @@ flowchart TB
     X --> R1["<b>TỪ CHỐI</b><br/>─────<br/>'Không được xóa giáo viên<br/>khi còn phụ trách lớp.<br/>Hãy bàn giao trước.'<br/>─────<br/><i>Chặt chẽ nhất</i>"]
     X --> R2["<b>GÁN RỖNG</b><br/>─────<br/>Cho xóa; 4 lớp có<br/>MAGV rỗng<br/>= 'tạm chưa có giáo viên'<br/>─────<br/><i>Linh hoạt — hợp lý ở đây</i>"]
     X --> R3["<b>LAN TRUYỀN</b><br/>─────<br/>Xóa giáo viên → <b>xóa luôn 4 lớp</b><br/>→ mất cả học viên đã đóng tiền<br/>─────<br/><b>THẢM HỌA</b>"]
-    style R1 fill:#E2F0D9,stroke:#548235
-    style R2 fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
-    style R3 fill:#FFD9D9,stroke:#C00000,stroke-width:2px
+    style X fill:#1F4E79,color:#ffffff,stroke:#1F4E79,stroke-width:2px
+    style R1 fill:#E2F0D9,stroke:#548235,color:#111111
+    style R2 fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px,color:#111111
+    style R3 fill:#FFD9D9,stroke:#C00000,stroke-width:2px,color:#111111
 ```
 
-![](hinh-ve/slide/internet/domino.jpg){width=55%}
+![](hinh-ve/minh-hoa/C4_mh01_ba_hanh_dong_khoa_ngoai.png){width=85%}
 
-*Ảnh minh họa: dãy quân domino đang đổ dây chuyền. Hành động lan truyền (CASCADE) chính là thế: đẩy một quân — xóa một bản ghi cha — thì cả dãy đổ theo, trong im lặng, không ai kịp hỏi lại — Nguồn: Wikimedia Commons · Louise · CC BY 2.0.*
+*Ảnh minh họa: So sánh trực quan ba hành động của khóa ngoại (RESTRICT, CASCADE, SET NULL) trên dữ liệu Trung tâm Anh ngữ ABC khi thực hiện lệnh xóa giáo viên GV1 Lê Hoa — Nguồn: Tác giả tự vẽ.*
 
 Ba nhánh của hình trên trở nên rất cụ thể khi nhìn vào dữ liệu. Giả sử trước lệnh xóa, cô Lê Hoa *(GV1)* phụ trách bốn lớp và bốn lớp ấy có tổng cộng 96 lượt ghi danh.
 
@@ -552,10 +549,6 @@ Ba loại đầu tiên trong Bảng 4.6 có bối cảnh chỉ gồm **một qua
 > - `∀t ∈ LOP : 5 ≤ t.SUCCHUA ≤ 40` — sức chứa nằm trong khoảng hợp lệ.
 > - `∀t ∈ GIAOVIEN : t.BANGCAP ∈ {Cử nhân, Thạc sĩ, Tiến sĩ}` — chỉ nhận ba giá trị.
 
-![](hinh-ve/slide/internet/bien_toc_do.jpg){width=55%}
-
-*Ảnh minh họa: biển giới hạn tốc độ trên cao tốc Biên Hòa – Vũng Tàu: tối đa 80, tối thiểu 60. Một ràng buộc miền giá trị đúng nghĩa — chỉ giới hạn một con số, không cần biết xe nào, ai lái — Nguồn: Wikimedia Commons · MinhVN1863 · CC BY-SA 4.0.*
-
 Đây là loại **dễ phát hiện và dễ cài đặt nhất** — khai báo bằng `CHECK` hoặc bằng chính kiểu dữ liệu. Bảng tầm ảnh hưởng của nó cũng đơn giản: chỉ **thêm** và **sửa** là nguy hiểm, còn **xóa** thì không bao giờ.
 
 ### 4.5.2. Ràng buộc liên thuộc tính
@@ -605,9 +598,10 @@ flowchart LR
     Q --> T{"<b>Che hết các dòng khác,<br/>chỉ nhìn MỘT dòng —<br/>có kiểm tra được không?</b>"}
     T -->|"CÓ"| A["<b>LIÊN THUỘC TÍNH</b><br/>NGAYKT ≥ NGAYKG<br/><i>nhìn một dòng là đủ</i>"]
     T -->|"KHÔNG"| B["<b>LIÊN BỘ</b><br/>MAHV không trùng<br/><i>phải so với dòng khác</i>"]
-    style T fill:#1F4E79,color:#fff,stroke:#1F4E79,stroke-width:2px
-    style A fill:#E2F0D9,stroke:#548235
-    style B fill:#FFF2CC,stroke:#C00000
+    style Q fill:#D9E2F3,stroke:#1F4E79,color:#111111
+    style T fill:#1F4E79,color:#ffffff,stroke:#1F4E79,stroke-width:2px
+    style A fill:#E2F0D9,stroke:#548235,color:#111111
+    style B fill:#FFF2CC,stroke:#C00000,color:#111111
 ```
 
 Phép thử này cũng giải thích luôn **vì sao độ khó cài đặt tăng dần**. Ràng buộc liên thuộc tính chỉ cần nhìn một dòng nên hệ quản trị kiểm tra tức thì bằng `CHECK`. Ràng buộc liên bộ phải quét cả bảng, nên hệ quản trị phải dựng sẵn **chỉ mục duy nhất** để kiểm cho nhanh.
@@ -659,9 +653,9 @@ Bảng tầm ảnh hưởng có **hai dòng** vì bối cảnh có hai quan hệ
 
 > **Ví dụ 4.8.** `∀l ∈ LOP : l.SISO = |{g ∈ GHIDANH : g.MALOP = l.MALOP}|` — sĩ số ghi trong bảng `LOP` phải bằng số dòng ghi danh tương ứng trong `GHIDANH`.
 
-![](hinh-ve/slide/internet/bien_cam_vao.jpg){width=45%}
+![](hinh-ve/minh-hoa/C4_mh02_rang_buoc_siso_lien_bang.png){width=85%}
 
-*Ảnh minh họa: biển "cấm vào" kèm điều kiện ngoại lệ ghi bên dưới. Ràng buộc liên bộ liên quan hệ cũng vậy: muốn biết một dòng có được vào hay không, phải đọc thêm "điều kiện" nằm ở nơi khác — ở đây là phải đếm trên bảng khác — Nguồn: Wikimedia Commons · Albert Bridge · CC BY-SA 2.0.*
+*Ảnh minh họa: Cơ chế kiểm tra chéo giữa hai bảng của ràng buộc liên bộ – liên quan hệ R6 — đối chiếu giá trị cột LOP.SISO với số dòng đếm thực tế trong bảng GHIDANH — Nguồn: Tác giả tự vẽ.*
 
 Đây là loại **khó nhất trong sáu loại**, vì ba lý do cộng lại: phải nhìn **nhiều bảng**, phải nhìn **nhiều dòng**, và phải **tính toán** chứ không chỉ so sánh. Hệ quản trị không có cơ chế khai báo nào cho nó. Ba lý do ấy hiện rõ khi kiểm tra R6 bằng tay trên dữ liệu.
 
@@ -686,9 +680,10 @@ flowchart LR
     U["Người dùng yêu cầu<br/><b>THÊM một dòng</b><br/>vào GHIDANH"] --> T["<b>TRIGGER</b><br/>tự động kích hoạt<br/>─────────<br/>đếm số ghi danh<br/>của lớp đó,<br/>so với sức chứa"]
     T -->|"còn chỗ"| OK["<b>Cho phép</b><br/>dòng được ghi vào"]
     T -->|"đã đầy"| NO["<b>Từ chối</b><br/>báo lỗi, hủy thao tác"]
-    style T fill:#1F4E79,color:#fff,stroke:#1F4E79,stroke-width:2px
-    style OK fill:#E2F0D9,stroke:#548235
-    style NO fill:#FFD9D9,stroke:#C00000
+    style U fill:#D9E2F3,stroke:#1F4E79,color:#111111
+    style T fill:#1F4E79,color:#ffffff,stroke:#1F4E79,stroke-width:2px
+    style OK fill:#E2F0D9,stroke:#548235,color:#111111
+    style NO fill:#FFD9D9,stroke:#C00000,color:#111111
 ```
 
 Ý tưởng cốt lõi của trigger là: **nó nằm trong cơ sở dữ liệu, nên nó bảo vệ được cả năm cửa ở Hình 4.2**. Đây chính là điểm khác biệt so với việc viết cùng logic ấy trong mã nguồn ứng dụng.
@@ -764,10 +759,6 @@ TIENQUYET (MAKH_truoc↗KHOAHOC, MAKH_sau↗KHOAHOC)
 
 ### 4.7.2. Sáu câu hỏi để không bỏ sót
 
-![](hinh-ve/slide/internet/checklist_phi_cong.jpg){width=55%}
-
-*Ảnh minh họa: phi hành gia đọc danh sách kiểm tra (checklist) trước khi thao tác. Nghề nào cũng cần một danh sách như vậy để không bỏ sót; sáu câu hỏi dưới đây là checklist của người thiết kế khi đi "săn" ràng buộc — Nguồn: Wikimedia Commons · NASA · Public domain.*
-
 Bảng 4.6 được chuyển thành một **quy trình sáu câu hỏi**. Đi lần lượt qua sáu câu này thì không bỏ sót loại nào.
 
 **Bảng 4.21. Sáu câu hỏi phát hiện ràng buộc**
@@ -811,12 +802,12 @@ flowchart LR
     N3["<b>Sĩ số lệch</b>"] -->|"bịt bằng"| R6["<b>R6</b><br/>Liên bộ liên QH"]
     N1 ~~~ N2
     N2 ~~~ N3
-    style N1 fill:#FFD9D9,stroke:#C00000
-    style N2 fill:#FFD9D9,stroke:#C00000
-    style N3 fill:#FFD9D9,stroke:#C00000
-    style R1 fill:#E2F0D9,stroke:#548235
-    style R5 fill:#E2F0D9,stroke:#548235
-    style R6 fill:#E2F0D9,stroke:#548235
+    style N1 fill:#FFD9D9,stroke:#C00000,color:#111111
+    style N2 fill:#FFD9D9,stroke:#C00000,color:#111111
+    style N3 fill:#FFD9D9,stroke:#C00000,color:#111111
+    style R1 fill:#E2F0D9,stroke:#548235,color:#111111
+    style R5 fill:#E2F0D9,stroke:#548235,color:#111111
+    style R6 fill:#E2F0D9,stroke:#548235,color:#111111
 ```
 
 ### 4.7.5. Cờ đỏ thiết kế — khi một ràng buộc quá khó
@@ -847,10 +838,10 @@ flowchart LR
     S --> D["<b>CHẨN ĐOÁN</b><br/>SISO là <b>thuộc tính dẫn xuất</b><br/>→ tạo ra <b>HAI NGUỒN SỰ THẬT</b><br/>cho cùng một thông tin"]
     D --> T["<b>ĐƠN THUỐC</b><br/><b>Bỏ hẳn cột SISO</b><br/>tính khi cần bằng phép đếm"]
     T --> K["<b>KẾT QUẢ</b><br/><b>R6 biến mất</b> — không cần ràng buộc nữa<br/>Chỉ còn <b>một nguồn sự thật</b><br/>→ không thể mâu thuẫn"]
-    style S fill:#FFD9D9,stroke:#C00000
-    style D fill:#FFF2CC,stroke:#C00000
-    style T fill:#D9E2F3,stroke:#1F4E79
-    style K fill:#E2F0D9,stroke:#548235,stroke-width:2px
+    style S fill:#FFD9D9,stroke:#C00000,color:#111111
+    style D fill:#FFF2CC,stroke:#C00000,color:#111111
+    style T fill:#D9E2F3,stroke:#1F4E79,color:#111111
+    style K fill:#E2F0D9,stroke:#548235,stroke-width:2px,color:#111111
 ```
 
 Chẩn đoán này chính là câu hỏi đã treo lại từ **mục 2.2.5** của Chương 2, khi bàn thuộc tính dẫn xuất *"lưu lại hay tính lại"*. Đến đây đã có câu trả lời đầy đủ: lưu lại tạo ra **hai nguồn sự thật** cho cùng một thông tin, và hai nguồn sự thật thì sớm muộn cũng mâu thuẫn — đúng chuỗi nhân quả *dư thừa → không nhất quán* của mục 1.3.3.
@@ -869,10 +860,6 @@ Chẩn đoán này chính là câu hỏi đã treo lại từ **mục 2.2.5** c�
 ## 4.8. Ví dụ tổng hợp — hoàn thiện thiết kế ABC
 
 ### 4.8.1. Chọn hành động cho từng khóa ngoại
-
-![](hinh-ve/slide/internet/nhap_lieu.jpg){width=55%}
-
-*Ảnh minh họa: nhân viên nhập liệu tại bàn làm việc. Mỗi phím gõ vào là một lần thêm hoặc sửa dữ liệu — và là một lần ràng buộc phải đứng ra kiểm tra, dù người gõ có nhớ quy tắc hay không — Nguồn: Wikimedia Commons · Department of Labor · Public domain.*
 
 Lược đồ ABC có sáu khóa ngoại. Với mỗi khóa phải chọn hành động khi xóa bản ghi cha, và lựa chọn hoàn toàn dựa vào nghiệp vụ.
 

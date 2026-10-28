@@ -28,14 +28,15 @@ flowchart TB
     X --> R1["<b>TỪ CHỐI</b><br/>─────<br/>'Không được xóa giáo viên<br/>khi còn phụ trách lớp.<br/>Hãy bàn giao trước.'<br/>─────<br/><i>Chặt chẽ nhất</i>"]
     X --> R2["<b>GÁN RỖNG</b><br/>─────<br/>Cho xóa; 4 lớp có<br/>MAGV rỗng<br/>= 'tạm chưa có giáo viên'<br/>─────<br/><i>Linh hoạt — hợp lý ở đây</i>"]
     X --> R3["<b>LAN TRUYỀN</b><br/>─────<br/>Xóa giáo viên → <b>xóa luôn 4 lớp</b><br/>→ mất cả học viên đã đóng tiền<br/>─────<br/><b>THẢM HỌA</b>"]
-    style R1 fill:#E2F0D9,stroke:#548235
-    style R2 fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
-    style R3 fill:#FFD9D9,stroke:#C00000,stroke-width:2px
+    style X fill:#1F4E79,color:#ffffff,stroke:#1F4E79,stroke-width:2px
+    style R1 fill:#E2F0D9,stroke:#548235,color:#111111
+    style R2 fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px,color:#111111
+    style R3 fill:#FFD9D9,stroke:#C00000,stroke-width:2px,color:#111111
 ```
 
-![](../hinh-ve/slide/internet/domino.jpg){width=55%}
+![](../hinh-ve/minh-hoa/C4_mh01_ba_hanh_dong_khoa_ngoai.png){width=85%}
 
-*Ảnh minh họa: dãy quân domino đang đổ dây chuyền. Hành động lan truyền (CASCADE) chính là thế: đẩy một quân — xóa một bản ghi cha — thì cả dãy đổ theo, trong im lặng, không ai kịp hỏi lại — Nguồn: Wikimedia Commons · Louise · CC BY 2.0.*
+*Ảnh minh họa: So sánh trực quan ba hành động của khóa ngoại (RESTRICT, CASCADE, SET NULL) trên dữ liệu Trung tâm Anh ngữ ABC khi thực hiện lệnh xóa giáo viên GV1 Lê Hoa — Nguồn: Tác giả tự vẽ.*
 
 Ba nhánh của hình trên trở nên rất cụ thể khi nhìn vào dữ liệu. Giả sử trước lệnh xóa, cô Lê Hoa *(GV1)* phụ trách bốn lớp và bốn lớp ấy có tổng cộng 96 lượt ghi danh.
 

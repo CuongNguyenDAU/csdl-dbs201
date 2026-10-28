@@ -29,9 +29,9 @@ Cần nhắc lại phạm vi: học phần này **không dạy viết câu lện
 
     **Giao dịch** *(transaction)* là một **dãy các thao tác trên cơ sở dữ liệu được xem như một đơn vị công việc không thể chia nhỏ**: hoặc toàn bộ dãy thao tác đó được thực hiện trọn vẹn, hoặc không thao tác nào có hiệu lực.
 
-![](../hinh-ve/slide/internet/may_atm.jpg){width=45%}
+![](../hinh-ve/minh-hoa/C1_mh02_giao_dich_acid.png){width=85%}
 
-*Ảnh minh họa: một buồng ATM ở Hà Nội. Mỗi lần rút tiền là một giao dịch: trừ tài khoản và nhả tiền phải cùng xảy ra hoặc cùng không xảy ra — máy mất điện giữa chừng thì tài khoản phải được hoàn lại — Nguồn: Wikimedia Commons · Phan Minh Tuấn · CC BY-SA 4.0.*
+*Ảnh minh họa: Cơ chế giao dịch khi chuyển khoản học phí 3.000.000đ — hoặc thực hiện trọn vẹn cả hai bước (COMMIT), hoặc tự động hoàn tác về nguyên trạng khi xảy ra sự cố mất điện giữa chừng (ROLLBACK) — Nguồn: Tác giả tự vẽ.*
 
 Ví dụ kinh điển là chuyển khoản ngân hàng. Chuyển 1 triệu đồng từ tài khoản A sang tài khoản B gồm hai thao tác: trừ 1 triệu ở A, rồi cộng 1 triệu vào B. Nếu hệ thống mất điện đúng vào khoảnh khắc giữa hai thao tác, tiền đã bị trừ ở A nhưng chưa được cộng vào B — **1 triệu đồng biến mất**. Cơ chế giao dịch bảo đảm tình huống đó không xảy ra: khi hệ thống khởi động lại, thao tác trừ tiền dở dang sẽ được hoàn tác, số dư của A trở về nguyên trạng.
 
@@ -99,9 +99,11 @@ flowchart LR
     PROC["<b>2. THỦ TỤC</b><br/>quy tắc vận hành<br/>quy trình sao lưu<br/>chính sách phân quyền"] --> SW
     HW["<b>3. PHẦN CỨNG</b><br/>máy chủ, đĩa, mạng"] --> SW
     SW["<b>4. PHẦN MỀM</b><br/>hệ điều hành<br/><b>DBMS</b><br/>ứng dụng nghiệp vụ"] --> DATA[("<b>5. DỮ LIỆU</b><br/>dữ liệu người dùng<br/>+ metadata")]
-    style SW fill:#1F4E79,color:#fff,stroke:#1F4E79,stroke-width:2px
-    style DATA fill:#FFF2CC,stroke:#C00000,stroke-width:2px
-    style PEOPLE fill:#D9E2F3,stroke:#1F4E79
+    style SW fill:#1F4E79,color:#ffffff,stroke:#1F4E79,stroke-width:2px
+    style DATA fill:#FFF2CC,stroke:#C00000,stroke-width:2px,color:#111111
+    style PEOPLE fill:#D9E2F3,stroke:#1F4E79,color:#111111
+    style PROC fill:#F9FAFC,stroke:#1F4E79,color:#111111
+    style HW fill:#F9FAFC,stroke:#1F4E79,color:#111111
 ```
 
 Thành phần **con người** gồm nhiều vai trò khác nhau, và người học nên định vị được mình sẽ đứng ở đâu sau khi ra trường. *Quản trị viên hệ thống* lo phần cứng và mạng. *Quản trị viên cơ sở dữ liệu* chịu trách nhiệm vận hành hệ quản trị: phân quyền, sao lưu, theo dõi hiệu năng. *Người thiết kế cơ sở dữ liệu* xây dựng lược đồ — **đây chính là vai trò mà học phần này đào tạo**. *Lập trình viên* viết các ứng dụng sử dụng cơ sở dữ liệu. *Người dùng cuối* là nhân viên nghiệp vụ khai thác hệ thống hằng ngày.

@@ -52,41 +52,13 @@ Thứ nhất, đây là **ký pháp gốc**, do chính Peter Chen đề xuất n
 
 **Hình 2.3. Bộ ký hiệu Chen — tổng quan**
 
-```mermaid
-flowchart TB
-    K(["<u>MAHV</u>"])
-    T(["HOTEN"])
-    M(["SDT"])
-    D(["TUOI"])
-    E["HOCVIEN"]
-    R{"ghi danh"}
-    L["LOP"]
-    RW{"có"}
-    W[["DIENTHOAI"]]
-    K --- E
-    T --- E
-    E --- M
-    E --- D
-    E --- R
-    R --- L
-    E --- RW
-    RW --- W
-    style E fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
-    style L fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
-    style W fill:#FFF2CC,stroke:#C00000,stroke-width:3px
-    style R fill:#E2F0D9,stroke:#548235
-    style RW fill:#E2F0D9,stroke:#548235,stroke-width:3px
-    style K fill:#fff,stroke:#1F4E79
-    style T fill:#fff,stroke:#1F4E79
-    style M fill:#fff,stroke:#1F4E79,stroke-width:4px
-    style D fill:#fff,stroke:#1F4E79,stroke-dasharray: 5 5
-```
+![](../hinh-ve/chen/C2_hinh03_bo_ky_hieu_chen.png)
 
-Đọc hình trên theo thứ tự: `MAHV` là **thuộc tính khóa** *(gạch chân)*; `HOTEN` là thuộc tính thường; `SDT` là **thuộc tính đa trị** *(viền dày, thể hiện hai đường viền)*; `TUOI` là **thuộc tính dẫn xuất** *(nét đứt)*; `DIENTHOAI` là **thực thể yếu** *(chữ nhật hai viền)* nối với `HOCVIEN` qua **liên kết định danh** *(hình thoi viền dày)*.
+Đọc hình trên theo thứ tự: `MAHV` là **thuộc tính khóa** *(oval gạch chân liền)*; `HOTEN` là thuộc tính đơn; `SDT` là **thuộc tính đa trị** *(oval hai đường viền đồng tâm)*; `TUOI` là **thuộc tính dẫn xuất** *(oval viền nét đứt)*; `DIENTHOAI` là **thực thể yếu** *(chữ nhật hai đường viền đồng tâm, kèm khóa bộ phận `SODT` gạch chân nét đứt)* nối với `HOCVIEN` qua **liên kết định danh** *(hình thoi hai đường viền đồng tâm và nhánh nối đôi bắt buộc)*.
 
-!!! warning "Chú ý về hình vẽ trong giáo trình này"
+!!! warning "Chú ý về quy ước trình bày hình vẽ trong giáo trình này"
 
-    Công cụ vẽ được dùng để tạo hình minh họa thể hiện oval dưới dạng **hình bo tròn hai đầu**, và thể hiện "hai đường viền" bằng **đường viền dày**. Khi vẽ tay hoặc vẽ bằng draw.io, người học hãy vẽ đúng chuẩn: **oval thật** và **hai đường viền thật**.
+    Các sơ đồ ER theo ký pháp Chen và EER trong giáo trình được vẽ đúng chuẩn sách giáo khoa: **hình elip (oval) thật** cho thuộc tính, **hai đường viền đồng tâm** cho thực thể yếu, liên kết định danh và thuộc tính đa trị, **gạch chân nét đứt** cho khóa bộ phận, và kết hợp **cặp `(min, max)` cùng đường nối đôi song song** cho nhánh tham gia bắt buộc để người học nhận diện trực quan ngay trên bản vẽ.
 
 ## 2.2.3. Bốn cặp phân loại thuộc tính
 
@@ -109,39 +81,7 @@ Bốn cặp tiêu chí trên đều có chỗ trên lược đồ Chen. Hãy v�
 
 **Hình 2.4. Thuộc tính của thực thể `HOCVIEN` — bốn cặp phân loại trong ký pháp Chen, đối chiếu Crow's Foot**
 
-```mermaid
-flowchart LR
-    subgraph CHEN["KÝ PHÁP CHEN"]
-        K(["<u>MAHV</u>"]) --- E["HOCVIEN"]
-        A1(["HOTEN"]) --- E
-        A2(["NGAYSINH"]) --- E
-        E --- A5(["TUOI"])
-        E --- A3(["EMAIL"])
-        E --- A4(["SDT"])
-        E --- A6(["DIACHI"])
-        A6 --- A61(["SONHA"])
-        A6 --- A62(["DUONG"])
-        A6 --- A63(["QUAN"])
-        A6 --- A64(["TINH"])
-    end
-    subgraph CF["KÝ PHÁP CROW'S FOOT"]
-        T["<b>HOCVIEN</b><br/>─────────<br/><u>MAHV</u><br/>HOTEN<br/>NGAYSINH<br/>EMAIL<br/>SDT<br/>DIACHI"]
-    end
-    E ~~~ T
-    style E fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
-    style T fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
-    style K fill:#fff,stroke:#1F4E79
-    style A1 fill:#fff,stroke:#1F4E79
-    style A2 fill:#fff,stroke:#1F4E79
-    style A3 fill:#fff,stroke:#1F4E79
-    style A4 fill:#fff,stroke:#1F4E79,stroke-width:4px
-    style A5 fill:#fff,stroke:#1F4E79,stroke-dasharray: 5 5
-    style A6 fill:#FFF2CC,stroke:#1F4E79
-    style A61 fill:#fff,stroke:#1F4E79
-    style A62 fill:#fff,stroke:#1F4E79
-    style A63 fill:#fff,stroke:#1F4E79
-    style A64 fill:#fff,stroke:#1F4E79
-```
+![](../hinh-ve/chen/C2_hinh04_bon_cap_thuoc_tinh.png)
 
 Phía Chen đọc từ trên xuống: `MAHV` **gạch chân** là thuộc tính khóa; `HOTEN`, `NGAYSINH`, `EMAIL` là thuộc tính **đơn, đơn trị, lưu trữ**; `TUOI` vẽ **nét đứt** vì là thuộc tính **dẫn xuất**; `SDT` vẽ **viền kép** vì là thuộc tính **đa trị**; `DIACHI` là thuộc tính **phức hợp** — một oval mẹ với bốn oval con `SONHA`, `DUONG`, `QUAN`, `TINH` nối vào. Cặp tiêu chí thứ tư *(bắt buộc/tùy chọn)* là cặp duy nhất ký pháp Chen **không có ký hiệu riêng**; nó được ghi chú bằng lời và sẽ trở thành ràng buộc *không rỗng* ở Chương 3.
 
@@ -149,9 +89,9 @@ Hai cách vẽ chứa **cùng một lượng thông tin**, nhưng phân bố kh�
 
 Đó là lý do giáo trình chọn Chen cho phần học lý thuyết và phần giải bài, còn Crow's Foot dùng khi cần trình bày lược đồ lớn. Mục 2.8.3 sẽ trình bày kỹ ký pháp Crow's Foot.
 
-![](../hinh-ve/slide/internet/phong_bi_thu.jpg){width=60%}
+![](../hinh-ve/minh-hoa/C2_mh01_thuoc_tinh_phuc_hop_diachi.png){width=85%}
 
-*Ảnh minh họa: địa chỉ trên một phong bì thư gồm tên người nhận, đường, thành phố, bang. Giữ nguyên một khối để in, hay tách ra để thống kê theo thành phố — đó là quyết định về thuộc tính phức hợp — Nguồn: Wikimedia Commons · DPLA · CC BY 4.0.*
+*Ảnh minh họa: Quyết định thiết kế cho thuộc tính phức hợp DIACHI tại Trung tâm Anh ngữ ABC — giữ nguyên một cột đơn hay tách thành các thuộc tính thành phần tùy thuộc vào nhu cầu truy vấn — Nguồn: Tác giả tự vẽ.*
 
 Hai cặp đầu có hệ quả thiết kế trực tiếp. Với thuộc tính **phức hợp**, người thiết kế phải quyết định: tách thành các thuộc tính con hay giữ nguyên một khối? Nguyên tắc là **tách nếu về sau còn cần truy vấn theo từng phần**. Nếu trung tâm cần thống kê học viên theo quận, thì `DIACHI` phải tách. Nếu địa chỉ chỉ dùng để in lên giấy chứng nhận, giữ nguyên một khối là đủ.
 
@@ -213,28 +153,7 @@ Trên lược đồ Chen, cách 3 là một phép biến đổi rất dễ nhậ
 
 **Hình 2.5. Thuộc tính đa trị `SDT` trước và sau khi tách — ký pháp Chen**
 
-```mermaid
-flowchart LR
-    subgraph TRUOC["TRƯỚC — thuộc tính đa trị"]
-        K1(["<u>MAHV</u>"]) --- HV1["HOCVIEN"]
-        HV1 --- S1(["SDT"])
-    end
-    subgraph SAU["SAU — tách thành thực thể riêng"]
-        K2(["<u>MAHV</u>"]) --- HV2["HOCVIEN"]
-        HV2 ---|"1"| R{"có"}
-        R ---|"M"| DT[["DIENTHOAI"]]
-        DT --- S2(["<u>SODT</u>"])
-    end
-    TRUOC ~~~ SAU
-    style HV1 fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
-    style HV2 fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
-    style DT fill:#FFF2CC,stroke:#C00000,stroke-width:3px
-    style R fill:#E2F0D9,stroke:#548235,stroke-width:3px
-    style K1 fill:#fff,stroke:#1F4E79
-    style K2 fill:#fff,stroke:#1F4E79
-    style S1 fill:#fff,stroke:#C00000,stroke-width:4px
-    style S2 fill:#fff,stroke:#1F4E79
-```
+![](../hinh-ve/chen/C2_hinh05_tach_da_tri.png)
 
 Thực thể `DIENTHOAI` được vẽ **chữ nhật hai viền** và liên kết *"có"* vẽ **hình thoi hai viền**: đó là ký hiệu của *thực thể yếu* và *liên kết định danh*, sẽ được giải thích ở mục 2.6.3. Ở đây chỉ cần ghi nhớ hình dạng của phép biến đổi.
 

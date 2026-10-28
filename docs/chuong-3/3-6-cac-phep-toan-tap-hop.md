@@ -90,10 +90,6 @@ Cần lưu ý rằng **phép hiệu không giao hoán**: `A − B` khác `B − 
 
     **Tích Descartes** *(Cartesian product)* `R × S` ghép **mỗi bộ của `R` với mọi bộ của `S`**. Nếu `R` có bậc `m` và lực lượng `p`, còn `S` có bậc `n` và lực lượng `q`, thì `R × S` có **bậc `m + n`** và **lực lượng `p × q`**.
 
-![](../hinh-ve/slide/internet/thuc_don_combo.jpg){width=60%}
-
-*Ảnh minh họa: bảng thực đơn đồ ăn nhanh. Ba món chính và hai đồ uống cho sáu combo khả dĩ, kể cả combo chẳng ai gọi — tích Descartes ghép cơ học mọi cặp đúng như thế — Nguồn: Wikimedia Commons · Dave O · CC BY-SA 2.0.*
-
 Tích Descartes được xếp vào **nhóm phép toán tập hợp** vì nó kế thừa trực tiếp từ lý thuyết tập hợp, giống ba phép trên. Nhưng nó **khác ba phép kia ở một điểm căn bản**, và đây là chỗ người học hay nhầm.
 
 **Ba phép `∪`, `∩`, `−` đòi hỏi khả hợp; tích Descartes thì không.** Lý do nằm ở bản chất phép toán. Ba phép đầu **so sánh các bộ với nhau** để quyết định giữ hay bỏ, nên hai bộ phải có cùng cấu trúc mới so sánh được. Tích Descartes **không so sánh gì cả** — nó chỉ nối hai bộ lại thành một bộ dài hơn, nên hai quan hệ đầu vào có cấu trúc thế nào cũng được.

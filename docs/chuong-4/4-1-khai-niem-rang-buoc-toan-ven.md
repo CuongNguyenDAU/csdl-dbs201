@@ -44,10 +44,6 @@ Ba dòng trên cũng chính là ba mức độ khó tăng dần mà chương s�
 
     **Ràng buộc toàn vẹn** *(integrity constraint)* là một **điều kiện mà dữ liệu trong cơ sở dữ liệu phải luôn luôn thỏa mãn**, ở mọi thời điểm, nhằm phản ánh đúng các quy tắc nghiệp vụ của tổ chức.
 
-![](../hinh-ve/slide/internet/bien_suc_chua.jpg){width=50%}
-
-*Ảnh minh họa: biển "sức chứa tối đa" gắn ở cửa một hội trường. Con số ấy phải đúng ở mọi thời điểm chứ không chỉ lúc mở cửa — đúng tinh thần "luôn luôn" của ràng buộc toàn vẹn, và cũng là ràng buộc "lớp không vượt sức chứa" của Trung tâm ABC — Nguồn: Wikimedia Commons · Dan Keck · CC0.*
-
 Ba chữ đáng chú ý trong định nghĩa là **"luôn luôn"**. Một ràng buộc không phải là điều kiện chỉ đúng lúc nhập liệu rồi thôi; nó phải đúng **trước và sau mọi thao tác**, trong suốt vòng đời hệ thống.
 
 Ràng buộc toàn vẹn có nguồn gốc trực tiếp từ **quy tắc nghiệp vụ** đã học ở mục 2.1.2. Điều này tạo nên một mạch xuyên suốt ba chương:
@@ -71,10 +67,10 @@ flowchart LR
     A["<b>Toàn vẹn thực thể</b><br/><i>Chương 3</i><br/>khóa chính duy nhất,<br/>không rỗng"] --> B["<b>Ràng buộc LIÊN BỘ</b><br/>bối cảnh một quan hệ<br/><i>mục 4.5.3</i>"]
     C["<b>Toàn vẹn tham chiếu</b><br/><i>Chương 3</i><br/>khóa ngoại phải tồn tại"] --> D["<b>Ràng buộc KHÓA NGOẠI</b><br/>bối cảnh nhiều quan hệ<br/><i>mục 4.6.1</i>"]
     A ~~~ C
-    style A fill:#D9E2F3,stroke:#1F4E79
-    style C fill:#D9E2F3,stroke:#1F4E79
-    style B fill:#E2F0D9,stroke:#548235,stroke-width:2px
-    style D fill:#E2F0D9,stroke:#548235,stroke-width:2px
+    style A fill:#D9E2F3,stroke:#1F4E79,color:#111111
+    style C fill:#D9E2F3,stroke:#1F4E79,color:#111111
+    style B fill:#E2F0D9,stroke:#548235,stroke-width:2px,color:#111111
+    style D fill:#E2F0D9,stroke:#548235,stroke-width:2px,color:#111111
 ```
 
 Cách nhìn này có giá trị thực tiễn: người học không phải nhớ hai hệ thống khái niệm song song, mà chỉ cần nhớ **một bộ sáu loại**, trong đó hai loại đã quen từ chương trước.
@@ -107,17 +103,13 @@ flowchart LR
     C2 ~~~ C3
     C3 ~~~ C4
     C4 ~~~ C5
-    style C1 fill:#E2F0D9,stroke:#548235
-    style C2 fill:#FFD9D9,stroke:#C00000
-    style C3 fill:#FFD9D9,stroke:#C00000
-    style C4 fill:#FFD9D9,stroke:#C00000
-    style C5 fill:#FFD9D9,stroke:#C00000
-    style DB fill:#1F4E79,color:#fff,stroke:#1F4E79,stroke-width:2px
+    style C1 fill:#E2F0D9,stroke:#548235,color:#111111
+    style C2 fill:#FFD9D9,stroke:#C00000,color:#111111
+    style C3 fill:#FFD9D9,stroke:#C00000,color:#111111
+    style C4 fill:#FFD9D9,stroke:#C00000,color:#111111
+    style C5 fill:#FFD9D9,stroke:#C00000,color:#111111
+    style DB fill:#1F4E79,color:#ffffff,stroke:#1F4E79,stroke-width:2px
 ```
-
-![](../hinh-ve/slide/internet/cua_soat_ve.jpg){width=60%}
-
-*Ảnh minh họa: dãy cửa soát vé ở một ga tàu điện. Ga có nhiều lối vào; chỉ đặt máy soát ở một cửa thì hành khách không vé vẫn vào được bằng những cửa còn lại — kiểm tra ở tầng ứng dụng cũng chỉ khóa được một cửa như vậy — Nguồn: Wikimedia Commons · GK tramrunner RU · CC BY-SA 4.0.*
 
 Trong hình, chỉ **cửa 1** có kiểm tra vì đó là ứng dụng đã cài logic. Bốn cửa còn lại **hoàn toàn mở**. Và bốn cửa ấy đều là những đường vào rất thật trong thực tế: ứng dụng di động do nhóm khác viết và có thể quên một điều kiện, quản trị viên sửa dữ liệu trực tiếp lúc cần gấp, kịch bản nạp dữ liệu hàng loạt bỏ qua mọi tầng ứng dụng, và hệ thống của đối tác gọi thẳng vào.
 

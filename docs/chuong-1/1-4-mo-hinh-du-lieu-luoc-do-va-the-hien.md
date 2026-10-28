@@ -10,10 +10,6 @@
 
 Mô hình dữ liệu đóng vai trò như một **bộ từ vựng chung**. Khi ta nói "hãy dùng mô hình quan hệ", điều đó có nghĩa là mọi người tham gia dự án cùng thống nhất rằng dữ liệu sẽ được tổ chức thành các *bảng* gồm *dòng* và *cột*, rằng các bảng liên hệ với nhau qua *khóa*, và rằng có một tập phép toán xác định để lấy dữ liệu ra. Không có bộ từ vựng chung ấy, mỗi người thiết kế theo một kiểu và không ai đọc được thiết kế của ai.
 
-![](../hinh-ve/slide/internet/ban_ve_kien_truc.jpg){width=60%}
-
-*Ảnh minh họa: mô hình mặt bằng một căn hộ. Bản vẽ không phải ngôi nhà, nhưng nhờ quy ước chung về nét vẽ mà người ở nơi khác đọc vẫn hiểu — mô hình dữ liệu là bộ quy ước chung như thế cho dữ liệu — Nguồn: Wikimedia Commons · Tallbox · CC BY-SA 4.0.*
-
 Có thể so sánh mô hình dữ liệu với **bản vẽ kiến trúc** trong xây dựng. Bản vẽ không phải ngôi nhà, nhưng nó quy ước rằng đường nét đậm là tường chịu lực, ô vuông có hai đường chéo là cửa sổ. Nhờ quy ước ấy mà kiến trúc sư ở Đà Nẵng vẽ xong, thợ xây ở Hà Nội đọc vẫn hiểu.
 
 ## 1.4.2. Các thế hệ mô hình dữ liệu
@@ -53,11 +49,11 @@ flowchart TB
     L1 --> H3["HV03<br/>Phạm Cường"]
     L2 --> H4["HV04<br/>Võ Dung"]
     L2 --> H1B["HV01<br/>Trần An<br/><i>BẢN SAO THỨ HAI</i>"]
-    style GV1 fill:#1F4E79,color:#fff,stroke:#1F4E79
-    style GV2 fill:#1F4E79,color:#fff,stroke:#1F4E79
-    style L1 fill:#D9E2F3,stroke:#1F4E79
-    style L2 fill:#D9E2F3,stroke:#1F4E79
-    style H1B fill:#FFD9D9,stroke:#C00000,stroke-width:2px
+    style GV1 fill:#1F4E79,color:#ffffff,stroke:#1F4E79
+    style GV2 fill:#1F4E79,color:#ffffff,stroke:#1F4E79
+    style L1 fill:#D9E2F3,stroke:#1F4E79,color:#111111
+    style L2 fill:#D9E2F3,stroke:#1F4E79,color:#111111
+    style H1B fill:#FFD9D9,stroke:#C00000,stroke-width:2px,color:#111111
 ```
 
 Khi Trần An đăng ký thêm lớp A2, mô hình phân cấp lâm vào bế tắc. Quy tắc "mỗi con một cha" không cho phép nút *Trần An* vừa treo dưới lớp A1 vừa treo dưới lớp A2. Lối thoát duy nhất là **tạo thêm một bản sao** của Trần An dưới nhánh A2.
@@ -81,11 +77,11 @@ flowchart TB
     L1 --> H3["HV03<br/>Phạm Cường"]
     L2 --> H1
     L2 --> H4["HV04<br/>Võ Dung"]
-    style GV1 fill:#1F4E79,color:#fff,stroke:#1F4E79
-    style GV2 fill:#1F4E79,color:#fff,stroke:#1F4E79
-    style L1 fill:#D9E2F3,stroke:#1F4E79
-    style L2 fill:#D9E2F3,stroke:#1F4E79
-    style H1 fill:#E2F0D9,stroke:#548235,stroke-width:2px
+    style GV1 fill:#1F4E79,color:#ffffff,stroke:#1F4E79
+    style GV2 fill:#1F4E79,color:#ffffff,stroke:#1F4E79
+    style L1 fill:#D9E2F3,stroke:#1F4E79,color:#111111
+    style L2 fill:#D9E2F3,stroke:#1F4E79,color:#111111
+    style H1 fill:#E2F0D9,stroke:#548235,stroke-width:2px,color:#111111
 ```
 
 Bài toán dư thừa được giải quyết: Trần An chỉ tồn tại **một bản duy nhất**, có hai mũi tên trỏ tới từ hai lớp. Nhưng mô hình mạng lại sinh ra một khó khăn mới, lần này nằm ở phía người lập trình.
@@ -200,9 +196,9 @@ Trong quá trình thiết kế, mô hình dữ liệu được xây dựng qua b
 ```mermaid
 flowchart LR
     Q["<b>MÔ HÌNH QUAN NIỆM</b><br/>Nghiệp vụ có những gì?<br/>─────────<br/>lược đồ ER<br/><i>Chương 2</i>"] --> L["<b>MÔ HÌNH LOGIC</b><br/>Tổ chức thành bảng ra sao?<br/>─────────<br/>HOCVIEN(<u>MAHV</u>, HOTEN, MALOP)<br/><i>Chương 3</i>"] --> V["<b>MÔ HÌNH VẬT LÝ</b><br/>Lưu lên đĩa thế nào?<br/>─────────<br/>kiểu dữ liệu, chỉ mục, phân vùng<br/><i>học phần Hệ quản trị</i>"]
-    style Q fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
-    style L fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
-    style V fill:#EDEDED,stroke:#7F7F7F
+    style Q fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px,color:#111111
+    style L fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px,color:#111111
+    style V fill:#EDEDED,stroke:#7F7F7F,color:#111111
 ```
 
 Ba mức này tương ứng với ba câu hỏi kế tiếp nhau: **"Nghiệp vụ có những gì?"** rồi **"Tổ chức thành bảng ra sao?"** rồi **"Lưu lên đĩa thế nào?"**. Người thiết kế đi tuần tự từ trên xuống; đi tắt là nguyên nhân phổ biến nhất của những thiết kế hỏng.
@@ -217,10 +213,6 @@ Ba mức này tương ứng với ba câu hỏi kế tiếp nhau: **"Nghiệp v�
 
     **Thể hiện** *(instance)* là **tập dữ liệu thực tế** đang có trong cơ sở dữ liệu **tại một thời điểm cụ thể**. Thể hiện **thay đổi liên tục** theo từng thao tác thêm, sửa, xóa.
 
-![](../hinh-ve/slide/internet/khuon_banh.jpg){width=55%}
-
-*Ảnh minh họa: một khuôn nướng nhiều ngăn. Khuôn dùng được hàng nghìn lần, mỗi lần cho ra mẻ bánh khác nhau về nhân và màu nhưng cùng hình dạng — lược đồ là cái khuôn, mỗi thể hiện là một mẻ bánh — Nguồn: Wikimedia Commons · Melissa · CC BY 2.0.*
-
 Cách phân biệt dễ nhớ nhất: **lược đồ là cái khuôn, thể hiện là cái bánh đúc ra từ khuôn đó**. Một cái khuôn dùng được hàng nghìn lần, mỗi lần cho ra một chiếc bánh khác nhau về nhân, về màu, nhưng tất cả đều cùng hình dạng.
 
 **Hình 1.8. Một lược đồ — nhiều thể hiện theo thời gian**
@@ -231,10 +223,10 @@ flowchart LR
     S --> T1["<b>Thể hiện ngày 01/9</b><br/>SV01 · Trần An · 3.2<br/>SV02 · Lê Bình · 2.8"]
     S --> T2["<b>Thể hiện ngày 15/9</b><br/>SV01 · Trần An · 3.2<br/>SV02 · Lê Bình · 3.0<br/>SV03 · Phạm Cường · 3.5"]
     S --> T3["<b>Thể hiện ngày 30/9</b><br/>SV01 · Trần An · 3.4<br/>SV03 · Phạm Cường · 3.5"]
-    style S fill:#1F4E79,color:#fff,stroke:#1F4E79,stroke-width:2px
-    style T1 fill:#D9E2F3,stroke:#1F4E79
-    style T2 fill:#D9E2F3,stroke:#1F4E79
-    style T3 fill:#D9E2F3,stroke:#1F4E79
+    style S fill:#1F4E79,color:#ffffff,stroke:#1F4E79,stroke-width:2px
+    style T1 fill:#D9E2F3,stroke:#1F4E79,color:#111111
+    style T2 fill:#D9E2F3,stroke:#1F4E79,color:#111111
+    style T3 fill:#D9E2F3,stroke:#1F4E79,color:#111111
 ```
 
 Ba thể hiện trong hình khác nhau hoàn toàn về nội dung: số dòng khác nhau, điểm số thay đổi, có sinh viên mới thêm vào và có sinh viên đã rút. Nhưng **cả ba đều tuân theo đúng một lược đồ**: đều có ba cột với đúng tên ấy và đúng kiểu ấy.

@@ -20,29 +20,7 @@ Trong ký pháp Chen, kết nối được ghi bằng các ký tự **`1`, `M`, 
 
 **Hình 2.8. Ký pháp Chen — ba loại kết nối và cách ghi lực lượng `(min, max)`, minh họa tại Trung tâm ABC**
 
-```mermaid
-flowchart LR
-    GV1["GIAOVIEN"] ---|"1"| R1{"phụ trách"}
-    R1 ---|"M"| L1["LOP"]
-    HV["HOCVIEN"] ---|"M"| R2{"ghi danh"}
-    R2 ---|"N"| L2["LOP"]
-    NV["NHANVIEN"] ---|"1"| R3{"được cấp"}
-    R3 ---|"1"| TK["TAIKHOAN"]
-    HV4["HOCVIEN"] ---|"(0, N)"| R4{"ghi danh"}
-    R4 ---|"(5, 25)"| L4["LOP"]
-    style GV1 fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
-    style L1 fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
-    style HV fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
-    style L2 fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
-    style NV fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
-    style TK fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
-    style HV4 fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
-    style L4 fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
-    style R1 fill:#E2F0D9,stroke:#548235
-    style R2 fill:#FFD9D9,stroke:#C00000,stroke-width:2px
-    style R3 fill:#E2F0D9,stroke:#548235
-    style R4 fill:#FFD9D9,stroke:#C00000,stroke-width:2px
-```
+![](../hinh-ve/chen/C2_hinh08_ket_noi_luc_luong.png)
 
 Cách đọc rất trực tiếp và đây là ưu điểm lớn của ký pháp Chen: **chữ cái ghi ở đầu nào cho biết số lượng thực thể ở đầu đó**. Dòng thứ nhất đọc là *"một giáo viên phụ trách M lớp, một lớp do 1 giáo viên phụ trách"* — tức **1:M**. Dòng thứ hai có `M` và `N` ở hai đầu nên là **M:N**, và liên kết này được tô đỏ vì nó **bắt buộc phải tách** theo mục 2.6.4.
 
@@ -86,18 +64,7 @@ Sự bất đối xứng này có hệ quả rất cụ thể ở Chương 3. Th
 
 **Hình 2.9. Ví dụ 2.5 vẽ theo ký pháp Chen — hai chiều, hai tính tham gia khác nhau**
 
-```mermaid
-flowchart LR
-    GV["GIAOVIEN"] ---|"(0, N)"| R{"phụ trách"}
-    R ---|"(1, 1)"| LOP["LOP"]
-    N1["min = 0: giáo viên<br/><b>có thể chưa</b> phụ trách lớp nào<br/>→ tham gia TÙY CHỌN"] -.- GV
-    N2["min = 1: mỗi lớp<br/><b>phải</b> có đúng một giáo viên<br/>→ tham gia BẮT BUỘC"] -.- LOP
-    style GV fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
-    style LOP fill:#D9E2F3,stroke:#1F4E79,stroke-width:2px
-    style R fill:#E2F0D9,stroke:#548235
-    style N1 fill:#FFF2CC,stroke:#BF9000
-    style N2 fill:#FFF2CC,stroke:#BF9000
-```
+![](../hinh-ve/chen/C2_hinh09_tham_gia_bat_buoc_tuy_chon.png)
 
 Đọc hình: cặp `(0, N)` cạnh `GIAOVIEN` cho biết **một giáo viên** tham gia liên kết từ 0 tới N lần; số `0` chính là chỗ ghi nhận *"giáo viên mới chưa có lớp"*. Cặp `(1, 1)` cạnh `LOP` cho biết **một lớp** tham gia đúng một lần — không hơn *(một giáo viên phụ trách)* và không kém *(phải có giáo viên)*. Chỉ hai con số `min` đã nói hết Ví dụ 2.5, và nói bằng thứ mà Chương 3 dùng được ngay.
 

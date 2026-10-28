@@ -21,9 +21,12 @@ flowchart LR
     APP["<b>Ứng dụng</b><br/>phần mềm quản lý<br/>trung tâm"] -->|"yêu cầu"| DBMS
     ADMIN["Quản trị viên CSDL"] -->|"quản trị"| DBMS
     DBMS["<b>DBMS</b><br/>Hệ quản trị CSDL<br/>─────────<br/>kiểm tra hợp lệ<br/>phân quyền<br/>điều phối truy cập"] -->|"đọc / ghi"| DB[("<b>CƠ SỞ DỮ LIỆU</b><br/>dữ liệu người dùng<br/>+ metadata")]
-    style DBMS fill:#1F4E79,color:#fff,stroke:#1F4E79,stroke-width:2px
-    style DB fill:#FFF2CC,stroke:#C00000,stroke-width:2px
-    style APP fill:#D9E2F3,stroke:#1F4E79
+    style DBMS fill:#1F4E79,color:#ffffff,stroke:#1F4E79,stroke-width:2px
+    style DB fill:#FFF2CC,stroke:#C00000,stroke-width:2px,color:#111111
+    style APP fill:#D9E2F3,stroke:#1F4E79,color:#111111
+    style U1 fill:#F9FAFC,stroke:#1F4E79,color:#111111
+    style U2 fill:#F9FAFC,stroke:#1F4E79,color:#111111
+    style ADMIN fill:#F9FAFC,stroke:#1F4E79,color:#111111
 ```
 
 Vai trò trung gian đem lại một lợi ích ít khi được nhận ra ngay: nó **giấu đi sự phức tạp của việc lưu trữ**. Người dùng chỉ cần nói "cho tôi danh sách học viên lớp A1"; họ không cần biết dữ liệu nằm ở tệp nào, trên ổ đĩa nào, được sắp xếp ra sao, có chỉ mục hay không. Toàn bộ phần đó do hệ quản trị cơ sở dữ liệu lo. Ý tưởng "giấu đi sự phức tạp" này sẽ được hệ thống hóa thành một kiến trúc chính thức ở mục 1.5.
@@ -35,10 +38,6 @@ Ba thuật ngữ này rất hay bị dùng lẫn, kể cả trong tài liệu ch
 - **Cơ sở dữ liệu** *(database)* là **dữ liệu** — phần nội dung được lưu trữ, gồm dữ liệu người dùng và metadata.
 - **Hệ quản trị cơ sở dữ liệu** *(DBMS)* là **phần mềm** quản lý cơ sở dữ liệu đó. MySQL, SQL Server, PostgreSQL, Oracle là những hệ quản trị cơ sở dữ liệu.
 - **Hệ cơ sở dữ liệu** *(database system)* là **toàn bộ hệ thống** gồm cơ sở dữ liệu, hệ quản trị cơ sở dữ liệu, phần cứng, các ứng dụng, quy trình vận hành và con người sử dụng nó.
-
-![](../hinh-ve/slide/internet/thu_vien.jpg){width=70%}
-
-*Ảnh minh họa: phòng đọc của một thư viện đại học. Sách trên giá là cơ sở dữ liệu; thủ thư cùng hệ thống phiếu mượn và quy tắc xếp giá là hệ quản trị; cả tòa nhà với giá sách, thủ thư, nội quy và bạn đọc là hệ cơ sở dữ liệu — Nguồn: Wikimedia Commons · Dr. Marcus Gossler · CC BY-SA 3.0.*
 
 Một cách ghi nhớ: nếu ví cơ sở dữ liệu là **sách trong thư viện**, thì hệ quản trị cơ sở dữ liệu là **người thủ thư** cùng toàn bộ hệ thống phiếu mượn và quy tắc sắp xếp, còn hệ cơ sở dữ liệu là **cả thư viện** — bao gồm tòa nhà, giá sách, thủ thư, nội quy và bạn đọc.
 

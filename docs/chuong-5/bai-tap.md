@@ -70,6 +70,59 @@
 
     Kiểm nhanh: `A⁺ = {A, D, B, C}` — đủ mọi thuộc tính ⇒ **`A` là khóa duy nhất**, và không cần thử thêm tập nào nữa vì mọi tập chứa `A` đều là siêu khóa nhưng không tối thiểu.
 
+**Bài A4.** Cho lược đồ `R(A, B, C, D, E)` và tập phụ thuộc hàm `F = {A → B, B → C, CD → E}`.
+a) Dùng hệ luật dẫn Armstrong *(được dùng cả sáu luật)* để chứng minh `A → AC` và `AD → E`.
+b) Chứng minh lại `AD → E` nhưng **chỉ dùng ba luật gốc** *(phản xạ, tăng trưởng, bắc cầu)*.
+c) Một bạn viết: *"Từ `CD → E`, áp dụng luật tách ta suy ra `C → E` và `D → E`"*. Bạn ấy đúng hay sai? Giải thích.
+
+
+??? success "Lời giải bài A4"
+
+    `R(A, B, C, D, E)` với `F = {A → B, B → C, CD → E}`.
+
+    ### (a) Chứng minh `A → AC` và `AD → E` bằng sáu luật Armstrong
+
+    **Chứng minh `A → AC`:**
+
+    | Bước | Suy luận | Luật dùng | Giải thích |
+    |:--:|---|---|---|
+    | 1 | `A → B` | giả thiết | xuất phát từ `A` |
+    | 2 | `B → C` | giả thiết | cầu nối sang `C` |
+    | 3 | `A → C` | bắc cầu (1, 2) | nối `A → B → C` |
+    | 4 | `A → A` | phản xạ (`A ⊆ A`) | lấy phần `A` của vế phải |
+    | 5 | `A → AC` | hợp (4, 3) | gộp hai vế phải `A` và `C` *(hoặc tăng trưởng bước 3 với `A`)* |
+
+    **Chứng minh `AD → E`:**
+
+    | Bước | Suy luận | Luật dùng | Giải thích |
+    |:--:|---|---|---|
+    | 1 | `A → B` | giả thiết | xuất phát từ `A` |
+    | 2 | `B → C` | giả thiết | cầu nối sang `C` |
+    | 3 | `A → C` | bắc cầu (1, 2) | suy ra `C` từ `A` |
+    | 4 | `CD → E` | giả thiết | phụ thuộc đích cần cả `CD` |
+    | 5 | `AD → E` | bắc cầu giả (3, 4) với `W = D` | thay `C` trong `CD` bằng `A` |
+
+    ### (b) Chứng minh lại `AD → E` chỉ dùng ba luật gốc *(phản xạ, tăng trưởng, bắc cầu)*
+
+    | Bước | Suy luận | Luật dùng *(chỉ IR1, IR2, IR3)* | Giải thích |
+    |:--:|---|---|---|
+    | 1 | `A → B` | giả thiết | xuất phát từ `A` |
+    | 2 | `B → C` | giả thiết | cầu nối sang `C` |
+    | 3 | `A → C` | bắc cầu — IR3 (1, 2) | nối `A → B → C` |
+    | 4 | `AD → CD` | tăng trưởng — IR2 (3) với `D` | bù `D` vào cả hai vế để tạo trung gian `CD` |
+    | 5 | `CD → E` | giả thiết | đưa phụ thuộc đích vào |
+    | 6 | `AD → E` | bắc cầu — IR3 (4, 5) | nối `AD → CD → E` |
+
+    Nhận xét: bước 4 và bước 6 chính là bản chất bên trong của **luật bắc cầu giả**.
+
+    ### (c) Đánh giá suy luận *"Từ `CD → E`, áp dụng luật tách suy ra `C → E` và `D → E`"*
+
+    **Bạn ấy SAI** — đây là ngụy biện **"tách vế trái"** (Bảng 5.9).
+
+    - **Luật tách (IR5)** chỉ cho phép tách **vế phải** (`X → YZ` ⟹ `X → Y` và `X → Z`), tuyệt đối **không được tách vế trái** (`CD → E` ⇏ `C → E`).
+    - **Bản chất nghiệp vụ:** `CD → E` nghĩa là phải biết **đồng thời cả `C` lẫn `D`** mới xác định được `E` *(chẳng hạn biết cả `(MAHV, MALOP)` mới xác định được `HOCPHI`, chứ một mình `MAHV` không quyết định mức học phí)*.
+    - **Phản ví dụ 2 dòng:** Hai bộ `t₁ = (c₁, d₁, e₁)` và `t₂ = (c₁, d₂, e₂)` hoàn toàn thỏa mãn `CD → E` *(vì hai cặp `(c₁, d₁)` và `(c₁, d₂)` khác nhau)*, nhưng bác bỏ `C → E` *(vì cùng `C = c₁` mà cho hai giá trị `E` khác nhau)*.
+
 ## Mức B — Vận dụng
 
 **Bài B1.** Cho `R(A,B,C,D,E)` và `F = {AB → C, C → D, D → A, B → E}`.
@@ -145,42 +198,43 @@ d) Xác định **dạng chuẩn cao nhất** mà `R` đạt được, có chứ
 
 ??? success "Lời giải bài B2"
 
-    `F = {A → BC, CD → E, B → D}`.
+    `F = {A → BC, CD → E, B → D, E → A}`.
 
     ### Bước 1 — Tách vế phải
 
     ```text
-    F1 = { A → B,  A → C,  CD → E,  B → D }
+    F1 = { A → B,  A → C,  CD → E,  B → D,  E → A }
     ```
 
-    Chỉ `A → BC` cần tách. Bốn phụ thuộc, mỗi cái một thuộc tính bên phải.
+    Chỉ `A → BC` cần tách. Năm phụ thuộc, mỗi cái một thuộc tính bên phải.
 
     ### Bước 2 — Loại thuộc tính thừa ở vế trái
 
     Chỉ `CD → E` có vế trái nhiều hơn một thuộc tính. Thử bỏ từng cái:
 
-    - **Bỏ `C`, còn `D → E`?** Tính `D⁺` theo `F1` = `{D}`. Không chứa `E` ⇒ **không suy ra được** ⇒ `C` **không thừa**.
-    - **Bỏ `D`, còn `C → E`?** Tính `C⁺` theo `F1` = `{C}`. Không chứa `E` ⇒ `D` **không thừa**.
+    - **Bỏ `C`, còn `D → E`?** Tính `D⁺` theo `F1` = `{D}`. Không chứa `E` *(cũng không chứa `C`)* ⇒ **không suy ra được** ⇒ `C` **không thừa**.
+    - **Bỏ `D`, còn `C → E`?** Tính `C⁺` theo `F1` = `{C}`. Không chứa `E` *(cũng không chứa `D`)* ⇒ `D` **không thừa**.
 
     Vế trái giữ nguyên: `F2 = F1`.
 
     ### Bước 3 — Loại phụ thuộc thừa
 
-    Bỏ từng phụ thuộc rồi kiểm xem có suy lại được không.
+    Bỏ từng phụ thuộc rồi kiểm xem có suy lại được trên tập còn lại không.
 
     | Bỏ | Tập còn lại | Kiểm tra | Kết luận |
     |---|---|---|---|
-    | `A → B` | `{A → C, CD → E, B → D}` | `A⁺ = {A, C}`, không chứa `B` | **giữ** |
-    | `A → C` | `{A → B, CD → E, B → D}` | `A⁺ = {A, B, D}`, không chứa `C` | **giữ** |
-    | `CD → E` | `{A → B, A → C, B → D}` | `(CD)⁺ = {C, D}`, không chứa `E` | **giữ** |
-    | `B → D` | `{A → B, A → C, CD → E}` | `B⁺ = {B}`, không chứa `D` | **giữ** |
+    | `A → B` | `{A → C, CD → E, B → D, E → A}` | `A⁺ = {A, C}`, không chứa `B` | **giữ** |
+    | `A → C` | `{A → B, CD → E, B → D, E → A}` | `A⁺ = {A, B, D}`, không chứa `C` | **giữ** |
+    | `CD → E` | `{A → B, A → C, B → D, E → A}` | `(CD)⁺ = {C, D}`, không chứa `E` | **giữ** |
+    | `B → D` | `{A → B, A → C, CD → E, E → A}` | `B⁺ = {B}`, không chứa `D` | **giữ** |
+    | `E → A` | `{A → B, A → C, CD → E, B → D}` | `E⁺ = {E}`, không chứa `A` | **giữ** |
 
     Không phụ thuộc nào thừa.
 
     ### Kết quả
 
     ```text
-    F_min = { A → B,  A → C,  CD → E,  B → D }
+    F_min = { A → B,  A → C,  CD → E,  B → D,  E → A }
     ```
 
     Nhận xét: `F` ban đầu trông đã gọn nhưng vẫn phải chạy đủ ba bước mới khẳng định được. Bước 1 là bước duy nhất thực sự thay đổi tập, và nó phải làm **trước** — nếu loại phụ thuộc thừa trước khi tách vế phải thì có thể bỏ sót cơ hội rút gọn.
@@ -368,13 +422,65 @@ c) Nếu có bảng chưa đạt, chuẩn hóa và giải thích.
 
     Nếu muốn thấy chuẩn hóa phát huy tác dụng trên bài thư viện, hãy thử thêm cột `TENTL` vào `DAUSACH` cho tiện tra cứu: lập tức sinh phụ thuộc bắc cầu `MADS → MATL → TENTL` và bảng rơi xuống 2NF.
 
+**Bài B5.** Cho lược đồ `R(A, B, C, D, E, G, H)` và tập phụ thuộc hàm `F = {AB → C, B → D, CD → E, CE → GH, G → A}`. Bằng hệ luật dẫn Armstrong, hãy lập bảng suy diễn từng bước để chứng minh:
+a) `B → E` *(gợi ý: dùng `B → D` để rút gọn vế trái của `CD → E`, hoặc dùng bắc cầu giả — từ đó chứng minh `BC → E` rồi suy tiếp — hãy kiểm tra xem một mình `B → E` hay `BC → E` mới đúng!)*.
+b) `AB → E` và `AB → G`.
+c) `BC → H` và `BC → A`.
+*(Hướng dẫn câu a: `B⁺ = {B, D}` không chứa `E`, nên một mình `B → E` **không** suy ra được vì thiếu `C`; phụ thuộc suy ra được từ `B → D` và `CD → E` bằng luật bắc cầu giả là **`BC → E`**).*
+
+
+??? success "Lời giải bài B5"
+
+    `R(A, B, C, D, E, G, H)` với `F = {AB → C, B → D, CD → E, CE → GH, G → A}`.
+
+    ### (a) Kiểm tra `B → E` và chứng minh `BC → E`
+
+    - **Kiểm tra `B → E` bằng bao đóng:** Khởi tạo `B⁺ = {B}` → áp `B → D` được `{B, D}` → dừng *(không còn phụ thuộc nào có vế trái nằm trong `{B, D}`)*. Vì `E ∉ B⁺ = {B, D}`, một mình **`B → E` KHÔNG suy ra được** từ `F` *(thiếu `C` để kích hoạt `CD → E`)*.
+    - Phụ thuộc đúng suy ra được từ `B → D` và `CD → E` là **`BC → E`**:
+
+    | Bước | Suy luận | Luật dùng | Giải thích |
+    |:--:|---|---|---|
+    | 1 | `B → D` | giả thiết | xuất phát từ `B` |
+    | 2 | `CD → E` | giả thiết | cần cả `C` và `D` |
+    | 3 | **`BC → E`** | **bắc cầu giả (1, 2) với `W = C`** | *(hoặc tăng trưởng (1) với `C` được `BC → CD`, rồi bắc cầu với `CD → E`)* |
+
+    ### (b) Chứng minh `AB → E` và `AB → G`
+
+    | Bước | Suy luận | Luật dùng | Giải thích |
+    |:--:|---|---|---|
+    | 1 | `AB → C` | giả thiết | từ `AB` suy ra `C` |
+    | 2 | `AB → B` | phản xạ (`B ⊆ AB`) | trích `B` từ vế trái `AB` |
+    | 3 | `B → D` | giả thiết | từ `B` suy ra `D` |
+    | 4 | `AB → D` | bắc cầu (2, 3) | nối `AB → B → D` |
+    | 5 | `AB → CD` | hợp (1, 4) | gộp `C` và `D` để khớp vế trái của `CD → E` |
+    | 6 | `CD → E` | giả thiết | đưa phụ thuộc sinh `E` vào |
+    | 7 | **`AB → E`** | **bắc cầu (5, 6)** | **hoàn tất chứng minh `AB → E`** |
+    | 8 | `AB → CE` | hợp (1, 7) | gộp `C` và `E` để khớp vế trái của `CE → GH` |
+    | 9 | `CE → GH` | giả thiết | đưa phụ thuộc sinh `GH` vào |
+    | 10 | `AB → GH` | bắc cầu (8, 9) | nối `AB → CE → GH` |
+    | 11 | **`AB → G`** | **tách (10)** | **hoàn tất chứng minh `AB → G`** |
+
+    ### (c) Chứng minh `BC → H` và `BC → A`
+
+    | Bước | Suy luận | Luật dùng | Giải thích |
+    |:--:|---|---|---|
+    | 1 | `BC → E` | kết quả câu (a) | từ `B → D` và `CD → E` qua bắc cầu giả |
+    | 2 | `BC → C` | phản xạ (`C ⊆ BC`) | trích `C` từ vế trái `BC` |
+    | 3 | `BC → CE` | hợp (2, 1) | gộp `C` và `E` để khớp vế trái của `CE → GH` |
+    | 4 | `CE → GH` | giả thiết | đưa phụ thuộc sinh `GH` vào |
+    | 5 | `BC → GH` | bắc cầu (3, 4) | nối `BC → CE → GH` |
+    | 6 | **`BC → H`** | **tách (5)** | **hoàn tất chứng minh `BC → H`** |
+    | 7 | `BC → G` | tách (5) | lấy `G` làm cầu nối sang `A` |
+    | 8 | `G → A` | giả thiết | đưa `G → A` vào |
+    | 9 | **`BC → A`** | **bắc cầu (7, 8)** | **hoàn tất chứng minh `BC → A`** |
+
 ## Mức C — Nâng cao
 
 **Bài C1.** Cho `R(A,B,C)` và `F = {AB → C, C → B}`.
 a) Tìm tất cả khóa.
 b) Chứng minh `R` đạt **3NF** nhưng **không đạt BCNF**.
 c) Tách về BCNF và chỉ ra **phụ thuộc hàm nào bị mất**.
-d) Liên hệ với Định lý 5.2 và giải thích vì sao trường hợp này nên **dừng ở 3NF**.
+d) Liên hệ với Định lý 5.3 và giải thích vì sao trường hợp này nên **dừng ở 3NF**.
 
 
 ??? success "Lời giải bài C1"
@@ -408,7 +514,7 @@ d) Liên hệ với Định lý 5.2 và giải thích vì sao trường hợp n�
 
     *(Cách phát biểu tương đương: với mọi `X → A` không tầm thường, hoặc `X` là siêu khóa, hoặc `A` là thuộc tính khóa. Xét `C → B`: `C` không là siêu khóa, nhưng `B` **là** thuộc tính khóa ⇒ vẫn thỏa 3NF.)*
 
-    **Không đạt BCNF.** Định nghĩa 5.17 đòi: với **mọi** phụ thuộc không tầm thường `X → A`, `X` phải là **siêu khóa**.
+    **Không đạt BCNF.** Định nghĩa 5.18 đòi: với **mọi** phụ thuộc không tầm thường `X → A`, `X` phải là **siêu khóa**.
 
     Xét `C → B`:
 
@@ -439,9 +545,9 @@ d) Liên hệ với Định lý 5.2 và giải thích vì sao trường hợp n�
 
     Hậu quả cụ thể: muốn kiểm tra ràng buộc *"cặp `(A, B)` xác định duy nhất một `C`"*, hệ quản trị phải **ghép `R1` và `R2` lại** rồi mới kiểm. Không thể đặt một ràng buộc cục bộ trên `R1` hay `R2` để bảo đảm điều đó. Mỗi lần thêm dữ liệu vào một trong hai bảng đều phải chạy một phép kết — chi phí y hệt ràng buộc *liên bộ liên quan hệ* của Chương 4.
 
-    ### (d) Liên hệ Định lý 5.2 và vì sao nên dừng ở 3NF
+    ### (d) Liên hệ Định lý 5.3 và vì sao nên dừng ở 3NF
 
-    **Định lý 5.2** phát biểu: luôn tồn tại phép tách về **3NF** vừa **bảo toàn thông tin** vừa **bảo toàn phụ thuộc hàm**; nhưng với **BCNF** thì chỉ bảo đảm được **bảo toàn thông tin**, còn bảo toàn phụ thuộc **có thể không đạt được**.
+    **Định lý 5.2 và 5.3** phát biểu: luôn tồn tại phép tách về **3NF** vừa **bảo toàn thông tin** vừa **bảo toàn phụ thuộc hàm** *(Định lý 5.2)*; nhưng với **BCNF** thì chỉ bảo đảm được **bảo toàn thông tin**, còn bảo toàn phụ thuộc **có thể không đạt được** *(Định lý 5.3)*.
 
     Trường hợp này là ví dụ mẫu: muốn lên BCNF thì buộc phải hy sinh `AB → C`.
 
@@ -543,7 +649,7 @@ d) Sau khi tách, cần bao nhiêu dòng? Tính tỷ lệ tiết kiệm.
 a) Đề xuất một phương án **phi chuẩn hóa** cụ thể.
 b) Chỉ ra **dư thừa** mà phương án ấy tạo ra và **dị thường** có thể phát sinh.
 c) Đề xuất **cơ chế bảo đảm** dữ liệu dư thừa luôn khớp.
-d) Nêu **điều kiện** để phương án này chấp nhận được, đối chiếu Bảng 5.23.
+d) Nêu **điều kiện** để phương án này chấp nhận được, đối chiếu Bảng 5.34.
 
 
 ??? success "Lời giải bài C3"
@@ -608,7 +714,7 @@ d) Nêu **điều kiện** để phương án này chấp nhận được, đố
 
     ### (d) Điều kiện để phương án chấp nhận được
 
-    Đối chiếu Bảng 5.11:
+    Đối chiếu Bảng 5.34:
 
     | Điều kiện | Tình huống này | Đạt? |
     |---|---|:--:|

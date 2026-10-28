@@ -21,10 +21,10 @@ flowchart LR
     V1 -.->|"<b>Độc lập LOGIC</b><br/>đổi lược đồ quan niệm<br/>→ khung nhìn KHÔNG đổi"| CON
     V2 -.-> CON
     CON -.->|"<b>Độc lập VẬT LÝ</b><br/>đổi cách lưu trữ<br/>→ lược đồ KHÔNG đổi"| INT
-    style CON fill:#1F4E79,color:#fff,stroke:#1F4E79,stroke-width:2px
-    style V1 fill:#D9E2F3,stroke:#1F4E79
-    style V2 fill:#D9E2F3,stroke:#1F4E79
-    style INT fill:#FFF2CC,stroke:#C00000
+    style CON fill:#1F4E79,color:#ffffff,stroke:#1F4E79,stroke-width:2px
+    style V1 fill:#D9E2F3,stroke:#1F4E79,color:#111111
+    style V2 fill:#D9E2F3,stroke:#1F4E79,color:#111111
+    style INT fill:#FFF2CC,stroke:#C00000,color:#111111
 ```
 
 **Mức ngoài** *(external level)* là góc nhìn của từng nhóm người dùng. Mỗi nhóm chỉ thấy phần dữ liệu liên quan tới công việc của mình, dưới dạng một **khung nhìn** *(view)*. Một cơ sở dữ liệu có thể có rất nhiều khung nhìn khác nhau. Phòng Kế toán không nhìn thấy cột điểm, và điều đó vừa đơn giản hóa công việc của họ vừa là một biện pháp bảo mật.
@@ -32,10 +32,6 @@ flowchart LR
 **Mức quan niệm** *(conceptual level)* là góc nhìn tổng thể của người thiết kế: toàn bộ các bảng, các cột, các liên kết và ràng buộc của cả tổ chức. Mức này **chỉ có một**, và nó chính là sản phẩm của công việc thiết kế mà học phần này dạy.
 
 **Mức trong** *(internal level)* là góc nhìn của hệ quản trị cơ sở dữ liệu: dữ liệu được lưu vào tệp nào, tổ chức theo cấu trúc gì, có chỉ mục nào để tìm nhanh. Mức này cũng chỉ có một.
-
-![](../hinh-ve/slide/internet/thuc_don_combo.jpg){width=60%}
-
-*Ảnh minh họa: bảng thực đơn của một quán ăn nhanh. Khách chỉ thấy tên món và giá — đó là mức ngoài; sổ công thức của bếp là mức quan niệm; kho và tủ đông là mức trong — Nguồn: Wikimedia Commons · Dave O · CC BY-SA 2.0.*
 
 Một phép loại suy giúp ghi nhớ ba mức trên là **nhà hàng**. Mức ngoài là **thực đơn** mà khách cầm trên tay — chỉ ghi tên món và giá, và nhà hàng có thể có nhiều thực đơn khác nhau cho khách chay, cho trẻ em, cho tiệc cưới. Mức quan niệm là **sổ công thức tổng thể** mà bếp trưởng nắm giữ — đầy đủ mọi món, định lượng từng nguyên liệu. Mức trong là **kho và tủ đông** — nguyên liệu cất ở ngăn nào, sắp xếp ra sao. Điểm mấu chốt: **khách không cần biết kho lạnh nằm ở đâu, và bếp trưởng không cần biết khách đang đọc trang nào của thực đơn.** Mỗi mức làm việc của mình.
 
